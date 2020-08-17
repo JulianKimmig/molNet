@@ -6,47 +6,16 @@ from rdkit.Chem import Descriptors, rdmolfiles, rdmolops, rdchem
 
 import numpy as np
 
-
-def modification(func):
-    def _wrapper(*args, **kwargs):
-        args[0]._modify()
-        func(*args, **kwargs)
-
-    return _wrapper
-
-
-def needs_valid(func):
-    def _wrapper(*args, **kwargs):
-        if not args[0].is_validated():
-            args[0].validate()
-        return func(*args, **kwargs)
-
-    return _wrapper
+from molNet.featurizer.polymer import default_polymer_featurizer
+import molNet.utils.base_classes as mnbc
+from .molecules import Molecule, MolGraph
 
 
 class ConnectionPointException(Exception):
     pass
 
 
-class ValidatingObject:
-    def __init__(self):
-        self._validated = False
-
-    def _modify(self):
-        self.set_invalid()
-
-    def is_validated(self):
-        return self._validated
-
-    def set_invalid(self):
-        self._validated = False
-
-    def validate(self):
-        self._validated = True
-        return self._validated
-
-
-class ConnectableGroup(ValidatingObject):
+class ConnectableGroup(Molecule):
     colors = [
         (1, 0.6, 0.6),
         (0.5, 0.8, 0.5),
@@ -60,15 +29,12 @@ class ConnectableGroup(ValidatingObject):
 
     def __init__(self, mol, expected_connections, connection_indices=None, connection_names=None, connection_map=None,
                  name=None, color=None):
-        super().__init__()
-        self._mol = mol
+        super().__init__(mol,name=name)
 
         self._connection_names = connection_names
         self._connection_indices = connection_indices
-        self._validated = False
         self._expected_connections = expected_connections
         self._connection_map = connection_map
-        self._name = name
         if len(ConnectableGroup.fee_colors) == 0:
             ConnectableGroup.fee_colors = ConnectableGroup.colors.copy()
         if color is None:
@@ -76,12 +42,6 @@ class ConnectableGroup(ValidatingObject):
         if color in ConnectableGroup.fee_colors:
             ConnectableGroup.fee_colors.remove(color)
         self.color = color
-
-    def __str__(self):
-        if self._name:
-            return self._name
-
-        return Chem.MolToSmiles(self._mol)
 
     def validate(self):
         self._check_connections(self._expected_connections)
@@ -140,10 +100,6 @@ class ConnectableGroup(ValidatingObject):
                     ))
 
     @property
-    def mol(self):
-        return self._mol
-
-    @property
     def connection_names(self):
         return self._connection_names
 
@@ -162,13 +118,7 @@ class ConnectableGroup(ValidatingObject):
         return list(set([key for key, clist in self._connection_map.items() if name in clist]))
 
     def get_mol(self, with_numbers=False, with_connection_indicator=True):
-        mol = rdchem.EditableMol(self._mol)
-        mol = mol.GetMol()
-
-        if with_numbers:
-            atoms = mol.GetNumAtoms()
-            for idx in range(atoms):
-                mol.GetAtomWithIdx(idx).SetProp('molAtomMapNumber', str(mol.GetAtomWithIdx(idx).GetIdx()))
+        mol = super().get_mol(with_numbers=with_numbers)
 
         if with_connection_indicator:
             mol = rdchem.EditableMol(mol)
@@ -206,8 +156,18 @@ class RepatingUnit(ConnectableGroup):
         super(RepatingUnit, self).__init__(*args, **kwargs, expected_connections=expected_connections)
 
 
-class Polymer(ValidatingObject):
+class PolyGraph(MolGraph):
+    def featurize(self,featurizer=None,name="molNet_features"):
+        if featurizer is None:
+            featurizer=default_polymer_featurizer
+
+        for n in self.nodes:
+            node = self.nodes[n]
+            node[name]=featurizer(node['unit'])
+
+class Polymer(mnbc.ValidatingObject):
     def __init__(self):
+        super().__init__()
         self._repeating_units = []
         self._starting_group: TerminalGroup = None
         self._mn = 0
@@ -253,7 +213,7 @@ class Polymer(ValidatingObject):
     def get_starting_group(self):
         return self._starting_group
 
-    @modification
+    @mnbc.modification
     def set_starting_group(self, starting_group):
         self._starting_group = starting_group
 
@@ -262,7 +222,7 @@ class Polymer(ValidatingObject):
     def get_mn(self):
         return self._mn
 
-    @modification
+    @mnbc.modification
     def set_mn(self, mn):
         self._mn = mn
 
@@ -271,7 +231,7 @@ class Polymer(ValidatingObject):
     def get_connection_map(self):
         return self._connection_map
 
-    @modification
+    @mnbc.modification
     def set_connection_map(self, connection_map):
         for source, targets in connection_map.copy().items():
             for target in targets:
@@ -283,7 +243,7 @@ class Polymer(ValidatingObject):
 
     connection_map = property(get_connection_map, set_connection_map)
 
-    @modification
+    @mnbc.modification
     def add_repeating_unit(self, repeating_unit, ratio=1):
         repeating_unit.validate()
         if ratio < 0:
@@ -293,7 +253,7 @@ class Polymer(ValidatingObject):
             'repeating_unit': repeating_unit,
         })
 
-    @needs_valid
+    @mnbc.needs_valid
     def get_random_mol(self, g=None, highlight_units=False):
         data = {}
         if highlight_units:
@@ -369,7 +329,7 @@ class Polymer(ValidatingObject):
 
         return polymol, data
 
-    @needs_valid
+    @mnbc.needs_valid
     def get_random_graph(self):
         mass = 0
 
@@ -377,7 +337,7 @@ class Polymer(ValidatingObject):
         mol_weights = np.array([ru['ratio'] for ru in self._repeating_units])
         mol_weights = mol_weights / mol_weights.sum()
 
-        g = nx.DiGraph()
+        g = PolyGraph()
         #
 
         free_connections = []
@@ -480,7 +440,7 @@ class Polymer(ValidatingObject):
             warnings.warn("could not connect all units. {} subunits found".format(n_sg))
         return g
 
-    def as_macrocycle(self,size=10)
+    def as_macrocycle(self,size=10):
         in_us = 0
         mol_indices = np.arange(len(self._repeating_units))
         mol_weights = np.array([ru['ratio'] for ru in self._repeating_units])
