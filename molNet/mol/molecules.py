@@ -10,6 +10,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 import molNet.utils.base_classes as mnbc
 from molNet.featurizer.atom_featurizer import default_atom_featurizer
 from molNet.featurizer.molecule_featurizer import default_molecule_featurizer
+from molNet.utils.mol.draw import mol_to_svg
 
 
 class Molecule(mnbc.ValidatingObject):
@@ -43,17 +44,7 @@ class Molecule(mnbc.ValidatingObject):
     def to_svg(self, size=(200, 200), svg_data=None, mol_data=None):
         if mol_data is None:
             mol_data = {}
-        if svg_data is None:
-            svg_data = {}
-
-        d = rdMolDraw2D.MolDraw2DSVG(*size)
-
-        rdMolDraw2D.PrepareAndDrawMolecule(d,
-                                           self.get_mol(**mol_data),
-                                           **svg_data
-                                           )
-        d.FinishDrawing()
-        return d.GetDrawingText()
+        return mol_to_svg(mol=self.get_mol(**mol_data),size=size,svg_data=svg_data)
 
     def to_molgraph(self, *args, **kwargs):
         return MolGraph.from_molecule(self, *args, **kwargs)
