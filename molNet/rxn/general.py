@@ -1,3 +1,12 @@
+import numba
+
+try:
+    from numba import jit, njit
+
+    JIT_AVAILABLE = True
+except:
+    JIT_AVAILABLE = False
+
 import numpy as np
 
 
@@ -16,10 +25,14 @@ class Substance():
 
 
 class Reaction():
-    def __init__(self, k=0):
+    def __init__(self, k=0, reactants=[], products=[]):
         self._reactants = []
         self._products = []
         self.k = k
+        for r in reactants:
+            self.add_reactant(r[0], r[1])
+        for r in products:
+            self.add_product(r[0], r[1])
 
     def get_back_reaction(self, k_back=0):
         br = Reaction()
@@ -106,22 +119,52 @@ class ReactionSet():
     def get_differential_function(self):
 
         reactions = self.reactions
-        ks = np.array([r.k for r in reactions])
+        ks = np.array([r.k for r in reactions], dtype=np.float)
         all_substances = self.all_substances()
 
-        res_prod = np.array([[r.get_product_stoichiometry(p) for p in all_substances] for r in reactions])
-        res_ed = np.array([[r.get_reactant_stoichiometry(e) for e in all_substances] for r in reactions])
+        res_prod = np.array([[r.get_product_stoichiometry(p) for p in all_substances] for r in reactions],
+                            dtype=np.float)
+        res_ed = np.array([[r.get_reactant_stoichiometry(e) for e in all_substances] for r in reactions],
+                          dtype=np.float)
         exp = res_ed
         res = res_prod - res_ed
 
-        def step_diff(y, t):
-            # x = y ** exp
-            # x = np.product(x, axis=1)
-            # x = (x[:, None] * res).T
-            # x = (x * ks)
+        def _step_diff(y, _exp, _res, _ks):
+            # x = y ** _exp
+            # x = x.prod(axis=1.0)
+            # x = (x[:, None] * _res).T
+            # x = (x * _ks)
             # x = np.sum(x, axis=1)
-            #y[:] =
-            return np.sum(((np.product(y ** exp, axis=1)[:, None] * res).T * ks), axis=1)[:]
+            # return x
+            return np.sum(((np.prod(y ** exp, axis=1)[:, None] * res).T * ks), axis=1)
+
+        def _step_diff_jit(y, _exp, _res, _ks):
+            x1 = y ** _exp
+            x2 = np.empty(x1.shape[0])
+            for i in range(len(x2)):
+                x2[i] = np.prod(x1[i, :])
+            x3 = np.empty((x2.shape[0], 1))
+            for i in range(len(x2)):
+                x3[i, 0] = x2[i]
+            x3 = (x3 * _res).T
+            x3 = (x3 * _ks)
+            x4 = np.empty(x3.shape[0], dtype=y.dtype)
+            for i in range(len(x4)):
+                x4[i] = np.sum(x3[i, :])
+            # x = np.sum(x, axis=1)
+            return x4
+
+        if JIT_AVAILABLE:
+            _step_diff = numba.njit(['float64[:](float64[:],float64[:,:],float64[:,:],float64[:])',
+                                     'float32[:](float32[:],float32[:,:],float32[:,:],float32[:])'
+                                     ])(_step_diff_jit)
+
+        def step_diff(y, t):
+            if not isinstance(y, np.ndarray):
+                y = np.array(y, dtype=np.float)
+            if not y.dtype == np.float:
+                y = y.astype(np.float)
+            return _step_diff(y, exp, res, ks)
 
         return step_diff, {'substances': all_substances,
                            'reactions': reactions,
@@ -130,6 +173,7 @@ class ReactionSet():
                            'exp': exp,
                            'res': res,
                            'ks': ks,
+                           '_step_diff': _step_diff
                            }
 
     def all_reactants(self):
