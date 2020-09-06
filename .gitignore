@@ -95,3 +95,6 @@ venv.bak/
 /smartlab_server/django_settings.json_bu
 /django_settings.json
 /django_settings.json_bu
+
+/datasets/chembl_27_chemreps.txt.gz
+/datasets/delaney-processed.csv
