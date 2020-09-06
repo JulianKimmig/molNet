@@ -1,6 +1,5 @@
 import rdkit
 import rdkit.Chem.AllChem
-from rdkit import Chem
 from rdkit.Chem import rdchem
 
 from .featurizer import OneHotFeaturizer, FeaturizerList, LambdaFeaturizer
@@ -27,7 +26,9 @@ __all__ = ['atom_atomic_number',
            'atom_total_degree',
            'atom_total_degree_one_hot',
            'atom_total_num_H',
-           'atom_total_num_H_one_hot']
+           'atom_total_num_H_one_hot',
+           'default_atom_featurizer',
+           ]
 
 atom_symbol_one_hot = OneHotFeaturizer(
     possible_values=['O', 'Si', 'Al', 'Fe', 'Ca', 'Na', 'Mg', 'K', 'Ti', 'H', 'P', 'Mn', 'F', 'Sr', 'S', 'C', 'Zr',

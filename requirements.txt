@@ -3,3 +3,11 @@ torch-sparse
 torch-cluster
 torch-spline-conv
 torch-geometric
+
+pytorch-lightning
+
+rdkit
+numpy
+networkx
+pandas
+matplotlib

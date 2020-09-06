@@ -34,13 +34,13 @@ available_methods = {'cactus': cactus,
 
 
 
-def multicheck(identifier, precheck=True):
+def name_to_smiles(identifier, precheck=True):
     raw_answers = {}
     if precheck:
         new_identifier, is_polymer = name_polymer_check(identifier)
         if is_polymer:
             poly_type = detect_polymer_type_by_name(identifier)
-            for smiles,data in multicheck(new_identifier,precheck=False).items():
+            for smiles,data in name_to_smiles(new_identifier, precheck=False).items():
                 poly_smiles = monomer_to_repeating_unit_smiles(smiles,poly_type)
                 raw_answers[poly_smiles]=data
             return raw_answers

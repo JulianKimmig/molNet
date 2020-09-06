@@ -32,216 +32,216 @@ __all__ = ['default_molecule_featurizer', 'extend_molnet_featurzier', 'molecule_
            'molecule_num_hs'
            ]
 
-molecule_num_atoms = LambdaFeaturizer(
+molecule_num_atoms = LambdaFeaturizer(name='molecule_num_atoms',
     lamda_call=lambda mol: [mol.GetNumAtoms(onlyExplicit=False)],
     length=1
 )
 
-molecule_num_heavy_atoms = LambdaFeaturizer(
+molecule_num_heavy_atoms = LambdaFeaturizer(name='molecule_num_heavy_atoms',
     lamda_call=lambda mol: [mol.GetNumHeavyAtoms()],
     length=1
 )
 
-molecule_num_hs = LambdaFeaturizer(
+molecule_num_hs = LambdaFeaturizer(name='molecule_num_hs',
     lamda_call=lambda mol: [mol.GetNumAtoms(onlyExplicit=False)-mol.GetNumHeavyAtoms()],
     length=1
 )
 
 
-molecule_num_rotatable_bonds = LambdaFeaturizer(
+molecule_num_rotatable_bonds = LambdaFeaturizer(name='molecule_num_rotatable_bonds',
     lamda_call=lambda mol: [CalcNumRotatableBonds(mol)],
     length=1
 )
-molecule_exact_mol_wt = LambdaFeaturizer(
+molecule_exact_mol_wt = LambdaFeaturizer(name='molecule_exact_mol_wt',
     lamda_call=lambda mol: [CalcExactMolWt(mol)],
     length=1
 )
-molecule_num_lipinski_hbd = LambdaFeaturizer(
+molecule_num_lipinski_hbd = LambdaFeaturizer(name='molecule_num_lipinski_hbd',
     lamda_call=lambda mol: [CalcNumLipinskiHBD(mol)],
     length=1
 )
-molecule_num_lipinski_hba = LambdaFeaturizer(
+molecule_num_lipinski_hba = LambdaFeaturizer(name='molecule_num_lipinski_hba',
     lamda_call=lambda mol: [CalcNumLipinskiHBA(mol)],
     length=1
 )
-molecule_num_hbd = LambdaFeaturizer(
+molecule_num_hbd = LambdaFeaturizer(name='molecule_num_hbd',
     lamda_call=lambda mol: [CalcNumHBD(mol)],
     length=1
 )
-molecule_num_hba = LambdaFeaturizer(
+molecule_num_hba = LambdaFeaturizer(name='molecule_num_hba',
     lamda_call=lambda mol: [CalcNumHBA(mol)],
     length=1
 )
-molecule_num_rings = LambdaFeaturizer(
+molecule_num_rings = LambdaFeaturizer(name='molecule_num_rings',
     lamda_call=lambda mol: [CalcNumRings(mol)],
     length=1
 )
-molecule_num_aromatic_rings = LambdaFeaturizer(
+molecule_num_aromatic_rings = LambdaFeaturizer(name='molecule_num_aromatic_rings',
     lamda_call=lambda mol: [CalcNumAromaticRings(mol)],
     length=1
 )
-molecule_num_saturated_rings = LambdaFeaturizer(
+molecule_num_saturated_rings = LambdaFeaturizer(name='molecule_num_saturated_rings',
     lamda_call=lambda mol: [CalcNumSaturatedRings(mol)],
     length=1
 )
-molecule_num_heterocycles = LambdaFeaturizer(
+molecule_num_heterocycles = LambdaFeaturizer(name='molecule_num_heterocycles',
     lamda_call=lambda mol: [CalcNumHeterocycles(mol)],
     length=1
 )
-molecule_num_aromatic_heterocycles = LambdaFeaturizer(
+molecule_num_aromatic_heterocycles = LambdaFeaturizer(name='molecule_num_aromatic_heterocycles',
     lamda_call=lambda mol: [CalcNumAromaticHeterocycles(mol)],
     length=1
 )
-molecule_num_aromatic_carbocycles = LambdaFeaturizer(
+molecule_num_aromatic_carbocycles = LambdaFeaturizer(name='molecule_num_aromatic_carbocycles',
     lamda_call=lambda mol: [CalcNumAromaticCarbocycles(mol)],
     length=1
 )
-molecule_num_saturated_heterocycles = LambdaFeaturizer(
+molecule_num_saturated_heterocycles = LambdaFeaturizer(name='molecule_num_saturated_heterocycles',
     lamda_call=lambda mol: [CalcNumSaturatedHeterocycles(mol)],
     length=1
 )
-molecule_num_saturated_carbocycles = LambdaFeaturizer(
+molecule_num_saturated_carbocycles = LambdaFeaturizer(name='molecule_num_saturated_carbocycles',
     lamda_call=lambda mol: [CalcNumSaturatedCarbocycles(mol)],
     length=1
 )
-molecule_num_aliphatic_rings = LambdaFeaturizer(
+molecule_num_aliphatic_rings = LambdaFeaturizer(name='molecule_num_aliphatic_rings',
     lamda_call=lambda mol: [CalcNumAliphaticRings(mol)],
     length=1
 )
-molecule_num_aliphatic_heterocycles = LambdaFeaturizer(
+molecule_num_aliphatic_heterocycles = LambdaFeaturizer(name='molecule_num_aliphatic_heterocycles',
     lamda_call=lambda mol: [CalcNumAliphaticHeterocycles(mol)],
     length=1
 )
-molecule_num_aliphatic_carbocycles = LambdaFeaturizer(
+molecule_num_aliphatic_carbocycles = LambdaFeaturizer(name='molecule_num_aliphatic_carbocycles',
     lamda_call=lambda mol: [CalcNumAliphaticCarbocycles(mol)],
     length=1
 )
-molecule_num_heteroatoms = LambdaFeaturizer(
+molecule_num_heteroatoms = LambdaFeaturizer(name='molecule_num_heteroatoms',
     lamda_call=lambda mol: [CalcNumHeteroatoms(mol)],
     length=1
 )
-molecule_num_amide_bonds = LambdaFeaturizer(
+molecule_num_amide_bonds = LambdaFeaturizer(name='molecule_num_amide_bonds',
     lamda_call=lambda mol: [CalcNumAmideBonds(mol)],
     length=1
 )
 
-molecule_fraction_csp3 = LambdaFeaturizer(
+molecule_fraction_csp3 = LambdaFeaturizer(name='molecule_fraction_csp3',
     lamda_call=lambda mol: [CalcFractionCSP3(mol)],
     length=1
 )
-molecule_labute_asa = LambdaFeaturizer(
+molecule_labute_asa = LambdaFeaturizer(name='molecule_labute_asa',
     lamda_call=lambda mol: [CalcLabuteASA(mol)],
     length=1
 )
-molecule_tpsa = LambdaFeaturizer(
+molecule_tpsa = LambdaFeaturizer(name='molecule_tpsa',
     lamda_call=lambda mol: [CalcTPSA(mol)],
     length=1
 )
-molecule_chi0v = LambdaFeaturizer(
+molecule_chi0v = LambdaFeaturizer(name='molecule_chi0v',
     lamda_call=lambda mol: [CalcChi0v(mol)],
     length=1
 )
-molecule_chi1v = LambdaFeaturizer(
+molecule_chi1v = LambdaFeaturizer(name='molecule_chi1v',
     lamda_call=lambda mol: [CalcChi1v(mol)],
     length=1
 )
-molecule_chi2v = LambdaFeaturizer(
+molecule_chi2v = LambdaFeaturizer(name='molecule_chi2v',
     lamda_call=lambda mol: [CalcChi2v(mol)],
     length=1
 )
-molecule_chi3v = LambdaFeaturizer(
+molecule_chi3v = LambdaFeaturizer(name='molecule_chi3v',
     lamda_call=lambda mol: [CalcChi3v(mol)],
     length=1
 )
-molecule_chi4v = LambdaFeaturizer(
+molecule_chi4v = LambdaFeaturizer(name='molecule_chi4v',
     lamda_call=lambda mol: [CalcChi4v(mol)],
     length=1
 )
-molecule_chi0n = LambdaFeaturizer(
+molecule_chi0n = LambdaFeaturizer(name='molecule_chi0n',
     lamda_call=lambda mol: [CalcChi0n(mol)],
     length=1
 )
-molecule_chi1n = LambdaFeaturizer(
+molecule_chi1n = LambdaFeaturizer(name='molecule_chi1n',
     lamda_call=lambda mol: [CalcChi1n(mol)],
     length=1
 )
-molecule_chi2n = LambdaFeaturizer(
+molecule_chi2n = LambdaFeaturizer(name='molecule_chi2n',
     lamda_call=lambda mol: [CalcChi2n(mol)],
     length=1
 )
-molecule_chi3n = LambdaFeaturizer(
+molecule_chi3n = LambdaFeaturizer(name='molecule_chi3n',
     lamda_call=lambda mol: [CalcChi3n(mol)],
     length=1
 )
-molecule_chi4n = LambdaFeaturizer(
+molecule_chi4n = LambdaFeaturizer(name='molecule_chi4n',
     lamda_call=lambda mol: [CalcChi4n(mol)],
     length=1
 )
-molecule_hall_kier_alpha = LambdaFeaturizer(
+molecule_hall_kier_alpha = LambdaFeaturizer(name='molecule_hall_kier_alpha',
     lamda_call=lambda mol: [CalcHallKierAlpha(mol)],
     length=1
 )
-molecule_kappa1 = LambdaFeaturizer(
+molecule_kappa1 = LambdaFeaturizer(name='molecule_kappa1',
     lamda_call=lambda mol: [CalcKappa1(mol)],
     length=1
 )
-molecule_kappa2 = LambdaFeaturizer(
+molecule_kappa2 = LambdaFeaturizer(name='molecule_kappa2',
     lamda_call=lambda mol: [CalcKappa2(mol)],
     length=1
 )
-molecule_kappa3 = LambdaFeaturizer(
+molecule_kappa3 = LambdaFeaturizer(name='molecule_kappa3',
     lamda_call=lambda mol: [CalcKappa3(mol)],
     length=1
 )
-molecule_num_spiro_atoms = LambdaFeaturizer(
+molecule_num_spiro_atoms = LambdaFeaturizer(name='molecule_num_spiro_atoms',
     lamda_call=lambda mol: [CalcNumSpiroAtoms(mol)],
     length=1
 )
-molecule_num_bridgehead_atoms = LambdaFeaturizer(
+molecule_num_bridgehead_atoms = LambdaFeaturizer(name='molecule_num_bridgehead_atoms',
     lamda_call=lambda mol: [CalcNumBridgeheadAtoms(mol)],
     length=1
 )
-molecule_num_atom_stereo_centers = LambdaFeaturizer(
+molecule_num_atom_stereo_centers = LambdaFeaturizer(name='molecule_num_atom_stereo_centers',
     lamda_call=lambda mol: [CalcNumAtomStereoCenters(mol)],
     length=1
 )
-molecule_num_unspecified_atom_stereo_centers = LambdaFeaturizer(
+molecule_num_unspecified_atom_stereo_centers = LambdaFeaturizer(name='molecule_num_unspecified_atom_stereo_centers',
     lamda_call=lambda mol: [CalcNumUnspecifiedAtomStereoCenters(mol)],
     length=1
 )
-molecule_pbf = LambdaFeaturizer(
+molecule_pbf = LambdaFeaturizer(name='molecule_pbf',
     lamda_call=lambda mol: [CalcPBF(_assert_confomers(mol))],
     length=1
 )
-molecule_npr1 = LambdaFeaturizer(
+molecule_npr1 = LambdaFeaturizer(name='molecule_npr1',
     lamda_call=lambda mol: [CalcNPR1(_assert_confomers(mol))],
     length=1
 )
-molecule_npr2 = LambdaFeaturizer(
+molecule_npr2 = LambdaFeaturizer(name='molecule_npr2',
     lamda_call=lambda mol: [CalcNPR2(_assert_confomers(mol))],
     length=1
 )
-molecule_pmi1 = LambdaFeaturizer(
+molecule_pmi1 = LambdaFeaturizer(name='molecule_pmi1',
     lamda_call=lambda mol: [CalcPMI1(_assert_confomers(mol))],
     length=1
 )
-molecule_pmi2 = LambdaFeaturizer(
+molecule_pmi2 = LambdaFeaturizer(name='molecule_pmi2',
     lamda_call=lambda mol: [CalcPMI2(_assert_confomers(mol))],
     length=1
 )
-molecule_pmi3 = LambdaFeaturizer(
+molecule_pmi3 = LambdaFeaturizer(name='molecule_pmi3',
     lamda_call=lambda mol: [CalcPMI3(_assert_confomers(mol))],
     length=1
 )
-molecule_radius_of_gyration = LambdaFeaturizer(
+molecule_radius_of_gyration = LambdaFeaturizer(name='molecule_radius_of_gyration',
     lamda_call=lambda mol: [CalcRadiusOfGyration(_assert_confomers(mol))],
     length=1
 )
-molecule_inertial_shape_factor = LambdaFeaturizer(
+molecule_inertial_shape_factor = LambdaFeaturizer(name='molecule_inertial_shape_factor',
     lamda_call=lambda mol: [CalcInertialShapeFactor(_assert_confomers(mol))],
     length=1
 )
-molecule_eccentricity = LambdaFeaturizer(
+molecule_eccentricity = LambdaFeaturizer(name='molecule_eccentricity',
     lamda_call=lambda mol: [CalcEccentricity(_assert_confomers(mol))],
     length=1
 )
@@ -250,74 +250,74 @@ def _assert_confomers(mol):
     if mol.GetNumConformers()==0:
         AllChem.EmbedMolecule(mol,useRandomCoords=True,maxAttempts=5000)
     return mol
-molecule_asphericity = LambdaFeaturizer(
+molecule_asphericity = LambdaFeaturizer(name='molecule_asphericity',
     lamda_call=lambda mol: [CalcAsphericity(_assert_confomers(mol))],
     length=1
 )
-molecule_spherocity_index = LambdaFeaturizer(
+molecule_spherocity_index = LambdaFeaturizer(name='molecule_spherocity_index',
     lamda_call=lambda mol: [CalcSpherocityIndex(_assert_confomers(mol))],
     length=1
 )
-molecule_logp = LambdaFeaturizer(
+molecule_logp = LambdaFeaturizer(name='molecule_logp',
     lamda_call=lambda mol: [CalcCrippenDescriptors(mol)[0]],
     length=1
 )
 
-molecule_molecular_ri = LambdaFeaturizer(
+molecule_molecular_ri = LambdaFeaturizer(name='molecule_molecular_ri',
     lamda_call=lambda mol: [CalcCrippenDescriptors(mol)[1]],
     length=1
 )
 
-molecule_crippen_descriptors = LambdaFeaturizer(
+molecule_crippen_descriptors = LambdaFeaturizer(name='molecule_crippen_descriptors',
     lamda_call=lambda mol: list(CalcCrippenDescriptors(mol)),
     length=2
 )
-molecule_usr = LambdaFeaturizer(
+molecule_usr = LambdaFeaturizer(name='molecule_usr',
     lamda_call=lambda mol: list(GetUSR(_assert_confomers(mol))),
     length=12
 )
-molecule_usrcat = LambdaFeaturizer(
+molecule_usrcat = LambdaFeaturizer(name='molecule_usrcat',
     lamda_call=lambda mol: list(GetUSRCAT(_assert_confomers(mol))),
     length=60
 )
-molecule_slogp_vsa = LambdaFeaturizer(
+molecule_slogp_vsa = LambdaFeaturizer(name='molecule_slogp_vsa',
     lamda_call=lambda mol: list(SlogP_VSA_(mol)),
     length=12
 )
-molecule_smr_vsa = LambdaFeaturizer(
+molecule_smr_vsa = LambdaFeaturizer(name='molecule_smr_vsa',
     lamda_call=lambda mol: list(SMR_VSA_(mol)),
     length=10
 )
-molecule_peoe_vsa = LambdaFeaturizer(
+molecule_peoe_vsa = LambdaFeaturizer(name='molecule_peoe_vsa',
     lamda_call=lambda mol: list(PEOE_VSA_(mol)),
     length=14
 )
-molecule_whim = LambdaFeaturizer(
+molecule_whim = LambdaFeaturizer(name='molecule_whim',
     lamda_call=lambda mol: list(CalcWHIM(_assert_confomers(mol))),
     length=114
 )
-molecule_getaway = LambdaFeaturizer(
+molecule_getaway = LambdaFeaturizer(name='molecule_getaway',
     lamda_call=lambda mol: list(CalcGETAWAY(_assert_confomers(mol))),
     length=273
 )
-molecule_rdf = LambdaFeaturizer(
+molecule_rdf = LambdaFeaturizer(name='molecule_rdf',
     lamda_call=lambda mol: list(CalcRDF(_assert_confomers(mol))),
     length=210
 )
-molecule_morse = LambdaFeaturizer(
+molecule_morse = LambdaFeaturizer(name='molecule_morse',
     lamda_call=lambda mol: list(CalcMORSE(_assert_confomers(mol))),
     length=224
 )
-molecule_autocorr3d = LambdaFeaturizer(
+molecule_autocorr3d = LambdaFeaturizer(name='molecule_autocorr3d',
     lamda_call=lambda mol: list(CalcAUTOCORR3D(_assert_confomers(mol))),
     length=80
 )
-molecule_autocorr2d = LambdaFeaturizer(
+molecule_autocorr2d = LambdaFeaturizer(name='molecule_autocorr2d',
     lamda_call=lambda mol: list(CalcAUTOCORR2D(mol)),
     length=192
 )
 
-extend_molnet_featurzier = LambdaFeaturizer(
+extend_molnet_featurzier = LambdaFeaturizer(name='extend_molnet_featurzier',
     lamda_call=lambda mol: mol.molnet_features if hasattr(mol, "molnet_features") else [],
     length=None
 )
@@ -347,4 +347,4 @@ default_molecule_featurizer = FeaturizerList([
     molecule_num_saturated_rings,
     molecule_num_spiro_atoms,
 #    molecule_num_unspecified_atom_stereo_centers
-])
+],name="default_molecule_featurizer")

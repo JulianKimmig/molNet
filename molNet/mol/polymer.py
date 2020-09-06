@@ -6,7 +6,7 @@ from rdkit.Chem import Descriptors, rdmolfiles, rdmolops, rdchem
 
 import numpy as np
 
-from molNet.featurizer.polymer import default_polymer_featurizer
+#from molNet.featurizer.polymer import default_polymer_featurizer
 import molNet.utils.base_classes as mnbc
 from .molecules import Molecule, MolGraph
 

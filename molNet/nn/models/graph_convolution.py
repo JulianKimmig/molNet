@@ -1,12 +1,12 @@
 import torch
 from torch import nn
 from torch_geometric.nn import GCNConv
-from torch_scatter import scatter_add, scatter_max
+from torch_scatter import scatter_add, scatter_max, scatter_min
 
 
-class WeightedSum(nn.Module):
+class PoolWeightedSum(nn.Module):
     def __init__(self, n_in_feats):
-        super(WeightedSum, self).__init__()
+        super(PoolWeightedSum, self).__init__()
         self.weighting_of_nodes = nn.Sequential(
             nn.Linear(n_in_feats, 1),
             nn.Sigmoid()
@@ -28,6 +28,10 @@ class PoolMax(nn.Module):
         maxed_nodes, _ = scatter_max(feats, batch, dim=0)
         return maxed_nodes
 
+class PoolMin(nn.Module):
+    def forward(self, feats, batch):
+        maxed_nodes, _ = scatter_min(feats, batch, dim=0)
+        return maxed_nodes
 
 class PoolSum(nn.Module):
     def forward(self, feats, batch):
@@ -93,7 +97,7 @@ class GraphFingerprint(nn.Module):
                 pools.append(PoolMax())
                 last_out += in_channels
             elif p == "weight_sum":
-                pools.append(WeightedSum(in_channels))
+                pools.append(PoolWeightedSum(in_channels))
                 last_out += in_channels
             else:
                 raise NotImplementedError("pooling '{}' not found".format(p))

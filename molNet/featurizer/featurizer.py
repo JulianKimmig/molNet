@@ -55,8 +55,10 @@ class LambdaFeaturizer(Featurizer):
 
 
 class FeaturizerList(Featurizer):
-    def __init__(self, feature_list,*args,**kwargs):
-        super().__init__(length=None,*args,**kwargs)
+    def __init__(self, feature_list,name=None,*args,**kwargs):
+        if name==None:
+            name="FeatureList({})".format("".join([str(f) for f in feature_list]))
+        super().__init__(length=None,name=name,*args,**kwargs)
         self._feature_list = feature_list
 
     def __len__(self):
