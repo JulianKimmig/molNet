@@ -1,5 +1,5 @@
 import pickle
-from pprint import pprint
+from io import StringIO
 
 import networkx as nx
 import numpy as np
@@ -8,16 +8,19 @@ import torch
 import torch_geometric
 from rdkit import Chem
 from rdkit.Chem import rdmolfiles, rdmolops, rdchem
+import matplotlib.pyplot as plt
+
 
 import molNet.utils.base_classes as mnbc
 from molNet.featurizer.atom_featurizer import default_atom_featurizer
 from molNet.utils.mol.draw import mol_to_svg
 
+
 DATATYPES_MAP = {
-    "STRING": (str,),
-    "NONE": (type(None),),
-    "INT": (np.int, int),
-    "FLOAT": (np.float, float),
+    "FLOAT": (np.floating, float),
+    "INT": (np.integer, int),
+    "STRING": (str,np.str),
+    "NONE": (type(None)),
 }
 DATATYPES = type('', (), {})()
 DATATYPES.STRING = "STRING"
@@ -29,6 +32,11 @@ DATATYPES.FLOAT = "FLOAT"
 class MolDataPropertyHolder:
     @staticmethod
     def get_dtype(obj):
+        if isinstance(obj, np.ndarray):
+            ta = np.array([1.1]).astype(obj.dtype)
+            for key, val in DATATYPES_MAP.items():
+                if isinstance(ta[0], val):
+                    return key
         if isinstance(obj, DATATYPES_MAP[DATATYPES.STRING]):
             return DATATYPES.STRING
         try:
@@ -104,7 +112,11 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
     def mol(self):
         return self._mol
 
-    def get_mol(self, with_numbers=False, with_H=False):
+    def get_mol(self, with_numbers=False, with_H=False) -> rdkit.Chem.Mol:
+        """
+
+        :rtype: rdkit.Chem.Mol
+        """
         mol = rdchem.EditableMol(self._mol)
         mol = mol.GetMol()
 
@@ -219,9 +231,12 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             node = self.nodes[n]
             node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
 
+    def get_mol(self):
+        return self._mol
+
     @property
     def mol(self):
-        return self._mol
+        return self.get_mol()
 
     @staticmethod
     def from_molecule(molecule, with_H=True, canonical_rank=True):
@@ -301,7 +316,7 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             if dtype in [DATATYPES.INT, DATATYPES.FLOAT]:
                 new_feats = np.array([p], dtype=float).flatten()
                 y_titles[len(y)] = prop
-                y.extend(new_feats)
+                y.append(new_feats)
             else:
                 raise TypeError("for y values the prob should be numerical but is '{}'".format(dtype))
 
@@ -323,7 +338,7 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             x=torch.from_numpy(node_features, ).float(),
             edge_index=torch.from_numpy(edge_index, ).long(),
             graph_features_titles=graph_features_titles,
-            graph_features=torch.from_numpy(np.array(graph_features), ).float(),
+            graph_features=torch.from_numpy(np.array([graph_features]), ).float(),
             string_data_titles=string_data_titles,
             string_data=string_data,
             num_nodes=self.number_of_nodes(),
@@ -359,3 +374,35 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             else:
                 obj = method(f)
         return obj
+
+    def _repr_svg_(self):
+        plt.ioff() # turn off interactive mode
+        fig=plt.figure(figsize=(2,2))
+        #ax = fig.add_subplot(111)
+        pos = nx.nx_pylab.spring_layout(self,iterations=5000,
+                                        #scale=10,
+                                        k=1/(len(self)**2),
+                                        pos=nx.nx_pylab.kamada_kawai_layout(
+                                            self,
+                                            pos=nx.nx_pylab.spring_layout(
+                                                self,
+                                                iterations=200,
+                                                k=1,
+                                                pos=nx.nx_pylab.circular_layout(self)
+                                            ),
+                                        )
+                                        )
+
+        nx.nx_pylab.draw(
+            self,
+            pos=pos,
+            with_labels=(12-np.sqrt(len(self))/2)>7,
+            node_size=5000/len(self),
+            labels = {i:self.mol.GetAtomWithIdx(i).GetSymbol() for i in self.nodes },
+            font_size=12-np.sqrt(len(self))/2
+        )
+        output = StringIO()
+        fig.savefig(output,format='svg')
+        plt.close()
+        plt.ion() # turn on interactive mode
+        return output.getvalue()
