@@ -231,6 +231,8 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             node = self.nodes[n]
             node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
 
+        return np.array([data[name] for n, data in self.nodes(data=True)]), np.array(self.mol_features)
+
     def get_mol(self):
         return self._mol
 
