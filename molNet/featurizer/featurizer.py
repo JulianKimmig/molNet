@@ -2,7 +2,8 @@ from warnings import warn
 
 
 class Featurizer():
-    def __init__(self, length=None,pre_featurize=None,name=None):
+    def __init__(self, length=None,pre_featurize=None,name=None,feature_descriptions=None):
+        self.feature_descriptions = feature_descriptions
         if name is None:
             name = self.__class__.__name__
         self._name = name
@@ -28,6 +29,17 @@ class Featurizer():
     def __str__(self):
         return self._name
 
+    def __repr__(self):
+        return self._name
+
+    def describe_features(self):
+        if self.feature_descriptions is None:
+            return [self._name]*len(self)
+
+
+        return [self.feature_descriptions[i] for i  in range(len(self))]
+
+
 class OneHotEncodingException(Exception):
     pass
 
@@ -47,6 +59,12 @@ class OneHotFeaturizer(Featurizer):
             raise OneHotEncodingException("cannot one hot encode '{}' in '{}', allowed values are {}".format(to_featurize,self,self.possible_values))
         return list(map(lambda v: to_featurize == v, self.possible_values))
 
+    def describe_features(self):
+        if self.feature_descriptions is None:
+            n=str(self)
+            return ["{}: {}".format(n,v) for v in self.possible_values]
+
+        return super().describe_features()
 
 class LambdaFeaturizer(Featurizer):
     def __init__(self, lamda_call, length, *args, **kwargs):
@@ -57,12 +75,15 @@ class LambdaFeaturizer(Featurizer):
 class FeaturizerList(Featurizer):
     def __init__(self, feature_list,name=None,*args,**kwargs):
         if name==None:
-            name="FeatureList({})".format("".join([str(f) for f in feature_list]))
+            name="FeatureList({})".format(",".join([str(f) for f in feature_list]))
         super().__init__(length=None,name=name,*args,**kwargs)
         self._feature_list = feature_list
 
     def __len__(self):
         return sum([len(f) for f in self._feature_list])
+
+    def __repr__(self):
+        return "{}({})".format(str(self),",".join([repr(f) for f in self._feature_list]))
 
     def featurize(self, to_featurize):
         features = []
@@ -70,3 +91,8 @@ class FeaturizerList(Featurizer):
             features.extend(f(to_featurize))
         return features
 
+    def describe_features(self):
+        fl=[]
+        for f in self._feature_list:
+            fl.extend(f.describe_features())
+        return fl

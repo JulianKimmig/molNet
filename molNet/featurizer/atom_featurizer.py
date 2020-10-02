@@ -108,6 +108,14 @@ atom_hybridization_one_hot = OneHotFeaturizer(
                      rdkit.Chem.rdchem.HybridizationType.OTHER,
                      rdkit.Chem.rdchem.HybridizationType.UNSPECIFIED,
                      ],
+    feature_descriptions=["hybridization SP",
+                          "hybridization SP2",
+                          "hybridization SP3",
+                          "hybridization SP3D",
+                          "hybridization SP3D2",
+                          "hybridization S",
+                          "hybridization OTHER",
+                          "hybridization UNSPECIFIED"],
     pre_featurize=lambda atom: atom.GetHybridization(),
     name="atom_hybridization_one_hot"
 )
@@ -148,6 +156,16 @@ atom_is_aromatic = LambdaFeaturizer(
     name="atom_is_aromatic",
 )
 
+
+
+atom_is_in_ring_size_3_to_20_one_hot = FeaturizerList([
+    LambdaFeaturizer(lambda atom: [atom.IsInRingSize(i)], length=1,
+                     name="atom_is_in_ring_size_{}".format(i))
+    for i in range(3,20)
+],name="atom_is_in_ring_size_3_to_20_one_hot")
+
+
+
 atom_is_in_ring = LambdaFeaturizer(lambda atom: [atom.IsInRing()], length=1,
                                    name="atom_is_in_ring")
 
@@ -172,5 +190,8 @@ default_atom_featurizer = FeaturizerList([
     atom_total_degree_one_hot,
     atom_degree_one_hot,
     atom_hybridization_one_hot,
+    atom_num_radical_electrons,
+    atom_is_aromatic,
+    atom_is_in_ring_size_3_to_20_one_hot,
 ],
     name="default_atom_featurizer")
