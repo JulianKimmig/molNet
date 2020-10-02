@@ -218,24 +218,28 @@ class SingleFileLoader(BaseLoader):
         os.makedirs(os.path.join(self.data_dir, entry['folder']), exist_ok=True)
 
 
+
 class DataFrameGenerator():
     def __init__(self, df, processing=None):
         self.processing = processing
         self._length = len(df.index)
-        self.iterator = df.iterrows()
+        self.df = df
+        self._iter=self._continue()
 
     def __len__(self):
         return self._length
 
+    def _continue(self):
+        while 1:
+            for r, d in self.df.iterrows():
+                if self.processing:
+                    d = self.processing(d)
+                yield d
+
     def __next__(self):
-        r, d = next(self.iterator)
+        return next(self._iter)
 
-        if self.processing:
-            return self.processing(d)
-        return d
-
-
-def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None, processing=None):
+def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None, generator_class=DataFrameGenerator,*args,**kwargs):
     split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
     split = split / split.sum()
     if seed is not None:
@@ -243,6 +247,6 @@ def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None, processing=None):
     indices = np.arange(len(df.index), dtype=int)
     np.random.shuffle(indices)
     split_cs = (np.cumsum(split) * len(df.index)).astype(int)
-    return DataFrameGenerator(df.iloc[indices[0:split_cs[0]]].reset_index(drop=True), processing), \
-           DataFrameGenerator(df.iloc[indices[split_cs[0]:split_cs[1]]].reset_index(drop=True), processing), \
-           DataFrameGenerator(df.iloc[indices[split_cs[1]:split_cs[2]]].reset_index(drop=True), processing)
+    return generator_class(df.iloc[indices[0:split_cs[0]]].reset_index(drop=True),*args,**kwargs), \
+           generator_class(df.iloc[indices[split_cs[0]:split_cs[1]]].reset_index(drop=True),*args,**kwargs), \
+           generator_class(df.iloc[indices[split_cs[1]:split_cs[2]]].reset_index(drop=True),*args,**kwargs)
