@@ -223,10 +223,11 @@ class DataLoaderTest(unittest.TestCase):
                                   126.6500, 11.0000, -0.9530, 1.0000, 182.1560, 0.0000, 0.0000,
                                   6.0000, 44.7600, 10.0000, -3.0990, 1.0000, 146.1110, 0.0000,
                                   1.0000, 0.0000, 0.0000])
-            assert np.allclose(test_data, batch['graph_features'].numpy()), batch['graph_features'].numpy()
+            assert test_data.size ==  batch['graph_features'].numpy().size, batch['graph_features'].numpy()
+            assert np.allclose(test_data, batch['graph_features'].numpy().flatten()), batch['graph_features'].numpy()
 
             test_data = np.array([-1.9500, 0.4300, -2.5100])
-            assert np.allclose(test_data, batch['y'].numpy()), batch['y'].numpy()
+            assert np.allclose(test_data, batch['y'].numpy().flatten()), batch['y'].numpy()
             break
 
     def test_local_csv_ptgeom_molgraph_loader_multifile__B__reload(self):
@@ -281,8 +282,8 @@ class DataLoaderTest(unittest.TestCase):
                                   49.2500,  23.0000,  -3.8310,   1.0000, 338.7950,   1.0000,   2.0000,
                                   2.0000,  80.3700,  14.0000,  -1.9480,   1.0000, 214.2060,   1.0000,
                                   2.0000,   2.0000,  88.3700])
-            assert np.allclose(test_data, batch['graph_features'].numpy()), batch['graph_features']
+            assert np.allclose(test_data, batch['graph_features'].numpy().flatten()), batch['graph_features']
 
             test_data = np.array([-2.24,  -4.328, -3.22])
-            assert np.allclose(test_data, batch['y'].numpy()), batch['y'].numpy()
+            assert np.allclose(test_data, batch['y'].numpy().flatten()), batch['y'].numpy()
             break
