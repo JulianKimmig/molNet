@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 
 import molNet.utils.base_classes as mnbc
 from molNet.featurizer.atom_featurizer import default_atom_featurizer
+from molNet.utils.identifier2smiles import name_to_smiles
 from molNet.utils.mol.draw import mol_to_svg
 
 
@@ -209,8 +210,16 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
     @classmethod
     def from_smiles(cls, mol_smile):
-        return Molecule(Chem.MolFromSmiles(mol_smile))
+        return cls(Chem.MolFromSmiles(mol_smile))
 
+    @classmethod
+    def from_name(cls, name):
+        ns = name_to_smiles(name)
+        mol = Chem.MolFromSmiles(list(ns.keys())[0])
+        return cls(mol,name=name)
+
+def molecule_from_name(name):
+    return Molecule.from_name(name)
 
 class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     def __init__(self, **attr):
