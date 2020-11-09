@@ -29,7 +29,7 @@ class MoleculeGraphFileDataset(FileDataset):
         d = MolGraph.load(file)
         return d
 
-
+#Loader Mixins
 class SmilesLoaderMixin():
     def __init__(self, *args, **kwargs):
         super(SmilesLoaderMixin, self).__init__(*args, **kwargs)
@@ -38,7 +38,55 @@ class SmilesLoaderMixin():
     def generate_smiles_object(smiles, add_data):
         return {'smiles': smiles, 'data': add_data}
 
+class MoleculeLoaderMixin():
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+    @staticmethod
+    def generate_molecule(smiles, add_data):
+        molecule = Molecule(Chem.MolFromSmiles(smiles))
+        for name, add_date in add_data.items():
+            molecule.set_property(name, add_date)
+        return molecule
+
+class MoleculeGraphLoaderMixin():
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @staticmethod
+    def generate_mol_graph(smiles, add_data):
+        molecule = MoleculeLoaderMixin.generate_molecule(smiles, add_data)
+        molgraph = MolGraph.from_molecule(molecule)
+        return molgraph
+
+class PytorchGeomMolLoaderMixin():
+    def __init__(self, *args, to_graph_params=None, **kwargs):
+        if to_graph_params is None:
+            to_graph_params = {}
+        if "y_properties" not in to_graph_params:
+            to_graph_params["y_properties"]=[]
+        if "with_properties" not in to_graph_params:
+            to_graph_params["with_properties"]=True
+        self.to_graph_params = to_graph_params
+        super().__init__(*args, **kwargs)
+
+    def generate_pytorch_geom_graph_input(self, smiles, add_data):
+        molgraph = MoleculeGraphLoaderMixin.generate_mol_graph(smiles, add_data)
+        molgraph.featurize(atom_featurizer=self.to_graph_params.get("atom_featurizer"),
+                           molecule_featurizer=self.to_graph_params.get("molecule_featurizer"))
+        gip = molgraph.to_graph_input(**self.to_graph_params)
+        return gip
+
+
+#loader
+class PytorchGeomMolGraphDataLoader(torch_geometric.data.DataLoader):
+    #    def __init__(self, dataset, **kwargs):
+    #       super().__init__(dataset, **kwargs,follow_batch=['graph_features'])
+    pass
+
+
+
+#FromCsvLoader
 class SmilesFromCsvLoader(SmilesLoaderMixin, SingleFileLoader):
     prefix = "smiles_"
     save_dataset = FileDataset
@@ -123,19 +171,6 @@ class SmilesFromCsvLoader(SmilesLoaderMixin, SingleFileLoader):
             return objcts
         return
 
-
-class MoleculeLoaderMixin():
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    @staticmethod
-    def generate_molecule(smiles, add_data):
-        molecule = Molecule(Chem.MolFromSmiles(smiles))
-        for name, add_date in add_data.items():
-            molecule.set_property(name, add_date)
-        return molecule
-
-
 class MoleculeFromCsvLoader(MoleculeLoaderMixin, SmilesFromCsvLoader):
     prefix = "mol_"
     save_dataset = MoleculeFileDataset
@@ -147,18 +182,6 @@ class MoleculeFromCsvLoader(MoleculeLoaderMixin, SmilesFromCsvLoader):
             Molecule.save(molecule, os.path.join(self.folder, self.prefix + str(row)))
         return molecule
 
-
-class MoleculeGraphLoaderMixin():
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    @staticmethod
-    def generate_mol_graph(smiles, add_data):
-        molecule = MoleculeLoaderMixin.generate_molecule(smiles, add_data)
-        molgraph = MolGraph.from_molecule(molecule)
-        return molgraph
-
-
 class MoleculeGraphFromCsvLoader(MoleculeGraphLoaderMixin, MoleculeFromCsvLoader):
     dataloader = DirectDataLoader
     prefix = "molgraph_"
@@ -169,25 +192,6 @@ class MoleculeGraphFromCsvLoader(MoleculeGraphLoaderMixin, MoleculeFromCsvLoader
         if save:
             MolGraph.save(molgraph, os.path.join(self.folder, self.prefix + str(row)))
         return molgraph
-
-
-class PytorchGeomMolLoaderMixin():
-    def __init__(self, *args, atom_featurizer=None, molecule_featurizer=None, y_properties=[], **kwargs):
-        self.y_properties=y_properties
-        super().__init__(*args, **kwargs)
-        self.molecule_featurizer = molecule_featurizer
-        self.atom_featurizer = atom_featurizer
-
-    def generate_pytorch_geom_graph_input(self, smiles, add_data, ):
-        molgraph = MoleculeGraphLoaderMixin.generate_mol_graph(smiles, add_data)
-        molgraph.featurize(atom_featurizer=self.atom_featurizer, molecule_featurizer=self.molecule_featurizer)
-        gip = molgraph.to_graph_input(y_properties=self.y_properties)
-        return gip
-
-class PytorchGeomMolGraphDataLoader(torch_geometric.data.DataLoader):
-#    def __init__(self, dataset, **kwargs):
- #       super().__init__(dataset, **kwargs,follow_batch=['graph_features'])
-    pass
 
 class PytorchGeomMolGraphFromCsvLoader(PytorchGeomMolLoaderMixin, MoleculeGraphFromCsvLoader):
     dataloader = PytorchGeomMolGraphDataLoader
@@ -205,30 +209,26 @@ class PytorchGeomMolGraphFromCsvLoader(PytorchGeomMolLoaderMixin, MoleculeGraphF
                 pickle.dump(gip, f)
         return gip
 
-
+#From Generator
 class SmilesGenerator(SmilesLoaderMixin, GeneratorDataset):
     def data_transformer(self, data):
         smiles, add_data = data
         return self.generate_smiles_object(smiles, add_data)
 
-
 class SmilesFromGeneratorLoader(GeneratorDataLoader):
     def __init__(self, generator, *args, **kwargs):
         super().__init__(generator, generatordataset_class=SmilesGenerator, *args, **kwargs)
-
 
 class MoleculeGenerator(MoleculeLoaderMixin, GeneratorDataset):
     def data_transformer(self, data):
         smiles, add_data = data
         return self.generate_molecule(smiles, add_data)
 
-
 class MoleculeFromGeneratorLoader(GeneratorDataLoader):
     dataloader = DirectDataLoader
 
     def __init__(self, generator, *args, **kwargs):
         super().__init__(generator, generatordataset_class=MoleculeGenerator, *args, **kwargs)
-
 
 class MoleculeGraphGenerator(MoleculeGraphLoaderMixin, GeneratorDataset):
 
@@ -245,15 +245,16 @@ class MoleculeGraphFromGeneratorLoader(GeneratorDataLoader):
 
 
 class PytorchGeomMolGraphGenerator(PytorchGeomMolLoaderMixin, GeneratorDataset):
-
     def data_transformer(self, data):
         smiles, add_data = data
         return self.generate_pytorch_geom_graph_input(smiles, add_data)
 
+class PytorchGeomMolGraphFromGeneratorLoader(GeneratorDataLoader):
+    dataloader = PytorchGeomMolGraphDataLoader
 
 class SmilesfromDfGenerator(DataFrameGenerator):
-    def __init__(self, df,smiles_col):
-        super().__init__(df,processing=self.processing)
+    def __init__(self, df,smiles_col,**kwargs):
+        super().__init__(df,processing=self.processing,**kwargs)
         self.add_data = list(df.columns)
         self.smiles_col = smiles_col
         self.add_data.remove(smiles_col)
@@ -261,8 +262,7 @@ class SmilesfromDfGenerator(DataFrameGenerator):
     def processing(self, data):
         return data[self.smiles_col],{add_date: data[add_date] for add_date in self.add_data}
 
-class PytorchGeomMolGraphFromGeneratorLoader(GeneratorDataLoader):
-    dataloader = PytorchGeomMolGraphDataLoader
+
 
 
 

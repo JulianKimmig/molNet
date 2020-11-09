@@ -74,7 +74,6 @@ class GeneratorDataset(IterableDataset):
     def __next__(self):
         return self.data_transformer(next(self.generator))
 
-
 class DirectDataLoader(DataLoader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, collate_fn=lambda batch: batch)
@@ -218,7 +217,6 @@ class SingleFileLoader(BaseLoader):
         os.makedirs(os.path.join(self.data_dir, entry['folder']), exist_ok=True)
 
 
-
 class DataFrameGenerator():
     def __init__(self, df, processing=None):
         self.processing = processing
@@ -239,13 +237,15 @@ class DataFrameGenerator():
     def __next__(self):
         return next(self._iter)
 
-def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None, generator_class=DataFrameGenerator,*args,**kwargs):
+
+def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None,shuffle=True, generator_class=DataFrameGenerator,*args,**kwargs):
     split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
     split = split / split.sum()
     if seed is not None:
         np.random.seed(seed)
     indices = np.arange(len(df.index), dtype=int)
-    np.random.shuffle(indices)
+    if shuffle:
+        np.random.shuffle(indices)
     split_cs = (np.cumsum(split) * len(df.index)).astype(int)
     return generator_class(df.iloc[indices[0:split_cs[0]]].reset_index(drop=True),*args,**kwargs), \
            generator_class(df.iloc[indices[split_cs[0]:split_cs[1]]].reset_index(drop=True),*args,**kwargs), \
