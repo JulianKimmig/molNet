@@ -231,8 +231,9 @@ class DataFrameGenerator():
         while 1:
             for r, d in self.df.iterrows():
                 if self.processing:
-                    d = self.processing(d)
-                yield d
+                    yield self.processing(d)
+                else:
+                    yield d
 
     def __next__(self):
         return next(self._iter)
