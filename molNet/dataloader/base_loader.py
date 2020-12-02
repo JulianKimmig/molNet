@@ -82,12 +82,13 @@ class DirectDataLoader(DataLoader):
 class BaseLoader(pl.LightningDataModule):
     dataloader = DataLoader
 
-    def __init__(self, split=[0.7, 0.15, 0.15], seed=None, batch_size=32):
+    def __init__(self, split=[0.7, 0.15, 0.15], seed=None, batch_size=32,**datalaoder_kwargs):
         super().__init__()
         self.batch_size = batch_size
         self.seed = seed
         self.split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
         self.split = self.split / self.split.sum()
+        self.datalaoder_kwargs=datalaoder_kwargs
 
     def generate_full_dataset(self):
         raise NotImplementedError()
@@ -107,17 +108,17 @@ class BaseLoader(pl.LightningDataModule):
 
     def train_dataloader(self):
         if self.train_ds is not None:
-            return self.dataloader(self.train_ds, batch_size=self.batch_size)
+            return self.dataloader(self.train_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
         return None
 
     def val_dataloader(self):
         if self.val_ds is not None:
-            return self.dataloader(self.val_ds, batch_size=self.batch_size)
+            return self.dataloader(self.val_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
         return None
 
     def test_dataloader(self):
         if self.test_ds is not None:
-            return self.dataloader(self.test_ds, batch_size=self.batch_size)
+            return self.dataloader(self.test_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
         return None
 
 
@@ -135,6 +136,10 @@ class GeneratorDataLoader(BaseLoader):
         self.val_ds = self.generatordataset_class(self.val_generator) if self.val_generator else None
         self.test_ds = self.generatordataset_class(self.test_generator) if self.test_generator else None
 
+class DataFrameDataLoader(BaseLoader):
+    def __init__(self, df,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.df=df
 
 class SingleFileLoader(BaseLoader):
     def __init__(self, source_file, data_dir=BASE_DATA_DIR, reload=False, save=True, *args, **kwargs):

@@ -25,6 +25,22 @@ class DfDataSet(DataSet):
     def get(self):
         raise NotImplementedError
 
+    def to_generator(self, **kwargs):
+        return df_to_generator(self.df, generator_class=SmilesfromDfGenerator, smiles_col=self.smiles_col, **kwargs)
+
+    def to_pytorchgeo_molgraph_generator(self, to_graph_params=None, generator_params=None):
+        if generator_params is None:
+            generator_params = {}
+        if to_graph_params is None:
+            to_graph_params = {'with_properties': True,
+                               'y_properties':self.y_properties,
+                               }
+
+        if 'y_properties' not in to_graph_params:
+            to_graph_params['y_properties'] = self.y_properties
+
+        return [PytorchGeomMolGraphGenerator(generator=g, to_graph_params = to_graph_params)
+                for g in self.to_generator(**generator_params)]
 
 class DelaneySolubility(DfDataSet):
     smiles_col = "SMILES"
@@ -37,19 +53,4 @@ class DelaneySolubility(DfDataSet):
         self._df = pd.read_csv(io.StringIO(s.decode('utf-8')))
         self._df.rename(columns={self.name_columns: "name"},inplace=True)
 
-    def to_generator(self, **kwargs):
-        return df_to_generator(self.df, generator_class=SmilesfromDfGenerator, smiles_col=self.smiles_col, **kwargs)
 
-    def to_pytorchgeo_molgraph_generator(self, to_graph_params=None, generator_params=None):
-        if generator_params is None:
-            generator_params = {}
-        if to_graph_params is None:
-            to_graph_params = {'with_properties': True,
-                               'y_properties':self.y_properties,
-                                }
-
-        if 'y_properties' not in to_graph_params:
-            to_graph_params['y_properties'] = self.y_properties
-
-        return [PytorchGeomMolGraphGenerator(generator=g, to_graph_params = to_graph_params)
-                for g in self.to_generator(**generator_params)]
