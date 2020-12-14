@@ -16,6 +16,7 @@ dependencies:
   - torchaudio
   - cpuonly
   - numba
+  - dill
   - pip:
       - --find-links https://pytorch-geometric.com/whl/torch-1.7.0+cpu.html
       - torch-scatter
