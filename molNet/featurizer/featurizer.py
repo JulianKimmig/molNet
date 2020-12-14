@@ -39,6 +39,10 @@ class Featurizer():
 
         return [self.feature_descriptions[i] for i  in range(len(self))]
 
+    def __add__(self, other):
+        if isinstance(other,FeaturizerList):
+            return other+self
+        return FeaturizerList([self,other])
 
 class OneHotEncodingException(Exception):
     pass
@@ -96,3 +100,8 @@ class FeaturizerList(Featurizer):
         for f in self._feature_list:
             fl.extend(f.describe_features())
         return fl
+
+    def __add__(self, other):
+        if isinstance(other,FeaturizerList):
+            return FeaturizerList(self._feature_list+other._feature_list)
+        return FeaturizerList(self._feature_list+[other])
