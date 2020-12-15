@@ -41,6 +41,27 @@ atom_symbol_one_hot = OneHotFeaturizer(
     name="atom_symbol_one_hot"
 )
 
+def atom_symbol_one_hot_from_set(list_of_mols,only_mass=False,sort=True,with_other=True):
+    possible_values=[]
+    for mol in list_of_mols:
+        for atom in mol.GetAtoms():
+            s=atom.GetSymbol()
+            if s not in possible_values:
+                if only_mass:
+                    if atom.GetMass() <= 0:
+                        continue
+                possible_values.append(s)
+    if sort:
+        possible_values.sort()
+    if with_other:
+        possible_values.append(None)
+    return OneHotFeaturizer(
+        possible_values=possible_values,
+        pre_featurize=lambda atom: atom.GetSymbol(),
+        name="custom_atom_symbol_one_hot"
+    )
+
+
 atom_symbol_hcnopsclbr_one_hot = OneHotFeaturizer(
     possible_values=['H', 'C', 'N', 'O', 'P', 'S', 'Cl', 'Br'],
     pre_featurize=lambda atom: atom.GetSymbol(),

@@ -46,7 +46,9 @@ class MoleculeLoaderMixin():
 
     @staticmethod
     def generate_molecule(smiles, add_data):
-        molecule = Molecule(Chem.MolFromSmiles(smiles))
+        mol=Chem.MolFromSmiles(smiles,sanitize=False)
+        Chem.SanitizeMol(mol,Chem.SanitizeFlags.SANITIZE_ALL)
+        molecule = Molecule(mol)
         for name, add_date in add_data.items():
             molecule.set_property(name, add_date)
         return molecule
