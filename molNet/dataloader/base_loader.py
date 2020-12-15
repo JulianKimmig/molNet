@@ -9,7 +9,7 @@ import numpy as np
 
 import pytorch_lightning as pl
 import torch
-from torch.utils.data import random_split, DataLoader, Dataset, IterableDataset
+from torch.utils.data import random_split, DataLoader, Dataset, IterableDataset, Subset
 
 BASE_DATA_DIR = os.path.join(os.path.expanduser("~"), ".molNet", "data")
 
@@ -82,13 +82,14 @@ class DirectDataLoader(DataLoader):
 class BaseLoader(pl.LightningDataModule):
     dataloader = DataLoader
 
-    def __init__(self, split=[0.7, 0.15, 0.15], seed=None, batch_size=32,**datalaoder_kwargs):
+    def __init__(self, split=[0.7, 0.15, 0.15],shuffle=True, seed=None, batch_size=32,**dataloader_kwargs):
         super().__init__()
+        self.shuffle = shuffle
         self.batch_size = batch_size
         self.seed = seed
         self.split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
         self.split = self.split / self.split.sum()
-        self.datalaoder_kwargs=datalaoder_kwargs
+        self.datalaoder_kwargs=dataloader_kwargs
 
     def generate_full_dataset(self):
         raise NotImplementedError()
@@ -100,11 +101,15 @@ class BaseLoader(pl.LightningDataModule):
         while l > split.sum():
             split[(l - split.sum()) % len(split)] += 1
 
-        if self.seed:
-            gen = torch.Generator().manual_seed(self.seed)
+        if self.shuffle:
+            if self.seed:
+                gen = torch.Generator().manual_seed(self.seed)
+            else:
+                gen = torch.default_generator
+            self.train_ds, self.val_ds, self.test_ds = random_split(data, split, generator=gen)
         else:
-            gen = torch.default_generator
-        self.train_ds, self.val_ds, self.test_ds = random_split(data, split, generator=gen)
+            indices = np.arange(sum(split))
+            self.train_ds, self.val_ds, self.test_ds =  [Subset(data, indices[offset - length : offset]) for offset, length in zip(np.add.accumulate(split), split)]
 
     def train_dataloader(self):
         if self.train_ds is not None:
@@ -125,7 +130,7 @@ class BaseLoader(pl.LightningDataModule):
 class GeneratorDataLoader(BaseLoader):
     def __init__(self, generator, val_generator=None, test_generator=None, generatordataset_class=GeneratorDataset,
                  *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
         self.val_generator = val_generator
         self.test_generator = test_generator
         self.generatordataset_class = generatordataset_class
@@ -138,12 +143,12 @@ class GeneratorDataLoader(BaseLoader):
 
 class DataFrameDataLoader(BaseLoader):
     def __init__(self, df,*args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
         self.df=df
 
 class SingleFileLoader(BaseLoader):
     def __init__(self, source_file, data_dir=BASE_DATA_DIR, reload=False, save=True, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(**kwargs)
         self.save = save
         self.reload = reload
         self.source_file = os.path.abspath(source_file)

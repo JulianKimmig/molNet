@@ -5,12 +5,15 @@ from torch_scatter import scatter_add, scatter_max, scatter_min
 import pytorch_lightning as pl
 
 class PoolWeightedSum(nn.Module):
-    def __init__(self, n_in_feats):
+    def __init__(self, n_in_feats,normalize=True,bias=True):
         super(PoolWeightedSum, self).__init__()
-        self.weighting_of_nodes = nn.Sequential(
-            nn.Linear(n_in_feats, 1),
-            nn.Sigmoid()
-        )
+        if normalize:
+            self.weighting_of_nodes = nn.Sequential(
+                nn.Linear(n_in_feats, 1,bias=bias),
+                nn.Sigmoid()
+            )
+        else:
+            self.weighting_of_nodes = nn.Linear(n_in_feats, 1,bias=bias)
 
     def forward(self, feats, batch):
         # feats = nodes,last_gcn_feats
