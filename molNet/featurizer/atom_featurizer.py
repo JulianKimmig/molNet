@@ -1,6 +1,6 @@
 import rdkit
 import rdkit.Chem.AllChem
-from rdkit.Chem import rdchem
+from rdkit.Chem import rdchem, SetHybridization, HybridizationType
 
 from .featurizer import OneHotFeaturizer, FeaturizerList, LambdaFeaturizer
 
@@ -41,11 +41,12 @@ atom_symbol_one_hot = OneHotFeaturizer(
     name="atom_symbol_one_hot"
 )
 
-def atom_symbol_one_hot_from_set(list_of_mols,only_mass=False,sort=True,with_other=True):
-    possible_values=[]
+
+def atom_symbol_one_hot_from_set(list_of_mols, only_mass=False, sort=True, with_other=True):
+    possible_values = []
     for mol in list_of_mols:
         for atom in mol.GetAtoms():
-            s=atom.GetSymbol()
+            s = atom.GetSymbol()
             if s not in possible_values:
                 if only_mass:
                     if atom.GetMass() <= 0:
@@ -119,15 +120,24 @@ atom_num_radical_electrons_one_hot = OneHotFeaturizer(
     name="atom_num_radical_electrons_one_hot"
 )
 
+
+def get_assured_hybridization(atom):
+    h = atom.GetHybridization()
+    if h == HybridizationType.UNSPECIFIED:
+        SetHybridization(atom.GetOwningMol())
+        h = atom.GetHybridization()
+    return h
+
+
 atom_hybridization_one_hot = OneHotFeaturizer(
-    possible_values=[rdkit.Chem.rdchem.HybridizationType.SP,
-                     rdkit.Chem.rdchem.HybridizationType.SP2,
-                     rdkit.Chem.rdchem.HybridizationType.SP3,
-                     rdkit.Chem.rdchem.HybridizationType.SP3D,
-                     rdkit.Chem.rdchem.HybridizationType.SP3D2,
-                     rdkit.Chem.rdchem.HybridizationType.S,
-                     rdkit.Chem.rdchem.HybridizationType.OTHER,
-                     rdkit.Chem.rdchem.HybridizationType.UNSPECIFIED,
+    possible_values=[HybridizationType.SP,
+                     HybridizationType.SP2,
+                     HybridizationType.SP3,
+                     HybridizationType.SP3D,
+                     HybridizationType.SP3D2,
+                     HybridizationType.S,
+                     HybridizationType.OTHER,
+                     HybridizationType.UNSPECIFIED,
                      ],
     feature_descriptions=["hybridization SP",
                           "hybridization SP2",
@@ -137,7 +147,7 @@ atom_hybridization_one_hot = OneHotFeaturizer(
                           "hybridization S",
                           "hybridization OTHER",
                           "hybridization UNSPECIFIED"],
-    pre_featurize=lambda atom: atom.GetHybridization(),
+    pre_featurize=get_assured_hybridization,
     name="atom_hybridization_one_hot"
 )
 
@@ -177,15 +187,11 @@ atom_is_aromatic = LambdaFeaturizer(
     name="atom_is_aromatic",
 )
 
-
-
 atom_is_in_ring_size_3_to_20_one_hot = FeaturizerList([
     LambdaFeaturizer(lambda atom: [atom.IsInRingSize(i)], length=1,
                      name="atom_is_in_ring_size_{}".format(i))
-    for i in range(3,20)
-],name="atom_is_in_ring_size_3_to_20_one_hot")
-
-
+    for i in range(3, 20)
+], name="atom_is_in_ring_size_3_to_20_one_hot")
 
 atom_is_in_ring = LambdaFeaturizer(lambda atom: [atom.IsInRing()], length=1,
                                    name="atom_is_in_ring")
