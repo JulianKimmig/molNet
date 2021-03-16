@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from torch_geometric.nn import GCNConv
-from torch_scatter import scatter_add, scatter_max, scatter_min
+from torch_scatter import scatter_add, scatter_max, scatter_min, scatter_mean, scatter_mul, scatter_std,scatter_logsumexp,scatter_log_softmax,scatter_softmax
 import pytorch_lightning as pl
 
 class PoolWeightedSum(nn.Module):
@@ -36,6 +36,26 @@ class PoolMin(nn.Module):
         maxed_nodes, _ = scatter_min(feats, batch, dim=0)
         return maxed_nodes
 
+class PoolMean(nn.Module):
+    def forward(self, feats, batch):
+        maxed_nodes = scatter_mean(feats, batch, dim=0)
+        return maxed_nodes
+    
+class PoolProd(nn.Module):
+    def forward(self, feats, batch):
+        maxed_nodes = scatter_mul(feats, batch, dim=0)
+        return maxed_nodes
+
+class PoolDiv(nn.Module):
+    def forward(self, feats, batch):
+        maxed_nodes = scatter_div(feats, batch, dim=0)
+        return maxed_nodes
+
+class PoolLogSumExp(nn.Module):
+    def forward(self, feats, batch):
+        maxed_nodes = scatter_logsumexp(feats, batch, dim=0)
+        return maxed_nodes
+    
 class PoolSum(nn.Module):
     def forward(self, feats, batch):
         summed_nodes = scatter_add(feats, batch,
@@ -44,13 +64,23 @@ class PoolSum(nn.Module):
 
 
 class MergedPooling(nn.Module):
-    def __init__(self, pooling_layer_dict,pool_names):
+    def __init__(self, pooling_layer_dict,pool_names=None):
         super().__init__()
+        if isinstance(pooling_layer_dict,list):
+            pooling_layer_dict={pool_names[i] for i,pl in enumerate(pooling_layer_dict)}
+        if pool_names is None:
+            pool_names=list(pooling_layer_dict.keys())
+        
+        assert len(pool_names) == len(pooling_layer_dict)
+    
         self.pool_names = pool_names
         self.pooling_layer = nn.ModuleDict(pooling_layer_dict)
 
     def forward(self, feats, batch):
         return torch.cat([self.pooling_layer[pl](feats, batch) for pl in self.pool_names], dim=1)
+    
+    def __len__(self):
+        return len(self.pool_names) 
 
 
 class GraphFingerprint(pl.LightningModule):
