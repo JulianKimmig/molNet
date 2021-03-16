@@ -1,0 +1,172 @@
+digraph cluster_MolWeigtFromTypeModel {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+	nodesep=0 ranksep=1.3
+	subgraph cluster_MolWeigtFromTypeModel_ip {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		MolWeigtFromTypeModel_ip_node [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/MolWeigtFromTypeModel_atom_ip.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+	}
+	subgraph cluster_MolWeigtFromTypeModelfeaturize {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		MolWeigtFromTypeModel_fg_node_0 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_0.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_0
+		MolWeigtFromTypeModel_fg_node_1 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_1.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_1
+		MolWeigtFromTypeModel_fg_node_2 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_2.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_2
+		MolWeigtFromTypeModel_fg_node_3 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_3.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_3
+		MolWeigtFromTypeModel_fg_node_4 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_4.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_4
+		MolWeigtFromTypeModel_fg_node_5 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_5.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_5
+		MolWeigtFromTypeModel_fg_node_6 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_6.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_6
+		MolWeigtFromTypeModel_fg_node_7 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_7.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_7
+		MolWeigtFromTypeModel_fg_node_8 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_8.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_8
+		MolWeigtFromTypeModel_fg_node_9 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_9.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_9
+		MolWeigtFromTypeModel_fg_node_10 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fg_10.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_ip_node -> MolWeigtFromTypeModel_fg_node_10
+	}
+	subgraph cluster_MolWeigtFromTypeModelfg_pool {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		MolWeigtFromTypeModel_fgp_node_0 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/MolWeigtFromTypeModel/plots/img_graph_plot/ fgpool_0.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		MolWeigtFromTypeModel_fg_node_0 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_1 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_2 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_3 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_4 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_5 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_6 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_7 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_8 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_9 -> MolWeigtFromTypeModel_fgp_node_0
+		MolWeigtFromTypeModel_fg_node_10 -> MolWeigtFromTypeModel_fgp_node_0
+	}
+}

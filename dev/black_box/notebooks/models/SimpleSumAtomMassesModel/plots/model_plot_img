@@ -1,0 +1,44 @@
+digraph cluster_SimpleSumAtomMassesModel {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+	nodesep=0 ranksep=1.3
+	subgraph cluster_SimpleSumAtomMassesModel_ip {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		SimpleSumAtomMassesModel_ip_node [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/SimpleSumAtomMassesModel/plots/img_graph_plot/SimpleSumAtomMassesModel_atom_ip.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+	}
+	subgraph cluster_SimpleSumAtomMassesModelfeaturize {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		SimpleSumAtomMassesModel_fg_node_0 [label=<<table BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="0">
+<tr>
+<td rowspan="2" fixedsize="true" height="200" width="200"><img src="/home/julian/IdeaProjects/molNet/dev/black_box/notebooks/models/SimpleSumAtomMassesModel/plots/img_graph_plot/ fg_0.png" /></td>
+</tr>
+<tr>
+<td port="0" border="0"> </td>
+</tr>
+</table>>
+]
+		SimpleSumAtomMassesModel_ip_node -> SimpleSumAtomMassesModel_fg_node_0
+	}
+}

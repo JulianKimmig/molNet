@@ -1,0 +1,467 @@
+digraph cluster_HybridizationFromTypeAndDegreeModel {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+	nodesep=0 ranksep=1.3
+	subgraph cluster_HybridizationFromTypeAndDegreeModel_atom_ip {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">atom_1</td>
+</tr>
+<tr>
+<td port="1" border="1">atom_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">atom_15</td>
+</tr>
+</table>>
+ shape=none]
+		style=invis
+	}
+	subgraph cluster_HybridizationFromTypeAndDegreeModel_featurize {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label=Featurizer
+		cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i0_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i0_feat_19" border="1">feat_19</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i1_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i1_feat_19" border="1">feat_19</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i14_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i14_feat_19" border="1">feat_19</td>
+</tr>
+</table>>
+ shape=none]
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i0_feat_1
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i0_feat_2
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i0_feat_19
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i1_feat_1
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i1_feat_2
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i1_feat_19
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:n -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i14_feat_1
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:n -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i14_feat_2
+		cluster_HybridizationFromTypeAndDegreeModel_atom_ip_l:n -> cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i14_feat_19
+	}
+	subgraph cluster_HybridizationFromTypeAndDegreeModel_mg {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn {
+			node [shape=record]
+			newrank=true rankdir=LR ranksep=1 size=188
+			compound=true
+			splines=true
+			style=dotted
+			label="FCNN feature layer"
+			cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i0_feat_2 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0]
+			cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i1_feat_2 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0]
+			cluster_HybridizationFromTypeAndDegreeModel_featurize_fnode:i14_feat_2 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0]
+			subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn {
+				node [shape=record]
+				newrank=true rankdir=LR ranksep=1 size=188
+				compound=true
+				splines=true
+				style=dotted
+				label="FCNN Graph"
+				subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0 {
+					node [shape=record]
+					newrank=true rankdir=LR ranksep=1 size=188
+					compound=true
+					splines=true
+					style=dotted
+					label="molNet Graph"
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">1</td>
+</tr>
+<tr>
+<td port="1" border="1">2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">19</td>
+</tr>
+</table>>
+ shape=none]
+					style=invis
+				}
+				subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1 {
+					node [shape=record]
+					newrank=true rankdir=LR ranksep=1 size=188
+					compound=true
+					splines=true
+					style=dotted
+					label="molNet Graph"
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">1</td>
+</tr>
+<tr>
+<td port="1" border="1">2</td>
+</tr>
+</table>>
+ shape=none]
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:n -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l0_l:n -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1
+					style=invis
+				}
+				subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2 {
+					node [shape=record]
+					newrank=true rankdir=LR ranksep=1 size=188
+					compound=true
+					splines=true
+					style=dotted
+					label="molNet Graph"
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">1</td>
+</tr>
+<tr>
+<td port="1" border="1">2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">8</td>
+</tr>
+</table>>
+ shape=none]
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:0
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:1
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:0 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:n
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:0
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:1
+					cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l1_l:1 -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l:n
+					style=invis
+				}
+			}
+			subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf {
+				node [shape=record]
+				newrank=true rankdir=LR ranksep=1 size=188
+				compound=true
+				splines=true
+				style=dotted
+				label=""
+				cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i0_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i0_feat_8" border="1">feat_8</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i1_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i1_feat_8" border="1">feat_8</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i14_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i14_feat_8" border="1">feat_8</td>
+</tr>
+</table>>
+ shape=none]
+			}
+			cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf_fnode:i0_feat_2 [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf]
+			cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf_fnode:i1_feat_2 [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf]
+			cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fcnn_l2_l -> cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf_fnode:i14_feat_2 [lhead=cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf]
+		}
+		subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_sm {
+			node [shape=record]
+			newrank=true rankdir=LR ranksep=1 size=188
+			compound=true
+			splines=true
+			style=dotted
+			label=""
+			cluster_HybridizationFromTypeAndDegreeModel_mg_sm_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i0_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i0_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i1_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i1_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i2_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i2_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i2_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i3_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i3_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i3_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i4_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i4_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i4_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i5_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i5_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i5_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i6_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i6_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i6_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i7_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i7_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i7_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i8_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i8_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i8_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i9_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i9_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i9_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i10_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i10_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i10_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i11_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i11_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i11_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i12_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i12_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i12_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i13_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i13_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i13_feat_3" border="1">feat_3</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i14_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="i14_feat_3" border="1">feat_3</td>
+</tr>
+</table>>
+ shape=none]
+		}
+		subgraph cluster_HybridizationFromTypeAndDegreeModel_mg_sm {
+			node [shape=record]
+			newrank=true rankdir=LR ranksep=1 size=188
+			compound=true
+			splines=true
+			style=dotted
+			label=""
+			cluster_HybridizationFromTypeAndDegreeModel_mg_sm_fc_softmax [label=softmax shape=circle]
+			cluster_HybridizationFromTypeAndDegreeModel_mg_nn_fnnf_fnode -> cluster_HybridizationFromTypeAndDegreeModel_mg_sm_fc_softmax
+			cluster_HybridizationFromTypeAndDegreeModel_mg_sm_fc_softmax -> cluster_HybridizationFromTypeAndDegreeModel_mg_sm_fnode
+		}
+	}
+}

@@ -1,0 +1,108 @@
+digraph cluster_HybridizationFromTypeGCModel2 {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+	subgraph cluster_HybridizationFromTypeGCModel2_atom_ip {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">atom_1</td>
+</tr>
+<tr>
+<td port="1" border="1">atom_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">atom_15</td>
+</tr>
+</table>>
+ shape=none]
+		style=invis
+	}
+	subgraph cluster_HybridizationFromTypeGCModel2_featurize {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label=Featurizer
+		cluster_HybridizationFromTypeGCModel2_featurize_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i0_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i0_feat_19" border="1">feat_19</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i1_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i1_feat_19" border="1">feat_19</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i14_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i14_feat_19" border="1">feat_19</td>
+</tr>
+</table>>
+ shape=none]
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:0 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i0_feat_1
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:0 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i0_feat_2
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:0 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i0_feat_19
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:1 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i1_feat_1
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:1 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i1_feat_2
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:1 -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i1_feat_19
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:n -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i14_feat_1
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:n -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i14_feat_2
+		cluster_HybridizationFromTypeGCModel2_atom_ip_l:n -> cluster_HybridizationFromTypeGCModel2_featurize_fnode:i14_feat_19
+	}
+	subgraph cluster_HybridizationFromTypeGCModel2_mg {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+	}
+}

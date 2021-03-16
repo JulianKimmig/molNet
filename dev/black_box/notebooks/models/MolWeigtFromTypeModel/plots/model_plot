@@ -1,0 +1,233 @@
+digraph cluster_MolWeigtFromTypeModel {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+	nodesep=0 ranksep=1.3
+	subgraph cluster_MolWeigtFromTypeModel_atom_ip {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="molNet Graph"
+		cluster_MolWeigtFromTypeModel_atom_ip_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">atom_1</td>
+</tr>
+<tr>
+<td port="1" border="1">atom_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">atom_15</td>
+</tr>
+</table>>
+ shape=none]
+		style=invis
+	}
+	subgraph cluster_MolWeigtFromTypeModelfeaturize {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label=Featurizer
+		cluster_MolWeigtFromTypeModelfeaturize_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i0_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i0_feat_11" border="1">feat_11</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i1_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i1_feat_11" border="1">feat_11</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="i14_feat_2" border="1">feat_2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="i14_feat_11" border="1">feat_11</td>
+</tr>
+</table>>
+ shape=none]
+		cluster_MolWeigtFromTypeModel_atom_ip_l:0 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i0_feat_1
+		cluster_MolWeigtFromTypeModel_atom_ip_l:0 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i0_feat_2
+		cluster_MolWeigtFromTypeModel_atom_ip_l:0 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i0_feat_11
+		cluster_MolWeigtFromTypeModel_atom_ip_l:1 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i1_feat_1
+		cluster_MolWeigtFromTypeModel_atom_ip_l:1 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i1_feat_2
+		cluster_MolWeigtFromTypeModel_atom_ip_l:1 -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i1_feat_11
+		cluster_MolWeigtFromTypeModel_atom_ip_l:n -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i14_feat_1
+		cluster_MolWeigtFromTypeModel_atom_ip_l:n -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i14_feat_2
+		cluster_MolWeigtFromTypeModel_atom_ip_l:n -> cluster_MolWeigtFromTypeModelfeaturize_fnode:i14_feat_11
+	}
+	subgraph cluster_MolWeigtFromTypeModelpool {
+		node [shape=record]
+		newrank=true rankdir=LR ranksep=1 size=188
+		compound=true
+		splines=true
+		style=dotted
+		label="PoolWeightSum layer"
+		subgraph cluster_MolWeigtFromTypeModelpool_fcomb {
+			node [shape=record]
+			newrank=true rankdir=LR ranksep=1 size=188
+			compound=true
+			splines=true
+			style=dotted
+			label="FCNN feature layer"
+			cluster_MolWeigtFromTypeModelfeaturize_fnode:i0_feat_2 -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0]
+			cluster_MolWeigtFromTypeModelfeaturize_fnode:i1_feat_2 -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0]
+			cluster_MolWeigtFromTypeModelfeaturize_fnode:i14_feat_2 -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0]
+			subgraph cluster_MolWeigtFromTypeModelpool_fcomb_fcnn {
+				node [shape=record]
+				newrank=true rankdir=LR ranksep=1 size=188
+				compound=true
+				splines=true
+				style=dotted
+				label="FCNN Graph"
+				subgraph cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0 {
+					node [shape=record]
+					newrank=true rankdir=LR ranksep=1 size=188
+					compound=true
+					splines=true
+					style=dotted
+					label="molNet Graph"
+					cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">1</td>
+</tr>
+<tr>
+<td port="1" border="1">2</td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="n" border="1">11</td>
+</tr>
+</table>>
+ shape=none]
+					style=invis
+				}
+				subgraph cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1 {
+					node [shape=record]
+					newrank=true rankdir=LR ranksep=1 size=188
+					compound=true
+					splines=true
+					style=dotted
+					label="molNet Graph"
+					cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">1</td>
+</tr>
+</table>>
+ shape=none]
+					cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l:0 -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l:0
+					cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l:1 -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l:0
+					cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l0_l:n -> cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l:0
+					style=invis
+				}
+			}
+			subgraph cluster_MolWeigtFromTypeModelpool_fcomb_fnnf {
+				node [shape=record]
+				newrank=true rankdir=LR ranksep=1 size=188
+				compound=true
+				splines=true
+				style=dotted
+				label=""
+				cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="i0_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i1_feat_1" border="1">feat_1</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="reduce" border="1">...</td>
+</tr>
+<tr>
+<td port="space" border="0"></td>
+</tr>
+<tr>
+<td port="i14_feat_1" border="1">feat_1</td>
+</tr>
+</table>>
+ shape=none]
+			}
+			cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l -> cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i0_feat_1 [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fnnf]
+			cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l -> cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i1_feat_1 [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fnnf]
+			cluster_MolWeigtFromTypeModelpool_fcomb_fcnn_l1_l -> cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i14_feat_1 [lhead=cluster_MolWeigtFromTypeModelpool_fcomb_fnnf]
+		}
+		subgraph cluster_MolWeigtFromTypeModelpool_pool {
+			node [shape=record]
+			newrank=true rankdir=LR ranksep=1 size=188
+			compound=true
+			splines=true
+			style=dotted
+			label="Pooling layer"
+			subgraph cluster_MolWeigtFromTypeModelpool_pool_pooled {
+				node [shape=record]
+				newrank=true rankdir=LR ranksep=1 size=188
+				compound=true
+				splines=true
+				style=dotted
+				label="molNet Graph"
+				cluster_MolWeigtFromTypeModelpool_pool_pooled_l [label=<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<tr>
+<td port="0" border="1">feat_1</td>
+</tr>
+</table>>
+ shape=none]
+				style=invis
+			}
+			cluster_MolWeigtFromTypeModelpool_pool_pool_op_feat_1 [label="+" shape=circle]
+			cluster_MolWeigtFromTypeModelpool_pool_pool_op_feat_1 -> cluster_MolWeigtFromTypeModelpool_pool_pooled_l:0
+			cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i0_feat_1 -> cluster_MolWeigtFromTypeModelpool_pool_pool_op_feat_1
+			cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i1_feat_1 -> cluster_MolWeigtFromTypeModelpool_pool_pool_op_feat_1
+			cluster_MolWeigtFromTypeModelpool_fcomb_fnnf_fnode:i14_feat_1 -> cluster_MolWeigtFromTypeModelpool_pool_pool_op_feat_1
+		}
+	}
+}

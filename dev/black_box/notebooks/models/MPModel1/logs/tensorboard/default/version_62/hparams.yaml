@@ -1,0 +1,15 @@
+chem_layer_feats_out: 25
+chem_layer_gc_out: 13
+chem_layer_net_count: 1
+chem_layer_net_sizes: 8
+collector_net_depth: 3
+collector_net_depth_red_fac: 1.255
+in_size: 26
+lr: 0.006773
+n_chem_layer: 2
+name: none
+poolings:
+- pool_max
+- pool_mean
+- pool_min
+- pool_nwsum

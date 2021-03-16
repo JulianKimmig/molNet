@@ -1,0 +1,8 @@
+digraph cluster_HybridizationFromTypeGCModel2 {
+	node [shape=record]
+	newrank=true rankdir=LR ranksep=1 size=188
+	compound=true
+	splines=true
+	style=dotted
+	label="molNet Graph"
+}

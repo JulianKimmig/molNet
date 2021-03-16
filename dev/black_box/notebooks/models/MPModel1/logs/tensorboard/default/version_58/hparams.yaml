@@ -1,0 +1,12 @@
+chem_layer_feats_out: 40
+chem_layer_gc_out: 30
+chem_layer_net_count: 2
+chem_layer_net_sizes: 10
+collector_net_depth: 3
+collector_net_depth_red_fac: 2
+in_size: 26
+lr: 0.001
+n_chem_layer: 6
+name: none
+poolings:
+- pool_wsum
