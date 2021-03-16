@@ -99,8 +99,8 @@ class SMILEError(Exception):
 
 
 class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
-    def __init__(self, mol, name=""):
-        super().__init__()
+    def __init__(self, mol, name="",*args,**kwargs):
+        super().__init__(*args,**kwargs)
         self._mol = mol
         self.name = name
         self.smiles = Chem.MolToSmiles(mol)
@@ -246,7 +246,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
     @classmethod
     def from_smiles(cls, mol_smile, *args, **kwargs):
-        m = cls(Chem.MolFromSmiles(mol_smile, *args, **kwargs))
+        m = cls(Chem.MolFromSmiles(mol_smile), *args, **kwargs)
         return m
 
     @classmethod
