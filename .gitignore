@@ -103,3 +103,5 @@ molNet/tools/parser/CurrentChemID.xml
 
 molNet/tools/parser/all_chem_raw_wiki_data.pickle
 dev/kaggle_comp/
+/dev/black_box/notebooks/MyLogger/
+/dev/black_box/notebooks/models/
