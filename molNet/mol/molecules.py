@@ -250,6 +250,26 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
         ns = name_to_smiles(name)
         return cls.from_smiles(mol_smile=list(ns.keys())[0], name=name, *args, **kwargs)
 
+    def calc_position(self, norm=True):
+        mol = self.mol        
+        AllChem.EmbedMolecule(mol)
+        AllChem.Compute2DCoords(mol)
+        for c in mol.GetConformers():
+            pos = c.GetPositions()
+            pos = pos[:, :2]
+            pos = {i: pos[i] for i in range(pos.shape[0])}
+            break
+        
+        if norm:
+            pos_list = np.zeros((len(pos), 2))
+            for i in range(pos_list.shape[0]):
+                pos_list[i] = pos[i]
+            pos_list[:, 0] -= pos_list[:, 0].min()
+            pos_list[:, 1] -= pos_list[:, 1].min()
+            pos_list /= pos_list.max()
+
+            pos = {i: pos_list[i] for i in range(pos_list.shape[0])}
+        return pos
 
 def molecule_from_name(name, *args, **kwargs):
     return Molecule.from_name(name, *args, **kwargs)
