@@ -7,6 +7,6 @@ def mol_to_svg(mol, size=(200, 200), svg_data=None):
 
     d = rdMolDraw2D.MolDraw2DSVG(*size)
 
-    d.DrawMolecule(mol,**svg_data)
+    d.DrawMolecule(mol, **svg_data)
     d.FinishDrawing()
     return d.GetDrawingText()

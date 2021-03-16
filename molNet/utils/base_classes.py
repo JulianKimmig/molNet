@@ -5,6 +5,7 @@ def modification(func):
 
     return _wrapper
 
+
 def needs_valid(func):
     def _wrapper(*args, **kwargs):
         if not args[0].is_validated():
@@ -30,4 +31,3 @@ class ValidatingObject:
     def validate(self):
         self._validated = True
         return self._validated
-

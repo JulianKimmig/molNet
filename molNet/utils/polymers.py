@@ -56,15 +56,15 @@ class Polymerizer:
         self.monomer_mol = Chem.MolFromSmarts(monomer_smarts)
 
         for atom in self.monomer_mol.GetAtoms():
-            if atom.HasProp('molAtomMapNumber'):
-                if int(atom.GetProp('molAtomMapNumber')) >= 1000:
-                    atom.ClearProp('molAtomMapNumber')
+            if atom.HasProp("molAtomMapNumber"):
+                if int(atom.GetProp("molAtomMapNumber")) >= 1000:
+                    atom.ClearProp("molAtomMapNumber")
 
         for atom in self.polymer_mol.GetAtoms():
-            if atom.HasProp('molAtomMapNumber'):
-                if int(atom.GetProp('molAtomMapNumber')) >= 1000:
+            if atom.HasProp("molAtomMapNumber"):
+                if int(atom.GetProp("molAtomMapNumber")) >= 1000:
                     atom.SetNumRadicalElectrons(atom.GetNumRadicalElectrons() + 1)
-                    atom.ClearProp('molAtomMapNumber')
+                    atom.ClearProp("molAtomMapNumber")
 
     def matches_monomer(self, mol):
         return len(mol.GetSubstructMatches(self.monomer_mol)) > 0
@@ -73,29 +73,36 @@ class Polymerizer:
         return len(mol.GetSubstructMatches(self.polymer_mol)) > 0
 
     def monomer_to_polymer(self, mol):
-        mod_mol = Chem.ReplaceSubstructs(Chem.AddHs(mol),
-                                         self.monomer_mol,
-                                         self.polymer_mol,
-                                         replacementConnectionPoint=0,
-                                         replaceAll=True)
+        mod_mol = Chem.ReplaceSubstructs(
+            Chem.AddHs(mol),
+            self.monomer_mol,
+            self.polymer_mol,
+            replacementConnectionPoint=0,
+            replaceAll=True,
+        )
         return mod_mol[0]
 
 
-METHACRYLATE = Polymerizer(polymer_smarts="OC(=O)[#6:1000]([#6]([#1])([#1])([#1]))[#6:1000]([#1])([#1])",
-                           monomer_smarts="OC(=O)[#6:1000]([#6]([#1])([#1])([#1]))=[#6:1000]([#1])([#1])",
-                           names=["methacrylat", "methacryl"],
-                           )
+METHACRYLATE = Polymerizer(
+    polymer_smarts="OC(=O)[#6:1000]([#6]([#1])([#1])([#1]))[#6:1000]([#1])([#1])",
+    monomer_smarts="OC(=O)[#6:1000]([#6]([#1])([#1])([#1]))=[#6:1000]([#1])([#1])",
+    names=["methacrylat", "methacryl"],
+)
 
-ACRYLATE = Polymerizer(polymer_smarts="OC(=O)[#6:1000]([#1])[#6:1000]([#1])([#1])",
-                       monomer_smarts="OC(=O)[#6:1000]([#1])=[#6:1000]([#1])([#1])",
-                       names=["acrylat", "acryl"],
-                       )
+ACRYLATE = Polymerizer(
+    polymer_smarts="OC(=O)[#6:1000]([#1])[#6:1000]([#1])([#1])",
+    monomer_smarts="OC(=O)[#6:1000]([#1])=[#6:1000]([#1])([#1])",
+    names=["acrylat", "acryl"],
+)
 
-VINYL = Polymerizer(polymer_smarts="[#6:1000]([#1])[#6:1000]([#1])([#1])",
-                    monomer_smarts="[#6:1000]([#1])=[#6:1000]([#1])([#1])",
-                    names=["vinyl"],
-                    )
+VINYL = Polymerizer(
+    polymer_smarts="[#6:1000]([#1])[#6:1000]([#1])([#1])",
+    monomer_smarts="[#6:1000]([#1])=[#6:1000]([#1])([#1])",
+    names=["vinyl"],
+)
 
 AVAILABLE_POLYMER_TYPES = [  # reactivity order important
-    ACRYLATE, METHACRYLATE, VINYL,
+    ACRYLATE,
+    METHACRYLATE,
+    VINYL,
 ]

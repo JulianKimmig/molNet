@@ -4,6 +4,7 @@ import torch
 from torch.nn import _reduction as _Reduction
 from torch.nn.modules.loss import _Loss
 
+
 def rell1_loss(input, target, size_average=None, reduce=None, reduction="mean"):
     # type: (Tensor, Tensor, Optional[bool], Optional[bool], str) -> Tensor
     if not (target.size() == input.size()):

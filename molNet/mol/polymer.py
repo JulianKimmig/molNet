@@ -6,7 +6,7 @@ from rdkit.Chem import Descriptors, rdmolfiles, rdmolops, rdchem
 
 import numpy as np
 
-#from molNet.featurizer.polymer import default_polymer_featurizer
+# from molNet.featurizer.polymer import default_polymer_featurizer
 import molNet.utils.base_classes as mnbc
 from .molecules import Molecule, MolGraph
 
@@ -23,13 +23,20 @@ class ConnectableGroup(Molecule):
         (0.6, 1, 1),
         (1, 0.8, 0.6),
         (0, 0.9, 0.8),
-
     ]
     fee_colors = []
 
-    def __init__(self, mol, expected_connections, connection_indices=None, connection_names=None, connection_map=None,
-                 name=None, color=None):
-        super().__init__(mol,name=name)
+    def __init__(
+        self,
+        mol,
+        expected_connections,
+        connection_indices=None,
+        connection_names=None,
+        connection_map=None,
+        name=None,
+        color=None,
+    ):
+        super().__init__(mol, name=name)
 
         self._connection_names = connection_names
         self._connection_indices = connection_indices
@@ -51,7 +58,9 @@ class ConnectableGroup(Molecule):
             if len(self._connection_names) != len(self._connection_indices):
                 raise ConnectionPointException(
                     "expect connection_names to be of the same size as the connection indices({})".format(
-                        len(self._connection_indices)))
+                        len(self._connection_indices)
+                    )
+                )
         return super(ConnectableGroup, self).validate()
 
     def connection_name(self, index):
@@ -65,39 +74,50 @@ class ConnectableGroup(Molecule):
         n_radicals = Descriptors.NumRadicalElectrons(self._mol)
         if n_radicals < expected_connections:
             raise ConnectionPointException(
-                "no enough connection points (radicals) in molecule ({} of {})".format(n_radicals,
-                                                                                       expected_connections))
+                "no enough connection points (radicals) in molecule ({} of {})".format(
+                    n_radicals, expected_connections
+                )
+            )
 
         if self._connection_indices is None:
             if n_radicals == expected_connections:
                 self._connection_indices = []
                 for atom in self._mol.GetAtoms():
-                    self._connection_indices.extend([atom.GetIdx()] * atom.GetNumRadicalElectrons())
+                    self._connection_indices.extend(
+                        [atom.GetIdx()] * atom.GetNumRadicalElectrons()
+                    )
             else:
                 raise ConnectionPointException(
                     "more radicals avaiable ({}) than needed ({}). Please specify conencting point via the 'connection_indices' argument. To get indices look at the mol object from ConnectableGroup.get_mol(with_numbers=True).".format(
-                        n_radicals, expected_connections)
+                        n_radicals, expected_connections
+                    )
                 )
 
         if expected_connections > len(self._connection_indices):
             raise ConnectionPointException(
-                "more connection points need ({}) than specified ({})".format(expected_connections, len(
-                    self._connection_indices))
+                "more connection points need ({}) than specified ({})".format(
+                    expected_connections, len(self._connection_indices)
+                )
             )
 
         if expected_connections < len(self._connection_indices):
             raise ConnectionPointException(
                 "more connection points specified ({}) than need ({})".format(
-                    len(self._connection_indices),
-                    expected_connections)
+                    len(self._connection_indices), expected_connections
+                )
             )
 
         for i in set(self._connection_indices):
-            if self._mol.GetAtomWithIdx(i).GetNumRadicalElectrons() < self._connection_indices.count(i):
+            if self._mol.GetAtomWithIdx(
+                i
+            ).GetNumRadicalElectrons() < self._connection_indices.count(i):
                 raise ConnectionPointException(
                     "Expect the atom with index '{}' to have at least {} radicals, but found only {}".format(
-                        i, self._connection_indices.count(i), self._mol.GetAtomWithIdx(i).GetNumRadicalElectrons()
-                    ))
+                        i,
+                        self._connection_indices.count(i),
+                        self._mol.GetAtomWithIdx(i).GetNumRadicalElectrons(),
+                    )
+                )
 
     @property
     def connection_names(self):
@@ -106,7 +126,11 @@ class ConnectableGroup(Molecule):
     def get_connection_indices(self, name=None):
         if name is None:
             return self._connection_indices
-        return [self._connection_indices[i] for i, n in enumerate(self._connection_names) if n == name]
+        return [
+            self._connection_indices[i]
+            for i, n in enumerate(self._connection_names)
+            if n == name
+        ]
 
     connection_indices = property(get_connection_indices)
 
@@ -115,7 +139,9 @@ class ConnectableGroup(Molecule):
             return None
         if name is None:
             return list(self._connection_map.keys())
-        return list(set([key for key, clist in self._connection_map.items() if name in clist]))
+        return list(
+            set([key for key, clist in self._connection_map.items() if name in clist])
+        )
 
     def get_mol(self, with_numbers=False, with_connection_indicator=True):
         mol = super().get_mol(with_numbers=with_numbers)
@@ -126,8 +152,12 @@ class ConnectableGroup(Molecule):
                 self.validate()
             for i, idx in enumerate(self._connection_indices):
                 add_atom = Chem.Atom(0)
-                add_atom.SetProp('atomLabel',
-                                 "R" + str(i) if self._connection_names[i] is None else self._connection_names[i])
+                add_atom.SetProp(
+                    "atomLabel",
+                    "R" + str(i)
+                    if self._connection_names[i] is None
+                    else self._connection_names[i],
+                )
                 add_idx = mol.AddAtom(add_atom)
                 mol.AddBond(add_idx, idx, rdchem.BondType.SINGLE)
             mol = mol.GetMol()
@@ -153,17 +183,20 @@ class RepatingUnit(ConnectableGroup):
                     expected_connections = len(connection_indices)
         if expected_connections is None:
             expected_connections = 2
-        super(RepatingUnit, self).__init__(*args, **kwargs, expected_connections=expected_connections)
+        super(RepatingUnit, self).__init__(
+            *args, **kwargs, expected_connections=expected_connections
+        )
 
 
 class PolyGraph(MolGraph):
-    def featurize(self,featurizer=None,name="molNet_features"):
+    def featurize(self, featurizer=None, name="molNet_features"):
         if featurizer is None:
-            featurizer=default_polymer_featurizer
+            featurizer = default_polymer_featurizer
 
         for n in self.nodes:
             node = self.nodes[n]
-            node[name]=featurizer(node['unit'])
+            node[name] = featurizer(node["unit"])
+
 
 class Polymer(mnbc.ValidatingObject):
     def __init__(self):
@@ -206,7 +239,12 @@ class Polymer(mnbc.ValidatingObject):
 
         if len(expected_connections - (to_connections.union(from_connections))) > 0:
             warnings.warn(
-                "cannot connect '{}'".format(",".join(expected_connections - (to_connections.union(from_connections)))))
+                "cannot connect '{}'".format(
+                    ",".join(
+                        expected_connections - (to_connections.union(from_connections))
+                    )
+                )
+            )
 
         return super(Polymer, self).validate()
 
@@ -248,23 +286,25 @@ class Polymer(mnbc.ValidatingObject):
         repeating_unit.validate()
         if ratio < 0:
             raise ValueError("ratio cannot be smaller than 0")
-        self._repeating_units.append({
-            'ratio': ratio,
-            'repeating_unit': repeating_unit,
-        })
+        self._repeating_units.append(
+            {
+                "ratio": ratio,
+                "repeating_unit": repeating_unit,
+            }
+        )
 
     @mnbc.needs_valid
     def get_random_mol(self, g=None, highlight_units=False):
         data = {}
         if highlight_units:
-            data['highlight_atoms'] = {}
-            data['highlight_bonds'] = {}
+            data["highlight_atoms"] = {}
+            data["highlight_bonds"] = {}
 
         units = []
         if g is None:
             g = self.get_random_graph()
         for node in g.nodes:
-            unit = g.nodes[node]['unit']
+            unit = g.nodes[node]["unit"]
             units.append(unit)
         em = Chem.EditableMol(Chem.Mol())
 
@@ -278,15 +318,21 @@ class Polymer(mnbc.ValidatingObject):
 
             for i, atom in enumerate(mol.GetAtoms()):
                 at_idx = em.AddAtom(atom)
-                at_idxs[i] = at_idx;
+                at_idxs[i] = at_idx
                 if highlight_units:
-                    data['highlight_atoms'][at_idx] = unit.color
+                    data["highlight_atoms"][at_idx] = unit.color
 
             for i, bond in enumerate(mol.GetBonds()):
-                bond_id = em.AddBond(at_idxs[bond.GetBeginAtomIdx()], at_idxs[bond.GetEndAtomIdx()],
-                                     bond.GetBondType()) - 1
+                bond_id = (
+                    em.AddBond(
+                        at_idxs[bond.GetBeginAtomIdx()],
+                        at_idxs[bond.GetEndAtomIdx()],
+                        bond.GetBondType(),
+                    )
+                    - 1
+                )
                 if highlight_units:
-                    data['highlight_bonds'][bond_id] = unit.color
+                    data["highlight_bonds"][bond_id] = unit.color
 
             free_connection_indices.append(unit.get_connection_indices().copy())
             unit_atomidx.append(at_idxs)
@@ -303,11 +349,15 @@ class Polymer(mnbc.ValidatingObject):
             start_free_connection_indices = free_connection_indices[start_unit]
             end_free_connection_indices = free_connection_indices[end_unit]
 
-            from_indices = units[start_unit].get_connection_indices(edge['from_type'])
-            to_indices = units[end_unit].get_connection_indices(edge['to_type'])
+            from_indices = units[start_unit].get_connection_indices(edge["from_type"])
+            to_indices = units[end_unit].get_connection_indices(edge["to_type"])
 
-            possible_froms = list(set(start_free_connection_indices).intersection(set(from_indices)))
-            possible_tos = list(set(end_free_connection_indices).intersection(set(to_indices)))
+            possible_froms = list(
+                set(start_free_connection_indices).intersection(set(from_indices))
+            )
+            possible_tos = list(
+                set(end_free_connection_indices).intersection(set(to_indices))
+            )
 
             _from = possible_froms[0]
             _to = possible_tos[-1]
@@ -334,7 +384,7 @@ class Polymer(mnbc.ValidatingObject):
         mass = 0
 
         mol_indices = np.arange(len(self._repeating_units))
-        mol_weights = np.array([ru['ratio'] for ru in self._repeating_units])
+        mol_weights = np.array([ru["ratio"] for ru in self._repeating_units])
         mol_weights = mol_weights / mol_weights.sum()
 
         g = PolyGraph()
@@ -346,10 +396,12 @@ class Polymer(mnbc.ValidatingObject):
         connections_dict_name_idx = {}
 
         def add_unit(unit):
-            g.add_node(len(g), unit=unit,
-                       label=str(unit),
-                       free_conenctions=unit.connection_names,
-                       )
+            g.add_node(
+                len(g),
+                unit=unit,
+                label=str(unit),
+                free_conenctions=unit.connection_names,
+            )
 
             fc = []
             for n in unit.connection_names:
@@ -366,64 +418,68 @@ class Polymer(mnbc.ValidatingObject):
         while mass < self.mn:
             mol_id = np.random.choice(mol_indices, p=mol_weights)
             ru_o = self._repeating_units[mol_id]
-            ru = ru_o['repeating_unit']
+            ru = ru_o["repeating_unit"]
             add_unit(ru)
-            if 'mass' not in ru_o:
-                ru_o['mass'] = Descriptors.MolWt(ru.mol)
-            mass += ru_o['mass']
+            if "mass" not in ru_o:
+                ru_o["mass"] = Descriptors.MolWt(ru.mol)
+            mass += ru_o["mass"]
 
-        possible_connection_type_matrix = np.zeros((len(connections_dict_name_idx), len(connections_dict_name_idx)),dtype=bool)
+        possible_connection_type_matrix = np.zeros(
+            (len(connections_dict_name_idx), len(connections_dict_name_idx)), dtype=bool
+        )
         for ct, i in connections_dict_name_idx.items():
             for t in self.connection_map[ct]:
                 possible_connection_type_matrix[i, connections_dict_name_idx[t]] = True
-        n_free_connections=np.array(n_free_connections)
+        n_free_connections = np.array(n_free_connections)
         connections_dict_idx_name = {x: y for y, x in connections_dict_name_idx.items()}
         node_indces = np.array(np.arange(len(g)))
         bond_indces = np.array(np.arange(possible_connection_type_matrix.shape[0]))
-        nodes_bonds_matrix = np.zeros((node_indces.shape[0], possible_connection_type_matrix.shape[0]),dtype=int)
+        nodes_bonds_matrix = np.zeros(
+            (node_indces.shape[0], possible_connection_type_matrix.shape[0]), dtype=int
+        )
         for i, fc_set in enumerate(free_connections):
             for j in fc_set:
                 nodes_bonds_matrix[i, j] += 1
 
+        active_nodes = np.zeros(node_indces.shape[0], dtype=bool)
 
-        active_nodes=np.zeros(node_indces.shape[0],dtype=bool)
-
-        active_nodes[0]=True
-
+        active_nodes[0] = True
 
         while True:
             possible_active_nodes = node_indces[active_nodes]
-            free_other_nodes = node_indces[n_free_connections>0]
+            free_other_nodes = node_indces[n_free_connections > 0]
             np.random.shuffle(possible_active_nodes)
             np.random.shuffle(free_other_nodes)
 
-            found=False
+            found = False
             for pan in possible_active_nodes:
-                source_bond_indices = bond_indces[nodes_bonds_matrix[pan]>0]
-                for fon in free_other_nodes[free_other_nodes!=pan]:
-                    #if pan == fon:
+                source_bond_indices = bond_indces[nodes_bonds_matrix[pan] > 0]
+                for fon in free_other_nodes[free_other_nodes != pan]:
+                    # if pan == fon:
                     #    continue
                     for sbi in source_bond_indices:
-                        sbc=nodes_bonds_matrix[pan,sbi]
-                        if sbc<=0:
+                        sbc = nodes_bonds_matrix[pan, sbi]
+                        if sbc <= 0:
                             continue
                         for tbi in bond_indces[possible_connection_type_matrix[sbi]]:
-                            tbc=nodes_bonds_matrix[fon,tbi]
-                            if tbc<=0:
+                            tbc = nodes_bonds_matrix[fon, tbi]
+                            if tbc <= 0:
                                 continue
-                            found=True
-                            #print(pan,fon,sbi,tbi)
-                            nodes_bonds_matrix[pan,sbi]-=1
-                            nodes_bonds_matrix[fon,tbi]-=1
-                            n_free_connections[pan]-=1
-                            n_free_connections[fon]-=1
-                            active_nodes[fon]=True
+                            found = True
+                            # print(pan,fon,sbi,tbi)
+                            nodes_bonds_matrix[pan, sbi] -= 1
+                            nodes_bonds_matrix[fon, tbi] -= 1
+                            n_free_connections[pan] -= 1
+                            n_free_connections[fon] -= 1
+                            active_nodes[fon] = True
                             active_nodes[pan] = n_free_connections[pan] > 0
                             active_nodes[fon] = n_free_connections[fon] > 0
-                            e = g.add_edge(pan, fon,
-                                           from_type=connections_dict_idx_name[sbi],
-                                           to_type=connections_dict_idx_name[tbi],
-                                           )
+                            e = g.add_edge(
+                                pan,
+                                fon,
+                                from_type=connections_dict_idx_name[sbi],
+                                to_type=connections_dict_idx_name[tbi],
+                            )
                             break
                         if found:
                             break
@@ -440,29 +496,31 @@ class Polymer(mnbc.ValidatingObject):
             warnings.warn("could not connect all units. {} subunits found".format(n_sg))
         return g
 
-    def as_macrocycle(self,size=10):
+    def as_macrocycle(self, size=10):
         in_us = 0
         mol_indices = np.arange(len(self._repeating_units))
-        mol_weights = np.array([ru['ratio'] for ru in self._repeating_units])
+        mol_weights = np.array([ru["ratio"] for ru in self._repeating_units])
         mol_weights = mol_weights / mol_weights.sum()
 
         g = nx.DiGraph()
 
-        next_connectable=[]
+        next_connectable = []
 
-        next_connection_sources={}
+        next_connection_sources = {}
 
         def add_unit(unit):
             global next_conenctable
-            g.add_node(len(g), unit=unit,
-                       label=str(unit),
-                       free_conenctions=unit.connection_names,
-                       )
-            next_connectable=[]
+            g.add_node(
+                len(g),
+                unit=unit,
+                label=str(unit),
+                free_conenctions=unit.connection_names,
+            )
+            next_connectable = []
             for n in unit.connection_names:
                 next_connectable.extend(self.connection_map[n])
 
-        closed=False
+        closed = False
 
         mol_id = np.random.choice(mol_indices, p=mol_weights)
         ru_o = self._repeating_units[mol_id]
@@ -473,7 +531,9 @@ class Polymer(mnbc.ValidatingObject):
             ru_o = self._repeating_units[mol_id]
             if ru_o.connection_names in next_connectable:
                 add_unit(ru_o)
-                e = g.add_edge(len(g)-2, len(g)-1,
-                               from_type=connections_dict_idx_name[sbi],
-                               to_type=connections_dict_idx_name[tbi],
-                               )
+                e = g.add_edge(
+                    len(g) - 2,
+                    len(g) - 1,
+                    from_type=connections_dict_idx_name[sbi],
+                    to_type=connections_dict_idx_name[tbi],
+                )

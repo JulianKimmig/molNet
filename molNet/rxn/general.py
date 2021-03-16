@@ -10,7 +10,7 @@ except:
 import numpy as np
 
 
-class Substance():
+class Substance:
     def __init__(self, name=None):
         self.name = name
 
@@ -24,7 +24,7 @@ class Substance():
         return str(self)
 
 
-class Reaction():
+class Reaction:
     def __init__(self, k=0, reactants=[], products=[]):
         self._reactants = []
         self._products = []
@@ -86,22 +86,41 @@ class Reaction():
 
     def __str__(self):
         s = "{} --> {}".format(
-            " + ".join(["{} {}".format(e[1], e[0]) for e in self.get_reactants(with_stoichiometry=True)]),
-            " + ".join(["{} {}".format(p[1], p[0]) for p in self.get_products(with_stoichiometry=True)])
+            " + ".join(
+                [
+                    "{} {}".format(e[1], e[0])
+                    for e in self.get_reactants(with_stoichiometry=True)
+                ]
+            ),
+            " + ".join(
+                [
+                    "{} {}".format(p[1], p[0])
+                    for p in self.get_products(with_stoichiometry=True)
+                ]
+            ),
         )
         return s
 
     def _repr_latex_(self):
         s = "${} \\xrightarrow{{ {} }}  {}$".format(
-            " + ".join(["{} {}".format(e[1], e[0]) for e in self.get_reactants(with_stoichiometry=True)]),
+            " + ".join(
+                [
+                    "{} {}".format(e[1], e[0])
+                    for e in self.get_reactants(with_stoichiometry=True)
+                ]
+            ),
             self.k,
-            " + ".join(["{} {}".format(p[1], p[0]) for p in self.get_products(with_stoichiometry=True)])
+            " + ".join(
+                [
+                    "{} {}".format(p[1], p[0])
+                    for p in self.get_products(with_stoichiometry=True)
+                ]
+            ),
         )
         return s
 
 
-class ReactionSet():
-
+class ReactionSet:
     def __init__(self):
         self._reactions = []
 
@@ -122,10 +141,20 @@ class ReactionSet():
         ks = np.array([r.k for r in reactions], dtype=np.float)
         all_substances = self.all_substances()
 
-        res_prod = np.array([[r.get_product_stoichiometry(p) for p in all_substances] for r in reactions],
-                            dtype=np.float)
-        res_ed = np.array([[r.get_reactant_stoichiometry(e) for e in all_substances] for r in reactions],
-                          dtype=np.float)
+        res_prod = np.array(
+            [
+                [r.get_product_stoichiometry(p) for p in all_substances]
+                for r in reactions
+            ],
+            dtype=np.float,
+        )
+        res_ed = np.array(
+            [
+                [r.get_reactant_stoichiometry(e) for e in all_substances]
+                for r in reactions
+            ],
+            dtype=np.float,
+        )
         exp = res_ed
         res = res_prod - res_ed
 
@@ -147,7 +176,7 @@ class ReactionSet():
             for i in range(len(x2)):
                 x3[i, 0] = x2[i]
             x3 = (x3 * _res).T
-            x3 = (x3 * _ks)
+            x3 = x3 * _ks
             x4 = np.empty(x3.shape[0], dtype=y.dtype)
             for i in range(len(x4)):
                 x4[i] = np.sum(x3[i, :])
@@ -155,9 +184,12 @@ class ReactionSet():
             return x4
 
         if JIT_AVAILABLE:
-            _step_diff = numba.njit(['float64[:](float64[:],float64[:,:],float64[:,:],float64[:])',
-                                     'float32[:](float32[:],float32[:,:],float32[:,:],float32[:])'
-                                     ])(_step_diff_jit)
+            _step_diff = numba.njit(
+                [
+                    "float64[:](float64[:],float64[:,:],float64[:,:],float64[:])",
+                    "float32[:](float32[:],float32[:,:],float32[:,:],float32[:])",
+                ]
+            )(_step_diff_jit)
 
         def step_diff(y, t):
             if not isinstance(y, np.ndarray):
@@ -166,15 +198,16 @@ class ReactionSet():
                 y = y.astype(np.float)
             return _step_diff(y, exp, res, ks)
 
-        return step_diff, {'substances': all_substances,
-                           'reactions': reactions,
-                           'res_prod': res_prod,
-                           'res_ed': res_ed,
-                           'exp': exp,
-                           'res': res,
-                           'ks': ks,
-                           '_step_diff': _step_diff
-                           }
+        return step_diff, {
+            "substances": all_substances,
+            "reactions": reactions,
+            "res_prod": res_prod,
+            "res_ed": res_ed,
+            "exp": exp,
+            "res": res,
+            "ks": ks,
+            "_step_diff": _step_diff,
+        }
 
     def all_reactants(self):
         d = []
@@ -192,4 +225,6 @@ class ReactionSet():
         return list(set(d))
 
     def _repr_latex_(self):
-        return "$" + " \\\\ ".join([r._repr_latex_()[1:-1] for r in self._reactions]) + "$"
+        return (
+            "$" + " \\\\ ".join([r._repr_latex_()[1:-1] for r in self._reactions]) + "$"
+        )

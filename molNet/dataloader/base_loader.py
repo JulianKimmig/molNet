@@ -17,7 +17,7 @@ BASE_DATA_DIR = os.path.join(os.path.expanduser("~"), ".molNet", "data")
 def file_hash(file):
     BUF_SIZE = 65536
     md5 = hashlib.md5()
-    with open(file, 'rb') as f:
+    with open(file, "rb") as f:
         while True:
             data = f.read(BUF_SIZE)
             if not data:
@@ -74,6 +74,7 @@ class GeneratorDataset(IterableDataset):
     def __next__(self):
         return self.data_transformer(next(self.generator))
 
+
 class DirectDataLoader(DataLoader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, collate_fn=lambda batch: batch)
@@ -82,14 +83,21 @@ class DirectDataLoader(DataLoader):
 class BaseLoader(pl.LightningDataModule):
     dataloader = DataLoader
 
-    def __init__(self, split=[0.7, 0.15, 0.15],shuffle=True, seed=None, batch_size=32,**dataloader_kwargs):
+    def __init__(
+        self,
+        split=[0.7, 0.15, 0.15],
+        shuffle=True,
+        seed=None,
+        batch_size=32,
+        **dataloader_kwargs
+    ):
         super().__init__()
         self.shuffle = shuffle
         self.batch_size = batch_size
         self.seed = seed
         self.split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
         self.split = self.split / self.split.sum()
-        self.datalaoder_kwargs=dataloader_kwargs
+        self.datalaoder_kwargs = dataloader_kwargs
 
     def generate_full_dataset(self):
         raise NotImplementedError()
@@ -106,30 +114,48 @@ class BaseLoader(pl.LightningDataModule):
                 gen = torch.Generator().manual_seed(self.seed)
             else:
                 gen = torch.default_generator
-            self.train_ds, self.val_ds, self.test_ds = random_split(data, split, generator=gen)
+            self.train_ds, self.val_ds, self.test_ds = random_split(
+                data, split, generator=gen
+            )
         else:
             indices = np.arange(sum(split))
-            self.train_ds, self.val_ds, self.test_ds =  [Subset(data, indices[offset - length : offset]) for offset, length in zip(np.add.accumulate(split), split)]
+            self.train_ds, self.val_ds, self.test_ds = [
+                Subset(data, indices[offset - length : offset])
+                for offset, length in zip(np.add.accumulate(split), split)
+            ]
 
     def train_dataloader(self):
         if self.train_ds is not None:
-            return self.dataloader(self.train_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
+            return self.dataloader(
+                self.train_ds, batch_size=self.batch_size, **self.datalaoder_kwargs
+            )
         return None
 
     def val_dataloader(self):
         if self.val_ds is not None:
-            return self.dataloader(self.val_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
+            return self.dataloader(
+                self.val_ds, batch_size=self.batch_size, **self.datalaoder_kwargs
+            )
         return None
 
     def test_dataloader(self):
         if self.test_ds is not None:
-            return self.dataloader(self.test_ds, batch_size=self.batch_size,**self.datalaoder_kwargs)
+            return self.dataloader(
+                self.test_ds, batch_size=self.batch_size, **self.datalaoder_kwargs
+            )
         return None
 
 
 class GeneratorDataLoader(BaseLoader):
-    def __init__(self, generator, val_generator=None, test_generator=None, generatordataset_class=GeneratorDataset,
-                 *args, **kwargs):
+    def __init__(
+        self,
+        generator,
+        val_generator=None,
+        test_generator=None,
+        generatordataset_class=GeneratorDataset,
+        *args,
+        **kwargs
+    ):
         super().__init__(**kwargs)
         self.val_generator = val_generator
         self.test_generator = test_generator
@@ -138,16 +164,34 @@ class GeneratorDataLoader(BaseLoader):
 
     def setup(self, stage=None):
         self.train_ds = self.generatordataset_class(self.generator)
-        self.val_ds = self.generatordataset_class(self.val_generator) if self.val_generator else None
-        self.test_ds = self.generatordataset_class(self.test_generator) if self.test_generator else None
+        self.val_ds = (
+            self.generatordataset_class(self.val_generator)
+            if self.val_generator
+            else None
+        )
+        self.test_ds = (
+            self.generatordataset_class(self.test_generator)
+            if self.test_generator
+            else None
+        )
+
 
 class DataFrameDataLoader(BaseLoader):
-    def __init__(self, df,*args, **kwargs):
+    def __init__(self, df, *args, **kwargs):
         super().__init__(**kwargs)
-        self.df=df
+        self.df = df
+
 
 class SingleFileLoader(BaseLoader):
-    def __init__(self, source_file, data_dir=BASE_DATA_DIR, reload=False, save=True, *args, **kwargs):
+    def __init__(
+        self,
+        source_file,
+        data_dir=BASE_DATA_DIR,
+        reload=False,
+        save=True,
+        *args,
+        **kwargs
+    ):
         super().__init__(**kwargs)
         self.save = save
         self.reload = reload
@@ -167,7 +211,7 @@ class SingleFileLoader(BaseLoader):
         if not self.save:
             return None
         if self._folder is None:
-            self._folder = os.path.join(self.data_dir, self.data_map_entry['folder'])
+            self._folder = os.path.join(self.data_dir, self.data_map_entry["folder"])
         return self._folder
 
     @property
@@ -178,10 +222,11 @@ class SingleFileLoader(BaseLoader):
             data_map = pd.read_csv(os.path.join(self.data_dir, "data_map.csv"))
             hash = file_hash(self.source_file)
             size = os.path.getsize(self.source_file)
-            self._data_map_entry = \
-                data_map[
-                    (data_map['hash'] == hash) & (data_map['size'] == size) & (data_map['loader'] == repr(self))].iloc[
-                    0]
+            self._data_map_entry = data_map[
+                (data_map["hash"] == hash)
+                & (data_map["size"] == size)
+                & (data_map["loader"] == repr(self))
+            ].iloc[0]
         return self._data_map_entry
 
     def prepare_data(self):
@@ -192,47 +237,54 @@ class SingleFileLoader(BaseLoader):
         else:
             data_map = pd.DataFrame()
         if "source_file" not in data_map.columns:
-            data_map['source_file'] = None
+            data_map["source_file"] = None
         if "hash" not in data_map.columns:
-            data_map['hash'] = None
+            data_map["hash"] = None
         if "size" not in data_map.columns:
-            data_map['size'] = None
+            data_map["size"] = None
         if "folder" not in data_map.columns:
-            data_map['folder'] = None
+            data_map["folder"] = None
         if "loader" not in data_map.columns:
-            data_map['loader'] = None
+            data_map["loader"] = None
 
         hash = file_hash(self.source_file)
         size = os.path.getsize(self.source_file)
 
-        entry = data_map[(data_map['hash'] == hash) & (data_map['size'] == size) & (data_map['loader'] == repr(self))]
+        entry = data_map[
+            (data_map["hash"] == hash)
+            & (data_map["size"] == size)
+            & (data_map["loader"] == repr(self))
+        ]
         if len(entry) == 0:
             folder_base = "{}".format(hash)
             folder = folder_base
             i = 0
-            while len(data_map[data_map['folder'] == folder]) > 0:
+            while len(data_map[data_map["folder"] == folder]) > 0:
                 i += 1
                 folder = "{}_{}".format(folder_base, i)
 
-            data_map = data_map.append({
-                'hash': hash,
-                'size': size,
-                'source_file': self.source_file,
-                'folder': folder,
-                'loader': repr(self)
-            }, ignore_index=True)
+            data_map = data_map.append(
+                {
+                    "hash": hash,
+                    "size": size,
+                    "source_file": self.source_file,
+                    "folder": folder,
+                    "loader": repr(self),
+                },
+                ignore_index=True,
+            )
 
         data_map.to_csv(os.path.join(self.data_dir, "data_map.csv"), index=False)
         entry = self.data_map_entry
-        os.makedirs(os.path.join(self.data_dir, entry['folder']), exist_ok=True)
+        os.makedirs(os.path.join(self.data_dir, entry["folder"]), exist_ok=True)
 
 
-class DataFrameGenerator():
+class DataFrameGenerator:
     def __init__(self, df, processing=None):
         self.processing = processing
         self._length = len(df.index)
         self.df = df
-        self._iter=self._continue()
+        self._iter = self._continue()
 
     def __len__(self):
         return self._length
@@ -249,7 +301,15 @@ class DataFrameGenerator():
         return next(self._iter)
 
 
-def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None,shuffle=True, generator_class=DataFrameGenerator,*args,**kwargs):
+def df_to_generator(
+    df,
+    split=[0.7, 0.15, 0.15],
+    seed=None,
+    shuffle=True,
+    generator_class=DataFrameGenerator,
+    *args,
+    **kwargs
+):
     split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
     split = split / split.sum()
     if seed is not None:
@@ -258,6 +318,18 @@ def df_to_generator(df, split=[0.7, 0.15, 0.15], seed=None,shuffle=True, generat
     if shuffle:
         np.random.shuffle(indices)
     split_cs = (np.cumsum(split) * len(df.index)).astype(int)
-    return generator_class(df.iloc[indices[0:split_cs[0]]].reset_index(drop=True),*args,**kwargs), \
-           generator_class(df.iloc[indices[split_cs[0]:split_cs[1]]].reset_index(drop=True),*args,**kwargs), \
-           generator_class(df.iloc[indices[split_cs[1]:split_cs[2]]].reset_index(drop=True),*args,**kwargs)
+    return (
+        generator_class(
+            df.iloc[indices[0 : split_cs[0]]].reset_index(drop=True), *args, **kwargs
+        ),
+        generator_class(
+            df.iloc[indices[split_cs[0] : split_cs[1]]].reset_index(drop=True),
+            *args,
+            **kwargs
+        ),
+        generator_class(
+            df.iloc[indices[split_cs[1] : split_cs[2]]].reset_index(drop=True),
+            *args,
+            **kwargs
+        ),
+    )

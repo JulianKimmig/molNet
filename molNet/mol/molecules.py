@@ -22,7 +22,7 @@ DATATYPES_MAP = {
     "NONE": (type(None)),
     "BOOL": (bool, np.bool_),
 }
-DATATYPES = type('', (), {})()
+DATATYPES = type("", (), {})()
 DATATYPES.STRING = "STRING"
 DATATYPES.NONE = "NONE"
 DATATYPES.INT = "INT"
@@ -99,7 +99,6 @@ class SMILEError(Exception):
 
 
 class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
-
     def __init__(self, mol, name=""):
         super().__init__()
         self._mol = mol
@@ -123,14 +122,12 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
         if smiles == to_s:
             self.set_property("smiles", smiles, dtype=DATATYPES.STRING)
             return
-        
+
         conv_s = Chem.MolToSmiles(Chem.MolFromSmiles(smiles, sanitize=False))
         if not to_s == conv_s:
-            raise SMILEError("smiles dont match {} and {} as {}".format(
-                to_s,
-                smiles,
-                conv_s
-            ))
+            raise SMILEError(
+                "smiles dont match {} and {} as {}".format(to_s, smiles, conv_s)
+            )
         self.set_property("smiles", smiles, dtype=DATATYPES.STRING)
 
     @property
@@ -163,7 +160,9 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
         if with_numbers:
             atoms = mol.GetNumAtoms()
             for idx in range(atoms):
-                mol.GetAtomWithIdx(idx).SetProp('molAtomMapNumber', str(mol.GetAtomWithIdx(idx).GetIdx()))
+                mol.GetAtomWithIdx(idx).SetProp(
+                    "molAtomMapNumber", str(mol.GetAtomWithIdx(idx).GetIdx())
+                )
         return mol
 
     def to_svg(self, size=(200, 200), svg_data=None, mol_data=None):
@@ -182,8 +181,8 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
     def as_dict(self):
         return {
-            'properties': self._properties,
-            **{'_mol_prob_' + str(key): val for key, val in self._mol.GetPropsAsDict()}
+            "properties": self._properties,
+            **{"_mol_prob_" + str(key): val for key, val in self._mol.GetPropsAsDict()},
         }
 
     def get_random_smiles(self, max_smiles=1000):
@@ -198,12 +197,17 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
                         for isomericSmiles in [True, False]:
                             for canonical in [True, False]:
                                 for atom in m.GetAtoms():
-                                    possibilities.append(dict(mol=m, canonical=canonical,
-                                                              allHsExplicit=allHsExplicit,
-                                                              rootedAtAtom=atom.GetIdx(),
-                                                              allBondsExplicit=allBondsExplicit,
-                                                              kekuleSmiles=kekuleSmiles,
-                                                              isomericSmiles=isomericSmiles, ))
+                                    possibilities.append(
+                                        dict(
+                                            mol=m,
+                                            canonical=canonical,
+                                            allHsExplicit=allHsExplicit,
+                                            rootedAtAtom=atom.GetIdx(),
+                                            allBondsExplicit=allBondsExplicit,
+                                            kekuleSmiles=kekuleSmiles,
+                                            isomericSmiles=isomericSmiles,
+                                        )
+                                    )
 
         indices = np.arange(len(possibilities))
         np.random.shuffle(indices)
@@ -222,7 +226,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
     @staticmethod
     def save(molecule, path, method="pickle"):
-        with open(path, 'wb') as f:
+        with open(path, "wb") as f:
             if method == "pickle":
                 pickle.dump(molecule, f)
             else:
@@ -231,7 +235,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
     @staticmethod
     def load(path, method="pickle"):
         obj = None
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             if method == "pickle":
                 obj = pickle.load(f)
                 if not isinstance(obj, Molecule):
@@ -251,7 +255,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
         return cls.from_smiles(mol_smile=list(ns.keys())[0], name=name, *args, **kwargs)
 
     def calc_position(self, norm=True):
-        mol = self.mol        
+        mol = self.mol
         AllChem.EmbedMolecule(mol)
         AllChem.Compute2DCoords(mol)
         for c in mol.GetConformers():
@@ -259,7 +263,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
             pos = pos[:, :2]
             pos = {i: pos[i] for i in range(pos.shape[0])}
             break
-        
+
         if norm:
             pos_list = np.zeros((len(pos), 2))
             for i in range(pos_list.shape[0]):
@@ -270,6 +274,7 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
             pos = {i: pos_list[i] for i in range(pos_list.shape[0])}
         return pos
+
 
 def molecule_from_name(name, *args, **kwargs):
     return Molecule.from_name(name, *args, **kwargs)
@@ -282,7 +287,9 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
         self._mol = None
         self._molecule = None
 
-    def featurize(self, atom_featurizer=None, name="molNet_features", molecule_featurizer=None):
+    def featurize(
+        self, atom_featurizer=None, name="molNet_features", molecule_featurizer=None
+    ):
         if atom_featurizer is None:
             atom_featurizer = default_atom_featurizer
 
@@ -295,7 +302,9 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             node = self.nodes[n]
             node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
 
-        return np.array([data[name] for n, data in self.nodes(data=True)]), np.array(self.mol_features)
+        return np.array([data[name] for n, data in self.nodes(data=True)]), np.array(
+            self.mol_features
+        )
 
     def get_mol(self):
         return self.molecule.mol
@@ -346,8 +355,15 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             g.set_property(prop, molecule.get_property(prop), dtype=dtype)
         return g
 
-    def to_graph_input(self, node_feature_names=True, with_properties=True, y_properties=[], with_mol_graph=False,
-                       with_mol=False, **add_kwargs):
+    def to_graph_input(
+        self,
+        node_feature_names=True,
+        with_properties=True,
+        y_properties=[],
+        with_mol_graph=False,
+        with_mol=False,
+        **add_kwargs
+    ):
         first_node = self.nodes[next(iter(self.nodes))]
 
         if node_feature_names is True:
@@ -356,7 +372,11 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
         feature_length = 0
         for node_feature_name in node_feature_names:
             if node_feature_name not in first_node:
-                raise ValueError("'{}' not available, please call featurize first".format(node_feature_name))
+                raise ValueError(
+                    "'{}' not available, please call featurize first".format(
+                        node_feature_name
+                    )
+                )
             feature_length += len(first_node[node_feature_name])
 
         node_features = np.zeros((self.number_of_nodes(), feature_length))
@@ -366,7 +386,7 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             f = 0
             for node_feature_name in node_feature_names:
                 fl = len(node[node_feature_name])
-                node_feats[f:f + fl] = node[node_feature_name]
+                node_feats[f : f + fl] = node[node_feature_name]
                 f += fl
             node_features[n] = node_feats
 
@@ -401,7 +421,11 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
                 y_titles[len(y)] = prop
                 y.append(new_feats)
             else:
-                raise TypeError("for y values the prob should be numerical but is '{}'".format(dtype))
+                raise TypeError(
+                    "for y values the prob should be numerical but is '{}'".format(
+                        dtype
+                    )
+                )
 
         for prop in with_properties:
             p, dtype = self.get_property(prop, with_dtype=True)
@@ -423,8 +447,8 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             add_kwargs["mol_graph"] = self
 
         if len(string_data) > 0:
-            add_kwargs['string_data_titles'] = string_data_titles,
-            add_kwargs['string_data'] = string_data,
+            add_kwargs["string_data_titles"] = (string_data_titles,)
+            add_kwargs["string_data"] = (string_data,)
 
         red_y = np.squeeze(y)
         while len(red_y.shape) < 2:
@@ -434,12 +458,14 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
         while len(red_x.shape) < 2:
             red_x = np.expand_dims(red_x, axis=-1)
 
-        #print(red_x.shape)
+        # print(red_x.shape)
         data = torch_geometric.data.data.Data(
             x=torch.from_numpy(red_x).float(),
             edge_index=torch.from_numpy(edge_index).long(),
             graph_features_titles=graph_features_titles,
-            graph_features=torch.from_numpy(np.array([graph_features]), ).float(),
+            graph_features=torch.from_numpy(
+                np.array([graph_features]),
+            ).float(),
             num_nodes=self.number_of_nodes(),
             y=torch.from_numpy(red_y).float(),
             **add_kwargs
@@ -448,15 +474,15 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
 
     def as_dict(self):
         return {
-            'properties': self._properties,
-            'edges': list(self.edges),
-            'nodes': list(self.nodes),
-            'graph_features': self.mol_features,
+            "properties": self._properties,
+            "edges": list(self.edges),
+            "nodes": list(self.nodes),
+            "graph_features": self.mol_features,
         }
 
     @staticmethod
     def save(molgraph, path, method="pickle"):
-        with open(path, 'wb') as f:
+        with open(path, "wb") as f:
             if method == "pickle":
                 pickle.dump(molgraph, f)
             else:
@@ -465,7 +491,7 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     @staticmethod
     def load(path, method="pickle"):
         obj = None
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             if method == "pickle":
                 obj = pickle.load(f)
                 if not isinstance(obj, MolGraph):
@@ -477,24 +503,23 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     def calc_position(self, norm=True):
         pos = None
         molecule = self.molecule
-        
+
         if molecule:
-            pos=molecule.calc_position(norm=norm)
-    
+            pos = molecule.calc_position(norm=norm)
+
         if pos is None:
-            pos = nx.nx_pylab.spring_layout(self, iterations=5000,
-                                            # scale=10,
-                                            k=1 / (len(self) ** 2),
-                                            pos=nx.nx_pylab.kamada_kawai_layout(
-                                                self,
-                                                pos=nx.nx_pylab.spring_layout(
-                                                    self,
-                                                    iterations=200,
-                                                    k=1,
-                                                    pos=nx.nx_pylab.circular_layout(self)
-                                                ),
-                                            )
-                                            )
+            pos = nx.nx_pylab.spring_layout(
+                self,
+                iterations=5000,
+                # scale=10,
+                k=1 / (len(self) ** 2),
+                pos=nx.nx_pylab.kamada_kawai_layout(
+                    self,
+                    pos=nx.nx_pylab.spring_layout(
+                        self, iterations=200, k=1, pos=nx.nx_pylab.circular_layout(self)
+                    ),
+                ),
+            )
             if norm:
                 pos_list = np.zeros((len(pos), 2))
                 for i in range(pos_list.shape[0]):
@@ -509,10 +534,12 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     def get_fig(self, labels=None, with_labels=True, **draw_options):
         pos = self.calc_position(norm=True)
         pos_list = np.array(list(pos.values()))
-        fig = plt.figure(figsize=(
-            0.1 + 4 * pos_list[:, 0].max(),
-            0.1 + 4 * pos_list[:, 1].max(),
-        ))
+        fig = plt.figure(
+            figsize=(
+                0.1 + 4 * pos_list[:, 0].max(),
+                0.1 + 4 * pos_list[:, 1].max(),
+            )
+        )
         # ax = fig.add_subplot(111)
 
         if with_labels:
@@ -522,21 +549,25 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
             if labels is None:
                 labels = {i: self.mol.GetAtomWithIdx(i).GetSymbol() for i in self.nodes}
 
-        draw_options = {**{'pos': pos, 'with_labels': len(self) < 100 and with_labels,
-                           'node_size': 400 * pos_list[:, 1].max(), 'labels': labels, 'font_size': 10,
-                           'arrowstyle': "-"},
-                        **draw_options}
+        draw_options = {
+            **{
+                "pos": pos,
+                "with_labels": len(self) < 100 and with_labels,
+                "node_size": 400 * pos_list[:, 1].max(),
+                "labels": labels,
+                "font_size": 10,
+                "arrowstyle": "-",
+            },
+            **draw_options,
+        }
 
-        nx.nx_pylab.draw(
-            self,
-            **draw_options
-        )
+        nx.nx_pylab.draw(self, **draw_options)
         return fig
 
     def get_png(self, labels=None, with_labels=True):
         fig = self.get_fig(labels=labels, with_labels=with_labels)
         output = BytesIO()
-        fig.savefig(output, format='png')
+        fig.savefig(output, format="png")
         plt.close()
         # plt.ion() # turn on interactive mode
         return output.getvalue()

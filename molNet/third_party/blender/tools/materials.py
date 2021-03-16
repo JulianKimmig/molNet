@@ -4,21 +4,21 @@ from molNet.third_party.blender.tools import blender_function
 
 
 @blender_function()
-class BlenderMaterialNode():
+class BlenderMaterialNode:
     def __init__(self, node):
         self._node = node
         self.input_index_map = {o.name: i for i, o in enumerate(self._node.inputs)}
         self.output_index_map = {o.name: i for i, o in enumerate(self._node.outputs)}
 
-    def input(self,name):
-        if isinstance(name,int):
+    def input(self, name):
+        if isinstance(name, int):
             return self._node.inputs[name]
         if name not in self.input_index_map:
             return None
         return self._node.inputs[self.input_index_map[name]]
 
-    def output(self,name):
-        if isinstance(name,int):
+    def output(self, name):
+        if isinstance(name, int):
             return self._node.outputs[name]
         if name not in self.output_index_map:
             return None
@@ -33,7 +33,7 @@ class BlenderMaterialNode():
 
 
 @blender_function(dependencies=[BlenderMaterialNode])
-class BlenderMaterial():
+class BlenderMaterial:
     def __init__(self, material):
         self._material = material
         self._node_tree = material.node_tree
@@ -44,14 +44,15 @@ class BlenderMaterial():
     def material(self):
         return self._material
 
-    def new_node(self, type="ShaderNodeBsdfPrincipled",name=None):
+    def new_node(self, type="ShaderNodeBsdfPrincipled", name=None):
         nn = self._nodes.new(type)
         if name:
             nn.label = name
         return BlenderMaterialNode(nn)
 
-    def connect(self,node1,node2):
-        self._node_tree.links.new(node1,node2)
+    def connect(self, node1, node2):
+        self._node_tree.links.new(node1, node2)
+
 
 @blender_function(dependencies=[BlenderMaterial])
 def new_material(name="material"):
@@ -63,16 +64,17 @@ def new_material(name="material"):
     nodes.remove(bsdf)
     return BlenderMaterial(newmat)
 
+
 @blender_function(dependencies=[])
-def set_material(obj,mat,copy=False):
-    if isinstance(mat,BlenderMaterial):
+def set_material(obj, mat, copy=False):
+    if isinstance(mat, BlenderMaterial):
         mat = mat.material
     if copy:
-        mat=mat.copy()
+        mat = mat.copy()
 
     if obj.data.materials:
         obj.data.materials[0] = mat
     else:
         obj.data.materials.append(mat)
 
-    return obj,mat
+    return obj, mat

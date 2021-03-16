@@ -3,13 +3,12 @@ import bpy
 from molNet.third_party.blender.tools import blender_basic_script, blender_function
 
 
-
 @blender_basic_script
-def to_group(name, objs,new=False):
-    '''
+def to_group(name, objs, new=False):
+    """
     named:   (string) name of group to use, or to create if not present
     objs:    a collection of object references
-    '''
+    """
     groups = bpy.data.groups
 
     if new:
@@ -21,8 +20,9 @@ def to_group(name, objs,new=False):
         if obj.name not in group.objects:
             group.objects.link(obj)
 
+
 @blender_basic_script
-def copy_ob(ob, parent,  collection=bpy.context.collection):
+def copy_ob(ob, parent, collection=bpy.context.collection):
     # copy ob
     copy = ob.copy()
     copy.parent = parent
@@ -32,15 +32,15 @@ def copy_ob(ob, parent,  collection=bpy.context.collection):
         ps.settings = ps.settings.copy()
     collection.objects.link(copy)
 
-
     copy.animation_data_clear()
     if ob.data is not None:
         copy.data = ob.data.copy()
-        for i,m in enumerate(list(ob.data.materials)):
-            copy.data.materials[i]=m.copy()
+        for i, m in enumerate(list(ob.data.materials)):
+            copy.data.materials[i] = m.copy()
             copy.data.materials[i].animation_data_clear()
     copy.animation_data_clear()
     return copy
+
 
 @blender_function(dependencies=[copy_ob])
 def tree_copy(ob, parent=None, levels=3):
@@ -52,5 +52,5 @@ def tree_copy(ob, parent=None, levels=3):
         for child in ob.children:
             recurse(child, copy, depth + 1)
         return copy
-    return recurse(ob, ob.parent, 0)
 
+    return recurse(ob, ob.parent, 0)
