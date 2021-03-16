@@ -120,6 +120,10 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
     @smiles.setter
     def smiles(self, smiles):
         to_s = Chem.MolToSmiles(self.mol)
+        if smiles == to_s:
+            self.set_property("smiles", smiles, dtype=DATATYPES.STRING)
+            return
+        
         conv_s = Chem.MolToSmiles(Chem.MolFromSmiles(smiles, sanitize=False))
         if not to_s == conv_s:
             raise SMILEError("smiles dont match {} and {} as {}".format(
@@ -451,16 +455,12 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
         return obj
 
     def calc_position(self, norm=True):
-        mol = self.mol
         pos = None
-        if mol:
-            AllChem.EmbedMolecule(mol)
-            AllChem.Compute2DCoords(mol)
-            for c in mol.GetConformers():
-                pos = c.GetPositions()
-                pos = pos[:, :2]
-                pos = {i: pos[i] for i in range(pos.shape[0])}
-                break
+        molecule = self.molecule
+        
+        if molecule:
+            pos=molecule.calc_position(norm=norm)
+    
         if pos is None:
             pos = nx.nx_pylab.spring_layout(self, iterations=5000,
                                             # scale=10,
@@ -475,15 +475,15 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
                                                 ),
                                             )
                                             )
-        if norm:
-            pos_list = np.zeros((len(pos), 2))
-            for i in range(pos_list.shape[0]):
-                pos_list[i] = pos[i]
-            pos_list[:, 0] -= pos_list[:, 0].min()
-            pos_list[:, 1] -= pos_list[:, 1].min()
-            pos_list /= pos_list.max()
+            if norm:
+                pos_list = np.zeros((len(pos), 2))
+                for i in range(pos_list.shape[0]):
+                    pos_list[i] = pos[i]
+                pos_list[:, 0] -= pos_list[:, 0].min()
+                pos_list[:, 1] -= pos_list[:, 1].min()
+                pos_list /= pos_list.max()
 
-            pos = {i: pos_list[i] for i in range(pos_list.shape[0])}
+                pos = {i: pos_list[i] for i in range(pos_list.shape[0])}
         return pos
 
     def get_fig(self, labels=None, with_labels=True, **draw_options):
