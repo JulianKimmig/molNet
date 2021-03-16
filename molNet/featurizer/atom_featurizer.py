@@ -30,6 +30,64 @@ __all__ = ['atom_atomic_number',
            'default_atom_featurizer',
            ]
 
+
+
+
+
+def _get_atom_symbol(atom):
+    return atom.GetSymbol()
+
+def _get_atom_num(atom):
+    return atom.GetAtomicNum()
+
+def _get_atom_tot_deg(atom):
+    return atom.GetTotalDegree()
+
+def _get_atom_deg(atom):
+    return atom.GetDegree()
+
+
+
+def _get_atom_imp_val(atom):
+    return atom.GetImplicitValence()
+
+def _get_atom_exp_val(atom):
+    return atom.GetExplicitValence()
+
+def _get_atom_num_rad_el(atom):
+    return atom.GetNumRadicalElectrons()
+
+def _get_atom_chiral_tag(atom):
+    return atom.GetChiralTag()
+
+def _get_atom_in_ring(atom):
+    return atom.IsInRing()
+
+def _get_atom_formal_charge(atom):
+    return atom.GetFormalCharge()
+
+def _get_atom_in_ring(atom):
+    return atom.IsInRing()
+
+def _get_atom_get_mass(atom):
+    return atom.GetMass()*0.01
+
+def _get_atom_tot_h(atom):
+    return atom.GetTotalNumHs()
+
+def _get_atom_is_arom(atom):
+    return atom.GetIsAromatic()
+
+class _to_array:
+    def __init__(self, funcs):
+        self.funcs=funcs
+        
+    def __call__(self,atom):
+        return [f(atom) for f in self.funcs]
+    
+def as_array(*funcs):
+    return _to_array(funcs)
+
 atom_symbol_one_hot = OneHotFeaturizer(
     possible_values=['O', 'Si', 'Al', 'Fe', 'Ca', 'Na', 'Mg', 'K', 'Ti', 'H', 'P', 'Mn', 'F', 'Sr', 'S', 'C', 'Zr',
                      'Cl', 'V', 'Cr', 'Rb', 'Ni', 'Zn', 'Cu', 'Y', 'Co', 'Sc', 'Li', 'Nb', 'N', 'Ga', 'B', 'Ar', 'Be',
@@ -37,10 +95,9 @@ atom_symbol_one_hot = OneHotFeaturizer(
                      'Re', 'Gd', 'Dy', 'Rn', 'Er', 'Yb', 'Xe', 'Cs', 'Hf', 'At', 'Sn', 'Pm', 'Eu', 'Ta', 'Po', 'Ho',
                      'W', 'Tb', 'Tl', 'Lu', 'Tm', 'I', 'In', 'Sb', 'Cd', 'Hg', 'Ag', 'Pd', 'Bi', 'Pt', 'Au', 'Os', 'Ru',
                      'Rh', 'Te', 'Ir', 'Fr', 'Th', 'Ra', 'Ac', 'U', 'Pa', 'Np', 'Pu', None],
-    pre_featurize=lambda atom: atom.GetSymbol(),
+    pre_featurize=_get_atom_symbol,
     name="atom_symbol_one_hot"
 )
-
 
 def atom_symbol_one_hot_from_set(list_of_mols, only_mass=False, sort=True, with_other=True):
     possible_values = []
@@ -58,65 +115,67 @@ def atom_symbol_one_hot_from_set(list_of_mols, only_mass=False, sort=True, with_
         possible_values.append(None)
     return OneHotFeaturizer(
         possible_values=possible_values,
-        pre_featurize=lambda atom: atom.GetSymbol(),
+        pre_featurize=_get_atom_symbol,
         name="custom_atom_symbol_one_hot"
     )
 
 
 atom_symbol_hcnopsclbr_one_hot = OneHotFeaturizer(
     possible_values=['H', 'C', 'N', 'O', 'P', 'S', 'Cl', 'Br'],
-    pre_featurize=lambda atom: atom.GetSymbol(),
+    pre_featurize=_get_atom_symbol,
     name="atom_symbol_one_hot"
 )
 
+
 atom_atomic_number_one_hot = OneHotFeaturizer(
     possible_values=list(range(1, 119)),
-    pre_featurize=lambda atom: atom.GetAtomicNum(),
+    pre_featurize=_get_atom_num,
     name="atomic_number_one_hot"
 )
-atom_atomic_number = LambdaFeaturizer(lambda atom: [atom.GetAtomicNum()], length=1,
+
+atom_atomic_number = LambdaFeaturizer(as_array(_get_atom_num), length=1,
                                       name="atomic_number")
 
 atom_total_degree_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
-    pre_featurize=lambda atom: atom.GetTotalDegree(),
+    pre_featurize=_get_atom_tot_deg,
     name="atom_total_degree_one_hot"
 )
-atom_total_degree = LambdaFeaturizer(lambda atom: [atom.GetTotalDegree()], length=1,
+atom_total_degree = LambdaFeaturizer(as_array(_get_atom_tot_deg), length=1,
                                      name="atom_total_degree")
 
 atom_degree_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
-    pre_featurize=lambda atom: atom.GetDegree(),
+    pre_featurize=_get_atom_deg,
     name="atom_degree_one_hot"
 )
-atom_degree = LambdaFeaturizer(lambda atom: [atom.GetDegree()], length=1,
+atom_degree = LambdaFeaturizer(as_array(_get_atom_deg), length=1,
                                name="atom_degree")
 
 atom_implicit_valence_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
-    pre_featurize=lambda atom: atom.GetImplicitValence(),
+    pre_featurize=_get_atom_imp_val,
     name="atom_implicit_valence_one_hot"
 )
 
-atom_implicit_valence = LambdaFeaturizer(lambda atom: [atom.GetImplicitValence()], length=1,
+atom_implicit_valence = LambdaFeaturizer(as_array(_get_atom_imp_val), length=1,
                                          name="atom_implicit_valence")
 
 atom_explicit_valence_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
-    pre_featurize=lambda atom: atom.GetExplicitValence(),
+    pre_featurize=_get_atom_exp_val,
     name="atom_explicit_valence_one_hot"
 )
 
-atom_explicit_valence = LambdaFeaturizer(lambda atom: [atom.GetExplicitValence()], length=1,
+atom_explicit_valence = LambdaFeaturizer(as_array(_get_atom_exp_val), length=1,
                                          name="atom_explicit_valence")
 
-atom_num_radical_electrons = LambdaFeaturizer(lambda atom: [atom.GetNumRadicalElectrons()], length=1,
+atom_num_radical_electrons = LambdaFeaturizer(as_array(_get_atom_num_rad_el), length=1,
                                               name="atom_num_radical_electrons")
 
 atom_num_radical_electrons_one_hot = OneHotFeaturizer(
     possible_values=list(range(5)),
-    pre_featurize=lambda atom: atom.GetNumRadicalElectrons(),
+    pre_featurize=_get_atom_num_rad_el,
     name="atom_num_radical_electrons_one_hot"
 )
 
@@ -157,33 +216,33 @@ atom_chiral_tag_one_hot = OneHotFeaturizer(
                      rdkit.Chem.rdchem.ChiralType.CHI_TETRAHEDRAL_CCW,
                      rdkit.Chem.rdchem.ChiralType.CHI_OTHER
                      ],
-    pre_featurize=lambda atom: atom.GetChiralTag(),
+    pre_featurize=_get_atom_chiral_tag,
     name="atom_chiral_tag_one_hot"
 )
 
 atom_formal_charge_one_hot = OneHotFeaturizer(
     possible_values=list(range(-8, 9)),
-    pre_featurize=lambda atom: atom.GetFormalCharge(),
+    pre_featurize=_get_atom_formal_charge,
     name="atom_formal_charge_one_hot"
 )
 
-atom_formal_charge = LambdaFeaturizer(lambda atom: [atom.GetFormalCharge()], length=1,
+atom_formal_charge = LambdaFeaturizer(as_array(_get_atom_formal_charge), length=1,
                                       name="atom_formal_charge")
 
-atom_mass = LambdaFeaturizer(lambda atom: [atom.GetMass() * 0.01], length=1,
+atom_mass = LambdaFeaturizer(as_array(_get_atom_get_mass), length=1,
                              name="atom_mass")
 
 atom_total_num_H_one_hot = OneHotFeaturizer(
     possible_values=list(range(9)),
-    pre_featurize=lambda atom: atom.GetTotalNumHs(),
+    pre_featurize=_get_atom_tot_h,
     name="atom_total_num_H_one_hot"
 )
 
-atom_total_num_H = LambdaFeaturizer(lambda atom: [atom.GetTotalNumHs()], length=1,
+atom_total_num_H = LambdaFeaturizer(as_array(_get_atom_tot_h), length=1,
                                     name="atom_total_num_H")
 
 atom_is_aromatic = LambdaFeaturizer(
-    lambda atom: [atom.GetIsAromatic()], length=1,
+    as_array(_get_atom_is_arom), length=1,
     name="atom_is_aromatic",
 )
 
@@ -193,7 +252,7 @@ atom_is_in_ring_size_3_to_20_one_hot = FeaturizerList([
     for i in range(3, 20)
 ], name="atom_is_in_ring_size_3_to_20_one_hot")
 
-atom_is_in_ring = LambdaFeaturizer(lambda atom: [atom.IsInRing()], length=1,
+atom_is_in_ring = LambdaFeaturizer(as_array(_get_atom_in_ring), length=1,
                                    name="atom_is_in_ring")
 
 

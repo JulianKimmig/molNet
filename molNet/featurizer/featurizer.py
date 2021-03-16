@@ -61,7 +61,8 @@ class OneHotFeaturizer(Featurizer):
             to_featurize = None
         if to_featurize not in self.possible_values:
             raise OneHotEncodingException("cannot one hot encode '{}' in '{}', allowed values are {}".format(to_featurize,self,self.possible_values))
-        return list(map(lambda v: to_featurize == v, self.possible_values))
+        #return list(map(lambda v: to_featurize == v, self.possible_values))
+        return [v == to_featurize for v in self.possible_values]
 
     def describe_features(self):
         if self.feature_descriptions is None:
