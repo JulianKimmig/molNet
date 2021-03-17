@@ -10,6 +10,8 @@ import numpy as np
 import pytorch_lightning as pl
 import torch
 from torch.utils.data import random_split, DataLoader, Dataset, IterableDataset, Subset
+from torch.utils.data.dataloader import default_collate
+from torch._six import container_abcs, string_classes, int_classes
 
 BASE_DATA_DIR = os.path.join(os.path.expanduser("~"), ".molNet", "data")
 
@@ -77,10 +79,29 @@ class GeneratorDataset(IterableDataset):
 
 class DirectDataLoader(DataLoader):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, collate_fn=lambda batch: batch)
+        super().__init__(*args, **kwargs, collate_fn=self.collate)
+
+    def collate(self, batch):
+        elem = batch[0]
+        if isinstance(elem, torch.Tensor):
+            return default_collate(batch)
+        elif isinstance(elem, float):
+            return torch.tensor(batch, dtype=torch.float)
+        elif isinstance(elem, int_classes):
+            return torch.tensor(batch)
+        elif isinstance(elem, string_classes):
+            return batch
+        elif isinstance(elem, container_abcs.Mapping):
+            return {key: self.collate([d[key] for d in batch]) for key in elem}
+        elif isinstance(elem, tuple) and hasattr(elem, "_fields"):
+            return type(elem)(*(self.collate(s) for s in zip(*batch)))
+        elif isinstance(elem, container_abcs.Sequence):
+            return [self.collate(s) for s in zip(*batch)]
+        else:
+            return batch
 
 
-class BaseLoader(pl.LightningDataModule):
+class InMemoryLoader(pl.LightningDataModule):
     dataloader = DataLoader
 
     def __init__(
@@ -107,8 +128,7 @@ class BaseLoader(pl.LightningDataModule):
         l = len(data)
         split = (self.split * l).astype(int)
         while l > split.sum():
-            split[(l - split.sum()) % len(split)] += 1
-
+            split[((l - split.sum()) % len(split))] += 1
         if self.shuffle:
             if self.seed:
                 gen = torch.Generator().manual_seed(self.seed)
@@ -146,7 +166,40 @@ class BaseLoader(pl.LightningDataModule):
         return None
 
 
-class GeneratorDataLoader(BaseLoader):
+class PandasDfLoader(InMemoryLoader):
+    # dataloader = DirectDataLoader
+    def __init__(
+        self, df, columns=None, y_columns=None, inplace=False, *args, **kwargs
+    ):
+        super().__init__(*args, **kwargs)
+        if inplace:
+            self.df = df
+        else:
+            self.df = df.copy()
+
+        # releveant columns to load, if non provided use all
+        if not columns:
+            self.columns = list(self.df.columns)
+        else:
+            self.columns = columns
+
+        if y_columns is None:
+            y_columns = []
+        self.y_columns = y_columns
+
+    def generate_full_dataset(self):
+        data = []
+
+        for y_column in self.y_columns:
+            if y_column in self.columns:
+                self.columns.remove(y_column)
+
+        for r, d in self.df[self.columns + self.y_columns].iterrows():
+            data.append([d[self.columns].tolist(), d[self.y_columns].tolist()])
+        return data
+
+
+class GeneratorDataLoader(InMemoryLoader):
     def __init__(
         self,
         generator,
@@ -176,13 +229,13 @@ class GeneratorDataLoader(BaseLoader):
         )
 
 
-class DataFrameDataLoader(BaseLoader):
+class DataFrameDataLoader(InMemoryLoader):
     def __init__(self, df, *args, **kwargs):
         super().__init__(**kwargs)
-        self.df = df
+        self.df = df.copy()
 
 
-class SingleFileLoader(BaseLoader):
+class SingleFileLoader(InMemoryLoader):
     def __init__(
         self,
         source_file,
