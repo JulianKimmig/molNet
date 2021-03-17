@@ -1,4 +1,4 @@
-import cProfile,pstats
+import cProfile, pstats
 import pandas as pd
 
 from molNet.dataloader.molecule_loader import PytorchGeomMolDfLoader
@@ -38,7 +38,5 @@ def profile_PytorchGeomMolDfLoader():
 
 profile.runcall(profile_PytorchGeomMolDfLoader)
 ps = pstats.Stats(profile)
-ps.sort_stats('cumtime')
+ps.sort_stats("cumtime")
 ps.print_stats(20)
-
-
