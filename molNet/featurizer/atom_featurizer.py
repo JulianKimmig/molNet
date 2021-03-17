@@ -1,6 +1,7 @@
 import rdkit
 import rdkit.Chem.AllChem
 from rdkit.Chem import rdchem, SetHybridization, HybridizationType
+from rdkit.Chem.rdchem import Mol
 
 from .featurizer import OneHotFeaturizer, FeaturizerList, LambdaFeaturizer
 
@@ -206,8 +207,15 @@ atom_symbol_one_hot = OneHotFeaturizer(
 def atom_symbol_one_hot_from_set(
     list_of_mols, only_mass=False, sort=True, with_other=True
 ):
+    from molNet.mol.molecules import Molecule
+
     possible_values = []
     for mol in list_of_mols:
+
+        if isinstance(mol, Molecule):
+            mol = mol.get_mol(with_H=True)
+        if not isinstance(mol, Mol):
+            continue
         for atom in mol.GetAtoms():
             s = atom.GetSymbol()
             if s not in possible_values:
