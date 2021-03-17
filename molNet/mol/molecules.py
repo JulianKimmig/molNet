@@ -99,8 +99,8 @@ class SMILEError(Exception):
 
 
 class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
-    def __init__(self, mol, name="",*args,**kwargs):
-        super().__init__(*args,**kwargs)
+    def __init__(self, mol, name="", *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._mol = mol
         self.name = name
         self.smiles = Chem.MolToSmiles(mol)
@@ -280,30 +280,44 @@ def molecule_from_name(name, *args, **kwargs):
     return Molecule.from_name(name, *args, **kwargs)
 
 
+def molecule_from_smiles(smiles, *args, **kwargs):
+    return Molecule.from_smiles(smiles, *args, **kwargs)
+
+
 class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     def __init__(self, **attr):
         super().__init__(**attr)
-        self.mol_features = []
+        # self.mol_features = {}
         self._mol = None
         self._molecule = None
 
     def featurize(
-        self, atom_featurizer=None, name="molNet_features", molecule_featurizer=None
+        self,
+        atom_featurizer=None,
+        name="molNet_features",
+        molecule_featurizer=None,
+        as_y=False,
     ):
-        if atom_featurizer is None:
-            atom_featurizer = default_atom_featurizer
+        if as_y:
+            name = "_y_" + name
 
-        if molecule_featurizer is not None:
-            self.mol_features = molecule_featurizer(self.mol)
-        else:
-            self.mol_features = []
+        mol_features = []
 
-        for n in self.nodes:
-            node = self.nodes[n]
-            node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
+        if molecule_featurizer:
+            # self.mol_features[name]
+            mol_features = molecule_featurizer(self.mol)
+            self.set_property(name, mol_features)
+        # else:
+        #    self.mol_features[name] = []
 
-        return np.array([data[name] for n, data in self.nodes(data=True)]), np.array(
-            self.mol_features
+        if atom_featurizer:
+            for n in self.nodes:
+                node = self.nodes[n]
+                node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
+
+        return (
+            np.array([data.get(name, []) for n, data in self.nodes(data=True)]),
+            np.array(mol_features),
         )
 
     def get_mol(self):
@@ -357,39 +371,65 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
 
     def to_graph_input(
         self,
-        node_feature_names=True,
-        with_properties=True,
-        y_properties=[],
+        x_node_feature_names=True,  # to include into x data,
+        y_node_feature_names=True,  # to include into y data,
+        x_graph_feature_names=True,
+        y_graph_feature_names=True,
         with_mol_graph=False,
         with_mol=False,
+        keep_string_data=False,
+        include_graph_features_titles=False,
         **add_kwargs
     ):
         first_node = self.nodes[next(iter(self.nodes))]
 
-        if node_feature_names is True:
-            node_feature_names = list(first_node.keys())
+        if y_node_feature_names is True:
+            y_node_feature_names = [k for k in first_node.keys() if k.startswith("_y_")]
 
-        feature_length = 0
-        for node_feature_name in node_feature_names:
+        if x_node_feature_names is True:
+            x_node_feature_names = [
+                k for k in first_node.keys() if k not in y_node_feature_names
+            ]
+
+        # check for feature availability
+        for node_feature_name in x_node_feature_names + y_node_feature_names:
             if node_feature_name not in first_node:
                 raise ValueError(
                     "'{}' not available, please call featurize first".format(
                         node_feature_name
                     )
                 )
-            feature_length += len(first_node[node_feature_name])
 
-        node_features = np.zeros((self.number_of_nodes(), feature_length))
+        # gen feat vec
+        x_node_features_length = 0
+        y_node_features_length = 0
+        for node_feature_name in x_node_feature_names:
+            x_node_features_length += len(first_node[node_feature_name])
+
+        for node_feature_name in y_node_feature_names:
+            y_node_features_length += len(first_node[node_feature_name])
+
+        x_node_features = np.zeros((self.number_of_nodes(), x_node_features_length))
+        y_node_features = np.zeros((self.number_of_nodes(), y_node_features_length))
+
         for n in self.nodes:
             node = self.nodes[n]
-            node_feats = np.zeros(feature_length)
+            x_node_feats = np.zeros(x_node_features_length)
+            y_node_feats = np.zeros(y_node_features_length)
             f = 0
-            for node_feature_name in node_feature_names:
+            for node_feature_name in x_node_feature_names:
                 fl = len(node[node_feature_name])
-                node_feats[f : f + fl] = node[node_feature_name]
+                x_node_feats[f : f + fl] = node[node_feature_name]
                 f += fl
-            node_features[n] = node_feats
+            f = 0
+            for node_feature_name in y_node_feature_names:
+                fl = len(node[node_feature_name])
+                y_node_feats[f : f + fl] = node[node_feature_name]
+                f += fl
+            x_node_features[n] = x_node_feats
+            y_node_features[n] = y_node_feats
 
+        # generate connection list
         row, col = [], []
         for start, end in self.edges:
             row += [start, end]
@@ -397,29 +437,37 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
 
         edge_index = np.array([row, col])
 
-        if with_properties is True:
-            with_properties = self.get_property_names()
-        if with_properties is False:
-            with_properties = []
+        # generate graph feats
+        if y_graph_feature_names is True:
+            y_graph_feature_names = [
+                p for p in self.get_property_names() if p.startswith("_y_")
+            ]
+        elif y_graph_feature_names is False:
+            y_graph_feature_names = []
 
-        if len(with_properties) > 0:
-            for prop in y_properties:
-                if prop in with_properties:
-                    with_properties.remove(prop)
+        if x_graph_feature_names is True:
+            x_graph_feature_names = [
+                p for p in self.get_property_names() if p not in y_graph_feature_names
+            ]
+        elif x_graph_feature_names is False:
+            x_graph_feature_names = []
 
-        graph_features = self.mol_features.copy()
-        graph_features_titles = {0: "mol_features"}
-        y = []
-        y_titles = {}
-        string_data = []
-        string_data_titles = []
+        x_graph_features = []  # self.mol_features.copy()
+        x_graph_features_titles = {}  # {0: "mol_features"}
 
-        for prop in y_properties:
+        y_graph_features = []
+        y_graph_features_titles = {}
+
+        if keep_string_data:
+            string_data = []
+            string_data_titles = []
+
+        for prop in y_graph_feature_names:
             p, dtype = self.get_property(prop, with_dtype=True)
             if dtype in [DATATYPES.INT, DATATYPES.FLOAT, DATATYPES.BOOL]:
-                new_feats = np.array([p], dtype=float)  # .flatten()
-                y_titles[len(y)] = prop
-                y.append(new_feats)
+                new_feats = np.array([p], dtype=float).flatten()
+                y_graph_features_titles[len(y_graph_features)] = prop
+                y_graph_features.extend(new_feats)
             else:
                 raise TypeError(
                     "for y values the prob should be numerical but is '{}'".format(
@@ -427,47 +475,59 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
                     )
                 )
 
-        for prop in with_properties:
+        for prop in x_graph_feature_names:
             p, dtype = self.get_property(prop, with_dtype=True)
             if dtype in [DATATYPES.INT, DATATYPES.FLOAT]:
-                new_feats = np.array([p], dtype=float)  # .flatten()
-                graph_features_titles[len(graph_features)] = prop
-                graph_features.extend(new_feats)
+                new_feats = np.array([p], dtype=float).flatten()
+                x_graph_features_titles[len(x_graph_features)] = prop
+                x_graph_features.extend(new_feats)
 
             elif dtype == DATATYPES.STRING:
-                string_data.append(p)
-                string_data_titles.append(prop)
+                if keep_string_data:
+                    string_data.append(p)
+                    string_data_titles.append(prop)
             else:
                 add_kwargs[prop] = p
 
+        x_graph_features = np.array(x_graph_features)
+        y_graph_features = np.array(y_graph_features)
+
+        # include add kwargs
         if with_mol:
             add_kwargs["mol"] = self.mol
 
         if with_mol_graph:
             add_kwargs["mol_graph"] = self
 
-        if len(string_data) > 0:
-            add_kwargs["string_data_titles"] = (string_data_titles,)
-            add_kwargs["string_data"] = (string_data,)
+        if keep_string_data and len(string_data) > 0:
+            add_kwargs["string_data_titles"] = string_data_titles
+            add_kwargs["string_data"] = string_data
 
-        red_y = np.squeeze(y)
-        while len(red_y.shape) < 2:
-            red_y = np.expand_dims(red_y, axis=-1)
+        if include_graph_features_titles:
+            add_kwargs["x_graph_features_titles"] = x_graph_features_titles
+            add_kwargs["y_graph_features_titles"] = y_graph_features_titles
 
-        red_x = np.squeeze(node_features)
-        while len(red_x.shape) < 2:
-            red_x = np.expand_dims(red_x, axis=-1)
+        # make dimens right
+        x_graph_features = np.expand_dims(x_graph_features, axis=0)
+        y_graph_features = np.expand_dims(y_graph_features, axis=0)
+        # red_y = np.squeeze(x_graph_features)
+        # print(red_y)
+        # while len(red_y.shape) < 2:
+        # red_y = np.expand_dims(red_y, axis=0)
+        # print(red_y)
+
+        # red_x = np.squeeze(node_features)
+        # while len(red_x.shape) < 2:
+        #    red_x = np.expand_dims(red_x, axis=-1)
 
         # print(red_x.shape)
         data = torch_geometric.data.data.Data(
-            x=torch.from_numpy(red_x).float(),
-            edge_index=torch.from_numpy(edge_index).long(),
-            graph_features_titles=graph_features_titles,
-            graph_features=torch.from_numpy(
-                np.array([graph_features]),
-            ).float(),
+            x=torch.from_numpy(x_node_features).float(),
+            y=torch.from_numpy(y_node_features).float(),
             num_nodes=self.number_of_nodes(),
-            y=torch.from_numpy(red_y).float(),
+            edge_index=torch.from_numpy(edge_index).long(),
+            x_graph_features=torch.from_numpy(x_graph_features).float(),
+            y_graph_features=torch.from_numpy(y_graph_features).float(),
             **add_kwargs
         )
         return data
