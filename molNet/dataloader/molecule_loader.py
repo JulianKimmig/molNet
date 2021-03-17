@@ -1,5 +1,6 @@
 import os
 import pickle
+import warnings
 
 import pandas as pd
 import torch_geometric
@@ -17,7 +18,7 @@ from .base_loader import (
     DataFrameDataLoader,
     PandasDfLoader,
 )
-from ..mol.molecules import Molecule, molecule_from_smiles, MolGraph
+from ..mol.molecules import Molecule, molecule_from_smiles, MolGraph, MolGenerationError
 
 
 class PytorchGeomMolGraphDataLoader(torch_geometric.data.DataLoader):
@@ -45,8 +46,16 @@ class MoleculeDfLoader(PandasDfLoader):
 
     def generate_molecules(self):
         if self.molecule_column not in self.df.columns:
+
+            def _create_mol(source):
+                try:
+                    return self.mol_create_function(source)
+                except MolGenerationError as e:
+                    print(e)
+                    return None
+
             self.df[self.molecule_column] = self.df[self.mol_create_source].apply(
-                self.mol_create_function
+                _create_mol
             )
 
             for c in self.columns:
@@ -55,8 +64,9 @@ class MoleculeDfLoader(PandasDfLoader):
 
             for r, data in self.df[self.columns].iterrows():
                 molecule = self.df.loc[r, self.molecule_column]
-                for k, d in data.items():
-                    molecule.set_property(k, d)
+                if molecule:
+                    for k, d in data.items():
+                        molecule.set_property(k, d)
 
     def generate_full_dataset(self):
         for y_column in self.y_columns:
@@ -65,7 +75,9 @@ class MoleculeDfLoader(PandasDfLoader):
         self.generate_molecules()
         data = []
         for r, d in self.df[[self.molecule_column] + self.y_columns].iterrows():
-            data.append([d[self.molecule_column], d[self.y_columns].tolist()])
+            mol = d[self.molecule_column]
+            if mol:
+                data.append([mol, d[self.y_columns].tolist()])
         return data
 
 
