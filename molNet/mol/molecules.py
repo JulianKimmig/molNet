@@ -98,6 +98,10 @@ class SMILEError(Exception):
     pass
 
 
+class MolGenerationError(Exception):
+    pass
+
+
 class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
     def __init__(self, mol, name="", *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -142,7 +146,9 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
     def name(self, name):
         self.set_property("name", name, dtype=DATATYPES.STRING)
 
-    def get_mol(self, with_numbers=False, with_H=None) -> rdkit.Chem.Mol:
+    def get_mol(
+        self, with_numbers=False, with_H=None, canonical_rank=True
+    ) -> rdkit.Chem.Mol:
         """
 
         :rtype: rdkit.Chem.Mol
@@ -156,6 +162,10 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
             pass
         else:
             mol = rdkit.Chem.RemoveHs(mol)
+
+        if canonical_rank:
+            atom_order = rdmolfiles.CanonicalRankAtoms(mol)
+            mol = rdmolops.RenumberAtoms(mol, atom_order)
 
         if with_numbers:
             atoms = mol.GetNumAtoms()
@@ -245,8 +255,22 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
         return obj
 
     @classmethod
-    def from_smiles(cls, mol_smile, *args, **kwargs):
-        m = cls(Chem.MolFromSmiles(mol_smile), *args, **kwargs)
+    def from_smiles(cls, smiles, *args, **kwargs):
+        if m is None:
+            raise MolGenerationError(
+                "cannot convert smiles '{}' to molecule".format(smiles)
+            )
+        m = cls(Chem.MolFromSmiles(smiles), *args, **kwargs)
+        return m
+
+    @classmethod
+    def from_inchi(cls, inchi, *args, **kwargs):
+        m = Chem.MolFromInchi(inchi)
+        if m is None:
+            raise MolGenerationError(
+                "cannot convert inchi '{}' to molecule".format(inchi)
+            )
+        m = cls(m, *args, **kwargs)
         return m
 
     @classmethod
@@ -282,6 +306,10 @@ def molecule_from_name(name, *args, **kwargs):
 
 def molecule_from_smiles(smiles, *args, **kwargs):
     return Molecule.from_smiles(smiles, *args, **kwargs)
+
+
+def molecule_from_inchi(inchi, *args, **kwargs):
+    return Molecule.from_inchi(inchi, *args, **kwargs)
 
 
 class MolGraph(MolDataPropertyHolder, nx.DiGraph):
@@ -340,17 +368,7 @@ class MolGraph(MolDataPropertyHolder, nx.DiGraph):
     def from_molecule(molecule, with_H=True, canonical_rank=True):
         g = MolGraph()
 
-        mol = molecule.mol
-        if with_H:
-            mol = rdkit.Chem.AddHs(mol)
-        elif with_H is None:
-            pass
-        else:
-            mol = rdkit.Chem.RemoveHs(mol)
-
-        if canonical_rank:
-            atom_order = rdmolfiles.CanonicalRankAtoms(mol)
-            mol = rdmolops.RenumberAtoms(mol, atom_order)
+        mol = molecule.get_mol(with_H=with_H, canonical_rank=canonical_rank)
 
         for atom in mol.GetAtoms():
             g.add_node(atom.GetIdx())
