@@ -256,11 +256,12 @@ class Molecule(MolDataPropertyHolder, mnbc.ValidatingObject):
 
     @classmethod
     def from_smiles(cls, smiles, *args, **kwargs):
+        m = Chem.MolFromSmiles(smiles)
         if m is None:
             raise MolGenerationError(
                 "cannot convert smiles '{}' to molecule".format(smiles)
             )
-        m = cls(Chem.MolFromSmiles(smiles), *args, **kwargs)
+        m = cls(m, *args, **kwargs)
         return m
 
     @classmethod
