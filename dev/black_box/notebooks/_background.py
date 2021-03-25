@@ -11,6 +11,7 @@ import torch_geometric
 from IPython.display import Markdown as md
 import dill as pickle
 import pandas as ps
+import matplotlib.pyplot as plt
 
 PandasTools.RenderImagesInAllDataFrames(images=True)
 
@@ -25,4 +26,8 @@ from _training import *
 
 from _plots import *
 
+from _chem import *
+
 import _data as data
+
+from _nn import *

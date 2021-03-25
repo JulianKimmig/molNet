@@ -18,7 +18,10 @@ def plot_true_pred(model, loader, target_file=None):
         pred.extend(model(d.to(model.device)).detach().cpu().numpy().flatten())
         true.extend(d.y.detach().cpu().numpy().flatten())
 
+    true, pred = np.array(true),np.array(pred)
+    print(true.shape,pred.shape)
     plt.plot(true, pred, "o")
+
     if target_file is None:
         plt.show()
     else:

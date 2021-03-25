@@ -51,7 +51,7 @@ def default_model_run(
     max_epochs=1000,
     min_epochs=1,
     ignore_load_error=False,
-    force_test_data_reload=False,
+    #force_test_data_reload=False,
     early_stopping=True,
     early_stopping_delta=10 ** (-6),
     categories=None,
@@ -91,9 +91,9 @@ def default_model_run(
     data["files"]["model_checkpoint"] = os.path.join(
         data["files"]["model_dir"], "model.ckpt"
     )
-    data["files"]["test_data_file"] = os.path.join(
-        data["files"]["model_dir"], "test_data.pickle"
-    )
+    #data["files"]["test_data_file"] = os.path.join(
+    #    data["files"]["model_dir"], "test_data.pickle"
+    #)
     data["files"]["test_batch_file"] = os.path.join(
         data["files"]["model_dir"], "test_batch.pickle"
     )
@@ -109,17 +109,17 @@ def default_model_run(
                 pass
             else:
                 force_run = True
-        try:
-            test_data = pickle.load(open(data["files"]["test_data_file"], "rb"))
-            test_batch = pickle.load(open(data["files"]["test_batch_file"], "rb"))
-        except:
-            force_run = True
+        #try:
+        #    test_data = pickle.load(open(data["files"]["test_data_file"], "rb"))
+        #    test_batch = pickle.load(open(data["files"]["test_batch_file"], "rb"))
+        #except:
+        #    force_run = True
 
-    if force_test_data_reload or force_run:
-        test_data = find_test_data(loader)
-        test_batch = iter(torch_geometric.data.DataLoader([test_data])).next()
-        pickle.dump(test_data, open(data["files"]["test_data_file"], "wb"))
-        pickle.dump(test_batch, open(data["files"]["test_batch_file"], "wb"))
+    #if force_test_data_reload or force_run:
+        #test_data = find_test_data(loader)
+        #test_batch = iter(torch_geometric.data.DataLoader([test_data])).next()
+        #pickle.dump(test_data, open(data["files"]["test_data_file"], "wb"))
+        #pickle.dump(test_batch, open(data["files"]["test_batch_file"], "wb"))
 
     if force_run:
 
@@ -239,8 +239,8 @@ def default_model_run(
     if os.path.exists(data["files"]["model_plot_img"]):
         display(Image(data["files"]["model_plot_img"], width=DEFAULT_IMG_PLOT_WIDTH))
 
-    data["test_data"] = test_data
-    data["test_batch"] = test_batch
+    #data["test_data"] = test_data
+    #data["test_batch"] = test_batch
 
     try:
         data["trainer"] = trainer
