@@ -178,7 +178,7 @@ class PandasDfLoader(InMemoryLoader):
             self.df = df.copy()
 
         # releveant columns to load, if non provided use all
-        if not columns:
+        if columns is None:
             self.columns = list(self.df.columns)
         else:
             self.columns = columns
