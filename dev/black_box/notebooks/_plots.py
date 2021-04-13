@@ -14,12 +14,21 @@ def plot_true_pred(model, loader, target_file=None):
         loader.test_dataloader()
     except:
         loader.setup()
+
+    attr=None
     for i, d in enumerate(loader.test_dataloader()):
-        pred.extend(model(d.to(model.device)).detach().cpu().numpy().flatten())
-        true.extend(d.y.detach().cpu().numpy().flatten())
+        p=model(d.to(model.device)).detach().cpu().numpy().flatten()
+
+        if attr is None:
+            if d.y.detach().cpu().numpy().flatten().size==p.size:
+                attr="y"
+            elif d.y_graph_features.detach().cpu().numpy().flatten().size==p.size:
+                attr="y_graph_features"
+
+        pred.extend(p)
+        true.extend(getattr(d,attr).detach().cpu().numpy().flatten())
 
     true, pred = np.array(true),np.array(pred)
-    print(true.shape,pred.shape)
     plt.plot(true, pred, "o")
 
     if target_file is None:
@@ -31,18 +40,38 @@ def plot_true_pred(model, loader, target_file=None):
 
 
 def plot_category_validation(
-    model, loader, categories, target_file=None, ignore_empty=True
+    model, loader, categories, target_file=None, ignore_empty=True, threshold=0.5,
 ):
     true = []
     pred_correct = []
     pred_wrong = []
+    attr=None
+
     for i, d in enumerate(loader.test_dataloader()):
         pred_m = model(d.to(model.device)).detach().cpu().numpy()
-        p = pred_m.argmax(1)
-        t = d.y.detach().cpu().numpy().argmax(1)
-        pred_correct.extend(p[p == t])
-        pred_wrong.extend(p[p != t])
-        true.extend(t)
+        if attr is None:
+            if d.y.detach().cpu().numpy().flatten().size==pred_m.size:
+                attr="y"
+            elif d.y_graph_features.detach().cpu().numpy().flatten().size==pred_m.size:
+                attr="y_graph_features"
+
+        
+        true_vector=getattr(d,attr).detach().cpu().numpy()
+        if true_vector.sum()==1:
+            p = pred_m.argmax(1)
+            t = true_vector.argmax(1)
+            pred_correct.extend(p[p == t])
+            pred_wrong.extend(p[p != t])
+            true.extend(t)
+        else:
+            for row in range(true_vector.shape[0]):
+                tv = (true_vector[row]==1)
+                true.extend(np.argwhere(tv).flatten())
+                pv = pred_m[row]>=threshold
+                pred_correct.extend(np.argwhere(tv&pv).flatten())
+                pred_wrong.extend(np.argwhere(tv&~pv).flatten())
+                pred_wrong.extend(np.argwhere(~tv&pv).flatten())
+
 
     # plt.hist(true)
     # plt.hist(pred)
