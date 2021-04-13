@@ -66,7 +66,7 @@ class MoleculeDfLoader(PandasDfLoader):
                 molecule = self.df.loc[r, self.molecule_column]
                 if molecule:
                     for k, d in data.items():
-                        molecule.set_property(k, d)
+                        molecule.set_property(k, d.values)
 
     def generate_full_dataset(self):
         for y_column in self.y_columns:
