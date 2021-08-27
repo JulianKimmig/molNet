@@ -1,0 +1,8 @@
+name: molNet
+channels:
+- conda-forge
+- defaults
+- pytorch
+
+dependencies:
+  - python>=3.6
