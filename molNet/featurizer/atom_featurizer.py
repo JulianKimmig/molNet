@@ -235,7 +235,7 @@ def atom_symbol_one_hot_from_set(
 
 
 atom_symbol_hcnopsclbr_one_hot = OneHotFeaturizer(
-    possible_values=["H", "C", "N", "O", "P", "S", "Cl", "Br"],
+    possible_values=["H", "C", "N", "O", "P", "S", "Cl", "Br",None],
     pre_featurize=_get_atom_symbol,
     name="atom_symbol_one_hot",
 )
@@ -415,3 +415,6 @@ default_atom_featurizer = FeaturizerList(
     ],
     name="default_atom_featurizer",
 )
+
+def atom_featurizer_on_molecule(mol,atom_featurizer):
+    for 

@@ -12,6 +12,7 @@ import torch
 from torch.utils.data import random_split, DataLoader, Dataset, IterableDataset, Subset
 from torch.utils.data.dataloader import default_collate
 from torch._six import container_abcs, string_classes, int_classes
+from multiprocessing import Pool, cpu_count
 
 BASE_DATA_DIR = os.path.join(os.path.expanduser("~"), ".molNet", "data")
 
@@ -110,6 +111,9 @@ class InMemoryLoader(pl.LightningDataModule):
         shuffle=True,
         seed=None,
         batch_size=32,
+        path=None,
+        load_path=True,
+        save_path=True,
         **dataloader_kwargs
     ):
         super().__init__()
@@ -119,12 +123,43 @@ class InMemoryLoader(pl.LightningDataModule):
         self.split = np.concatenate([np.array(split).flatten(), np.zeros(3)])[:3]
         self.split = self.split / self.split.sum()
         self.datalaoder_kwargs = dataloader_kwargs
+        self.path=path
+        self.load_path=load_path
+        self.save_path=save_path
 
     def generate_full_dataset(self):
         raise NotImplementedError()
-
+        
+    def load_data(self):
+        raise NotImplementedError()
+    
+    def save_data(self,data):
+        raise NotImplementedError()
+        
+    def load_full_dataset(self):
+        if self.path is None or not self.load_path:
+            return None
+        try:
+            return self.load_data()
+            print("data loaded from: {}".format(self.path))
+        except FileNotFoundError:
+            pass
+        return None
+        
+    def save_full_dataset(self,data):
+        if self.path is None or not self.save_path:
+            return False
+        
+        r=self.save_data(data)
+        if r:
+            print("data saved to: {}".format(self.path))
+        return r
+    
     def setup(self, stage=None):
-        data = self.generate_full_dataset()
+        data = self.load_full_dataset()
+        if data is None:
+            data = self.generate_full_dataset()
+            self.save_full_dataset(data)
         l = len(data)
         split = (self.split * l).astype(int)
         while l > split.sum():
@@ -169,14 +204,19 @@ class InMemoryLoader(pl.LightningDataModule):
 class PandasDfLoader(InMemoryLoader):
     # dataloader = DirectDataLoader
     def __init__(
-        self, df, columns=None, y_columns=None, inplace=False, *args, **kwargs
+        self, df, columns=None, y_columns=None, inplace=False,worker=0, *args, **kwargs
     ):
         super().__init__(*args, **kwargs)
         if inplace:
             self.df = df
         else:
             self.df = df.copy()
-
+        self.df.reset_index(drop=True, inplace=True)
+        worker=int(worker)
+        if worker<=0:
+            worker=max(1,cpu_count()-1)#leave on cpu free if possible
+        
+        self.worker=worker
         # releveant columns to load, if non provided use all
         if columns is None:
             self.columns = list(self.df.columns)
@@ -197,6 +237,13 @@ class PandasDfLoader(InMemoryLoader):
         for r, d in self.df[self.columns + self.y_columns].iterrows():
             data.append([d[self.columns].tolist(), d[self.y_columns].tolist()])
         return data
+    
+    def load_data(self):
+        raise NotImplementedError()
+    
+    def save_data(self,data):
+        raise NotImplementedError()
+        
 
 
 class GeneratorDataLoader(InMemoryLoader):

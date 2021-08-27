@@ -5,7 +5,7 @@ from rdkit import Chem
 import numpy as np
 import rdkit.Chem.Descriptors
 from IPython.display import Image, display, SVG, HTML
-from rdkit.Chem import PandasTools
+
 
 import torch_geometric
 from IPython.display import Markdown as md
@@ -13,7 +13,8 @@ import dill as pickle
 import pandas as ps
 import matplotlib.pyplot as plt
 
-PandasTools.RenderImagesInAllDataFrames(images=True)
+#from rdkit.Chem import PandasTools
+#PandasTools.RenderImagesInAllDataFrames(images=True)
 
 if "../../.." not in sys.path:
     sys.path.append("../../..")

@@ -6,6 +6,8 @@ import pandas as pd
 import torch_geometric
 from rdkit import Chem
 from torch.utils.data import DataLoader
+from molNet.utils.multiprocess import multi_process_apply
+Chem.SetDefaultPickleProperties(Chem.PropertyPickleOptions.AllProps)
 
 from .base_loader import (
     SingleFileLoader,
@@ -46,7 +48,6 @@ class MoleculeDfLoader(PandasDfLoader):
 
     def generate_molecules(self):
         if self.molecule_column not in self.df.columns:
-
             def _create_mol(source):
                 try:
                     return self.mol_create_function(source)
@@ -54,8 +55,9 @@ class MoleculeDfLoader(PandasDfLoader):
                     print(e)
                     return None
 
-            self.df[self.molecule_column] = self.df[self.mol_create_source].apply(
-                _create_mol
+            self.df[self.molecule_column] = multi_process_apply(
+                self.df[self.mol_create_source],
+                _create_mol,self.worker
             )
 
             for c in self.columns:
@@ -66,7 +68,8 @@ class MoleculeDfLoader(PandasDfLoader):
                 molecule = self.df.loc[r, self.molecule_column]
                 if molecule:
                     for k, d in data.items():
-                        molecule.set_property(k, d.values)
+#                        molecule.set_property(k, d.values)
+                        molecule.set_property(k, d)
 
     def generate_full_dataset(self):
         for y_column in self.y_columns:
@@ -122,9 +125,9 @@ class MolGraphlDfLoader(MoleculeDfLoader):
                     )
                 return mg
 
-            self.df[self.molgraph_column] = self.df[
+            self.df[self.molgraph_column] = multi_process_apply(self.df[
                 [self.molecule_column] + self.y_columns
-            ].apply(_moltograph, axis=1)
+            ],_moltograph,worker=self.worker, axis=1)
 
     def generate_full_dataset(self):
         for y_column in self.y_columns:
@@ -160,9 +163,10 @@ class PytorchGeomMolDfLoader(MolGraphlDfLoader):
             return molgraph.to_graph_input(**self.to_graph_input_kwargs)
 
         if self.pytorchgeomolgraph_column not in self.df.columns:
-            self.df[self.pytorchgeomolgraph_column] = self.df[
+            self.df[self.pytorchgeomolgraph_column] = multi_process_apply(
+                self.df[
                 self.molgraph_column
-            ].apply(_to_mol_graph)
+            ],_to_mol_graph,worker=self.worker)
 
     def generate_full_dataset(self):
         for y_column in self.y_columns:
@@ -170,6 +174,18 @@ class PytorchGeomMolDfLoader(MolGraphlDfLoader):
                 self.columns.remove(y_column)
         self.generate_ptgmmolgraph()
         return self.df[self.pytorchgeomolgraph_column].tolist()
+    
+    def load_data(self):
+        import pickle
+        with open(self.path,"rb") as f:
+            data= pickle.load(f)
+        return data
+    
+    def save_data(self,data):
+        import pickle
+        with open(self.path,"w+b") as f:
+            pickle.dump(data,f)
+        return True
 
 
 class MoleculeFileDataset(FileDataset):
