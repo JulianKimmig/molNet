@@ -90,17 +90,5 @@ venv.bak/
 /site
 .mypy_cache/
 /upload_to_pypi.py
-/smartlab_device_code/apps
-/smartlab_server/django_settings.json
-/smartlab_server/django_settings.json_bu
-/django_settings.json
-/django_settings.json_bu
 
-/datasets/chembl_27_chemreps.txt.gz
-/datasets/delaney-processed.csv
-
-molNet/tools/parser/CurrentChemID.xml
-
-molNet/tools/parser/all_chem_raw_wiki_data.pickle
-dev/kaggle_comp/
-/dev/black_box/notebooks/MyLogger/
+/.local/
