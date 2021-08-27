@@ -43,6 +43,8 @@ class StoreMetricsCallback(pl.Callback):
                 self.data[k] = ([], [])
             self.data[k][0].append(ep)
             self.data[k][1].append(v.detach().cpu().numpy())
+            print(k,v,end=" ")
+        print()
         if self.live_plot:
             self.plot_data()
 
