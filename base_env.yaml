@@ -9,3 +9,4 @@ dependencies:
   - rdkit
   - pip
   - numpy
+  - networkx
