@@ -2,14 +2,9 @@ name: molNet
 channels:
 - conda-forge
 - defaults
-- pytorch
-- rusty1s
 dependencies:
   - python>=3.6
   - rdkit
   - pip
   - numpy
   - networkx
-  - pytorch
-  - cpuonly
-  - pytorch-geometric

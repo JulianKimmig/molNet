@@ -4,3 +4,8 @@ channels:
   - pytorch
 dependencies:
   - pip
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cpuonly
+  - pytorch-geometric
