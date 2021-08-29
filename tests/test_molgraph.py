@@ -52,4 +52,3 @@ class MolGraphTest(unittest.TestCase):
         assert len(md_data["eges"]) == 25
         assert md_data["eges"].size == 50
         assert md_data["node_features"]["mwf"].sum() == md_data["graph_features"]["mwf"]
-        print(md_data)
