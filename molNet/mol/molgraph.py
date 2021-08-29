@@ -1,9 +1,11 @@
+from typing import Dict
+
 import networkx as nx
 import numpy as np
 from rdkit.Chem.rdchem import Mol
 
 from molNet.featurizer._atom_featurizer import AtomFeaturizer
-from molNet.mol.molecule import Molecule
+from molNet.mol.molecule import Molecule, molecule_from_smiles
 
 
 class MolGraph(nx.DiGraph):
@@ -18,14 +20,22 @@ class MolGraph(nx.DiGraph):
     def set_property(self, name, value):
         self._properties[name] = value
 
-    def featurize_mol(self, mol_featurizer: AtomFeaturizer, name: str = None):
+    def featurize_mol(
+        self, mol_featurizer: AtomFeaturizer, name: str = None, as_y: bool = False
+    ):
         if name is None:
             name = str(mol_featurizer)
+        if as_y:
+            name = "_y_" + name
         self.set_property(name, mol_featurizer(self.mol))
 
-    def featurize_atoms(self, atom_featurizer: AtomFeaturizer, name: str = None):
+    def featurize_atoms(
+        self, atom_featurizer: AtomFeaturizer, name: str = None, as_y: bool = False
+    ):
         if name is None:
             name = str(atom_featurizer)
+        if as_y:
+            name = "_y_" + name
         for n in self.nodes:
             node = self.nodes[n]
             node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
@@ -37,7 +47,10 @@ class MolGraph(nx.DiGraph):
         return features
 
     def get_atom_feature(self, feature_name):
-        feature = np.zeros((len(self)), dtype=self.nodes[0][feature_name].dtype)
+        feature = np.zeros(
+            (len(self), *self.nodes[0][feature_name].shape),
+            dtype=self.nodes[0][feature_name].dtype,
+        )
         for node_id, node_data in self.nodes(data=True):
             feature[node_id] = node_data[feature_name]
         return feature
@@ -53,7 +66,7 @@ class MolGraph(nx.DiGraph):
     def ege_array(self):
         return np.array(self.edges)
 
-    def as_arrays(self):
+    def as_arrays(self) -> Dict:
         return {
             "size": len(self),
             "eges": self.ege_array,
@@ -89,3 +102,7 @@ def mol_graph_from_molecule(
 
 def mol_graph_from_mol(mol: Mol, *args, **kwargs) -> MolGraph:
     return mol_graph_from_molecule(Molecule(mol, *args, **kwargs))
+
+
+def mol_graph_from_smiles(smiles: str, *args, **kwargs) -> MolGraph:
+    return mol_graph_from_mol(molecule_from_smiles(smiles, *args, **kwargs))
