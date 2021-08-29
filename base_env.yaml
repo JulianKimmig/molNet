@@ -11,5 +11,7 @@ dependencies:
   - numpy
   - networkx
   - pytorch
+  - torchvision
+  - torchaudio
   - cpuonly
   - pytorch-geometric
