@@ -4,9 +4,12 @@ import numpy as np
 import rdkit
 from rdkit.Chem import MolToSmiles, MolFromSmiles, MolFromInchi, rdmolfiles, rdmolops
 from rdkit.Chem.PropertyMol import PropertyMol
-from rdkit.Chem.rdchem import EditableMol
+from rdkit.Chem.rdchem import EditableMol, Mol
 
+from molNet import SMILEError, MolGenerationError
 from molNet.utils.identifier2smiles import name_to_smiles
+from molNet.utils.mol.draw import mol_to_svg
+from molNet.utils.mol.properties import assert_confomers
 
 DATATYPES_MAP: Dict[str, Tuple[type]] = {
     "FLOAT": (np.floating, float),
@@ -92,14 +95,6 @@ class MolDataPropertyHolder:
         return {p: self.get_property(p) for p in self.get_property_names()}
 
 
-class SMILEError(Exception):
-    pass
-
-
-class MolGenerationError(Exception):
-    pass
-
-
 class Molecule(MolDataPropertyHolder):
     def __init__(self, mol, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -176,16 +171,12 @@ class Molecule(MolDataPropertyHolder):
 
     def get_mol(
         self,
-        with_numbers=False,
-        with_H=None,
-        canonical_rank=True,
-        with_properties=True,
-    ) -> rdkit.Chem.Mol:
-        """
-
-        :rtype: rdkit.Chem.Mol
-        """
-        mol = EditableMol(self._mol)
+        with_numbers: bool = False,
+        with_H: bool = None,
+        canonical_rank: bool = True,
+        with_properties: bool = True,
+    ) -> Mol:
+        mol = EditableMol(self._mol)  # TODO find better copy method?
         mol = mol.GetMol()
 
         if with_H:
@@ -213,11 +204,48 @@ class Molecule(MolDataPropertyHolder):
                 mol.SetProp("molNet_" + p + "__type", t)
         return mol
 
+    # representations
+
+    def to_svg(self, size=(200, 200), svg_data=None, mol_data=None):
+        if mol_data is None:
+            mol_data = {}
+        return mol_to_svg(mol=self.get_mol(**mol_data), size=size, svg_data=svg_data)
+
+    def _repr_svg_(self):
+        return self.to_svg()
+
     def __str__(self) -> str:
         _name: Union[str, None] = self.get_property("name")
         if _name is not None and len(_name) > 0:
             return _name
         return MolToSmiles(self._mol)
+
+    def as_dict(self):
+        return {
+            "properties": self._properties,
+            "mol_properties": self.get_mol(with_properties=False).GetPropsAsDict(
+                includeComputed=True
+            ),
+        }
+
+    def calc_position(self, norm=True):
+        mol = assert_confomers(self.mol)
+
+        c = mol.GetConformers()[0]
+        pos = c.GetPositions()
+        pos = pos[:, :2]
+        pos = {i: pos[i] for i in range(pos.shape[0])}
+
+        if norm:
+            pos_list = np.zeros((len(pos), 2))
+            for i in range(pos_list.shape[0]):
+                pos_list[i] = pos[i]
+            pos_list[:, 0] -= pos_list[:, 0].min()
+            pos_list[:, 1] -= pos_list[:, 1].min()
+            pos_list /= pos_list.max()
+
+            pos = {i: pos_list[i] for i in range(pos_list.shape[0])}
+        return pos
 
 
 def molecule_from_name(name, *args, **kwargs):
