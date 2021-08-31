@@ -1,4 +1,4 @@
-from rdkit.Chem import AllChem
+from rdkit.Chem import AllChem, AddHs
 from rdkit.Chem.rdchem import Mol
 
 from molNet import ConformerError
@@ -9,6 +9,7 @@ def assert_confomers(mol: Mol, iterations: int = 10) -> Mol:
         return mol
 
     if mol.GetNumConformers() == 0:
+        mol = AddHs(mol)
         AllChem.EmbedMolecule(mol, useRandomCoords=False, maxAttempts=iterations)
     else:
         return mol
