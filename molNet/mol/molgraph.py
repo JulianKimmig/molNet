@@ -1,3 +1,4 @@
+import copy
 from typing import Dict
 
 import networkx as nx
@@ -5,23 +6,65 @@ import numpy as np
 from rdkit.Chem.rdchem import Mol
 
 from molNet.featurizer._atom_featurizer import AtomFeaturizer
+from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer
 from molNet.mol.molecule import Molecule, molecule_from_smiles
 
 
-class MolGraph(nx.DiGraph):
+class BaseMolGraph(nx.DiGraph):
     def __init__(self, **attr):
         super().__init__(**attr)
-        self._mol = None
         self._properties = {}
 
     def get_property(self, name):
         return self._properties[name]
 
+    def get_atom_features_dict(self):
+        features = {}
+        for k in self.nodes[0].keys():
+            features[k] = self.get_atom_feature(k)
+        return features
+
+    def get_atom_feature(self, feature_name):
+        feature = np.zeros(
+            (len(self), *self.nodes[0][feature_name].shape),
+            dtype=self.nodes[0][feature_name].dtype,
+        )
+        for node_id, node_data in self.nodes(data=True):
+            feature[node_id] = node_data[feature_name]
+        return feature
+
+    @property
+    def ege_array(self):
+        return np.array(self.edges)
+
+    def as_arrays(self) -> Dict:
+        return {
+            "size": len(self),
+            "eges": self.ege_array,
+            "node_features": self.get_atom_features_dict(),
+            "graph_features": self._properties,
+        }
+
+
+class FrozenMolGraph(BaseMolGraph):
+    def __init__(self, source: BaseMolGraph, **attr):
+        super().__init__(**attr)
+        self._properties = copy.deepcopy(source._properties)
+        self.add_nodes_from(source.nodes(data=True))
+        self.add_edges_from(source.edges)
+        nx.freeze(self)
+
+
+class MolGraph(BaseMolGraph):
+    def __init__(self, **attr):
+        super().__init__(**attr)
+        self._mol = None
+
     def set_property(self, name, value):
         self._properties[name] = value
 
     def featurize_mol(
-        self, mol_featurizer: AtomFeaturizer, name: str = None, as_y: bool = False
+        self, mol_featurizer: MoleculeFeaturizer, name: str = None, as_y: bool = False
     ):
         if name is None:
             name = str(mol_featurizer)
@@ -40,21 +83,6 @@ class MolGraph(nx.DiGraph):
             node = self.nodes[n]
             node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
 
-    def get_atom_features_dict(self):
-        features = {}
-        for k in self.nodes[0].keys():
-            features[k] = self.get_atom_feature(k)
-        return features
-
-    def get_atom_feature(self, feature_name):
-        feature = np.zeros(
-            (len(self), *self.nodes[0][feature_name].shape),
-            dtype=self.nodes[0][feature_name].dtype,
-        )
-        for node_id, node_data in self.nodes(data=True):
-            feature[node_id] = node_data[feature_name]
-        return feature
-
     def get_mol(self):
         return self._mol
 
@@ -62,17 +90,8 @@ class MolGraph(nx.DiGraph):
     def mol(self):
         return self.get_mol()
 
-    @property
-    def ege_array(self):
-        return np.array(self.edges)
-
-    def as_arrays(self) -> Dict:
-        return {
-            "size": len(self),
-            "eges": self.ege_array,
-            "node_features": self.get_atom_features_dict(),
-            "graph_features": self._properties,
-        }
+    def freeze(self) -> FrozenMolGraph:
+        return FrozenMolGraph(self)
 
 
 def mol_graph_from_molecule(

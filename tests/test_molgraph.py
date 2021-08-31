@@ -1,5 +1,6 @@
 import unittest
 
+import numpy as np
 from rdkit.Chem import MolFromSmiles
 
 from molNet.mol.molgraph import mol_graph_from_mol
@@ -52,3 +53,24 @@ class MolGraphTest(unittest.TestCase):
         assert len(md_data["eges"]) == 25
         assert md_data["eges"].size == 50
         assert md_data["node_features"]["mwf"].sum() == md_data["graph_features"]["mwf"]
+
+    def test_freezing(self):
+        mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
+        mg = mol_graph_from_mol(mol)
+        from molNet.featurizer.atom_featurizer import atom_mass
+        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+
+        mg.featurize_mol(molecule_mol_wt, "mwf")
+        mg.featurize_atoms(atom_mass, "mwf")
+
+        fmg = mg.freeze()
+        fmgd = fmg.as_arrays()
+        mgd = mg.as_arrays()
+        assert fmgd["size"] == mgd["size"]
+        assert np.allclose(fmgd["eges"], mgd["eges"])
+        for k, v in mgd["node_features"].items():
+            if isinstance(v, np.ndarray):
+                assert np.allclose(fmgd["node_features"][k], v)
+        for k, v in mgd["graph_features"].items():
+            if isinstance(v, np.ndarray):
+                assert np.allclose(fmgd["graph_features"][k], v)
