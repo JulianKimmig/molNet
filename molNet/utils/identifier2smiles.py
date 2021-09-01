@@ -13,7 +13,7 @@ def cactus(identifier):
         )
         ans = urlopen(url).read().decode("utf8")
         return ans
-    except:
+    except Exception as e:  # TODO better check
         return None
 
 
@@ -23,7 +23,7 @@ def opsin(identifier):
         url = "https://opsin.ch.cam.ac.uk/opsin/{}.smi".format(identifier)
         ans = urlopen(url).read().decode("utf8")
         return ans
-    except:
+    except Exception as e:  # TODO better check
         return None
 
 
