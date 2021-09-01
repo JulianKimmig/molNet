@@ -95,10 +95,18 @@ class MolDataPropertyHolder:
         return {p: self.get_property(p) for p in self.get_property_names()}
 
 
+def perpare_mol_for_molecule(mol: Mol) -> Mol:
+    mol = rdkit.Chem.AddHs(mol)
+    mol = rdmolops.RenumberAtoms(
+        mol, np.argsort(rdmolfiles.CanonicalRankAtoms(mol)).tolist()
+    )
+    return mol
+
+
 class Molecule(MolDataPropertyHolder):
-    def __init__(self, mol, *args, **kwargs):
+    def __init__(self, mol: Mol, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._mol = rdkit.Chem.AddHs(mol)
+        self._mol: Mol = perpare_mol_for_molecule(mol)
 
         # restore properties
         _propnames: List[str] = mol.GetPropNames()
