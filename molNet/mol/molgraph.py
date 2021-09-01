@@ -99,11 +99,12 @@ def mol_graph_from_molecule(
 ) -> MolGraph:
     g = MolGraph()
 
-    mol = molecule.get_mol(with_H=with_H, canonical_rank=canonical_rank)
+    mol = molecule.get_mol(
+        with_H=with_H, canonical_rank=canonical_rank, with_properties=False
+    )
 
     for atom in mol.GetAtoms():
         g.add_node(atom.GetIdx())
-
     for bond in mol.GetBonds():
         start, end = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
         g.add_edge(start, end)

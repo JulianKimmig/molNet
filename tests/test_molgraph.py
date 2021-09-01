@@ -101,6 +101,10 @@ class MolGraphTest(unittest.TestCase):
             context.exception
         )
 
+        mg3 = mol_graph_from_mol(mg1.mol)
+        mg3.featurize_mol(molecule_mol_wt, "mwf")
+        assert_molgraphs_data_equal(mg1, mg3)
+
     def test_pickling(self):
         import tempfile
         import os

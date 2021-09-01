@@ -98,7 +98,7 @@ class MolDataPropertyHolder:
 class Molecule(MolDataPropertyHolder):
     def __init__(self, mol, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._mol = mol
+        self._mol = rdkit.Chem.AddHs(mol)
 
         # restore properties
         _propnames: List[str] = mol.GetPropNames()
@@ -115,7 +115,7 @@ class Molecule(MolDataPropertyHolder):
                 p = p.replace("molNet_", "", 1)
             self.set_property(p, v, t)
 
-        self.smiles = MolToSmiles(mol)
+        self.smiles = MolToSmiles(self._mol)
 
     @property
     def mol(self):
@@ -176,19 +176,23 @@ class Molecule(MolDataPropertyHolder):
         canonical_rank: bool = True,
         with_properties: bool = True,
     ) -> Mol:
-        mol = EditableMol(self._mol)  # TODO find better copy method?
-        mol = mol.GetMol()
+        mol = PropertyMol(self._mol)  # TODO find better copy method?
 
         if with_H:
-            mol = rdkit.Chem.AddHs(mol)
+            nmol = rdkit.Chem.AddHs(mol)
+            if mol.GetNumAtoms() != nmol.GetNumAtoms():
+                mol = nmol
         elif with_H is None:
             pass
         else:
-            mol = rdkit.Chem.RemoveHs(mol)
+            nmol = rdkit.Chem.RemoveHs(mol)
+            if mol.GetNumAtoms() != nmol.GetNumAtoms():
+                mol = nmol
 
         if canonical_rank:
-            atom_order = rdmolfiles.CanonicalRankAtoms(mol)
-            mol = rdmolops.RenumberAtoms(mol, atom_order)
+            mol = rdmolops.RenumberAtoms(
+                mol, np.argsort(rdmolfiles.CanonicalRankAtoms(mol)).tolist()
+            )
 
         if with_numbers:
             atoms = mol.GetNumAtoms()
