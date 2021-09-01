@@ -125,3 +125,45 @@ def mol_graph_from_mol(mol: Mol, *args, **kwargs) -> MolGraph:
 
 def mol_graph_from_smiles(smiles: str, *args, **kwargs) -> MolGraph:
     return mol_graph_from_mol(molecule_from_smiles(smiles, *args, **kwargs))
+
+
+class MolgraphEqualsException(Exception):
+    pass
+
+
+def assert_molgraphs_data_equal(mg1: BaseMolGraph, mg2: BaseMolGraph):
+    mg1d = mg1.as_arrays()
+    mg2d = mg2.as_arrays()
+
+    if not mg1d["size"] == mg2d["size"]:
+        raise MolgraphEqualsException("size mismatch")
+
+    if not np.allclose(mg1d["eges"], mg2d["eges"]):
+        raise MolgraphEqualsException("edge mismatch")
+
+    for n in ["node_features", "graph_features"]:
+        d1, d2 = mg1d[n], mg2d[n]
+        for cd1, cd2 in [(d1, d2), (d2, d1)]:
+            for k in cd1.keys():
+                if k not in cd2:
+                    raise MolgraphEqualsException(
+                        "feature missmatch('{}')".format(n + "," + k)
+                    )
+                if isinstance(cd1[k], np.ndarray):
+                    if not np.allclose(cd1[k], cd2[k]):
+                        raise MolgraphEqualsException(
+                            "feature missmatch('{}')".format(n + "," + k)
+                        )
+                else:
+                    if not cd1[k] == cd2[k]:
+                        raise MolgraphEqualsException(
+                            "feature missmatch('{}')".format(n + "," + k)
+                        )
+
+
+def molgraphs_data_equal(mg1: BaseMolGraph, mg2: BaseMolGraph):
+    try:
+        assert_molgraphs_data_equal(mg1, mg2)
+    except MolgraphEqualsException:
+        return False
+    return True

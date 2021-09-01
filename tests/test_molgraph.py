@@ -76,6 +76,31 @@ class MolGraphTest(unittest.TestCase):
             if isinstance(v, np.ndarray):
                 assert np.allclose(fmgd["graph_features"][k], v)
 
+    def test_molgraphs_equal(self):
+        from molNet.mol.molgraph import (
+            assert_molgraphs_data_equal,
+            MolgraphEqualsException,
+        )
+
+        mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
+        mg1 = mol_graph_from_mol(mol)
+        mg2 = mol_graph_from_mol(mol)
+        from molNet.featurizer.atom_featurizer import atom_mass
+        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+
+        mg1.featurize_mol(molecule_mol_wt, "mwf")
+        mg2.featurize_mol(molecule_mol_wt, "mwf")
+
+        assert_molgraphs_data_equal(mg1, mg2)
+
+        mg2.featurize_atoms(atom_mass, "mwf")
+
+        with self.assertRaises(MolgraphEqualsException) as context:
+            assert_molgraphs_data_equal(mg1, mg2)
+        assert str(context.exception) == "feature missmatch('node_features,mwf')", str(
+            context.exception
+        )
+
     def test_pickling(self):
         import tempfile
         import os
