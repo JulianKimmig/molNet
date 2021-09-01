@@ -1,3 +1,4 @@
+import pickle
 import unittest
 
 import numpy as np
@@ -74,3 +75,50 @@ class MolGraphTest(unittest.TestCase):
         for k, v in mgd["graph_features"].items():
             if isinstance(v, np.ndarray):
                 assert np.allclose(fmgd["graph_features"][k], v)
+
+    def test_pickling(self):
+        import tempfile
+        import os
+
+        mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
+        mg = mol_graph_from_mol(mol)
+        from molNet.featurizer.atom_featurizer import atom_mass
+        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+
+        mg.featurize_mol(molecule_mol_wt, "mwf")
+        mg.featurize_atoms(atom_mass, "mwf")
+
+        fmg = mg.freeze()
+
+        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+            with open(tmp_file.name, "wb") as sf:
+                pickle.dump(mg, sf)
+            tmp_filename = tmp_file.name
+
+        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+            with open(tmp_file.name, "wb") as sf:
+                pickle.dump(fmg, sf)
+            ftmp_filename = tmp_file.name
+
+        assert os.path.getsize(ftmp_filename) == 2171, os.path.getsize(ftmp_filename)
+        assert os.path.getsize(tmp_filename) == 3062, os.path.getsize(ftmp_filename)
+
+        with open(tmp_filename, "rb") as sf:
+            nmg = pickle.load(sf)
+
+        with open(ftmp_filename, "rb") as sf:
+            nfmg = pickle.load(sf)
+
+        os.remove(tmp_filename)
+        os.remove(ftmp_filename)
+
+        nfmgd = nfmg.as_arrays()
+        fmgd = nfmg.as_arrays()
+        assert fmgd["size"] == nfmgd["size"]
+        assert np.allclose(fmgd["eges"], nfmgd["eges"])
+        for k, v in fmgd["node_features"].items():
+            if isinstance(v, np.ndarray):
+                assert np.allclose(nfmgd["node_features"][k], v)
+        for k, v in fmgd["graph_features"].items():
+            if isinstance(v, np.ndarray):
+                assert np.allclose(nfmgd["graph_features"][k], v)
