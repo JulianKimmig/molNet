@@ -10,7 +10,7 @@ class SMILESTest(unittest.TestCase):
         mol = Chem.MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         molecule = Molecule(mol)
         assert str(molecule) == "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
-        assert molecule.smiles == "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
+        assert molecule.get_smiles() == "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
 
     def test_random_smiles(self):
         smiles = "Cn1c(=O)c2c(ncn2C)n(C)c1=O"

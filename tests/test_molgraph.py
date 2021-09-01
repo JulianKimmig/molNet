@@ -129,8 +129,8 @@ class MolGraphTest(unittest.TestCase):
                 pickle.dump(fmg, sf)
             ftmp_filename = tmp_file.name
 
-        assert os.path.getsize(ftmp_filename) == 2171, os.path.getsize(ftmp_filename)
-        assert os.path.getsize(tmp_filename) == 3062, os.path.getsize(ftmp_filename)
+        assert os.path.getsize(ftmp_filename) == 2132, os.path.getsize(ftmp_filename)
+        assert os.path.getsize(tmp_filename) == 2573, os.path.getsize(tmp_filename)
 
         with open(tmp_filename, "rb") as sf:
             nmg = pickle.load(sf)

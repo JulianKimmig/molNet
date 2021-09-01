@@ -11,7 +11,7 @@ class MolTest(unittest.TestCase):
     def test_mol_prop_hold(self):
         mol = Chem.MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         molecule = Molecule(mol)
-        assert str(molecule) == "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
+        assert str(molecule) == "Cn1c(=O)c2c(ncn2C)n(C)c1=O", str(molecule)
         molecule.set_property("name", "caffein")
         assert molecule.get_property("name") == "caffein"
         mol = molecule.get_mol()
@@ -23,9 +23,10 @@ class MolTest(unittest.TestCase):
         soll_string = "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
 
         ns = name_to_smiles(from_name)
+        assert len(ns.keys()) > 0, ns
         mol = Chem.MolFromSmiles(list(ns.keys())[0])
         molecule = Molecule(mol)
-        assert str(molecule) == "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
+        assert str(molecule) == "Cn1c(=O)c2c(ncn2C)n(C)c1=O", str(molecule)
         molecule.set_property("name", from_name)
 
         assert molecule.get_smiles() == soll_string

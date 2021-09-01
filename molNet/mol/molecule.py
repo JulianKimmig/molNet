@@ -4,9 +4,9 @@ import numpy as np
 import rdkit
 from rdkit.Chem import MolToSmiles, MolFromSmiles, MolFromInchi, rdmolfiles, rdmolops
 from rdkit.Chem.PropertyMol import PropertyMol
-from rdkit.Chem.rdchem import EditableMol, Mol
+from rdkit.Chem.rdchem import Mol
 
-from molNet import SMILEError, MolGenerationError
+from molNet import MolGenerationError
 from molNet.utils.identifier2smiles import name_to_smiles
 from molNet.utils.mol.draw import mol_to_svg
 from molNet.utils.mol.properties import assert_confomers
@@ -115,29 +115,29 @@ class Molecule(MolDataPropertyHolder):
                 p = p.replace("molNet_", "", 1)
             self.set_property(p, v, t)
 
-        self.smiles = MolToSmiles(self._mol)
+        # self.smiles = MolToSmiles(self._mol)
 
     @property
     def mol(self):
         return self._mol
 
-    @property
-    def smiles(self):
-        return self.get_property("smiles")
+    # @property
+    # def smiles(self):
+    #    return self.get_property("smiles")
 
-    @smiles.setter
-    def smiles(self, smiles):
-        to_s = MolToSmiles(self.mol)
-        if smiles != to_s:
-            conv_s = MolToSmiles(MolFromSmiles(smiles, sanitize=False))
-            if not to_s == conv_s:
-                raise SMILEError(
-                    "smiles dont match {} and {} as {}".format(to_s, smiles, conv_s)
-                )
-        self.set_property("smiles", smiles, dtype=DATATYPES.STRING)
+    # @smiles.setter
+    # def smiles(self, smiles):
+    #    to_s = MolToSmiles(self.mol)
+    #    if smiles != to_s:
+    #        conv_s = MolToSmiles(MolFromSmiles(smiles, sanitize=False))
+    #        if not to_s == conv_s:
+    #            raise SMILEError(
+    #                "smiles dont match {} and {} as {}".format(to_s, smiles, conv_s)
+    #            )
+    #    self.set_property("smiles", smiles, dtype=DATATYPES.STRING)
 
     def get_smiles(self, *args, **kwargs):
-        return MolToSmiles(self.mol, *args, **kwargs)
+        return MolToSmiles(rdkit.Chem.RemoveHs(self.mol), *args, **kwargs)
 
     @classmethod
     def from_smiles(cls, smiles: str, *args, **kwargs):
@@ -222,7 +222,7 @@ class Molecule(MolDataPropertyHolder):
         _name: Union[str, None] = self.get_property("name")
         if _name is not None and len(_name) > 0:
             return _name
-        return MolToSmiles(self._mol)
+        return self.get_smiles()
 
     def as_dict(self):
         return {
