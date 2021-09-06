@@ -85,7 +85,7 @@ def molgraph_arrays_to_graph_input(
         y_graph_features = np.array(y_graph_features, dtype=np.float32)
     else:
         y_graph_features = np.zeros((1, 0), dtype=np.float32)
-    print(x_graph_features, y_graph_features)
+    # print(x_graph_features, y_graph_features)
 
     edge_index = np.zeros((2, eges.shape[0] * 2), dtype=int)
     edge_index[:, ::2] = eges.T
