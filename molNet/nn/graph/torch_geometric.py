@@ -129,8 +129,6 @@ def assert_graph_input_data_equal(
                     "feature value missmatch('{}')".format(k)
                 )
 
-            print(k, v.shape, _d2[k].shape)
-
 
 def graph_input_data_equal(
     gip1: torch_geometric.data.data.Data, gip2: torch_geometric.data.data.Data
