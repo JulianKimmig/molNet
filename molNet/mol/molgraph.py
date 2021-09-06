@@ -125,7 +125,7 @@ def mol_graph_from_mol(mol: Mol, *args, **kwargs) -> MolGraph:
 
 
 def mol_graph_from_smiles(smiles: str, *args, **kwargs) -> MolGraph:
-    return mol_graph_from_mol(molecule_from_smiles(smiles, *args, **kwargs))
+    return mol_graph_from_molecule(molecule_from_smiles(smiles, *args, **kwargs))
 
 
 class MolgraphEqualsException(Exception):
