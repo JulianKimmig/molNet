@@ -142,3 +142,27 @@ def graph_input_data_equal(
     except GraphInputEqualsException:
         return False
     return True
+
+
+def assert_graph_input_shape_equal(
+    gip1: torch_geometric.data.data.Data, gip2: torch_geometric.data.data.Data
+):
+    d1 = gip1.to_dict()
+    d2 = gip2.to_dict()
+
+    for _d1, _d2 in ((d1, d2), (d2, d1)):
+        for k, v in _d1.items():
+            if not np.array_equal(v.shape, _d2[k].shape):
+                raise GraphInputEqualsException(
+                    "feature shape missmatch('{}')".format(k)
+                )
+
+
+def graph_input_shape_equal(
+    gip1: torch_geometric.data.data.Data, gip2: torch_geometric.data.data.Data
+):
+    try:
+        assert_graph_input_shape_equal(gip1, gip2)
+    except GraphInputEqualsException:
+        return False
+    return True
