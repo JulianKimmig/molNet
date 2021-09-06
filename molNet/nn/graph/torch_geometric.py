@@ -106,3 +106,37 @@ def molgraph_arrays_to_graph_input(
 
 def molgraph_to_graph_input(molgraph: MolGraph, **add_kwargs):
     return molgraph_arrays_to_graph_input(**molgraph.as_arrays(), **add_kwargs)
+
+
+class GraphInputEqualsException(Exception):
+    pass
+
+
+def assert_graph_input_data_equal(
+    gip1: torch_geometric.data.data.Data, gip2: torch_geometric.data.data.Data
+):
+    d1 = gip1.to_dict()
+    d2 = gip2.to_dict()
+
+    for _d1, _d2 in ((d1, d2), (d2, d1)):
+        for k, v in _d1.items():
+            if not np.array_equal(v.shape, _d2[k].shape):
+                raise GraphInputEqualsException(
+                    "feature shape missmatch('{}')".format(k)
+                )
+            if not torch.allclose(v, _d2[k]):
+                raise GraphInputEqualsException(
+                    "feature value missmatch('{}')".format(k)
+                )
+
+            print(k, v.shape, _d2[k].shape)
+
+
+def graph_input_data_equal(
+    gip1: torch_geometric.data.data.Data, gip2: torch_geometric.data.data.Data
+):
+    try:
+        assert_graph_input_data_equal(gip1, gip2)
+    except GraphInputEqualsException:
+        return False
+    return True

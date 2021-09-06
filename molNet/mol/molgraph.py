@@ -151,6 +151,10 @@ def assert_molgraphs_data_equal(mg1: BaseMolGraph, mg2: BaseMolGraph):
                         "feature missmatch('{}')".format(n + "," + k)
                     )
                 if isinstance(cd1[k], np.ndarray):
+                    if not np.array_equal(cd1[k].shape, cd2[k].shape):
+                        raise MolgraphEqualsException(
+                            "feature shape missmatch('{}')".format(k)
+                        )
                     if not np.allclose(cd1[k], cd2[k]):
                         raise MolgraphEqualsException(
                             "feature missmatch('{}')".format(n + "," + k)

@@ -10,7 +10,11 @@ from molNet.featurizer._autogen_molecule_featurizer import (
 )
 from molNet.featurizer.atom_featurizer import atom_partial_charge, atom_symbol_one_hot
 from molNet.mol.molgraph import mol_graph_from_mol
-from molNet.nn.graph.torch_geometric import molgraph_to_graph_input
+from molNet.nn.graph.torch_geometric import (
+    molgraph_to_graph_input,
+    assert_graph_input_data_equal,
+    GraphInputEqualsException,
+)
 
 
 class PytorchGeometricTest(unittest.TestCase):
@@ -35,3 +39,33 @@ class PytorchGeometricTest(unittest.TestCase):
             assert np.allclose(
                 b.x_graph_features.detach().numpy().flatten(), np.ones(3) * 194.194
             )
+
+    def test_input_equal(self):
+
+        mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
+        mg1 = mol_graph_from_mol(mol)
+        mg2 = mol_graph_from_mol(mol)
+        from molNet.featurizer.atom_featurizer import atom_mass
+        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+
+        mg1.featurize_mol(molecule_mol_wt, "mwf")
+        mg2.featurize_mol(molecule_mol_wt, "mwf")
+
+        gip1 = molgraph_to_graph_input(mg1)
+        gip2 = molgraph_to_graph_input(mg2)
+
+        assert_graph_input_data_equal(gip1, gip2)
+
+        mg2.featurize_atoms(atom_mass, "mwf")
+        gip2 = molgraph_to_graph_input(mg2)
+
+        with self.assertRaises(GraphInputEqualsException) as context:
+            assert_graph_input_data_equal(gip1, gip2)
+        assert str(context.exception) == "feature shape missmatch('x')", str(
+            context.exception
+        )
+
+        mg3 = mol_graph_from_mol(mg1.mol)
+        mg3.featurize_mol(molecule_mol_wt, "mwf")
+        gip3 = molgraph_to_graph_input(mg3)
+        assert_graph_input_data_equal(gip1, gip3)
