@@ -8,7 +8,11 @@ from molNet.featurizer._autogen_molecule_featurizer import (
     molecule_mol_wt,
     molecule_get_formal_charge,
 )
-from molNet.featurizer.atom_featurizer import atom_partial_charge, atom_symbol_one_hot
+from molNet.featurizer.atom_featurizer import (
+    atom_partial_charge,
+    atom_symbol_one_hot,
+    atom_degree,
+)
 from molNet.mol.molgraph import mol_graph_from_mol
 from molNet.nn.graph.torch_geometric import (
     molgraph_to_graph_input,
@@ -25,6 +29,7 @@ class PytorchGeometricTest(unittest.TestCase):
         mg.featurize_mol(molecule_mol_wt)
         mg.featurize_mol(molecule_get_formal_charge, as_y=True)
         mg.featurize_atoms(atom_symbol_one_hot)
+        mg.featurize_atoms(atom_degree)
         mg.featurize_atoms(atom_partial_charge, as_y=True)
 
         data = molgraph_to_graph_input(mg)
