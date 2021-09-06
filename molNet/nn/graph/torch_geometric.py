@@ -60,7 +60,7 @@ def molgraph_arrays_to_graph_input(
         add_kwargs["string_data_titles"] = []
     for n, v in graph_features.items():
         if isinstance(v, ndarray):
-            if np.issubdtype(v.dtype, np.number):
+            if np.issubdtype(v.dtype, (np.number, np.bool_)):
                 if n.startswith("_y_"):
                     y_graph_features.append(v.flatten().astype(np.float32))
                     if include_graph_features_titles:
@@ -69,12 +69,12 @@ def molgraph_arrays_to_graph_input(
                     x_graph_features.append(v.flatten().astype(np.float32))
                     if include_graph_features_titles:
                         add_kwargs["x_graph_features_titles"].append(n)
-            elif isinstance(v, str):
-                if keep_string_data:
-                    add_kwargs["string_data"].append(v)
-                    add_kwargs["string_data_titles"].append(n)
-            else:
-                add_kwargs[n] = v
+        elif isinstance(v, str):
+            if keep_string_data:
+                add_kwargs["string_data"].append(v)
+                add_kwargs["string_data_titles"].append(n)
+        else:
+            add_kwargs[n] = v
 
     if len(x_graph_features) > 0:
         x_graph_features = np.array(x_graph_features, dtype=np.float32)
