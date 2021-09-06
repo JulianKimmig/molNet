@@ -20,7 +20,7 @@ def molgraph_arrays_to_graph_input(
     include_graph_features_titles=False,
     **add_kwargs
 ):
-    print(graph_features)
+    # print(graph_features)
 
     for n, v in node_features.items():
         if v.shape[0] != size:
@@ -48,7 +48,7 @@ def molgraph_arrays_to_graph_input(
     if len(y_node_features) > 0:
         y_node_features = np.concatenate(y_node_features)  # Shape[size,m]
     else:
-        x_node_features = np.zeros((size, 0))
+        y_node_features = np.zeros((size, 0))
 
     x_graph_features = []
     y_graph_features = []
