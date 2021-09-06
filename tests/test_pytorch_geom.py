@@ -14,6 +14,7 @@ from molNet.nn.graph.torch_geometric import (
     molgraph_to_graph_input,
     assert_graph_input_data_equal,
     GraphInputEqualsException,
+    assert_graph_input_shape_equal,
 )
 
 
@@ -69,3 +70,10 @@ class PytorchGeometricTest(unittest.TestCase):
         mg3.featurize_mol(molecule_mol_wt, "mwf")
         gip3 = molgraph_to_graph_input(mg3)
         assert_graph_input_data_equal(gip1, gip3)
+
+        mol2 = MolFromSmiles("c1ccccc1")
+        mg4 = mol_graph_from_mol(mol2)
+        mg4.featurize_mol(molecule_mol_wt, "mwf")
+
+        gip4 = molgraph_to_graph_input(mg4)
+        assert_graph_input_shape_equal(gip1, gip4)
