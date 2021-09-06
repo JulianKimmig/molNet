@@ -62,11 +62,11 @@ def molgraph_arrays_to_graph_input(
         if isinstance(v, ndarray):
             if np.issubdtype(v.dtype, np.number) or np.issubdtype(v.dtype, np.bool_):
                 if n.startswith("_y_"):
-                    y_graph_features.append(v.flatten().astype(np.float32))
+                    y_graph_features.extend(v.flatten().astype(np.float32))
                     if include_graph_features_titles:
                         add_kwargs["y_graph_features_titles"].append(n)
                 else:
-                    x_graph_features.append(v.flatten().astype(np.float32))
+                    x_graph_features.extend(v.flatten().astype(np.float32))
                     if include_graph_features_titles:
                         add_kwargs["x_graph_features_titles"].append(n)
         elif isinstance(v, str):
@@ -77,12 +77,16 @@ def molgraph_arrays_to_graph_input(
             add_kwargs[n] = v
 
     if len(x_graph_features) > 0:
-        x_graph_features = np.array(x_graph_features, dtype=np.float32)
+        x_graph_features = np.expand_dims(
+            np.array(x_graph_features, dtype=np.float32), axis=0
+        )
     else:
         x_graph_features = np.zeros((1, 0), dtype=np.float32)
 
     if len(y_graph_features) > 0:
-        y_graph_features = np.array(y_graph_features, dtype=np.float32)
+        y_graph_features = np.expand_dims(
+            np.array(y_graph_features, dtype=np.float32), axis=0
+        )
     else:
         y_graph_features = np.zeros((1, 0), dtype=np.float32)
     # print(x_graph_features, y_graph_features)
