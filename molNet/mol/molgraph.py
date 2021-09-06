@@ -35,7 +35,7 @@ class BaseMolGraph(nx.DiGraph):
 
     @property
     def ege_array(self):
-        return np.array(self.edges)
+        return np.array(self.edges).reshape((-1, 2))
 
     def as_arrays(self) -> Dict:
         return {
