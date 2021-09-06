@@ -42,7 +42,7 @@ class Featurizer:
         if self.pre_featurize is not None:
             to_featurize = self.pre_featurize(to_featurize)
         f = self.featurize(to_featurize)
-        f = np.array(f)
+        f = np.array(f, dtype=self.dtype)
         if self._normalization is not None:
             f = self._normalization(f)
         if self._len is None:
@@ -52,7 +52,7 @@ class Featurizer:
         return f
 
     def featurize(self, to_featurize):
-        return np.array(to_featurize, dtype=self.dtype)
+        return np.array(to_featurize)
 
     def __str__(self):
         return self._name
