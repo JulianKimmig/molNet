@@ -138,8 +138,20 @@ def assert_graph_input_shape_equal(
 ):
     d1, d2 = assert_graph_input_keys_equal(gip1, gip2)
 
+    s1 = d1["x"].shape[0]
+    s2 = d2["x"].shape[0]
     for k, v in d1.items():
-        if not np.array_equal(v.shape, d2[k].shape):
+        if not len(v.shape) == len(d2[k].shape):
+            raise GraphInputEqualsException(
+                "feature dimensions missmatch('{}')".format(k)
+            )
+
+        sa1 = np.array(v.shape)
+        sa2 = np.array(d2[k].shape)
+        z1 = sa1 - sa2
+        z2 = (sa1 - s1) - (sa2 - s2)
+
+        if not np.all((z1 * z2) == 0):
             raise GraphInputEqualsException("feature shape missmatch('{}')".format(k))
     return d1, d2
 
