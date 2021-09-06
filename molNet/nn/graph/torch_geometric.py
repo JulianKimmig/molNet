@@ -138,8 +138,15 @@ def assert_graph_input_shape_equal(
 ):
     d1, d2 = assert_graph_input_keys_equal(gip1, gip2)
 
-    s1 = d1["x"].shape[0]
-    s2 = d2["x"].shape[0]
+    # if node dependent
+    s11 = d1["x"].shape[0]
+    s21 = d2["x"].shape[0]
+
+    # if edge dependent
+    s12 = d1["edge_index"].shape[1]
+    s22 = d2["edge_index"].shape[1]
+    ss1 = s11 + s21
+    ss2 = s12 + s22
     for k, v in d1.items():
         if not len(v.shape) == len(d2[k].shape):
             raise GraphInputEqualsException(
@@ -149,9 +156,9 @@ def assert_graph_input_shape_equal(
         sa1 = np.array(v.shape)
         sa2 = np.array(d2[k].shape)
         z1 = sa1 - sa2
-        z2 = (sa1 - s1) - (sa2 - s2)
-
-        if not np.all((z1 * z2) == 0):
+        z2 = z1 - ss1
+        z3 = z1 - ss2
+        if not np.all((z1 * z2) == 0) and not np.all((z1 * z3) == 0):
             raise GraphInputEqualsException("feature shape missmatch('{}')".format(k))
     return d1, d2
 
