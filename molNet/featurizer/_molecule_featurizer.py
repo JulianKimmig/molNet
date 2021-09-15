@@ -1,5 +1,5 @@
 from .featurizer import Featurizer
-from molNet.utils.mol.properties import assert_confomers
+from molNet.utils.mol.properties import assert_conformers
 import numpy as np
 from rdkit.Chem import MolFromSmiles
 
@@ -19,13 +19,13 @@ class MoleculeFeaturizer(Featurizer):
             ipf = kwargs["pre_featurize"]
 
             def _pf(mol):
-                assert_confomers(mol)
+                assert_conformers(mol)
                 return ipf(mol)
 
         else:
 
             def _pf(mol):
-                assert_confomers(mol)
+                assert_conformers(mol)
                 return mol
 
         kwargs["pre_featurize"] = _pf

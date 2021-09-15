@@ -5,14 +5,14 @@ import numpy as np
 from rdkit.Chem import MolFromSmiles
 
 from molNet.mol.molgraph import mol_graph_from_mol, mol_graph_from_smiles
-from molNet.utils.mol.properties import assert_confomers
+from molNet.utils.mol.properties import assert_conformers
 
 
 class MolGraphTest(unittest.TestCase):
     def test_gen_mol_graph_from_mol(self):
         smiles = "Cn1c(=O)c2c(ncn2C)n(C)c1=O"
         mol = MolFromSmiles(smiles)
-        assert_confomers(mol)
+        assert_conformers(mol)
         assert len(mol_graph_from_mol(mol)) == 24
 
     def test_gen_mol_graph_from_smiles(self):

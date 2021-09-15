@@ -9,7 +9,7 @@ from rdkit.Chem.rdchem import Mol
 from molNet import MolGenerationError
 from molNet.utils.identifier2smiles import name_to_smiles
 from molNet.utils.mol.draw import mol_to_svg
-from molNet.utils.mol.properties import assert_confomers
+from molNet.utils.mol.properties import assert_conformers
 
 DATATYPES_MAP: Dict[str, Tuple[type]] = {
     "FLOAT": (np.floating, float),
@@ -241,7 +241,7 @@ class Molecule(MolDataPropertyHolder):
         }
 
     def calc_position(self, norm=True):
-        mol = assert_confomers(self.mol)
+        mol = assert_conformers(self.mol)
 
         c = mol.GetConformers()[0]
         pos = c.GetPositions()
