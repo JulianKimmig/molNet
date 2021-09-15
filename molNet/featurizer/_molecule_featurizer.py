@@ -34,6 +34,8 @@ class MoleculeFeaturizer(Featurizer):
     def featurize(self, mol):
         return np.array(self.featurize_function(mol), dtype=self.dtype)
 
+    def featurize_function(self, atom):
+        raise NotImplementedError()
 
 class SingleValueMoleculeFeaturizer(MoleculeFeaturizer):
     _LENGTH = 1
