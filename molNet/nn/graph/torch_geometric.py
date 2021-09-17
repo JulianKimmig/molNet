@@ -177,8 +177,9 @@ def assert_graph_input_data_equal(
     d1, d2 = assert_graph_input_shape_equal(gip1, gip2)
 
     for k, v in d1.items():
-        if not torch.allclose(v, d2[k]):
-            raise GraphInputEqualsException("feature value missmatch('{}')".format(k))
+        if isinstance(v, torch.Tensor):
+            if not torch.allclose(v, d2[k]):
+                raise GraphInputEqualsException("feature value missmatch('{}')".format(k))
 
 
 def graph_input_keys_equal(
