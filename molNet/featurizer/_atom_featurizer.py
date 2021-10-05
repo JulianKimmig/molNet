@@ -1,8 +1,8 @@
 from .featurizer import Featurizer
 import numpy as np
-from rdkit.Chem import MolFromSmiles
+from molNet.utils.smiles import mol_from_smiles
 
-testmol = MolFromSmiles("CCC")
+testmol = mol_from_smiles("CCC")
 
 
 class AtomFeaturizer(Featurizer):

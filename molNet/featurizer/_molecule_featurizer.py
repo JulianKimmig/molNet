@@ -1,9 +1,9 @@
 from .featurizer import Featurizer
 from molNet.utils.mol.properties import assert_conformers
 import numpy as np
-from rdkit.Chem import MolFromSmiles
+from molNet.utils.smiles import mol_from_smiles
 
-testmol = MolFromSmiles("CCC")
+testmol = mol_from_smiles("CCC")
 
 
 class MoleculeFeaturizer(Featurizer):
@@ -36,6 +36,7 @@ class MoleculeFeaturizer(Featurizer):
 
     def featurize_function(self, atom):
         raise NotImplementedError()
+
 
 class SingleValueMoleculeFeaturizer(MoleculeFeaturizer):
     _LENGTH = 1

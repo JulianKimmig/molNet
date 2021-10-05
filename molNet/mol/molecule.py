@@ -2,7 +2,7 @@ from typing import Union, List, Tuple, Any, Dict
 
 import numpy as np
 import rdkit
-from rdkit.Chem import MolToSmiles, MolFromSmiles, MolFromInchi, rdmolfiles, rdmolops
+from rdkit.Chem import MolToSmiles, MolFromInchi, rdmolfiles, rdmolops
 from rdkit.Chem.PropertyMol import PropertyMol
 from rdkit.Chem.rdchem import Mol
 
@@ -10,6 +10,7 @@ from molNet import MolGenerationError
 from molNet.utils.identifier2smiles import name_to_smiles
 from molNet.utils.mol.draw import mol_to_svg
 from molNet.utils.mol.properties import assert_conformers
+from molNet.utils.smiles import mol_from_smiles
 
 DATATYPES_MAP: Dict[str, Tuple[type]] = {
     "FLOAT": (np.floating, float),
@@ -149,11 +150,7 @@ class Molecule(MolDataPropertyHolder):
 
     @classmethod
     def from_smiles(cls, smiles: str, *args, **kwargs):
-        m = MolFromSmiles(smiles)
-        if m is None:
-            raise MolGenerationError(
-                "cannot convert smiles '{}' to molecule".format(smiles)
-            )
+        m = mol_from_smiles(smiles)
         m = cls(m, *args, **kwargs)
         return m
 

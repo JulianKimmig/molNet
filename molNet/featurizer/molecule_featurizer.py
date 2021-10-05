@@ -1,13 +1,7 @@
-from ._molecule_featurizer import MoleculeFeaturizer
-
-from ._molecule_featurizer import MoleculeFeaturizer, SingleValueMoleculeFeaturizer
-from .featurizer import FeaturizerList
+from rdkit.Chem.rdmolops import GetMolFrags
 
 from ._autogen_molecule_featurizer import *
-
-from rdkit.Chem import AllChem, MolFromSmiles
-
-from rdkit.Chem.rdmolops import GetMolFrags
+from .featurizer import FeaturizerList
 
 
 class ExtendMolnetFeaturizer(MoleculeFeaturizer):

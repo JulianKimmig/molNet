@@ -1,3 +1,4 @@
+from molNet.utils.smiles import mol_from_smiles
 from ._molecule_featurizer import MoleculeFeaturizer, SingleValueMoleculeFeaturizer
 import numpy as np
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
@@ -2071,7 +2072,7 @@ _available_featurizer = {
 def main():
     from rdkit import Chem
 
-    testmol = Chem.MolFromSmiles("c1ccccc1")
+    testmol = mol_from_smiles("c1ccccc1")
     return list(zip(_available_featurizer, [f(testmol) for f in _available_featurizer]))
 
 
