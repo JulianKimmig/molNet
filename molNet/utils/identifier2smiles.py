@@ -1,6 +1,7 @@
 import urllib
 from typing import Dict
 from urllib.request import urlopen
+from molNet.utils.smiles import mol_from_smiles
 
 import rdkit
 
@@ -57,7 +58,7 @@ def name_to_smiles(identifier, polymer_precheck=False) -> Dict[str, Dict]:
         raw_answers[n] = method(identifier)
 
     mol_answers = {
-        n: rdkit.Chem.MolToSmiles(rdkit.Chem.MolFromSmiles(smiles))
+        n: rdkit.Chem.MolToSmiles(mol_from_smiles(smiles))
         for n, smiles in raw_answers.items()
         if smiles is not None
     }

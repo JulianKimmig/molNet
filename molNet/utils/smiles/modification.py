@@ -1,21 +1,18 @@
-from multiprocessing import cpu_count, Pool
 from typing import List
 
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import Mol
-from rdkit.Chem import MolFromSmiles
+
 from tqdm import tqdm
 
+from molNet.utils.parallelization.multiprocessing import parallelize
+from molNet.utils.smiles import mol_from_smiles
 from molNet import MolGenerationError, MOLNET_LOGGER
 
 
 def get_random_smiles(smiles, max_smiles=1000):
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        raise MolGenerationError(
-            "cannot convert smiles '{}' to molecule".format(smiles)
-        )
+    mol = mol_from_smiles(smiles)
     s = []
     possibilities = []
     for m in [mol, Chem.RemoveHs(mol), Chem.AddHs(mol)]:
@@ -53,15 +50,6 @@ def get_random_smiles(smiles, max_smiles=1000):
     return s[:max_smiles]
 
 
-def mol_from_smiles(smiles: str, raise_error: bool = True) -> Mol:
-    m = MolFromSmiles(smiles)
-    if m is None and raise_error:
-        raise MolGenerationError(
-            "cannot convert smiles '{}' to molecule".format(smiles)
-        )
-    return m
-
-
 def multiple_mol_from_smiles_generator(
     smiles: List[str], raise_error: bool = True, progess_bar=True
 ):
@@ -90,30 +78,10 @@ def _mfs(smiles):
 
 
 def parallel_mol_from_smiles(smiles, cores="all-1", progess_bar=True):
-    n_cores = cpu_count()
-    if "all" in cores:
-        if "all-" in cores:
-            n_cores = n_cores - int(cores.replace("all-", ""))
-        elif cores == "all":
-            pass
-        else:
-            raise ValueError("Cannot get core number from '{cores}'")
-        cores = n_cores
-
-    cores = max(1, min(n_cores, int(cores)))
-
-    MOLNET_LOGGER.debug(f"using {cores} cores")
-
-    smiles = np.array(smiles)
-    sub_smiles = np.array_split(smiles, min(1000, int(np.ceil(len(smiles) / cores))))
-    with Pool(cores) as p:
-        r = []
-        if progess_bar:
-            with tqdm(total=len(smiles), unit=" mol") as pbar:
-                for ri in p.imap(_mfs, sub_smiles):
-                    r.extend(ri)
-                    pbar.update(len(ri))
-        else:
-            for ri in p.imap(_mfs, sub_smiles):
-                r.extend(ri)
-    return r
+    return parallelize(
+        _mfs,
+        smiles,
+        cores=cores,
+        progess_bar=progess_bar,
+        progress_bar_kwargs=dict(unit=" mol"),
+    )
