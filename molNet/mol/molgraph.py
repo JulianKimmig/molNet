@@ -5,9 +5,11 @@ import networkx as nx
 import numpy as np
 from rdkit.Chem.rdchem import Mol
 
+from molNet import ConformerError
 from molNet.featurizer._atom_featurizer import AtomFeaturizer
 from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer
 from molNet.mol.molecule import Molecule, molecule_from_smiles
+from molNet.utils.parallelization.multiprocessing import parallelize
 
 
 class BaseMolGraph(nx.DiGraph):
@@ -172,3 +174,67 @@ def molgraphs_data_equal(mg1: BaseMolGraph, mg2: BaseMolGraph):
     except MolgraphEqualsException:
         return False
     return True
+
+
+def _single_call_molgraph_from_smiles(d):
+    return [mol_graph_from_smiles(data[0], *data[1], **data[2]) for data in d]
+
+
+def _single_call_mol_graph_from_mol(d):
+    return [mol_graph_from_mol(data[0], *data[1], **data[2]) for data in d]
+
+
+def parallel_molgraph_from_smiles(
+    smiles, gen_args=[], gen_kwargs={}, cores="all-1", progess_bar=True
+):
+    return parallelize(
+        _single_call_molgraph_from_smiles,
+        [(s, gen_args, gen_kwargs) for s in smiles],
+        cores=cores,
+        progess_bar=progess_bar,
+        progress_bar_kwargs=dict(unit=" mg"),
+    )
+
+
+def parallel_molgraph_from_mol(
+    mols, gen_args=[], gen_kwargs={}, cores="all-1", progess_bar=True
+):
+    return parallelize(
+        _single_call_mol_graph_from_mol,
+        [(s, gen_args, gen_kwargs) for s in mols],
+        cores=cores,
+        progess_bar=progess_bar,
+        progress_bar_kwargs=dict(unit=" mg"),
+    )
+
+
+def _parallel_features_from_smiles(d):
+    f = d[0][3]()
+    r = np.zeros((len(d), len(f))) * np.nan
+    for i, data in enumerate(d):
+        mg = mol_graph_from_smiles(data[0], *data[1], **data[2])
+        try:
+            mg.featurize_mol(f, name="para_feats")
+            r[i] = mg.as_arrays()["graph_features"]["para_feats"]
+        except ConformerError:
+            pass
+    return r
+
+
+def parallel_features_from_smiles(
+    smiles,
+    featurizer_class,
+    gen_args=[],
+    gen_kwargs={},
+    cores="all-1",
+    progess_bar=True,
+):
+    return np.concatenate(
+        parallelize(
+            _parallel_features_from_smiles,
+            [(s, gen_args, gen_kwargs, featurizer_class) for s in smiles],
+            cores=cores,
+            progess_bar=progess_bar,
+            progress_bar_kwargs=dict(unit=" feats"),
+        )
+    )
