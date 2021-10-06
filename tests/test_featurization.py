@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 
 from molNet import MOLNET_LOGGER, ConformerError
-from molNet.featurizer._autogen_molecule_featurizer import MolWtFeaturizer
+from molNet.featurizer.molecule_featurizer import MolWtFeaturizer
 from molNet.mol.molgraph import parallel_features_from_smiles, mol_graph_from_smiles
 from molNet.utils.smiles.generator import generate_n_random_hetero_carbon_lattice
 
@@ -20,8 +20,9 @@ class FeatureTest(unittest.TestCase):
         #    np.random.seed(SEED)
         #    random.seed(SEED)
         #    SEED=random.randint(0,1000)#901
+        d=100
         d = np.array(
-            [k for k in generate_n_random_hetero_carbon_lattice(n=1_000, max_c=10)]
+            [k for k in generate_n_random_hetero_carbon_lattice(n=d)]
         )
         f = MolWtFeaturizer()
         r = np.zeros((len(d), len(f))) * np.nan
@@ -39,7 +40,7 @@ class FeatureTest(unittest.TestCase):
 
         r = r[~np.isnan(feats)]
         feats = feats[~np.isnan(feats)]
-        assert len(feats) > 900, len(feats)
+        assert len(feats) > 0.9*d, len(feats)
         assert np.allclose(feats, r), feats - r
 
 
