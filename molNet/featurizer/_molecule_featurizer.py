@@ -1,4 +1,4 @@
-from .featurizer import Featurizer
+from .featurizer import Featurizer, FixedSizeFeaturizer
 from molNet.utils.mol.properties import assert_conformers
 import numpy as np
 from molNet.utils.smiles import mol_from_smiles
@@ -9,37 +9,23 @@ testmol = mol_from_smiles("CCC")
 class MoleculeFeaturizer(Featurizer):
     _LENGTH = None
 
-    def __init__(self, **kwargs):
-        if "length" not in kwargs:
-            kwargs["length"] = self._LENGTH
-        if kwargs["length"] is None:
-            kwargs["length"] = len(self.featurize(testmol))
+    def pre_featurize(self, mol):
+        mol = assert_conformers(mol)
+        if self._add_prefeat:
+            mol = self._add_prefeat(mol)
+        return mol
 
-        if "pre_featurize" in kwargs:
-            ipf = kwargs["pre_featurize"]
+    def __init__(self, *args, **kwargs):
+        # if "length" not in kwargs:
+        #    kwargs["length"] = self._LENGTH
+        # if kwargs["length"] is None:
+        #    kwargs["length"] = len(self.featurize(testmol))
 
-            def _pf(mol):
-                assert_conformers(mol)
-                return ipf(mol)
+        self._add_prefeat = kwargs.get("pre_featurize", None)
+        kwargs["pre_featurize"] = None
 
-        else:
-
-            def _pf(mol):
-                assert_conformers(mol)
-                return mol
-
-        kwargs["pre_featurize"] = _pf
-        super().__init__(**kwargs)
-
-    def featurize(self, mol):
-        return np.array(self.featurize_function(mol), dtype=self.dtype)
-
-    def featurize_function(self, atom):
-        raise NotImplementedError()
+        super().__init__(*args, **kwargs)
 
 
-class SingleValueMoleculeFeaturizer(MoleculeFeaturizer):
-    _LENGTH = 1
-
-    def featurize(self, mol):
-        return np.array([self.featurize_function(mol)], dtype=self.dtype)
+class SingleValueMoleculeFeaturizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+    LENGTH = 1
