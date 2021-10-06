@@ -83,12 +83,10 @@ def assert_conformers(mol: Mol, iterations: int = 100) -> Mol:
     return mol
 
 
-def has_confomers(mol, create_if_not=True, *args, **kwargs):
+def has_confomers(mol):
     if mol is None:
         return False
     try:
-        if create_if_not:
-            assert_conformers(mol, **kwargs)
         return mol.GetNumConformers() > 0
 
     except:

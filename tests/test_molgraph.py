@@ -26,7 +26,7 @@ class MolGraphTest(unittest.TestCase):
         from molNet.featurizer.molecule_featurizer import molecule_mol_wt
 
         mg.featurize_mol(molecule_mol_wt, "mwf")
-        assert mg.get_property("mwf") == 194.194
+        assert mg.get_property("mwf") == 194.194, mg.get_property("mwf")
 
     def test_featurize_atoms(self):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
@@ -134,8 +134,8 @@ class MolGraphTest(unittest.TestCase):
                 pickle.dump(fmg, sf)
             ftmp_filename = tmp_file.name
 
-        #assert os.path.getsize(ftmp_filename) == 2132, os.path.getsize(ftmp_filename)
-        #assert os.path.getsize(tmp_filename) == 2573, os.path.getsize(tmp_filename)
+        # assert os.path.getsize(ftmp_filename) == 2132, os.path.getsize(ftmp_filename)
+        # assert os.path.getsize(tmp_filename) == 2573, os.path.getsize(tmp_filename)
 
         with open(tmp_filename, "rb") as sf:
             nmg = pickle.load(sf)

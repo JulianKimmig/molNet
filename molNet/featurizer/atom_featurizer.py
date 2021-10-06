@@ -154,7 +154,7 @@ atom_atomic_number_one_hot = OneHotFeaturizer(
 
 class AtomicNumberFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_num)
+    featurize = staticmethod(_get_atom_num)
 
 
 atom_atomic_number = AtomicNumberFeaturizer()
@@ -169,7 +169,7 @@ atom_total_degree_one_hot = OneHotFeaturizer(
 
 class AtomTotalDegreeFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_tot_deg)
+    featurize = staticmethod(_get_atom_tot_deg)
 
 
 atom_total_degree = AtomTotalDegreeFeaturizer()
@@ -183,7 +183,7 @@ atom_degree_one_hot = OneHotFeaturizer(
 
 class AtomDegreeFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_deg)
+    featurize = staticmethod(_get_atom_deg)
 
 
 atom_degree = AtomTotalDegreeFeaturizer()
@@ -197,7 +197,7 @@ atom_implicit_valence_one_hot = OneHotFeaturizer(
 
 class AtomImplicitValenceFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_imp_val)
+    featurize = staticmethod(_get_atom_imp_val)
 
 
 atom_implicit_valence = AtomImplicitValenceFeaturizer()
@@ -211,7 +211,7 @@ atom_explicit_valence_one_hot = OneHotFeaturizer(
 
 class AtomExplicitValenceFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_exp_val)
+    featurize = staticmethod(_get_atom_exp_val)
 
 
 atom_explicit_valence = AtomExplicitValenceFeaturizer()
@@ -219,7 +219,7 @@ atom_explicit_valence = AtomExplicitValenceFeaturizer()
 
 class AtomNumRadicalElectronsFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_num_rad_el)
+    featurize = staticmethod(_get_atom_num_rad_el)
 
 
 atom_num_radical_electrons = AtomNumRadicalElectronsFeaturizer()
@@ -285,7 +285,7 @@ atom_formal_charge_one_hot = OneHotFeaturizer(
 
 class AtomFromalChargeFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.float32
-    featurize_function = staticmethod(_get_atom_formal_charge)
+    featurize = staticmethod(_get_atom_formal_charge)
 
 
 atom_formal_charge = AtomFromalChargeFeaturizer()
@@ -293,7 +293,7 @@ atom_formal_charge = AtomFromalChargeFeaturizer()
 
 class AtomMassFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.float32
-    featurize_function = staticmethod(_get_atom_get_mass)
+    featurize = staticmethod(_get_atom_get_mass)
 
 
 atom_mass = AtomMassFeaturizer()
@@ -307,7 +307,7 @@ atom_total_num_H_one_hot = OneHotFeaturizer(
 
 class AtomTotalNumHsFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
-    featurize_function = staticmethod(_get_atom_tot_h)
+    featurize = staticmethod(_get_atom_tot_h)
 
 
 atom_total_num_H = AtomTotalNumHsFeaturizer()
@@ -315,7 +315,7 @@ atom_total_num_H = AtomTotalNumHsFeaturizer()
 
 class AtomIsAromaticFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.bool_
-    featurize_function = staticmethod(_get_atom_is_arom)
+    featurize = staticmethod(_get_atom_is_arom)
 
 
 atom_is_aromatic = AtomIsAromaticFeaturizer()
@@ -325,7 +325,7 @@ def atom_is_in_ring_size_n(n):
     class _InRingNFeaturizer(SingleValueAtomFeaturizer):
         dtype = np.bool_
 
-        def featurize_function(self, atom):
+        def featurize(self, atom):
             return [atom.IsInRingSize(n)]
 
     return _InRingNFeaturizer()
@@ -342,7 +342,7 @@ def atom_is_in_ring_size_n_to_m_one_hot(n: int, m: int):
 
 class AtomIsInRingFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.bool_
-    featurize_function = staticmethod(_get_atom_in_ring)
+    featurize = staticmethod(_get_atom_in_ring)
 
 
 atom_is_in_ring = AtomIsInRingFeaturizer()
@@ -359,7 +359,7 @@ def _get_gasteiger_charge(atom):
 
 class AtomPartialChargeFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.float32
-    featurize_function = staticmethod(_get_gasteiger_charge)
+    featurize = staticmethod(_get_gasteiger_charge)
 
 
 atom_partial_charge = AtomPartialChargeFeaturizer()
