@@ -3,8 +3,6 @@ import sys
 import unittest
 
 import numpy as np
-from rdkit.Chem.Lipinski import HeavyAtomCount
-from tqdm import tqdm
 
 from molNet import MOLNET_LOGGER, ConformerError
 from molNet.featurizer._autogen_molecule_featurizer import MolWtFeaturizer
