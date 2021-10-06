@@ -2,9 +2,6 @@ import logging
 import sys
 import unittest
 
-import cProfile
-import pprofile
-
 from molNet import MOLNET_LOGGER
 from molNet.utils.mol.generator import (
     generate_random_carbon_lattice,
@@ -18,17 +15,11 @@ from molNet.utils.mol.generator import (
     generate_n_random_hetero_carbon_lattice,
 )
 
-import rdkit
-from rdkit.Chem import Draw
-
 MOLNET_LOGGER.setLevel("DEBUG")
 
 
 class MolTest(unittest.TestCase):
     def test_generate_random_carbon_lattice(self):
-        import rdkit
-        from rdkit.Chem import Draw
-
         m = generate_random_carbon_lattice(20, cross_rate=0)
         # rdkit.Chem.Draw.ShowMol(m)
         assert len(m.GetAtoms()) == 20
@@ -42,8 +33,6 @@ class MolTest(unittest.TestCase):
 
         d = [k for k in random_carbon_lattice_generator(rounds=10, max_c=5)]
         d = [k for k in generate_n_random_carbon_lattice(n=5, rounds=10, max_c=10)]
-        import rdkit
-        from rdkit.Chem import Draw
 
         # for k in d:
         #     rdkit.Chem.Draw.ShowMol(k)
