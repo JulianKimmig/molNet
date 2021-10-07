@@ -3,6 +3,7 @@ from molNet.utils.mol.properties import assert_conformers
 import numpy as np
 from molNet.utils.smiles import mol_from_smiles
 
+
 testmol = mol_from_smiles("CCC")
 
 
