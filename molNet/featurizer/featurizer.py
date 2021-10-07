@@ -14,9 +14,11 @@ class OneHotEncodingException(Exception):
 class Featurizer(NormalizationClass):
     dtype = object
     NAME = None
-    pre_featurize = None
     NORMALIZATION = None
-
+    
+    def pre_featurize(self,x):
+        return x
+    
     def __init__(self, name=None, pre_featurize=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -25,7 +27,7 @@ class Featurizer(NormalizationClass):
                 name = self.__class__.__name__
             else:
                 name = self.NAME
-        if pre_featurize is None and self.pre_featurize is not None:
+        if pre_featurize is None:
             pre_featurize = self.pre_featurize
 
         self._pre_featurize = pre_featurize

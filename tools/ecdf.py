@@ -72,7 +72,7 @@ def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_p
     min_error = np.inf
     
     data=np.array([(s, gen_args, gen_kwargs, featurizer_class) for s in smiles],dtype=object)
-    sub_data = np.array_split(data, len(data) / split)
+    sub_data = np.array_split(data, max(1,len(data) / split))
     
     _th_patience=th_patience
     _es_patience=es_patience
