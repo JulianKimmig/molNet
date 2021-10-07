@@ -24,7 +24,12 @@ def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
 
 
 def genlog_norm(x, B, M, Q, v):
+    #B=growth rate (-np.inf,np.inf)
+    #M=shifts horizontally (-np.inf,np.inf)
+    #Q=urvibess/stepness (0,np.inf)
+    #v=stepness (1e-12,np.inf)
     return 1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v)
+
 
 
 _t_array = np.arange(-4, 4)
