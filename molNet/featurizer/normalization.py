@@ -6,9 +6,9 @@ def linear_norm(x, m: float = 1, c: float = 0):
 
 
 def min_max_norm(x, min: float = 0, max: float = 1):
-    #if min>max:
+    # if min>max:
     #    max,min=min,max
-    #if min == max:
+    # if min == max:
     #    max*= 1+1e-6
     return np.clip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)), 0, 1)
 
@@ -18,18 +18,17 @@ def sig_norm(x, m: float = 0, d: float = 1):
 
 
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
-    li=x<=m
-    #mx = np.argmin(np.abs(x - m))
+    li = x <= m
+    # mx = np.argmin(np.abs(x - m))
     return np.concatenate((sig_norm(x[li], m=m, d=d1), sig_norm(x[~li], m=m, d=d2)))
 
 
 def genlog_norm(x, B, M, Q, v):
-    #B=growth rate (-np.inf,np.inf)
-    #M=shifts horizontally (-np.inf,np.inf)
-    #Q=urvibess/stepness (0,np.inf)
-    #v=stepness (1e-12,np.inf)
+    # B=growth rate (-np.inf,np.inf)
+    # M=shifts horizontally (-np.inf,np.inf)
+    # Q=urvibess/stepness (0,np.inf)
+    # v=stepness (1e-12,np.inf)
     return 1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v)
-
 
 
 _t_array = np.arange(-4, 4)

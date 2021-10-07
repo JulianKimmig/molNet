@@ -15,10 +15,10 @@ class Featurizer(NormalizationClass):
     dtype = object
     NAME = None
     NORMALIZATION = None
-    
-    def pre_featurize(self,x):
+
+    def pre_featurize(self, x):
         return x
-    
+
     def __init__(self, name=None, pre_featurize=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
