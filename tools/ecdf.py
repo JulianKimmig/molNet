@@ -16,12 +16,15 @@ if __name__ == "__main__":
     sys.path.append(dirname(dirname(abspath(__file__))))
     
     
-from molNet.mol.molgraph import mol_graph_from_smiles
+from molNet.mol.molgraph import mol_graph_from_smiles,mol_graph_from_mol
 from molNet.utils.parallelization.multiprocessing import solve_cores
 from molNet import ConformerError
 from molNet import MOLNET_LOGGER
+import pickle
+from rdkit import Chem
+from rdkit.Chem import Mol
 
-def _func(d):
+def _func_from_smiles(d):
     f = d[0][3]()
     r = np.zeros((len(d), len(f))) * np.nan
     for i, data in enumerate(d):
@@ -33,6 +36,20 @@ def _func(d):
             pass
     return r
 
+def _func_from_mol_file(d):
+    featurizer = d[0][3](preferred_normalization="unity")
+    r = np.zeros((len(d), len(featurizer))) * np.nan
+    for i, data in enumerate(d):
+        with open(data[0],"rb") as file:
+            mol = Mol(file.read())
+            
+        mg = mol_graph_from_mol(mol, *data[1], **data[2])
+        try:
+            mg.featurize_mol(featurizer, name="para_feats")
+            r[i] = mg.as_arrays()["graph_features"]["para_feats"]
+        except ConformerError:
+            pass
+    return r
 
 def ecdf(data,res=None,smooth=False,unique_only=False):
     if data.ndim>1:
@@ -45,7 +62,8 @@ def ecdf(data,res=None,smooth=False,unique_only=False):
     if smooth:
         x,uindices = np.unique(x,return_index =True)
         y = np.array([a.mean() for a in np.split(y,uindices[1:])])
-        
+        y[0]=0
+        y[-1]=1
     if res:
         dp=(np.linspace(0,1,res)*(len(x)-1)).astype(int)
         n=res
@@ -57,9 +75,16 @@ def ecdf(data,res=None,smooth=False,unique_only=False):
         y=y[uindices]
     return x,y
 
-def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_patience=10_000,split=100,cores="all-1"):
+
+def gen_ecdf_from_mol_file(*args,**kwargs):
+    return gen_ecdf(*args,func=_func_from_mol_file,**kwargs)
+
+def gen_ecdf_from_smiles(*args,**kwargs):
+    return gen_ecdf(*args,func=_func_from_smiles,**kwargs)
+
+def gen_ecdf(data,featurizer_class,func,ecdres=1000, th_patience=2_000,th=1e-4,es_patience=10_000,split=100,cores="all-1",min_run=0):
     
-    r = np.zeros((len(smiles),len(featurizer_class())))*np.nan
+    r = np.zeros((len(data),len(featurizer_class())))*np.nan
     
     cores = solve_cores(cores)
     MOLNET_LOGGER.info(f"Using {cores} cores")
@@ -71,7 +96,7 @@ def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_p
     
     min_error = np.inf
     
-    data=np.array([(s, gen_args, gen_kwargs, featurizer_class) for s in smiles],dtype=object)
+    data=np.array([(s, gen_args, gen_kwargs, featurizer_class) for s in data],dtype=object)
     sub_data = np.array_split(data, max(1,len(data) / split))
     
     _th_patience=th_patience
@@ -80,11 +105,13 @@ def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_p
     error=[]
     
     rcp=0
+    runs=0
     with Pool(cores) as p:
         if progess_bar:
             with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
-                for ri in p.imap(_func, sub_data):
+                for ri in p.imap(func, sub_data):
                     lri=ri.shape[0]
+                    runs+=lri
                     
                     ri=ri[(~np.isnan(ri).any(axis=1))]
                     r[rcp:rcp+ri.shape[0]]=ri
@@ -109,8 +136,9 @@ def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_p
         
                     if error[-1]<th:
                         _th_patience-=lri
-                        if _th_patience<=0:
+                        if _th_patience<=0 and runs>=min_run:
                             MOLNET_LOGGER.info("stop due to  beeing long under threshold")
+                            pbar.update(lri)
                             break
                     else:
                         _th_patience=th_patience
@@ -121,8 +149,9 @@ def gen_ecdf(smiles,featurizer_class,ecdres=1000, th_patience=2_000,th=1e-4,es_p
                         
                     else:
                         _es_patience-=lri
-                        if _es_patience<=0:
+                        if _es_patience<=0 and runs>=min_run:
                             MOLNET_LOGGER.info("stop due to not getting any better")
+                            pbar.update(lri)
                             break
 
                     precfd=cat_necdf_y

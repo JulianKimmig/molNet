@@ -6,80 +6,96 @@ from rdkit.Chem.rdMolDescriptors import (GetHashedTopologicalTorsionFingerprint,
 from rdkit.Chem.rdmolops import (RDKFingerprint,LayeredFingerprint,PatternFingerprint,)
 
 
-class GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(GetHashedTopologicalTorsionFingerprintAsBitVect(mol),a)
         return a
         
 
-class GetHashedAtomPairFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  GetHashedAtomPairFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(GetHashedAtomPairFingerprint(mol),a)
         return a
         
 
-class GetMACCSKeysFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  GetMACCSKeysFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 167
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(GetMACCSKeysFingerprint(mol),a)
         return a
         
 
-class GetHashedAtomPairFingerprintAsBitVect_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  GetHashedAtomPairFingerprintAsBitVect_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(GetHashedAtomPairFingerprintAsBitVect(mol),a)
         return a
         
 
-class LayeredFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  LayeredFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(LayeredFingerprint(mol),a)
         return a
         
 
-class RDKFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  RDKFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(RDKFingerprint(mol),a)
         return a
         
 
-class GetHashedTopologicalTorsionFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  GetHashedTopologicalTorsionFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int64
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(GetHashedTopologicalTorsionFingerprint(mol),a)
         return a
         
 
-class PatternFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+class  PatternFingerprint_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
+    # statics
     LENGTH = 2048
     dtype=np.int32
-    
+    # normalization
+    # functions
     def featurize(self,mol):
         a=np.zeros(len(self),dtype=self.dtype)
         ConvertToNumpyArray(PatternFingerprint(mol),a)

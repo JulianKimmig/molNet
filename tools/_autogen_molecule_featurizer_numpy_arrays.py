@@ -6,21 +6,30 @@ from rdkit.Chem.rdmolops import (GetDistanceMatrix,GetAdjacencyMatrix,Get3DDista
 
 
 class GetDistanceMatrix_Featurizer(MoleculeFeaturizer):
+    # statics
     dtype=np.float64
+    # normalization
+    # functions
     
     def featurize(self,mol):
         return GetDistanceMatrix(mol).flatten()
         
 
 class GetAdjacencyMatrix_Featurizer(MoleculeFeaturizer):
+    # statics
     dtype=np.int32
+    # normalization
+    # functions
     
     def featurize(self,mol):
         return GetAdjacencyMatrix(mol).flatten()
         
 
 class Get3DDistanceMatrix_Featurizer(MoleculeFeaturizer):
+    # statics
     dtype=np.float64
+    # normalization
+    # functions
     
     def featurize(self,mol):
         return Get3DDistanceMatrix(mol).flatten()
