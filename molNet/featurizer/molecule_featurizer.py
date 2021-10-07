@@ -1,6 +1,10 @@
 from rdkit.Chem.rdmolops import GetMolFrags
 
 from ._autogen_molecule_featurizer import *
+from ._autogen_molecule_featurizer import (
+    MoleculeFeaturizer,
+    SingleValueMoleculeFeaturizer,
+)
 from .featurizer import FeaturizerList
 
 
@@ -41,6 +45,7 @@ class NumAtoms_Featurizer(SingleValueMoleculeFeaturizer):
         4.515441426070382e-05,
     )  # error of 8.12E-03 with sample range (2.00E+00,9.38E+02) resulting in fit range (8.09E-08,1.00E+00)
     preferred_normalization = "genlog"
+
     # functions
     def featurize(self, mol):
         return mol.GetNumAtoms()
@@ -77,6 +82,7 @@ class NumBonds_Featurizer(SingleValueMoleculeFeaturizer):
         4.781043915143292e-05,
     )  # error of 7.91E-03 with sample range (0.00E+00,9.97E+02) resulting in fit range (2.81E-08,1.00E+00)
     preferred_normalization = "genlog"
+
     # functions
     def featurize(self, mol):
         return mol.GetNumBonds()
@@ -113,6 +119,7 @@ class NumFragments_Featurizer(SingleValueMoleculeFeaturizer):
         0.006786382098985755,
     )  # error of 8.26E-04 with sample range (1.00E+00,5.80E+01) resulting in fit range (8.77E-01,1.00E+00)
     preferred_normalization = "min_max"
+
     # functions
 
     def featurize(self, mol):
@@ -121,14 +128,30 @@ class NumFragments_Featurizer(SingleValueMoleculeFeaturizer):
 
 molecule_num_fragments = NumFragments_Featurizer()
 
-
 from ._autogen_molecule_featurizer import _available_featurizer as _agaf
 
 _available_featurizer = {
     **_agaf,
     "molecule_num_atoms": molecule_num_atoms,
     "molecule_num_bonds": molecule_num_bonds,
+    "molecule_num_fragments": molecule_num_fragments,
 }
+
+
+class AllSingleValueMoleculeFeaturizer(FeaturizerList):
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            [
+                f
+                for f in _available_featurizer.values()
+                if isinstance(f, SingleValueMoleculeFeaturizer)
+            ],
+            *args,
+            **kwargs
+        )
+
+
+molecule_all_single_val_feats = AllSingleValueMoleculeFeaturizer()
 
 default_molecule_featurizer = FeaturizerList(
     [],
