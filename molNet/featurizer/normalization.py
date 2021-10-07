@@ -8,6 +8,10 @@ def linear_norm(x, m: float = 1, c: float = 0):
 
 
 def min_max_norm(x, min: float = 0, max: float = 1):
+    #if min>max:
+    #    max,min=min,max
+    #if min == max:
+    #    max*= 1+1e-6
     return np.clip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)), 0, 1)
 
 
@@ -37,7 +41,7 @@ class NormalizationClass:
     sigmoidal_norm_parameter = (np.nan, np.nan)
     dual_sigmoidal_norm_parameter = (np.nan, np.nan, np.nan)
     genlog_norm_parameter = (np.nan, np.nan, np.nan)
-    preferred_normalization = None
+    preferred_normalization = "unity"
 
     def __init__(
         self,
@@ -70,6 +74,8 @@ class NormalizationClass:
 
         self._norm_map = {
             None: self.unity_norm,
+            "None": self.unity_norm,
+            "unity": self.unity_norm,
             "linear": self.linear_norm,
             "min_max": self.min_max_norm,
             "sig": self.sig_norm,
