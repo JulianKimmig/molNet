@@ -28,7 +28,7 @@ def genlog_norm(x, B, M, Q, v):
     # M=shifts horizontally (-np.inf,np.inf)
     # Q=urvibess/stepness (0,np.inf)
     # v=stepness (1e-12,np.inf)
-    return 1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v)
+    return np.nan_to_num(1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v), nan=np.nan)
 
 
 _t_array = np.arange(-4, 4)
