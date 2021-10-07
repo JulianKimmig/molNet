@@ -4,9 +4,9 @@ import numpy as np
 from rdkit.Chem import MolFromSmiles
 import torch_geometric
 
-from molNet.featurizer._autogen_molecule_featurizer import (
-    molecule_mol_wt,
-    molecule_get_formal_charge,
+from molNet.featurizer.molecule_featurizer import (
+    molecule_MolWt,
+    molecule_GetFormalCharge,
 )
 from molNet.featurizer.atom_featurizer import (
     atom_partial_charge,
@@ -26,8 +26,10 @@ class PytorchGeometricTest(unittest.TestCase):
     def test_input_from_molgraph(self):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         mg = mol_graph_from_mol(mol)
-        mg.featurize_mol(molecule_mol_wt)
-        mg.featurize_mol(molecule_get_formal_charge, as_y=True)
+        molecule_MolWt.preferred_norm = "unity"
+        molecule_GetFormalCharge.preferred_norm = "unity"
+        mg.featurize_mol(molecule_MolWt)
+        mg.featurize_mol(molecule_GetFormalCharge, as_y=True)
         mg.featurize_atoms(atom_symbol_one_hot)
         mg.featurize_atoms(atom_degree)
         mg.featurize_atoms(atom_partial_charge, as_y=True)
@@ -52,10 +54,9 @@ class PytorchGeometricTest(unittest.TestCase):
         mg1 = mol_graph_from_mol(mol)
         mg2 = mol_graph_from_mol(mol)
         from molNet.featurizer.atom_featurizer import atom_mass
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
 
-        mg1.featurize_mol(molecule_mol_wt, "mwf")
-        mg2.featurize_mol(molecule_mol_wt, "mwf")
+        mg1.featurize_mol(molecule_MolWt, "mwf")
+        mg2.featurize_mol(molecule_MolWt, "mwf")
 
         gip1 = molgraph_to_graph_input(mg1)
         gip2 = molgraph_to_graph_input(mg2)
@@ -72,13 +73,13 @@ class PytorchGeometricTest(unittest.TestCase):
         )
 
         mg3 = mol_graph_from_mol(mg1.mol)
-        mg3.featurize_mol(molecule_mol_wt, "mwf")
+        mg3.featurize_mol(molecule_MolWt, "mwf")
         gip3 = molgraph_to_graph_input(mg3)
         assert_graph_input_data_equal(gip1, gip3)
 
         mol2 = MolFromSmiles("c1ccccc1")
         mg4 = mol_graph_from_mol(mol2)
-        mg4.featurize_mol(molecule_mol_wt, "mwf")
+        mg4.featurize_mol(molecule_MolWt, "mwf")
 
         gip4 = molgraph_to_graph_input(mg4)
         assert_graph_input_shape_equal(gip1, gip4)

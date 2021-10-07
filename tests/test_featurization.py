@@ -3,9 +3,12 @@ import sys
 import unittest
 
 import numpy as np
+from tqdm import tqdm
+
+from molNet.featurizer.molecule_featurizer import MolWt_Featurizer
+from rdkit.Chem.Lipinski import HeavyAtomCount
 
 from molNet import MOLNET_LOGGER, ConformerError
-from molNet.featurizer._autogen_molecule_featurizer import MolWtFeaturizer
 from molNet.mol.molgraph import parallel_features_from_smiles, mol_graph_from_smiles
 from molNet.utils.mol.generator import generate_random_carbon_lattice
 from molNet.utils.smiles.generator import generate_n_random_hetero_carbon_lattice
@@ -72,7 +75,7 @@ class FeatureTest(unittest.TestCase):
         d = np.array(
             [k for k in generate_n_random_hetero_carbon_lattice(n=l, max_c=10)]
         )
-        f = MolWtFeaturizer()
+        f = MolWt_Featurizer()
         r = np.zeros((len(d), len(f))) * np.nan
         for i, _d in tqdm(enumerate(d), total=len(d)):
             try:
@@ -84,7 +87,7 @@ class FeatureTest(unittest.TestCase):
         r = r.flatten()
         d = d[~np.isnan(r)]
         r = r[~np.isnan(r)]
-        feats = parallel_features_from_smiles(d, MolWtFeaturizer)
+        feats = parallel_features_from_smiles(d, MolWt_Featurizer)
 
         r = r[~np.isnan(feats)]
         feats = feats[~np.isnan(feats)]

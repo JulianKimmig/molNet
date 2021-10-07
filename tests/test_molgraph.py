@@ -23,9 +23,9 @@ class MolGraphTest(unittest.TestCase):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         mg = mol_graph_from_mol(mol)
 
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg.featurize_mol(molecule_mol_wt, "mwf")
+        mg.featurize_mol(molecule_MolWt, "mwf")
         assert mg.get_property("mwf") == 194.194, mg.get_property("mwf")
 
     def test_featurize_atoms(self):
@@ -36,9 +36,10 @@ class MolGraphTest(unittest.TestCase):
 
         mg.featurize_atoms(atom_mass, "mwf")
 
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg.featurize_mol(molecule_mol_wt, "mwf")
+        molecule_MolWt.preferred_norm = "unity"
+        mg.featurize_mol(molecule_MolWt, "mwf")
 
         print(mg.nodes(data=True))
         print(mg.get_atom_features_dict())
@@ -49,9 +50,10 @@ class MolGraphTest(unittest.TestCase):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         mg = mol_graph_from_mol(mol)
         from molNet.featurizer.atom_featurizer import atom_mass
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg.featurize_mol(molecule_mol_wt, "mwf")
+        molecule_MolWt.preferred_norm = "unity"
+        mg.featurize_mol(molecule_MolWt, "mwf")
         mg.featurize_atoms(atom_mass, "mwf")
 
         md_data = mg.as_arrays()
@@ -64,9 +66,9 @@ class MolGraphTest(unittest.TestCase):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         mg = mol_graph_from_mol(mol)
         from molNet.featurizer.atom_featurizer import atom_mass
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg.featurize_mol(molecule_mol_wt, "mwf")
+        mg.featurize_mol(molecule_MolWt, "mwf")
         mg.featurize_atoms(atom_mass, "mwf")
 
         fmg = mg.freeze()
@@ -91,10 +93,10 @@ class MolGraphTest(unittest.TestCase):
         mg1 = mol_graph_from_mol(mol)
         mg2 = mol_graph_from_mol(mol)
         from molNet.featurizer.atom_featurizer import atom_mass
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg1.featurize_mol(molecule_mol_wt, "mwf")
-        mg2.featurize_mol(molecule_mol_wt, "mwf")
+        mg1.featurize_mol(molecule_MolWt, "mwf")
+        mg2.featurize_mol(molecule_MolWt, "mwf")
 
         assert_molgraphs_data_equal(mg1, mg2)
 
@@ -107,7 +109,7 @@ class MolGraphTest(unittest.TestCase):
         )
 
         mg3 = mol_graph_from_mol(mg1.mol)
-        mg3.featurize_mol(molecule_mol_wt, "mwf")
+        mg3.featurize_mol(molecule_MolWt, "mwf")
         assert_molgraphs_data_equal(mg1, mg3)
 
     def test_pickling(self):
@@ -117,9 +119,9 @@ class MolGraphTest(unittest.TestCase):
         mol = MolFromSmiles("Cn1c(=O)c2c(ncn2C)n(C)c1=O")
         mg = mol_graph_from_mol(mol)
         from molNet.featurizer.atom_featurizer import atom_mass
-        from molNet.featurizer.molecule_featurizer import molecule_mol_wt
+        from molNet.featurizer.molecule_featurizer import molecule_MolWt
 
-        mg.featurize_mol(molecule_mol_wt, "mwf")
+        mg.featurize_mol(molecule_MolWt, "mwf")
         mg.featurize_atoms(atom_mass, "mwf")
 
         fmg = mg.freeze()
