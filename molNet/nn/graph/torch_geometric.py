@@ -97,8 +97,8 @@ def molgraph_arrays_to_graph_input(
     edge_index[1, 1::2] = eges[:, 0]
 
     data = torch_geometric.data.data.Data(
-        x=torch.from_numpy(x_node_features).float(),
-        y=torch.from_numpy(y_node_features).float(),
+        x=torch.from_numpy(x_node_features.astype(float)).float(),
+        y=torch.from_numpy(y_node_features.astype(float)).float(),
         num_nodes=size,
         edge_index=torch.from_numpy(edge_index).long(),
         x_graph_features=torch.from_numpy(x_graph_features).float(),
