@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 import numpy as np
 
 
@@ -20,8 +18,9 @@ def sig_norm(x, m: float = 0, d: float = 1):
 
 
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
-    mx = np.argmin(np.abs(x - m))
-    return np.concatenate((sig_norm(x[:mx], m=m, d=d1), sig_norm(x[mx:], m=m, d=d2)))
+    li=x<=m
+    #mx = np.argmin(np.abs(x - m))
+    return np.concatenate((sig_norm(x[li], m=m, d=d1), sig_norm(x[~li], m=m, d=d2)))
 
 
 def genlog_norm(x, B, M, Q, v):

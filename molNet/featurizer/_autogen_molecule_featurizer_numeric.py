@@ -32,7 +32,7 @@ class  PEOE_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009235349219404814, 0.2024712092074698)  # error of 1.20E-01 with sample range (0.00E+00,1.80E+03) resulting in fit range (2.02E-01,1.69E+01)
     min_max_norm_parameter = (4.887388416091266, 65.78861410255793)  # error of 3.62E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (35.028275267622924, 0.07929972923744978)  # error of 1.39E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (5.85E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (33.9224654778114, 0.09599116002460914, 0.0717701519861949)  # error of 5.71E-03 with sample range (0.00E+00,1.80E+03) resulting in fit range (3.71E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (33.92323584081409, 0.0959836874096441, 0.07177350962439769)  # error of 5.71E-03 with sample range (0.00E+00,1.80E+03) resulting in fit range (3.71E-02,1.00E+00)
     genlog_norm_parameter = (0.06293662866979713, -3.9046608885740355, 1.5491722381461936, 0.18793636153672155)  # error of 1.81E-03 with sample range (0.00E+00,1.80E+03) resulting in fit range (1.46E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -62,7 +62,7 @@ class  PMI3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (2.8952313203676817e-05, 0.2866572166015228)  # error of 1.92E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.87E-01,2.52E+01)
     min_max_norm_parameter = (147.52756421954018, 11758.510463576746)  # error of 5.52E-02 with sample range (0.00E+00,8.59E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -77,7 +77,7 @@ class  NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0016857886272905187, 0.8125456140318361)  # error of 1.82E-01 with sample range (0.00E+00,2.48E+02) resulting in fit range (8.13E-01,1.23E+00)
     min_max_norm_parameter = (1.6292528997825728, 13.174098358632333)  # error of 1.89E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.304462270693269, 0.4542440447080067)  # error of 1.34E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (3.50E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.7090015245725985, 0.6333818384913666, 0.3400706997276338)  # error of 8.05E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (1.41E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.70900145999476, 0.6333818528506181, 0.3400706824599175)  # error of 8.05E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (1.41E-02,1.00E+00)
     genlog_norm_parameter = (0.3119530376866779, -5.246761061121691, 0.016007203239645374, 0.0005020797342553604)  # error of 6.90E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (2.04E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -92,7 +92,7 @@ class  Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.027431175492895643, 0.1959231987976101)  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
     min_max_norm_parameter = (5.833583645428592, 19.149899507438242)  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (12.391158701361956, 0.36836959542101233)  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (11.842303238148796, 0.5140666350188914, 0.29912163479666287)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (11.842303403027104, 0.5140666711896098, 0.2991216617631474)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -136,7 +136,7 @@ class  EState_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007671915193011093, 0.672048083837521)  # error of 1.07E-01 with sample range (0.00E+00,3.49E+02) resulting in fit range (6.72E-01,3.35E+00)
     min_max_norm_parameter = (1.8002683601870467e-16, 21.232186746380208)  # error of 5.81E-02 with sample range (0.00E+00,3.49E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (8.641715400832636, 0.17831995658486827)  # error of 2.66E-02 with sample range (0.00E+00,3.49E+02) resulting in fit range (1.76E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (8.12772381561056, 0.281669304272584, 0.16711726634028284)  # error of 2.50E-02 with sample range (0.00E+00,3.49E+02) resulting in fit range (9.20E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (8.12775159056054, 0.28166778919387403, 0.167117877201916)  # error of 2.50E-02 with sample range (0.00E+00,3.49E+02) resulting in fit range (9.20E-02,1.00E+00)
     genlog_norm_parameter = (0.14956610363091913, -19.654798331950023, 0.010062387245818023, 0.00021025562951752848)  # error of 2.40E-02 with sample range (0.00E+00,3.49E+02) resulting in fit range (7.96E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -166,7 +166,7 @@ class  RingCount_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03860180770005206, 0.5113290906759573)  # error of 1.73E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (5.11E-01,2.87E+00)
     min_max_norm_parameter = (0.334517739633367, 5.208998938983079)  # error of 1.60E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.7238161788458215, 1.1018114352614388)  # error of 1.08E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (4.74E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.5715742346316732, 1.2832261760477313, 0.9174927781864283)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.5715740496764488, 1.283226429101575, 0.9174925881562721)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
     genlog_norm_parameter = (0.813320209949437, 1.988272685010793, 0.21462517997652011, 0.17389824103982)  # error of 4.52E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.48E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -211,7 +211,7 @@ class  VSA_EState1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0021288093550339005, 0.07050165770753636)  # error of 1.68E-01 with sample range (-7.93E+00,6.18E+03) resulting in fit range (5.36E-02,1.32E+01)
     min_max_norm_parameter = (79.6151847284827, 292.20287575940097)  # error of 3.66E-02 with sample range (-7.93E+00,6.18E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (184.75792508436405, 0.022940041643693208)  # error of 2.38E-02 with sample range (-7.93E+00,6.18E+03) resulting in fit range (1.19E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (178.29194517948878, 0.02827752243312229, 0.018358023909216228)  # error of 1.08E-02 with sample range (-7.93E+00,6.18E+03) resulting in fit range (5.14E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (178.29195170701303, 0.02827751749368, 0.01835803091582772)  # error of 1.08E-02 with sample range (-7.93E+00,6.18E+03) resulting in fit range (5.14E-03,1.00E+00)
     genlog_norm_parameter = (0.01604348673593412, -26.595443742121414, 0.9470080387441423, 0.04774078059095727)  # error of 7.31E-03 with sample range (-7.93E+00,6.18E+03) resulting in fit range (1.45E-05,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -226,7 +226,7 @@ class  fr_diazo_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.0000000000000002, 2.220446049250313e-16)  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
     min_max_norm_parameter = (1e-10, 0.9999999999)  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5027041798086037, 46.14043898879842)  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.49874072864947394, 3.68328813585096, 20.104860546890446)  # error of 4.31E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.42E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.49954642862905374, 18.83817716761341, 18.88166255189391)  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
     preferred_normalization = 'unity'
     # functions
     
@@ -240,7 +240,7 @@ class  Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.07531844296316315, 0.10272005612925916)  # error of 1.58E-01 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.06E-01,3.83E+01)
     min_max_norm_parameter = (1.58553325314983, 8.60938851018364)  # error of 3.82E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.045698563226252, 0.6990022831903797)  # error of 2.71E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (2.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.767359124032586, 0.9160893907811511, 0.5589277261645443)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.767739315887101, 0.9158440851290796, 0.5590280737588555)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -254,7 +254,7 @@ class  Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.1846796920584458, 0.12308022240634398)  # error of 1.49E-01 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.23E-01,4.41E+01)
     min_max_norm_parameter = (0.4365031459643245, 3.319224643809378)  # error of 3.97E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.8494300166801143, 1.6807292424962799)  # error of 3.13E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (4.28E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.7216523305680784, 2.287102552977168, 1.2587726126085808)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.7217931490660436, 2.2865005312485036, 1.2589856485533308)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -268,7 +268,7 @@ class  Chi1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.021402601422805922, 0.057358382906918415)  # error of 1.75E-01 with sample range (0.00E+00,4.28E+02) resulting in fit range (5.74E-02,9.23E+00)
     min_max_norm_parameter = (10.35770293280183, 30.318616722974067)  # error of 4.02E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (20.218648442527503, 0.24321989118039597)  # error of 2.60E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (7.26E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (19.497180383047468, 0.31860651031309306, 0.19451567750637339)  # error of 1.08E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (2.00E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (19.497970716081007, 0.31854028517260596, 0.1945431362682854)  # error of 1.08E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (2.00E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -327,7 +327,7 @@ class  MinAbsEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.43546020000054764, 0.22371772226149234)  # error of 1.33E-01 with sample range (0.00E+00,6.27E+00) resulting in fit range (2.24E-01,2.95E+00)
     min_max_norm_parameter = (1.5407439555097887e-33, 1.18171530209488)  # error of 6.48E-02 with sample range (0.00E+00,6.27E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5580567270616906, 3.2920268348402595)  # error of 3.85E-02 with sample range (0.00E+00,6.27E+00) resulting in fit range (1.37E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4804909365206003, 4.528448995771037, 2.473174565611486)  # error of 2.70E-02 with sample range (0.00E+00,6.27E+00) resulting in fit range (1.02E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.48049021393760116, 4.528460770199798, 2.473169687745443)  # error of 2.70E-02 with sample range (0.00E+00,6.27E+00) resulting in fit range (1.02E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -355,7 +355,7 @@ class  SlogP_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
     # normalization
     linear_norm_parameter = (1.0, 1.0)  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter = (0.0, 1.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
+    dual_sigmoidal_norm_parameter = (0.0, 0.0, 1.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
     genlog_norm_parameter = (0.33705420273837067, 0.3370542027383706, -9.284058023162583e-10, 2.1473819766010673)  # error of 4.84E-10 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -370,7 +370,7 @@ class  VSA_EState9_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.022314103447673483, 0.2903417115454465)  # error of 6.95E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (-4.69E+00,5.00E+00)
     min_max_norm_parameter = (-8.357071428462406, 11.006415888282014)  # error of 4.34E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.6709557801163907, 0.3954700807696381)  # error of 3.36E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (6.55E-39,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.06317360890340902, 0.3383220043747596, 21.649602529681054)  # error of 1.76E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (1.76E-33,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.07077977321665872, 0.3284370957099312, 77.41637441191082)  # error of 1.85E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (1.52E-32,1.00E+00)
     genlog_norm_parameter = (26.51339376649436, 1.2703582868532193, 0.9007127336035414, 88.49043249715089)  # error of 2.68E-02 with sample range (-2.23E+02,2.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -400,7 +400,7 @@ class  Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11014910768339037, 0.02748881833733474)  # error of 1.49E-01 with sample range (0.00E+00,1.02E+02) resulting in fit range (2.75E-02,1.13E+01)
     min_max_norm_parameter = (1.6850371430659572, 6.553874507410937)  # error of 3.80E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.081549676171799, 0.9904095492145635)  # error of 2.83E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.73E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.87238559628832, 1.3409369944950944, 0.767555104248775)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.872385716112142, 1.3409368307127125, 0.7675552000980483)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -429,7 +429,7 @@ class  FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.1210114366616568, 0.024238385885020208)  # error of 6.63E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.42E-02,1.15E+00)
     min_max_norm_parameter = (0.030077967569291073, 0.7816451738469055)  # error of 3.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4036392556168974, 6.810271411900117)  # error of 2.19E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (6.01E-02,9.83E-01)
-    dual_sigmoidal_norm_parameter = (0.37933375807687925, 8.369078319667627, 5.735309352343304)  # error of 1.04E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.01E-02,9.72E-01)
+    dual_sigmoidal_norm_parameter = (0.3793638964895536, 8.367627232005448, 5.736046185011766)  # error of 1.04E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.01E-02,9.72E-01)
     genlog_norm_parameter = (5.121341713037929, 0.3541805503951657, 0.1654208707795316, 0.18747997008450548)  # error of 4.98E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.38E-02,9.68E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -444,7 +444,7 @@ class  NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.07182403555851259, 0.6979616844087828)  # error of 6.50E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (6.98E-01,3.71E+00)
     min_max_norm_parameter = (6.816327279061287e-09, 1.4697587576089106)  # error of 1.83E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5242081959438346, 1.5883082643053523)  # error of 6.06E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (3.03E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.5241697890415581, 31.347564520476126, 1.5882035074486005)  # error of 3.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (7.31E-08,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.5241697895237789, 32.139936612408746, 1.5882035086803503)  # error of 3.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (4.83E-08,1.00E+00)
     genlog_norm_parameter = (1.5563961013766956, 0.6667571953724875, 0.5870663542985489, 0.7783004040766286)  # error of 5.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (2.85E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -459,7 +459,7 @@ class  Chi0_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007513574566740955, 0.2957974579215942)  # error of 2.01E-01 with sample range (0.00E+00,7.19E+02) resulting in fit range (2.96E-01,5.70E+00)
     min_max_norm_parameter = (17.447753846956868, 55.71754607510952)  # error of 4.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (36.35211468883877, 0.1295884036148426)  # error of 2.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (8.92E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (34.78188468223621, 0.18372914466871643, 0.10529824432103296)  # error of 1.38E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.67E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (34.781883667706126, 0.18372919698120913, 0.1052982438114165)  # error of 1.38E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.67E-03,1.00E+00)
     genlog_norm_parameter = (0.09192921396182452, 3.197386465432143, 4.054083564087513e-07, 2.977582294894024e-08)  # error of 1.17E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.17E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -474,7 +474,7 @@ class  Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.07531844296316315, 0.10272005612925916)  # error of 1.58E-01 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.06E-01,3.83E+01)
     min_max_norm_parameter = (1.58553325314983, 8.60938851018364)  # error of 3.82E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.045698563226252, 0.6990022831903797)  # error of 2.71E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (2.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.767359124032586, 0.9160893907811511, 0.5589277261645443)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.767739315887101, 0.9158440851290796, 0.5590280737588555)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -488,7 +488,7 @@ class  MaxAbsEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11609490354923989, -0.965852149695141)  # error of 9.45E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (-9.66E-01,2.80E+00)
     min_max_norm_parameter = (10.794835917382866, 15.53613807930635)  # error of 7.37E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (13.16028708089213, 0.9139468145600386)  # error of 6.32E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (5.98E-06,1.00E+00)
-    dual_sigmoidal_norm_parameter = (13.444763362908514, 0.4909275403082198, 1.4564963345323978)  # error of 3.13E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (1.36E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (13.445192620610834, 0.4908521805658206, 1.4572576693025465)  # error of 3.13E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (1.36E-03,1.00E+00)
     genlog_norm_parameter = (2.972191234687917, 14.149085374516742, 11.048956911098314, 7.283386625774641)  # error of 3.39E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (2.23E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -503,7 +503,7 @@ class  PEOE_VSA14_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0006563772490514073, 0.9227826193892867)  # error of 7.32E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (9.23E-01,1.26E+00)
     min_max_norm_parameter = (2.415003722890725e-18, 8.09692280816151)  # error of 5.41E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.8016925269391764, 0.23235287767416216)  # error of 3.04E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (4.54E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.8017088240819955, 13.645839498944362, 0.23235348768870404)  # error of 2.97E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (1.77E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.8017086331085084, 13.229489438503897, 0.2323534820925018)  # error of 2.97E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (2.48E-05,1.00E+00)
     genlog_norm_parameter = (0.22225301681800952, -2.3695067664597853, 1.0446302749239949, 0.5795681123293127)  # error of 3.04E-02 with sample range (0.00E+00,5.10E+02) resulting in fit range (4.36E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -518,7 +518,7 @@ class  PEOE_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.006731394986636996, 0.31295466008048334)  # error of 1.50E-01 with sample range (0.00E+00,1.25E+03) resulting in fit range (3.13E-01,8.73E+00)
     min_max_norm_parameter = (7.51983930256869, 68.45113819370312)  # error of 4.09E-02 with sample range (0.00E+00,1.25E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (37.76437056260887, 0.08135882094622694)  # error of 1.76E-02 with sample range (0.00E+00,1.25E+03) resulting in fit range (4.43E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (36.482128078042514, 0.1009691384003825, 0.07316927556894248)  # error of 1.14E-02 with sample range (0.00E+00,1.25E+03) resulting in fit range (2.45E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (36.4821270671721, 0.10096914890593979, 0.07316926419086144)  # error of 1.14E-02 with sample range (0.00E+00,1.25E+03) resulting in fit range (2.45E-02,1.00E+00)
     genlog_norm_parameter = (0.06460929764312966, -3.2413499720442633, 1.840439341992175, 0.18492989797809087)  # error of 9.38E-03 with sample range (0.00E+00,1.25E+03) resulting in fit range (7.16E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -533,7 +533,7 @@ class  NPR1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.993532814687622, -0.07291478792771389)  # error of 6.17E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (-7.29E-02,1.83E+00)
     min_max_norm_parameter = (0.06225581266603365, 0.49572101730415397)  # error of 2.98E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.27514214399673687, 11.301895844887198)  # error of 2.74E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (4.27E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.25986760502174205, 14.138759638283469, 9.152837968958812)  # error of 1.65E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (2.47E-02,9.98E-01)
+    dual_sigmoidal_norm_parameter = (0.2598822642874916, 14.136432045747458, 9.153928411437114)  # error of 1.65E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (2.48E-02,9.98E-01)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -547,7 +547,7 @@ class  Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.13641142111605653, 0.06481842365937796)  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
     min_max_norm_parameter = (0.9571111913222607, 5.030476311519345)  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.9588780643186574, 1.1889256254049316)  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.798222121514068, 1.5668854376121493, 0.9198752649381355)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.798221903514353, 1.5668857301099821, 0.9198749149438118)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -561,7 +561,7 @@ class  Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.2235474556767324, 0.12057837229443968)  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
     min_max_norm_parameter = (0.40708839430881494, 2.71836618230583)  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.5414132407381294, 2.0927265327645506)  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.441026134320466, 2.8235640784391123, 1.5793253223087178)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.4410261354054712, 2.823564070788039, 1.5793253269271639)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -575,9 +575,9 @@ class  NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06338179563839252, 0.7789048985591301)  # error of 4.13E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.79E-01,2.68E+00)
     min_max_norm_parameter = (5.3308083108781935e-09, 1.2539605902115512)  # error of 8.89E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.24911412739948294, 1.825541426846478)  # error of 5.15E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.88E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.24911412739948294, 1.0, 1.825541426846478)  # error of 5.15E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.88E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.24895656142426995, 70.18656709264866, 1.8251784944463916)  # error of 3.32E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.58E-08,1.00E+00)
     genlog_norm_parameter = (3.0410569853018057, -0.5365635014003982, 0.010320409148970734, 0.00041830035148444656)  # error of 6.76E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (8.06E-03,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -590,7 +590,7 @@ class  Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.09656674011706068, 0.026475463133179833)  # error of 1.43E-01 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.65E-02,1.62E+01)
     min_max_norm_parameter = (1.85040714882094, 7.55574015613779)  # error of 3.72E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.659367062804354, 0.84727788625193)  # error of 2.67E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (1.89E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.449991335141199, 1.1069417196730784, 0.6703056005048558)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.20E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.4502084375740605, 1.1067186253730108, 0.6703972503948212)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.21E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -604,7 +604,7 @@ class  Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.16045617502782894, 0.06275167455712582)  # error of 1.47E-01 with sample range (0.00E+00,6.23E+01) resulting in fit range (6.28E-02,1.01E+01)
     min_max_norm_parameter = (0.8698290958911558, 4.249166143207709)  # error of 3.75E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.5307853903255304, 1.4301006733612187)  # error of 2.83E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.61E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.390012863113382, 1.9077779294117436, 1.1008446640044367)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.39001284835464, 1.9077778839291673, 1.1008446280194297)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -633,7 +633,7 @@ class  Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.4721378049698663, -0.11228706292547166)  # error of 2.90E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-1.12E-01,1.36E+00)
     min_max_norm_parameter = (0.09005620590041596, 0.7355219615267257)  # error of 1.68E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.40970204866580884, 7.643961121304289)  # error of 2.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.18E-02,9.89E-01)
-    dual_sigmoidal_norm_parameter = (0.3993757142716246, 8.419588600488629, 6.968980500840633)  # error of 1.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (3.35E-02,9.85E-01)
+    dual_sigmoidal_norm_parameter = (0.39938009612685643, 8.419338230908746, 6.969158525926429)  # error of 1.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (3.35E-02,9.85E-01)
     genlog_norm_parameter = (6.206340781992686, 0.43464496231710853, 0.25779424922808303, 0.39659201683500284)  # error of 1.81E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.89E-02,9.81E-01)
     preferred_normalization = 'min_max'
     # functions
@@ -648,7 +648,7 @@ class  Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.030418143185359847, 0.2871593951766924)  # error of 2.34E-01 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.87E-01,1.08E+03)
     min_max_norm_parameter = (3.446066777200142, 12.00058941506709)  # error of 4.58E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.66772112289306, 0.5795843116540953)  # error of 3.08E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (1.16E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (7.271319784936047, 0.8080128800230181, 0.4459683689150529)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (7.272013631840285, 0.8076799655613323, 0.44608338323349067)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.81E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -662,7 +662,7 @@ class  BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0002435689316791905, 0.08402337833593164)  # error of 1.62E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (8.40E-02,1.15E+01)
     min_max_norm_parameter = (589.3484428971769, 2551.6280739737376)  # error of 3.81E-02 with sample range (0.00E+00,4.67E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -677,7 +677,7 @@ class  MaxPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.0906307507635584, -0.334505311086143)  # error of 7.24E-02 with sample range (-4.12E-01,INF) resulting in fit range (-1.61E+00,INF)
     min_max_norm_parameter = (0.1437213632361377, 0.3915749702129172)  # error of 3.92E-02 with sample range (-4.12E-01,INF) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.26834153843781333, 19.306170677985925)  # error of 1.77E-02 with sample range (-4.12E-01,INF) resulting in fit range (1.99E-06,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.26692142305427585, 20.140051277382142, 18.554459487006113)  # error of 1.72E-02 with sample range (-4.12E-01,INF) resulting in fit range (1.16E-06,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.26691979313947295, 20.14067256838992, 18.55398222869742)  # error of 1.72E-02 with sample range (-4.12E-01,INF) resulting in fit range (1.16E-06,1.00E+00)
     genlog_norm_parameter = (19.09091940309053, 0.35102481862378276, 0.1963118558023432, 0.9662656391252168)  # error of 1.77E-02 with sample range (-4.12E-01,INF) resulting in fit range (1.54E-06,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -692,7 +692,7 @@ class  SlogP_VSA12_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.006154770006633981, 0.6983876686482481)  # error of 8.20E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (6.98E-01,2.37E+00)
     min_max_norm_parameter = (5e-324, 16.317969218729832)  # error of 7.75E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.978333217945518, 0.12756642613388391)  # error of 2.43E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (3.46E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.978320474929455, 2.185653842795465, 0.1275661877112387)  # error of 2.34E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (1.88E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.674100438413901, 1.175288360979358, 0.1242634938303602)  # error of 2.35E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (4.10E-03,1.00E+00)
     genlog_norm_parameter = (0.12015565174919032, 6.735768505141773, 0.3722611574944573, 0.5327919499893109)  # error of 2.42E-02 with sample range (0.00E+00,2.71E+02) resulting in fit range (3.20E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -707,7 +707,7 @@ class  VSA_EState2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.01528826607315403, 0.2670303270450643)  # error of 1.35E-01 with sample range (-3.29E+01,8.56E+02) resulting in fit range (-2.36E-01,1.34E+01)
     min_max_norm_parameter = (-4.878450507072114, 34.03022413712193)  # error of 4.20E-02 with sample range (-3.29E+01,8.56E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (14.37762800683558, 0.12195442376720393)  # error of 4.00E-02 with sample range (-3.29E+01,8.56E+02) resulting in fit range (3.12E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (13.675781179464368, 0.14469304482094406, 0.10641180812795803)  # error of 3.56E-02 with sample range (-3.29E+01,8.56E+02) resulting in fit range (1.18E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (13.67578622158198, 0.14469289317841083, 0.10641187063656972)  # error of 3.56E-02 with sample range (-3.29E+01,8.56E+02) resulting in fit range (1.18E-03,1.00E+00)
     genlog_norm_parameter = (0.08922402753158253, -3.1375517024170803, 0.3191874567853099, 0.0981416430000738)  # error of 3.45E-02 with sample range (-3.29E+01,8.56E+02) resulting in fit range (2.61E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -737,7 +737,7 @@ class  MinPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (2.948628224298744, 1.7394347203560183)  # error of 1.05E-01 with sample range (-2.00E+00,INF) resulting in fit range (-4.16E+00,INF)
     min_max_norm_parameter = (-0.5479342566156457, -0.28873718774420354)  # error of 4.48E-02 with sample range (-2.00E+00,INF) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.420139769859882, 17.629128066695653)  # error of 5.34E-02 with sample range (-2.00E+00,INF) resulting in fit range (8.02E-13,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.43972856902364077, 26.868401369842132, 13.463159347885448)  # error of 5.23E-02 with sample range (-2.00E+00,INF) resulting in fit range (6.22E-19,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-0.4397372036237273, 26.874835355850397, 13.461649276273022)  # error of 5.23E-02 with sample range (-2.00E+00,INF) resulting in fit range (6.16E-19,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
     
@@ -751,7 +751,7 @@ class  Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.02460656481380441, 0.05696382112467857)  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
     min_max_norm_parameter = (8.215243805842091, 25.568763302868422)  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (16.800375876069985, 0.2846180730802336)  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (16.22787766733102, 0.3557663030596946, 0.2286121746689847)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (16.22854448035761, 0.3557006902802079, 0.22864396656407704)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
     genlog_norm_parameter = (0.20081911303774566, -0.3618619378577607, 1.199011524398242, 0.05743559815299407)  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -766,7 +766,7 @@ class  PEOE_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0023302771680984535, 0.6632167817066577)  # error of 1.34E-01 with sample range (0.00E+00,1.31E+03) resulting in fit range (6.63E-01,3.70E+00)
     min_max_norm_parameter = (1.94951131475506e-20, 53.568112487136325)  # error of 6.28E-02 with sample range (0.00E+00,1.31E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (22.943177031905776, 0.06530117675670048)  # error of 2.26E-02 with sample range (0.00E+00,1.31E+03) resulting in fit range (1.83E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (20.77325824422444, 0.11533425472212071, 0.05805165987942096)  # error of 1.56E-02 with sample range (0.00E+00,1.31E+03) resulting in fit range (8.35E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (20.773256554969635, 0.11533427848602933, 0.058051651917743946)  # error of 1.56E-02 with sample range (0.00E+00,1.31E+03) resulting in fit range (8.35E-02,1.00E+00)
     genlog_norm_parameter = (0.0529677336429405, -35.34156868005128, 0.0017394739065960728, 0.00011634621863982968)  # error of 1.43E-02 with sample range (0.00E+00,1.31E+03) resulting in fit range (1.00E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -781,7 +781,7 @@ class  EState_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.004005936989037917, 0.7781446305553839)  # error of 1.04E-01 with sample range (0.00E+00,5.61E+02) resulting in fit range (7.78E-01,3.02E+00)
     min_max_norm_parameter = (2.7254874994650347e-24, 19.011338996425444)  # error of 5.00E-02 with sample range (0.00E+00,5.61E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.65981607322896, 0.1802261811598023)  # error of 1.90E-02 with sample range (0.00E+00,5.61E+02) resulting in fit range (2.01E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.86219794446307, 0.35061192985231965, 0.16362403625943647)  # error of 1.63E-02 with sample range (0.00E+00,5.61E+02) resulting in fit range (8.27E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.86218123444723, 0.35061452177966596, 0.16362367621429438)  # error of 1.63E-02 with sample range (0.00E+00,5.61E+02) resulting in fit range (8.27E-02,1.00E+00)
     genlog_norm_parameter = (0.15082974766082996, -18.484638192736522, 0.007439276999279547, 0.00020806426143220736)  # error of 1.54E-02 with sample range (0.00E+00,5.61E+02) resulting in fit range (1.11E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -796,7 +796,7 @@ class  EState_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0009047456761177575, 0.988557120440686)  # error of 2.13E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (9.89E-01,1.03E+00)
     min_max_norm_parameter = (2.1257783917477867e-14, 4.312791487510295)  # error of 4.52E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.0761099576023025, 0.6793696501735206)  # error of 1.30E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (8.04E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.0761099576023025, 1.0, 0.6793696501735206)  # error of 1.30E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (8.04E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.944517606033578e-06, 6834910.858068878, 0.9641921467533802)  # error of 1.26E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (1.69E-06,1.00E+00)
     genlog_norm_parameter = (0.9278558605436115, 0.9750697326238789, -0.4046534848332459, -1.2077899416726605)  # error of 1.24E-03 with sample range (0.00E+00,4.78E+01) resulting in fit range (1.40E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -826,7 +826,7 @@ class  BCUT2D_CHGHI_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.0601079754933302, 0.40787344122731317)  # error of 1.66E-01 with sample range (-1.56E+00,3.00E+00) resulting in fit range (-1.24E+00,3.59E+00)
     min_max_norm_parameter = (-0.09795833235878999, 0.13496394474519627)  # error of 8.61E-02 with sample range (-1.56E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.015414812733986287, 19.410301428357236)  # error of 8.02E-02 with sample range (-1.56E+00,3.00E+00) resulting in fit range (5.54E-14,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.008123422957527535, 43.42891499503567, 6.984539197542873)  # error of 3.60E-02 with sample range (-1.56E+00,3.00E+00) resulting in fit range (6.07E-30,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-0.00807343779216827, 43.35367999823987, 6.98718326256343)  # error of 3.60E-02 with sample range (-1.56E+00,3.00E+00) resulting in fit range (6.81E-30,1.00E+00)
     genlog_norm_parameter = (13.467113000799394, -0.21996298838853404, 0.0011345067054706437, 7.109293287179587e-05)  # error of 6.72E-02 with sample range (-1.56E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -841,7 +841,7 @@ class  PEOE_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009229128833342298, 0.6965819780408643)  # error of 1.14E-01 with sample range (0.00E+00,4.96E+02) resulting in fit range (6.97E-01,5.27E+00)
     min_max_norm_parameter = (0.0, 15.384470706540956)  # error of 6.59E-02 with sample range (0.00E+00,4.96E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.006780263970044, 0.24361243133391997)  # error of 3.95E-02 with sample range (0.00E+00,4.96E+02) resulting in fit range (1.88E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (5.108545135970047, 0.9767373573037742, 0.2124051105161742)  # error of 3.59E-02 with sample range (0.00E+00,4.96E+02) resulting in fit range (6.76E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (5.098681834550195, 0.9896101152028739, 0.21213507995825584)  # error of 3.59E-02 with sample range (0.00E+00,4.96E+02) resulting in fit range (6.40E-03,1.00E+00)
     genlog_norm_parameter = (0.2026692161636364, -10.116783288314046, 0.017985027417691864, 0.0009958173671104694)  # error of 3.87E-02 with sample range (0.00E+00,4.96E+02) resulting in fit range (9.81E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -856,7 +856,7 @@ class  qed_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.2001504087852979, -0.19399001508562716)  # error of 5.24E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (-1.90E-01,9.44E-01)
     min_max_norm_parameter = (0.22901735830941922, 0.9481621980667114)  # error of 3.90E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.6000031067059596, 6.458412537955855)  # error of 3.69E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (2.08E-02,9.05E-01)
-    dual_sigmoidal_norm_parameter = (0.6370145592271749, 4.945616362932774, 8.803721507227248)  # error of 2.33E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (4.18E-02,9.39E-01)
+    dual_sigmoidal_norm_parameter = (0.6370146711380908, 4.945613751120506, 8.80372765079648)  # error of 2.33E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (4.18E-02,9.39E-01)
     genlog_norm_parameter = (14.258861720160791, 0.8275500529167287, 0.9871179281649253, 4.187543624653561)  # error of 2.20E-02 with sample range (3.45E-03,9.48E-01) resulting in fit range (6.06E-02,9.62E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -871,7 +871,7 @@ class  SMR_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0060832031355171345, 0.29372966007484347)  # error of 1.94E-01 with sample range (0.00E+00,1.80E+03) resulting in fit range (2.94E-01,1.13E+01)
     min_max_norm_parameter = (18.58970931537026, 67.49192460811703)  # error of 4.61E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (42.77007350322991, 0.09980774119785008)  # error of 2.58E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (1.38E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (41.1105092185979, 0.1350839878005177, 0.08255127492140925)  # error of 1.34E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (3.86E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (41.1131338380977, 0.1350440206008133, 0.08256623106509779)  # error of 1.34E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (3.86E-03,1.00E+00)
     genlog_norm_parameter = (0.07260546024264776, -25.110752914170668, 0.016405910234250563, 0.0001819439798804859)  # error of 1.05E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (4.83E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -931,7 +931,7 @@ class  Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.027431175492895643, 0.1959231987976101)  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
     min_max_norm_parameter = (5.833583645428592, 19.149899507438242)  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (12.391158701361956, 0.36836959542101233)  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (11.842303238148796, 0.5140666350188914, 0.29912163479666287)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (11.842303403027104, 0.5140666711896098, 0.2991216617631474)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -945,7 +945,7 @@ class  NumHBD_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.012771534772396786, 0.8154539249362293)  # error of 1.08E-01 with sample range (0.00E+00,6.30E+01) resulting in fit range (8.15E-01,1.62E+00)
     min_max_norm_parameter = (4.930380657631324e-32, 2.5821101687257144)  # error of 1.47E-02 with sample range (0.00E+00,6.30E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.192951047473294, 1.324568319014574)  # error of 5.53E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (1.71E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.1929510837567654, 12.327419967877942, 1.324568589322017)  # error of 3.38E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (4.10E-07,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.0347358874847317, 7.806096732465813, 1.1607918751317259)  # error of 2.70E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (3.10E-04,1.00E+00)
     genlog_norm_parameter = (1.234223982974127, -2.5173462989289015, 0.009239861737341579, 0.0001326440589740326)  # error of 8.35E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (4.43E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -975,7 +975,7 @@ class  NumRings_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03860180770005206, 0.5113290906759573)  # error of 1.73E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (5.11E-01,2.87E+00)
     min_max_norm_parameter = (0.334517739633367, 5.208998938983079)  # error of 1.60E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.7238161788458215, 1.1018114352614388)  # error of 1.08E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (4.74E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.5715742346316732, 1.2832261760477313, 0.9174927781864283)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.5715740496764488, 1.283226429101575, 0.9174925881562721)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
     genlog_norm_parameter = (0.813320209949437, 1.988272685010793, 0.21462517997652011, 0.17389824103982)  # error of 4.52E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.48E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -990,7 +990,7 @@ class  fr_nitroso_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11434935141358371, 0.5282342446312391)  # error of 2.97E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.28E-01,1.21E+00)
     min_max_norm_parameter = (9.249617077400622e-09, 1.0008656708869366)  # error of 4.28E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.7036397732099205, 23.795370886031456)  # error of 4.28E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.35E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4999999564484462, 6.648382398811204, 12.36564692910073)  # error of 9.73E-04 with sample range (0.00E+00,6.00E+00) resulting in fit range (2.06E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.0007713291885705107, 20282.21901414945, 7.057394345605325)  # error of 4.25E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.61E-07,1.00E+00)
     genlog_norm_parameter = (7.296365931941997, 0.2058906214339969, -0.22262794047612086, -0.7836891501859671)  # error of 4.26E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (8.93E-11,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -1004,7 +1004,7 @@ class  fr_prisulfonamd_Featurizer(SingleValueMoleculeFeaturizer):
     # normalization
     linear_norm_parameter = (1.0, 1.0)  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter = (0.0, 1.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
+    dual_sigmoidal_norm_parameter = (0.0, 0.0, 1.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
     genlog_norm_parameter = (0.33705420273837067, 0.3370542027383706, -9.284058023162583e-10, 2.1473819766010673)  # error of 4.84E-10 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -1019,7 +1019,7 @@ class  SMR_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.010815720584295, 0.8621985340234535)  # error of 5.64E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (8.62E-01,1.62E+00)
     min_max_norm_parameter = (1.833608967890303e-18, 1.5590020213009668)  # error of 5.87E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.7174803678465178, 0.5694423092539833)  # error of 1.98E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (6.01E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.7174798896423839, 0.21990603605382986, 0.5694424246725555)  # error of 1.98E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (6.01E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-0.717479882031807, 0.22963196789745544, 0.5694424255830062)  # error of 1.98E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (6.01E-01,1.00E+00)
     genlog_norm_parameter = (0.5276885859408835, -1.9004372112033896, 0.0010520560915783057, 0.000706253590168276)  # error of 1.92E-02 with sample range (0.00E+00,7.01E+01) resulting in fit range (5.79E-01,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -1034,7 +1034,7 @@ class  Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.2235474556767324, 0.12057837229443968)  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
     min_max_norm_parameter = (0.40708839430881494, 2.71836618230583)  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.5414132407381294, 2.0927265327645506)  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.441026134320466, 2.8235640784391123, 1.5793253223087178)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.4410261354054712, 2.823564070788039, 1.5793253269271639)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1048,9 +1048,9 @@ class  InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (249.802812058766, 0.2626729794953536)  # error of 1.70E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (2.63E-01,2.41E+06)
     min_max_norm_parameter = (3.4403992924852414e-29, 0.0015516770560768962)  # error of 5.89E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0007537390827077178, 2772.3791520268146)  # error of 5.07E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (1.10E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.0006221969804982748, 4615.762401524865, 1723.753663227779)  # error of 2.12E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (5.36E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (8.477210431460079e-09, 1.0226616162563986, 2.5040477356755724)  # error of 2.88E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (5.00E-01,1.00E+00)
     genlog_norm_parameter = (0.6335439368983742, 1.1952465398370342, 0.06337814286503886, 0.1824990146140799)  # error of 2.88E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (4.99E-01,1.00E+00)
-    preferred_normalization = 'dual_sig'
+    preferred_normalization = 'sig'
     # functions
     
     
@@ -1063,7 +1063,7 @@ class  NumAmideBonds_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.025379291619204047, 0.8062087745432029)  # error of 7.32E-02 with sample range (0.00E+00,6.30E+01) resulting in fit range (8.06E-01,2.41E+00)
     min_max_norm_parameter = (9.860761315262648e-31, 2.0799891850295853)  # error of 3.30E-02 with sample range (0.00E+00,6.30E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4876800061173155, 1.2673698495352894)  # error of 2.03E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (3.50E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.5000000369459837, 10.198287769485447, 1.2823618205208733)  # error of 1.53E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (6.06E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.4876792517661068, 32.508328557898885, 1.267368546681463)  # error of 1.10E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (1.30E-07,1.00E+00)
     genlog_norm_parameter = (1.954963623739784, -1.2547927135979628, 0.009691030241488695, 0.00025254291606265794)  # error of 1.41E-02 with sample range (0.00E+00,6.30E+01) resulting in fit range (3.69E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1078,7 +1078,7 @@ class  NumHDonors_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.012771534772396786, 0.8154539249362293)  # error of 1.08E-01 with sample range (0.00E+00,6.30E+01) resulting in fit range (8.15E-01,1.62E+00)
     min_max_norm_parameter = (4.930380657631324e-32, 2.5821101687257144)  # error of 1.47E-02 with sample range (0.00E+00,6.30E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.192951047473294, 1.324568319014574)  # error of 5.53E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (1.71E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.1929510837567654, 12.327419967877942, 1.324568589322017)  # error of 3.38E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (4.10E-07,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.0347358874847317, 7.806096732465813, 1.1607918751317259)  # error of 2.70E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (3.10E-04,1.00E+00)
     genlog_norm_parameter = (1.234223982974127, -2.5173462989289015, 0.009239861737341579, 0.0001326440589740326)  # error of 8.35E-03 with sample range (0.00E+00,6.30E+01) resulting in fit range (4.43E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1123,7 +1123,7 @@ class  NumHBA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.018653528399554697, 0.5574729713710027)  # error of 1.93E-01 with sample range (0.00E+00,1.71E+02) resulting in fit range (5.57E-01,3.75E+00)
     min_max_norm_parameter = (1.2630439561525542, 7.515443068519551)  # error of 1.49E-02 with sample range (0.00E+00,1.71E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.367102956502307, 0.8007786530186061)  # error of 9.05E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (2.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.18861863906966, 0.9639214876904849, 0.6754396233905521)  # error of 5.33E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (1.73E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.1534479232479296, 0.9876358257117317, 0.6617786555883881)  # error of 4.81E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (1.63E-02,1.00E+00)
     genlog_norm_parameter = (0.5934193512469899, 0.22514360787120383, 1.466124180627735, 0.18363318748043794)  # error of 3.35E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (4.70E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1138,7 +1138,7 @@ class  NPR1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.993532814687622, -0.07291478792771389)  # error of 6.17E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (-7.29E-02,1.83E+00)
     min_max_norm_parameter = (0.06225581266603365, 0.49572101730415397)  # error of 2.98E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.27514214399673687, 11.301895844887198)  # error of 2.74E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (4.27E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.25986760502174205, 14.138759638283469, 9.152837968958812)  # error of 1.65E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (2.47E-02,9.98E-01)
+    dual_sigmoidal_norm_parameter = (0.2598822642874916, 14.136432045747458, 9.153928411437114)  # error of 1.65E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (2.48E-02,9.98E-01)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1152,7 +1152,7 @@ class  MaxAbsPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.0434418303394315, -0.7918951311620821)  # error of 1.02E-01 with sample range (0.00E+00,INF) resulting in fit range (-7.92E-01,INF)
     min_max_norm_parameter = (0.2952082545313489, 0.5504603722073848)  # error of 4.52E-02 with sample range (0.00E+00,INF) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.425391072059637, 18.052436340913527)  # error of 5.24E-02 with sample range (0.00E+00,INF) resulting in fit range (4.62E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4471126495528674, 13.358409659537145, 30.95400226537322)  # error of 4.77E-02 with sample range (0.00E+00,INF) resulting in fit range (2.54E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.44710956517413125, 13.358900058018621, 30.95122279557429)  # error of 4.77E-02 with sample range (0.00E+00,INF) resulting in fit range (2.54E-03,1.00E+00)
     genlog_norm_parameter = (662.0986334620413, 0.5172134029000983, 0.2733025946745107, 71.61636863748764)  # error of 4.71E-02 with sample range (0.00E+00,INF) resulting in fit range (8.54E-03,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -1167,7 +1167,7 @@ class  Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11014910768339037, 0.02748881833733474)  # error of 1.49E-01 with sample range (0.00E+00,1.02E+02) resulting in fit range (2.75E-02,1.13E+01)
     min_max_norm_parameter = (1.6850371430659572, 6.553874507410937)  # error of 3.80E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.081549676171799, 0.9904095492145635)  # error of 2.83E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.73E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.87238559628832, 1.3409369944950944, 0.767555104248775)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.872385716112142, 1.3409368307127125, 0.7675552000980483)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1181,7 +1181,7 @@ class  Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0627452397151258, 0.08691967075790497)  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
     min_max_norm_parameter = (2.910758257183072, 10.518729378759696)  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.661928594684052, 0.6389477840131871)  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.384313047563608, 0.8556587318530761, 0.5214673705729024)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.384313111721113, 0.855658675292274, 0.5214673948038986)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1195,7 +1195,7 @@ class  fr_sulfonamd_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03596176344129032, 0.9269115779579837)  # error of 0.00E+00 with sample range (0.00E+00,8.00E+00) resulting in fit range (9.27E-01,1.21E+00)
     min_max_norm_parameter = (9.80315962195014e-09, 1.0385581951856868)  # error of 4.80E-04 with sample range (0.00E+00,8.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.06939953825020206, 3.4983720078550626)  # error of 0.00E+00 with sample range (0.00E+00,8.00E+00) resulting in fit range (4.40E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.06939885794095012, 1.0, 3.4983684786379823)  # error of 2.31E-08 with sample range (0.00E+00,8.00E+00) resulting in fit range (4.40E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.06939885794095012, 1.0, 3.4983684786379823)  # error of 2.31E-08 with sample range (0.00E+00,8.00E+00) resulting in fit range (4.83E-01,1.00E+00)
     genlog_norm_parameter = (3.512955385541479, 0.514844672287699, 0.38483266354717705, 1.7883039930433544)  # error of 7.75E-10 with sample range (0.00E+00,8.00E+00) resulting in fit range (5.09E-01,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -1210,7 +1210,7 @@ class  PEOE_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009582946298100165, 0.3577672573591545)  # error of 1.18E-01 with sample range (0.00E+00,9.81E+02) resulting in fit range (3.58E-01,9.76E+00)
     min_max_norm_parameter = (7.644079543108024e-15, 47.75350503201181)  # error of 3.98E-02 with sample range (0.00E+00,9.81E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (23.587460909634668, 0.10069901844268675)  # error of 1.27E-02 with sample range (0.00E+00,9.81E+02) resulting in fit range (8.51E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (22.77434626844181, 0.12981857665919092, 0.0929999907140519)  # error of 5.01E-03 with sample range (0.00E+00,9.81E+02) resulting in fit range (4.94E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (22.77525947240647, 0.12980123075088157, 0.09300622071060506)  # error of 5.01E-03 with sample range (0.00E+00,9.81E+02) resulting in fit range (4.94E-02,1.00E+00)
     genlog_norm_parameter = (0.08096934092650773, -3.7749568013325585, 0.6998432950587882, 0.10931896552672962)  # error of 1.35E-03 with sample range (0.00E+00,9.81E+02) resulting in fit range (2.23E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1240,7 +1240,7 @@ class  LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0029906658775537, -0.06099902360508458)  # error of 1.58E-01 with sample range (1.50E+01,3.79E+03) resulting in fit range (-1.62E-02,1.13E+01)
     min_max_norm_parameter = (93.68303193611298, 261.4054366254348)  # error of 3.76E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (176.2509725704667, 0.028811070902678346)  # error of 2.90E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (9.50E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (168.88110527265619, 0.038768813519735566, 0.021877794721835753)  # error of 1.06E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (2.55E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (168.88110152589715, 0.0387688192218933, 0.021877792004091706)  # error of 1.06E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (2.55E-03,1.00E+00)
     genlog_norm_parameter = (0.6933180534129533, 5.290531782672155, 26.32875258879068, 0.003951618013326181)  # error of 5.70E-01 with sample range (1.50E+01,3.79E+03) resulting in fit range (3.31E-04,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1255,7 +1255,7 @@ class  PMI1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (6.013420622833213e-05, 0.37438762357376315)  # error of 2.26E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (3.74E-01,3.55E+01)
     min_max_norm_parameter = (5.253076648348887e-17, 2920.8284746927293)  # error of 6.82E-02 with sample range (0.00E+00,5.85E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -1270,7 +1270,7 @@ class  LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0029906658775537, -0.06099902360508458)  # error of 1.58E-01 with sample range (1.50E+01,3.79E+03) resulting in fit range (-1.62E-02,1.13E+01)
     min_max_norm_parameter = (93.68303193611298, 261.4054366254348)  # error of 3.76E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (176.2509725704667, 0.028811070902678346)  # error of 2.90E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (9.50E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (168.88110527265619, 0.038768813519735566, 0.021877794721835753)  # error of 1.06E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (2.55E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (168.88110152589715, 0.0387688192218933, 0.021877792004091706)  # error of 1.06E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (2.55E-03,1.00E+00)
     genlog_norm_parameter = (0.6933180534129533, 5.290531782672155, 26.32875258879068, 0.003951618013326181)  # error of 5.70E-01 with sample range (1.50E+01,3.79E+03) resulting in fit range (3.31E-04,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1345,7 +1345,7 @@ class  SMR_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.011429994095032314, 0.595492552884596)  # error of 1.14E-01 with sample range (0.00E+00,2.58E+02) resulting in fit range (5.95E-01,3.55E+00)
     min_max_norm_parameter = (0.0, 18.19914049080423)  # error of 5.20E-02 with sample range (0.00E+00,2.58E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (8.390853699132085, 0.20684364498704194)  # error of 2.62E-02 with sample range (0.00E+00,2.58E+02) resulting in fit range (1.50E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (8.015271352886963, 0.25797161577301486, 0.1954104655375538)  # error of 2.55E-02 with sample range (0.00E+00,2.58E+02) resulting in fit range (1.12E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (8.015272681994086, 0.25797153237552817, 0.19541050070073113)  # error of 2.55E-02 with sample range (0.00E+00,2.58E+02) resulting in fit range (1.12E-01,1.00E+00)
     genlog_norm_parameter = (0.1764602483188016, -5.670846348806433, 2.0149145147528085, 0.2300791634713772)  # error of 2.52E-02 with sample range (0.00E+00,2.58E+02) resulting in fit range (8.99E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1375,9 +1375,9 @@ class  NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.037486269092924296, 0.7906195585254473)  # error of 6.21E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.91E-01,1.92E+00)
     min_max_norm_parameter = (5.730855425109739e-09, 1.404946368678208)  # error of 1.95E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.36617461217911906, 1.4317359459562997)  # error of 2.83E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.72E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.36617461217911906, 1.0, 1.4317359459562997)  # error of 2.83E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.72E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.36616672566972636, 42.588115306732064, 1.4317211909754344)  # error of 1.65E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (1.69E-07,1.00E+00)
     genlog_norm_parameter = (2.361126814701105, -0.9332372421941358, 0.010759488748759415, 0.0003109299935290176)  # error of 1.37E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.20E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -1405,9 +1405,9 @@ class  fr_NH0_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06607380335566115, 0.5226975405536398)  # error of 1.02E-01 with sample range (0.00E+00,6.40E+01) resulting in fit range (5.23E-01,4.75E+00)
     min_max_norm_parameter = (1.5777218104420236e-30, 3.4322660362420145)  # error of 3.03E-02 with sample range (0.00E+00,6.40E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.446568823597894, 0.9242400863243287)  # error of 3.76E-03 with sample range (0.00E+00,6.40E+01) resulting in fit range (2.08E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.4465608187161392, 10.288469526455993, 0.9242182221199369)  # error of 2.07E-03 with sample range (0.00E+00,6.40E+01) resulting in fit range (3.44E-07,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.382038072209329, 1.138228128038037, 0.8833018513448258)  # error of 5.61E-04 with sample range (0.00E+00,6.40E+01) resulting in fit range (1.72E-01,1.00E+00)
     genlog_norm_parameter = (0.8438864537468908, 0.8863761551955617, 0.7290881665632817, 0.5450332276288733)  # error of 1.54E-03 with sample range (0.00E+00,6.40E+01) resulting in fit range (1.81E-01,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -1450,7 +1450,7 @@ class  Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009618083281699108, 0.17347984942891348)  # error of 2.14E-01 with sample range (7.63E-01,6.43E+02) resulting in fit range (1.81E-01,6.36E+00)
     min_max_norm_parameter = (16.004022253403853, 51.11689241252734)  # error of 4.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (33.37586607594709, 0.1432287247282441)  # error of 2.67E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.28E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (31.98836545966142, 0.18812033507921852, 0.1136090082864722)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (31.988365552286066, 0.18812033153864993, 0.11360901005668378)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
     genlog_norm_parameter = (0.09991708558883805, -13.42358800932477, 0.271792016045397, 0.0039352878486176145)  # error of 1.01E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.15E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1480,7 +1480,7 @@ class  BCUT2D_MWLOW_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.018429176169886, 2.7560478377646005)  # error of 6.41E-02 with sample range (-3.04E+00,3.04E+01) resulting in fit range (-3.35E-01,3.38E+01)
     min_max_norm_parameter = (-2.64231464861815, -1.799802847378942)  # error of 2.41E-02 with sample range (-3.04E+00,3.04E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.2221798051728805, 5.9554575147054996)  # error of 9.16E-03 with sample range (-3.04E+00,3.04E+01) resulting in fit range (7.81E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.227857345416726, 6.237138211059447, 5.6956729965539425)  # error of 7.90E-03 with sample range (-3.04E+00,3.04E+01) resulting in fit range (6.45E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.2278580763025553, 6.237162365182138, 5.69565286208031)  # error of 7.91E-03 with sample range (-3.04E+00,3.04E+01) resulting in fit range (6.45E-03,1.00E+00)
     genlog_norm_parameter = (5.497690839708295, -1.5915933694558018, 0.02130998762071418, 0.7613978532016417)  # error of 7.69E-03 with sample range (-3.04E+00,3.04E+01) resulting in fit range (4.55E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1495,7 +1495,7 @@ class  PEOE_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.008224721394031964, 0.6823272493410806)  # error of 9.26E-02 with sample range (0.00E+00,4.47E+02) resulting in fit range (6.82E-01,4.36E+00)
     min_max_norm_parameter = (3.4024230320080053e-25, 18.337088617478788)  # error of 7.24E-02 with sample range (0.00E+00,4.47E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.490192767810458, 0.173177943098159)  # error of 1.90E-02 with sample range (0.00E+00,4.47E+02) resulting in fit range (2.45E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.256034233577422, 0.34399533607200733, 0.168166619388783)  # error of 1.70E-02 with sample range (0.00E+00,4.47E+02) resulting in fit range (1.04E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.250108397838072, 0.3448712479918515, 0.1680578064754544)  # error of 1.70E-02 with sample range (0.00E+00,4.47E+02) resulting in fit range (1.04E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1509,7 +1509,7 @@ class  PEOE_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005573163277374748, 0.6734703650713099)  # error of 1.59E-01 with sample range (0.00E+00,4.11E+02) resulting in fit range (6.73E-01,2.97E+00)
     min_max_norm_parameter = (1.2124620489038405, 22.986430313946542)  # error of 4.38E-02 with sample range (0.00E+00,4.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (12.034307131924646, 0.21632262910541178)  # error of 2.81E-02 with sample range (0.00E+00,4.11E+02) resulting in fit range (6.89E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (11.249123373426334, 0.3444808633220492, 0.1894116980918965)  # error of 2.51E-02 with sample range (0.00E+00,4.11E+02) resulting in fit range (2.03E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (11.236970449779486, 0.3464811225654301, 0.18910464232260876)  # error of 2.51E-02 with sample range (0.00E+00,4.11E+02) resulting in fit range (2.00E-02,1.00E+00)
     genlog_norm_parameter = (0.17343236164840786, -2.160691929113601, 0.6350478546700745, 0.07906535726568056)  # error of 2.56E-02 with sample range (0.00E+00,4.11E+02) resulting in fit range (1.02E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1524,7 +1524,7 @@ class  GetSSSR_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03860180770005206, 0.5113290906759573)  # error of 1.73E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (5.11E-01,2.87E+00)
     min_max_norm_parameter = (0.334517739633367, 5.208998938983079)  # error of 1.60E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.7238161788458215, 1.1018114352614388)  # error of 1.08E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (4.74E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.5715742346316732, 1.2832261760477313, 0.9174927781864283)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.5715740496764488, 1.283226429101575, 0.9174925881562721)  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
     genlog_norm_parameter = (0.813320209949437, 1.988272685010793, 0.21462517997652011, 0.17389824103982)  # error of 4.52E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.48E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1539,7 +1539,7 @@ class  Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.1846796920584458, 0.12308022240634398)  # error of 1.49E-01 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.23E-01,4.41E+01)
     min_max_norm_parameter = (0.4365031459643245, 3.319224643809378)  # error of 3.97E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.8494300166801143, 1.6807292424962799)  # error of 3.13E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (4.28E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.7216523305680784, 2.287102552977168, 1.2587726126085808)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.7217931490660436, 2.2865005312485036, 1.2589856485533308)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1568,7 +1568,7 @@ class  Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.4721378049698663, -0.11228706292547166)  # error of 2.90E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-1.12E-01,1.36E+00)
     min_max_norm_parameter = (0.09005620590041596, 0.7355219615267257)  # error of 1.68E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.40970204866580884, 7.643961121304289)  # error of 2.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.18E-02,9.89E-01)
-    dual_sigmoidal_norm_parameter = (0.3993757142716246, 8.419588600488629, 6.968980500840633)  # error of 1.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (3.35E-02,9.85E-01)
+    dual_sigmoidal_norm_parameter = (0.39938009612685643, 8.419338230908746, 6.969158525926429)  # error of 1.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (3.35E-02,9.85E-01)
     genlog_norm_parameter = (6.206340781992686, 0.43464496231710853, 0.25779424922808303, 0.39659201683500284)  # error of 1.81E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.89E-02,9.81E-01)
     preferred_normalization = 'min_max'
     # functions
@@ -1583,7 +1583,7 @@ class  Phi_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.22667929243030271, 0.11757079564019635)  # error of 1.70E-01 with sample range (0.00E+00,2.25E+04) resulting in fit range (1.18E-01,5.10E+03)
     min_max_norm_parameter = (0.5556463225317848, 2.6045119614877015)  # error of 3.59E-02 with sample range (0.00E+00,2.25E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.5662194643242748, 2.3640636223858147)  # error of 2.70E-02 with sample range (0.00E+00,2.25E+04) resulting in fit range (2.41E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.4899535284636134, 3.0418615386053856, 1.8570405999560915)  # error of 1.21E-02 with sample range (0.00E+00,2.25E+04) resulting in fit range (1.06E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.4899535288187378, 3.041861538022715, 1.857040602496807)  # error of 1.21E-02 with sample range (0.00E+00,2.25E+04) resulting in fit range (1.06E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1597,7 +1597,7 @@ class  VSA_EState4_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03989308824193185, 0.6890187770089706)  # error of 1.54E-01 with sample range (-3.80E+02,5.80E+01) resulting in fit range (-1.45E+01,3.00E+00)
     min_max_norm_parameter = (-9.819105425993582, 0.9849828760699441)  # error of 4.39E-02 with sample range (-3.80E+02,5.80E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-4.310085634921858, 0.4319322795706566)  # error of 2.94E-02 with sample range (-3.80E+02,5.80E+01) resulting in fit range (3.08E-71,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-3.8709253184243924, 0.33197642799656213, 0.5895773862269263)  # error of 1.27E-02 with sample range (-3.80E+02,5.80E+01) resulting in fit range (5.53E-55,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-3.871053962031284, 0.3319910911268734, 0.5895341877288691)  # error of 1.27E-02 with sample range (-3.80E+02,5.80E+01) resulting in fit range (5.50E-55,1.00E+00)
     genlog_norm_parameter = (0.9492760171365159, -2.7790693678579554, 4.891735878037185, 4.093037272751542)  # error of 5.69E-03 with sample range (-3.80E+02,5.80E+01) resulting in fit range (6.56E-39,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1627,9 +1627,9 @@ class  NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06338179563839252, 0.7789048985591301)  # error of 4.13E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.79E-01,2.68E+00)
     min_max_norm_parameter = (5.3308083108781935e-09, 1.2539605902115512)  # error of 8.89E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.24911412739948294, 1.825541426846478)  # error of 5.15E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.88E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.24911412739948294, 1.0, 1.825541426846478)  # error of 5.15E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.88E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.24895656142426995, 70.18656709264866, 1.8251784944463916)  # error of 3.32E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.58E-08,1.00E+00)
     genlog_norm_parameter = (3.0410569853018057, -0.5365635014003982, 0.010320409148970734, 0.00041830035148444656)  # error of 6.76E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (8.06E-03,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -1642,7 +1642,7 @@ class  HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.10941027797520916, 0.8206630827667591)  # error of 1.86E-01 with sample range (-7.86E+01,6.10E+01) resulting in fit range (-7.78E+00,7.50E+00)
     min_max_norm_parameter = (-4.025047303628864, -0.27476699527518833)  # error of 2.37E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.136641082271498, 1.3958219191517867)  # error of 1.43E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (4.45E-47,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.0451007845368863, 1.1887380822440157, 1.5856961746935594)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.0451007382705924, 1.188738004380637, 1.5856962115538982)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
     genlog_norm_parameter = (1.7618968864206013, -2.0459113897478645, 2.4289416394683374, 1.8402620037112714)  # error of 7.26E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (9.11E-33,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1657,7 +1657,7 @@ class  GetFormalCharge_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.2979676829070069, 0.49840014398594723)  # error of 1.37E-01 with sample range (-1.20E+01,8.00E+00) resulting in fit range (-3.08E+00,2.88E+00)
     min_max_norm_parameter = (-0.7560934218119267, 0.768364201281212)  # error of 2.79E-03 with sample range (-1.20E+01,8.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0034213113586227585, 4.843231446590721)  # error of 7.75E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (5.65E-26,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.0034772349678885662, 5.1333954284899646, 4.629536470490271)  # error of 4.18E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (1.74E-27,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.0031348749422704454, 5.1351561727947335, 4.627941673697825)  # error of 4.18E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (1.70E-27,1.00E+00)
     genlog_norm_parameter = (4.571552065705464, 0.15901769882795194, 0.39319359293010914, 0.8488246235209407)  # error of 4.19E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (1.09E-28,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1672,7 +1672,7 @@ class  VSA_EState5_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.028069497462787085, 0.6384948010105149)  # error of 1.67E-01 with sample range (-3.60E+02,3.76E+02) resulting in fit range (-9.46E+00,1.12E+01)
     min_max_norm_parameter = (-11.200860573507633, 1.4339724783749572)  # error of 4.64E-02 with sample range (-3.60E+02,3.76E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-4.751658309551578, 0.3690396610731733)  # error of 3.12E-02 with sample range (-3.60E+02,3.76E+02) resulting in fit range (1.23E-57,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-4.224592012720491, 0.2819947410204209, 0.5221323374749486)  # error of 1.32E-02 with sample range (-3.60E+02,3.76E+02) resulting in fit range (2.81E-44,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-4.2245920363416305, 0.2819947363703679, 0.5221323236667128)  # error of 1.32E-02 with sample range (-3.60E+02,3.76E+02) resulting in fit range (2.81E-44,1.00E+00)
     genlog_norm_parameter = (0.9230351619235945, -3.3573920880339525, 9.424012632118597, 4.705755656931828)  # error of 5.93E-03 with sample range (-3.60E+02,3.76E+02) resulting in fit range (2.66E-31,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1717,7 +1717,7 @@ class  SMR_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007356009115044526, 0.5604258193276979)  # error of 1.01E-01 with sample range (0.00E+00,7.02E+02) resulting in fit range (5.60E-01,5.72E+00)
     min_max_norm_parameter = (4.58167181735802e-19, 33.13532929564598)  # error of 5.79E-02 with sample range (0.00E+00,7.02E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (13.927321244136747, 0.10991207620783901)  # error of 1.58E-02 with sample range (0.00E+00,7.02E+02) resulting in fit range (1.78E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (13.138113263168435, 0.17400805877550418, 0.10256931868406938)  # error of 1.06E-02 with sample range (0.00E+00,7.02E+02) resulting in fit range (9.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (13.134406044570465, 0.17414098398967184, 0.10254276120653481)  # error of 1.06E-02 with sample range (0.00E+00,7.02E+02) resulting in fit range (9.22E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1731,7 +1731,7 @@ class  BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.17660976361946912, 0.011623897998747967)  # error of 1.60E-01 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.16E-02,8.95E+00)
     min_max_norm_parameter = (1.51069451962931, 3.7663482034024947)  # error of 4.43E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.6275405979312487, 2.067375370708902)  # error of 2.69E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (4.35E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.548536235030395, 2.66279982408227, 1.6191594985042048)  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.13E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.5486119874079707, 2.6623154651762686, 1.6193606097747983)  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.13E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1745,7 +1745,7 @@ class  TPSA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0021678074691265925, 0.4909310697599548)  # error of 1.90E-01 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.91E-01,6.20E+00)
     min_max_norm_parameter = (14.599527973028703, 118.60656324496115)  # error of 3.84E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (66.26559293182696, 0.047786843726724)  # error of 1.40E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.04E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (64.41269346904815, 0.05696911545435016, 0.043756733059762035)  # error of 9.63E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (2.49E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (64.41269425069702, 0.05696911342563409, 0.04375673621418519)  # error of 9.63E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (2.49E-02,1.00E+00)
     genlog_norm_parameter = (0.039396470555296006, -1.565855746207205, 3.3127216535027557, 0.3094077325658369)  # error of 7.60E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (1.03E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1760,7 +1760,7 @@ class  Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11014910768339037, 0.02748881833733474)  # error of 1.49E-01 with sample range (0.00E+00,1.02E+02) resulting in fit range (2.75E-02,1.13E+01)
     min_max_norm_parameter = (1.6850371430659572, 6.553874507410937)  # error of 3.80E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.081549676171799, 0.9904095492145635)  # error of 2.83E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.73E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.87238559628832, 1.3409369944950944, 0.767555104248775)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.872385716112142, 1.3409368307127125, 0.7675552000980483)  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -1819,7 +1819,7 @@ class  EState_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.004092014874662153, -0.010698392745672747)  # error of 1.49E-01 with sample range (0.00E+00,3.00E+03) resulting in fit range (-1.07E-02,1.23E+01)
     min_max_norm_parameter = (52.7894991169631, 182.85287865533604)  # error of 3.50E-02 with sample range (0.00E+00,3.00E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (117.01950459885676, 0.03736764559445686)  # error of 2.35E-02 with sample range (0.00E+00,3.00E+03) resulting in fit range (1.25E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (112.5976748795547, 0.04708036335381056, 0.029919332045275523)  # error of 8.64E-03 with sample range (0.00E+00,3.00E+03) resulting in fit range (4.96E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (112.59767673519065, 0.047080361931645665, 0.029919335405386053)  # error of 8.64E-03 with sample range (0.00E+00,3.00E+03) resulting in fit range (4.96E-03,1.00E+00)
     genlog_norm_parameter = (0.02620707258119035, -21.837253264138216, 0.6590028020453111, 0.026268439974705866)  # error of 5.55E-03 with sample range (0.00E+00,3.00E+03) resulting in fit range (5.93E-06,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1849,9 +1849,9 @@ class  NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06608705216326816, 0.7231759141671211)  # error of 6.12E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (7.23E-01,1.71E+00)
     min_max_norm_parameter = (2.425436375356735e-09, 1.4183360150961999)  # error of 2.28E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4595690682034204, 1.6119949186776596)  # error of 6.29E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.23E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4595690682034204, 1.0, 1.6119949186776596)  # error of 6.29E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.23E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.4595442280127375, 36.76321468072523, 1.6119316552199183)  # error of 4.35E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (4.60E-08,1.00E+00)
     genlog_norm_parameter = (1.6718834720391067, 1.1087698014134977, 0.5469129170165173, 1.4432376478453104)  # error of 5.24E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.53E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -1864,7 +1864,7 @@ class  SlogP_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0046552542351420145, 0.4184194987223895)  # error of 1.54E-01 with sample range (0.00E+00,1.80E+03) resulting in fit range (4.18E-01,8.79E+00)
     min_max_norm_parameter = (5.914526578091133e-16, 72.98691414016453)  # error of 4.02E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (35.2283623788487, 0.06244680638294594)  # error of 1.72E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (9.98E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (33.5836002536413, 0.07806210477123002, 0.05645850654142751)  # error of 1.20E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (6.78E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (33.58491481319086, 0.07805361314794311, 0.05646183503476589)  # error of 1.20E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (6.78E-02,1.00E+00)
     genlog_norm_parameter = (0.05016216584871228, -4.018204948640934, 0.9520860993587169, 0.18739663596243378)  # error of 1.17E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (4.63E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1909,7 +1909,7 @@ class  PMI1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (6.013420622833213e-05, 0.37438762357376315)  # error of 2.26E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (3.74E-01,3.55E+01)
     min_max_norm_parameter = (5.253076648348887e-17, 2920.8284746927293)  # error of 6.82E-02 with sample range (0.00E+00,5.85E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -1924,7 +1924,7 @@ class  RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.274743032958996, -0.6363152066427643)  # error of 8.52E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (-6.36E-01,2.85E+00)
     min_max_norm_parameter = (2.68976145372615, 5.459084333173108)  # error of 2.97E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.059081941807601, 1.764235395780906)  # error of 1.73E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (7.76E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.992187925992685, 2.0752401030308176, 1.5066909435317473)  # error of 7.09E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (2.52E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.992230990546881, 2.0750846967324876, 1.5067797752888388)  # error of 7.09E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (2.52E-04,1.00E+00)
     genlog_norm_parameter = (1.347041014911159, 2.24246525276504, 1.9688953365934632, 0.23779698513445705)  # error of 2.95E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (1.59E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1939,7 +1939,7 @@ class  BCUT2D_MRLOW_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.1473576459333634, 3.176799142930221)  # error of 5.86E-02 with sample range (-3.06E+00,5.91E+00) resulting in fit range (-3.35E-01,9.95E+00)
     min_max_norm_parameter = (-2.7210155512608267, -1.9615807430024825)  # error of 2.64E-02 with sample range (-3.06E+00,5.91E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.3468285836092604, 6.523147526382408)  # error of 1.96E-02 with sample range (-3.06E+00,5.91E+00) resulting in fit range (9.42E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.3658211705530543, 7.709376024364005, 5.6043685967967205)  # error of 1.15E-02 with sample range (-3.06E+00,5.91E+00) resulting in fit range (4.70E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.3658089847913875, 7.708768374105313, 5.6046994729986075)  # error of 1.15E-02 with sample range (-3.06E+00,5.91E+00) resulting in fit range (4.70E-03,1.00E+00)
     genlog_norm_parameter = (5.026733571856869, -1.6651300778889573, 0.0057764626146007475, 0.2480965549443172)  # error of 9.54E-03 with sample range (-3.06E+00,5.91E+00) resulting in fit range (3.09E-04,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -1954,7 +1954,7 @@ class  VSA_EState3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0474383914162283, 0.3904581813825524)  # error of 1.52E-01 with sample range (-1.08E+02,2.11E+02) resulting in fit range (-4.72E+00,1.04E+01)
     min_max_norm_parameter = (-3.8927946674623195, 6.642361773646212)  # error of 5.95E-02 with sample range (-1.08E+02,2.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.3162739635967782, 0.43946395350992634)  # error of 4.76E-02 with sample range (-1.08E+02,2.11E+02) resulting in fit range (1.53E-21,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.1940012505116652, 0.8480462897882002, 0.2641566203010557)  # error of 1.52E-02 with sample range (-1.08E+02,2.11E+02) resulting in fit range (1.75E-40,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.1908557460343406, 0.8498742319003528, 0.2639530557494804)  # error of 1.52E-02 with sample range (-1.08E+02,2.11E+02) resulting in fit range (1.44E-40,1.00E+00)
     genlog_norm_parameter = (0.30648757235124613, -10.278556574658467, 0.0015813657329094423, 7.008328975788321e-05)  # error of 3.11E-02 with sample range (-1.08E+02,2.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -1969,9 +1969,9 @@ class  fr_ether_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.020806809203217647, 0.8260344750786837)  # error of 6.86E-02 with sample range (0.00E+00,4.70E+01) resulting in fit range (8.26E-01,1.80E+00)
     min_max_norm_parameter = (0.007090101184776188, 1.486936690120486)  # error of 2.42E-02 with sample range (0.00E+00,4.70E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.40287571370199426, 1.2035721351882562)  # error of 3.32E-03 with sample range (0.00E+00,4.70E+01) resulting in fit range (3.81E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4028757153548411, 1.0, 1.2035721372607417)  # error of 3.32E-03 with sample range (0.00E+00,4.70E+01) resulting in fit range (3.81E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.40287522460673725, 36.70635733642584, 1.2035714245488187)  # error of 2.03E-03 with sample range (0.00E+00,4.70E+01) resulting in fit range (3.78E-07,1.00E+00)
     genlog_norm_parameter = (2.0153320810582254, -1.2747366222229382, 0.012774368189050011, 0.00029415961351168265)  # error of 1.66E-02 with sample range (0.00E+00,4.70E+01) resulting in fit range (3.60E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -1984,7 +1984,7 @@ class  NumValenceElectrons_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0012640047970202684, 0.37615455634302164)  # error of 2.30E-01 with sample range (9.00E+00,2.83E+03) resulting in fit range (3.88E-01,3.96E+00)
     min_max_norm_parameter = (65.29068287368149, 197.1901127519803)  # error of 2.92E-02 with sample range (9.00E+00,2.83E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (130.58040996825486, 0.038386270577942194)  # error of 2.24E-02 with sample range (9.00E+00,2.83E+03) resulting in fit range (9.31E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (122.38497312618034, 0.05621287995999412, 0.027604086661787704)  # error of 9.40E-03 with sample range (9.00E+00,2.83E+03) resulting in fit range (1.70E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (122.45399947791547, 0.05607235692152875, 0.02764386723353996)  # error of 9.38E-03 with sample range (9.00E+00,2.83E+03) resulting in fit range (1.72E-03,1.00E+00)
     genlog_norm_parameter = (0.02628595735040041, -8.511479126521245, 0.0036924624761911205, 0.00015020436373755752)  # error of 8.31E-03 with sample range (9.00E+00,2.83E+03) resulting in fit range (1.86E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2014,7 +2014,7 @@ class  NPR2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.0363848124092283, -2.1050145083551772)  # error of 7.55E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-2.11E+00,9.31E-01)
     min_max_norm_parameter = (0.7328377706938303, 0.9989929606321605)  # error of 3.95E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.8690167433696966, 18.125099021117805)  # error of 3.57E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.44E-07,9.15E-01)
-    dual_sigmoidal_norm_parameter = (0.8826119375023386, 13.441774499098555, 25.188219083401254)  # error of 1.76E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.04E-06,9.51E-01)
+    dual_sigmoidal_norm_parameter = (0.8826306733966545, 13.438687377055738, 25.1975217333764)  # error of 1.76E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.06E-06,9.51E-01)
     genlog_norm_parameter = (41.229691541183385, 0.9463746291627356, 1.2160790825123706, 4.408357021765385)  # error of 1.41E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.37E-04,9.72E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -2029,7 +2029,7 @@ class  Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009618083281699108, 0.17347984942891348)  # error of 2.14E-01 with sample range (7.63E-01,6.43E+02) resulting in fit range (1.81E-01,6.36E+00)
     min_max_norm_parameter = (16.004022253403853, 51.11689241252734)  # error of 4.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (33.37586607594709, 0.1432287247282441)  # error of 2.67E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.28E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (31.98836545966142, 0.18812033507921852, 0.1136090082864722)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (31.988365552286066, 0.18812033153864993, 0.11360901005668378)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
     genlog_norm_parameter = (0.09991708558883805, -13.42358800932477, 0.271792016045397, 0.0039352878486176145)  # error of 1.01E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.15E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2044,9 +2044,9 @@ class  MolMR_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005557720699731816, -0.061030996122217296)  # error of 1.53E-01 with sample range (0.00E+00,2.20E+03) resulting in fit range (-6.10E-02,1.22E+01)
     min_max_norm_parameter = (48.121442195030106, 142.36977751407525)  # error of 3.62E-02 with sample range (0.00E+00,2.20E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (94.48683995909174, 0.05138768339127881)  # error of 2.83E-02 with sample range (0.00E+00,2.20E+03) resulting in fit range (7.73E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.74E-01 with sample range (0.00E+00,2.20E+03) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (90.41107725469143, 0.068563492805142, 0.03926937503461646)  # error of 1.05E-02 with sample range (0.00E+00,2.20E+03) resulting in fit range (2.03E-03,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.74E-01 with sample range (0.00E+00,2.20E+03) resulting in fit range (3.30E-04,1.00E+00)
-    preferred_normalization = 'sig'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2059,7 +2059,7 @@ class  Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (4.5706147462074735, -3.8232476425495223)  # error of 1.44E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (-3.82E+00,7.47E-01)
     min_max_norm_parameter = (0.9128972962156874, 1.0)  # error of 8.67E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.9575243366977794, 40.76860157160623)  # error of 6.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.11E-17,8.50E-01)
-    dual_sigmoidal_norm_parameter = (0.9687366557382439, 23.541266354615367, 80.80169522056022)  # error of 2.49E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.25E-10,9.26E-01)
+    dual_sigmoidal_norm_parameter = (0.9687599765083621, 23.52840921810807, 80.91404488539182)  # error of 2.49E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.26E-10,9.26E-01)
     genlog_norm_parameter = (2587.2961331618844, 0.9990899523225164, 1.6270117230482044, 136.40842975157108)  # error of 9.91E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,9.99E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -2074,7 +2074,7 @@ class  FpDensityMorgan3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.30167675052364684, -0.3594212717972325)  # error of 1.33E-01 with sample range (1.72E-02,5.00E+00) resulting in fit range (-3.54E-01,1.15E+00)
     min_max_norm_parameter = (2.026192791712374, 3.2639324204504474)  # error of 3.99E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.6480344039052963, 3.9835088427839342)  # error of 2.03E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (2.81E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.6898921449193867, 3.403156292639231, 5.419455652683462)  # error of 1.41E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (1.12E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.6901285326989717, 3.4012200092787612, 5.4248939800812845)  # error of 1.41E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (1.13E-04,1.00E+00)
     genlog_norm_parameter = (6.765878096344304, 2.8853651345440103, 1.2021929989946318, 2.6037279622396685)  # error of 8.55E-03 with sample range (1.72E-02,5.00E+00) resulting in fit range (5.40E-04,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2089,7 +2089,7 @@ class  NHOHCount_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.011451805303745677, 0.8103893376864633)  # error of 1.09E-01 with sample range (0.00E+00,8.20E+01) resulting in fit range (8.10E-01,1.75E+00)
     min_max_norm_parameter = (9.860761315262648e-32, 3.187051718282465)  # error of 1.94E-02 with sample range (0.00E+00,8.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.3178308349589882, 1.1160540358868796)  # error of 6.16E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.87E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.3178308564763852, 10.470315521888269, 1.1160541755540871)  # error of 3.83E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.02E-06,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.0743143001638746, 5.214591634885128, 0.9332858170955084)  # error of 3.15E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (3.68E-03,1.00E+00)
     genlog_norm_parameter = (0.9056090949083335, -2.61356505138166, 0.03003179441465175, 0.0012602623451871441)  # error of 4.05E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.07E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2104,7 +2104,7 @@ class  PEOE_VSA12_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.006473147723920936, 0.807818201399682)  # error of 7.84E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (8.08E-01,2.45E+00)
     min_max_norm_parameter = (1.6316394719639418e-20, 8.845548026863177)  # error of 6.74E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.364978109571876, 0.25437535485941726)  # error of 2.74E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (3.54E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.407365640802542, -0.060543838757735835, 0.2561035154440695)  # error of 2.73E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (5.36E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.4728143895684482, -0.14054045028871964, 0.25875435969354915)  # error of 2.72E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (5.86E-01,1.00E+00)
     genlog_norm_parameter = (0.23768085743263392, 0.4643139902655747, 0.5007417190841468, 0.380066816602528)  # error of 2.73E-02 with sample range (0.00E+00,2.54E+02) resulting in fit range (3.11E-01,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -2134,7 +2134,7 @@ class  Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.16045617502782894, 0.06275167455712582)  # error of 1.47E-01 with sample range (0.00E+00,6.23E+01) resulting in fit range (6.28E-02,1.01E+01)
     min_max_norm_parameter = (0.8698290958911558, 4.249166143207709)  # error of 3.75E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.5307853903255304, 1.4301006733612187)  # error of 2.83E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.61E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.390012863113382, 1.9077779294117436, 1.1008446640044367)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.39001284835464, 1.9077778839291673, 1.1008446280194297)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2148,7 +2148,7 @@ class  Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (4.5706147462074735, -3.8232476425495223)  # error of 1.44E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (-3.82E+00,7.47E-01)
     min_max_norm_parameter = (0.9128972962156874, 1.0)  # error of 8.67E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.9575243366977794, 40.76860157160623)  # error of 6.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.11E-17,8.50E-01)
-    dual_sigmoidal_norm_parameter = (0.9687366557382439, 23.541266354615367, 80.80169522056022)  # error of 2.49E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.25E-10,9.26E-01)
+    dual_sigmoidal_norm_parameter = (0.9687599765083621, 23.52840921810807, 80.91404488539182)  # error of 2.49E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.26E-10,9.26E-01)
     genlog_norm_parameter = (2587.2961331618844, 0.9990899523225164, 1.6270117230482044, 136.40842975157108)  # error of 9.91E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,9.99E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -2163,7 +2163,7 @@ class  NOCount_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0021474686509596053, 0.8235464950362099)  # error of 1.92E-01 with sample range (0.00E+00,1.96E+02) resulting in fit range (8.24E-01,1.24E+00)
     min_max_norm_parameter = (1.2880062839960937, 9.187763624570907)  # error of 1.38E-02 with sample range (0.00E+00,1.96E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.184102720727361, 0.6674369952484219)  # error of 7.25E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (3.05E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (5.000220272676166, 0.7699798791319306, 0.5818113932872683)  # error of 5.06E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (2.08E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (5.01372760473936, 0.7649977970154859, 0.5850210479926004)  # error of 5.05E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (2.11E-02,1.00E+00)
     genlog_norm_parameter = (0.5268272560910332, 2.9870414098551117, 0.8114362377392241, 0.34748243027398057)  # error of 3.62E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (1.02E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2178,7 +2178,7 @@ class  PEOE_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.011713317780700283, 0.7004807757872287)  # error of 7.38E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (7.00E-01,3.33E+00)
     min_max_norm_parameter = (8.166483837005377e-17, 11.680862968336768)  # error of 5.66E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (3.964877055534785, 0.24576276616405693)  # error of 2.38E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (2.74E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.975887144236942, 0.19925982360149636, 0.24623031071032647)  # error of 2.38E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (3.12E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.970655618436759, 0.20163568378595578, 0.2460410246957036)  # error of 2.38E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (3.10E-01,1.00E+00)
     genlog_norm_parameter = (0.21940814583639343, -0.7497227201418301, 0.3658885023452447, 0.17057290982900755)  # error of 2.35E-02 with sample range (0.00E+00,2.25E+02) resulting in fit range (2.05E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2193,7 +2193,7 @@ class  fr_NH1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.031218773641592312, 0.7849136633253863)  # error of 8.37E-02 with sample range (0.00E+00,5.00E+01) resulting in fit range (7.85E-01,2.35E+00)
     min_max_norm_parameter = (7.888609052210118e-31, 2.0805517126600583)  # error of 2.92E-02 with sample range (0.00E+00,5.00E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.6671905805486065, 1.553108631785838)  # error of 1.81E-03 with sample range (0.00E+00,5.00E+01) resulting in fit range (2.62E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.6671904344116224, 23.348768785513762, 1.553108167548447)  # error of 1.01E-03 with sample range (0.00E+00,5.00E+01) resulting in fit range (1.72E-07,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.6671904374105158, 23.867847813963294, 1.5531081749737823)  # error of 1.01E-03 with sample range (0.00E+00,5.00E+01) resulting in fit range (1.21E-07,1.00E+00)
     genlog_norm_parameter = (1.464110970944641, 0.4816737490309036, 0.5324300087598685, 0.4755375718025074)  # error of 1.70E-03 with sample range (0.00E+00,5.00E+01) resulting in fit range (2.15E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2208,7 +2208,7 @@ class  PEOE_VSA11_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.00828695135755142, 0.7644503184456655)  # error of 5.96E-02 with sample range (0.00E+00,1.99E+02) resulting in fit range (7.64E-01,2.41E+00)
     min_max_norm_parameter = (7.634541570684105e-30, 11.947029795426264)  # error of 7.48E-02 with sample range (0.00E+00,1.99E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.445806162262592, 0.204409252101571)  # error of 7.55E-03 with sample range (0.00E+00,1.99E+02) resulting in fit range (3.78E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.4163166606458475, 0.37652639805143134, 0.20369708811500437)  # error of 7.44E-03 with sample range (0.00E+00,1.99E+02) resulting in fit range (2.87E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.416316669281992, 0.37652639481703293, 0.2036970883656592)  # error of 7.44E-03 with sample range (0.00E+00,1.99E+02) resulting in fit range (2.87E-01,1.00E+00)
     genlog_norm_parameter = (0.1881054084139518, -0.69641763217766, 0.34033764507844283, 0.2340987322955706)  # error of 7.17E-03 with sample range (0.00E+00,1.99E+02) resulting in fit range (3.28E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2223,7 +2223,7 @@ class  NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.016077495185775725, 0.5033528543882042)  # error of 2.02E-01 with sample range (0.00E+00,2.15E+02) resulting in fit range (5.03E-01,3.96E+00)
     min_max_norm_parameter = (1.9439247544979925, 10.63914346171618)  # error of 1.53E-02 with sample range (0.00E+00,2.15E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.309633287283373, 0.5961308359128846)  # error of 8.73E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (2.27E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.045320930283959, 0.7179354032850181, 0.5008061943406604)  # error of 5.10E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (1.29E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.055674915647298, 0.7152110168610164, 0.5023619314244931)  # error of 5.00E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (1.30E-02,1.00E+00)
     genlog_norm_parameter = (0.45068040681824034, 1.1172662980244155, 1.7144405539074021, 0.23628999990547292)  # error of 3.24E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (3.38E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2238,7 +2238,7 @@ class  SlogP_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005233706932712693, 0.7982300755527156)  # error of 6.65E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (7.98E-01,2.58E+00)
     min_max_norm_parameter = (2.633367426076831e-17, 12.74842203329568)  # error of 4.94E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (3.6455899379715135, 0.1901649776805424)  # error of 1.29E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (3.33E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.615359539682259, 0.2741057268623292, 0.1895119926287925)  # error of 1.28E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (2.71E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.61535917881715, 0.2741058052371704, 0.18951197796421562)  # error of 1.28E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (2.71E-01,1.00E+00)
     genlog_norm_parameter = (0.16769339036833567, -9.262927974226667, 0.002131470551772922, 0.00033340869591382363)  # error of 1.16E-02 with sample range (0.00E+00,3.41E+02) resulting in fit range (2.59E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2253,7 +2253,7 @@ class  Chi0_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007513574566740955, 0.2957974579215942)  # error of 2.01E-01 with sample range (0.00E+00,7.19E+02) resulting in fit range (2.96E-01,5.70E+00)
     min_max_norm_parameter = (17.447753846956868, 55.71754607510952)  # error of 4.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (36.35211468883877, 0.1295884036148426)  # error of 2.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (8.92E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (34.78188468223621, 0.18372914466871643, 0.10529824432103296)  # error of 1.38E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.67E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (34.781883667706126, 0.18372919698120913, 0.1052982438114165)  # error of 1.38E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.67E-03,1.00E+00)
     genlog_norm_parameter = (0.09192921396182452, 3.197386465432143, 4.054083564087513e-07, 2.977582294894024e-08)  # error of 1.17E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.17E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2283,7 +2283,7 @@ class  EState_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.008676493919004956, 0.275505806742827)  # error of 1.93E-01 with sample range (0.00E+00,6.11E+02) resulting in fit range (2.76E-01,5.57E+00)
     min_max_norm_parameter = (14.505227188937377, 52.02218632660705)  # error of 4.07E-02 with sample range (0.00E+00,6.11E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (33.12486658378458, 0.13300161576607572)  # error of 1.91E-02 with sample range (0.00E+00,6.11E+02) resulting in fit range (1.21E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (32.05647210374936, 0.1688075153862539, 0.11490618912706498)  # error of 9.95E-03 with sample range (0.00E+00,6.11E+02) resulting in fit range (4.45E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (32.05805124413192, 0.16877196262466987, 0.11492183140109144)  # error of 9.95E-03 with sample range (0.00E+00,6.11E+02) resulting in fit range (4.45E-03,1.00E+00)
     genlog_norm_parameter = (0.10208124641901982, 1.5100397068901317, 2.572466445901273, 0.14880989913945686)  # error of 7.12E-03 with sample range (0.00E+00,6.11E+02) resulting in fit range (8.98E-05,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2298,7 +2298,7 @@ class  PBF_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.8002336508637942, -0.27832921776549496)  # error of 1.06E-01 with sample range (0.00E+00,4.59E+00) resulting in fit range (-2.78E-01,3.39E+00)
     min_max_norm_parameter = (0.5464675217564985, 1.3692618279142443)  # error of 3.39E-02 with sample range (0.00E+00,4.59E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.9571543856358279, 5.963418540555978)  # error of 8.11E-03 with sample range (0.00E+00,4.59E+00) resulting in fit range (3.31E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.9519185338635874, 6.24803308673302, 5.68213347864401)  # error of 6.60E-03 with sample range (0.00E+00,4.59E+00) resulting in fit range (2.61E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.9519198242022207, 6.247989180945802, 5.682171774716921)  # error of 6.60E-03 with sample range (0.00E+00,4.59E+00) resulting in fit range (2.61E-03,1.00E+00)
     genlog_norm_parameter = (5.524923571667459, 0.8859978971497328, 1.0389823352387015, 0.7751221827451574)  # error of 6.72E-03 with sample range (0.00E+00,4.59E+00) resulting in fit range (1.71E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2313,7 +2313,7 @@ class  MinAbsPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.1682344592574303, -0.3438979216493595)  # error of 8.02E-02 with sample range (0.00E+00,INF) resulting in fit range (-3.44E-01,INF)
     min_max_norm_parameter = (0.14478720365913814, 0.3864847550968621)  # error of 3.67E-02 with sample range (0.00E+00,INF) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.266281069473945, 20.060338031364914)  # error of 1.73E-02 with sample range (0.00E+00,INF) resulting in fit range (4.76E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.2663093844074067, 20.04277183939622, 20.075906992777337)  # error of 1.73E-02 with sample range (0.00E+00,INF) resulting in fit range (4.78E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.26630944700484976, 20.042744120617208, 20.075933144268717)  # error of 1.73E-02 with sample range (0.00E+00,INF) resulting in fit range (4.78E-03,1.00E+00)
     genlog_norm_parameter = (21.295576149418388, 0.3642568591085718, 0.1608997466871537, 1.1882017693601543)  # error of 1.70E-02 with sample range (0.00E+00,INF) resulting in fit range (6.78E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2328,7 +2328,7 @@ class  SlogP_VSA11_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0055772293963739505, 0.8513122937313707)  # error of 5.02E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (8.51E-01,1.88E+00)
     min_max_norm_parameter = (1.6665175605263984, 6.577923952521674)  # error of 2.87E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.411498413610341, 1.231868331024134)  # error of 2.88E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (4.34E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.531604389044145, 2.8773323747778226, 0.4480597493562967)  # error of 2.84E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (6.86E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.2776387723523693e-06, 3358906.662488689, 0.25601634916947247)  # error of 2.52E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (1.65E-05,1.00E+00)
     genlog_norm_parameter = (1.06463212487301, 0.27304809906625216, 0.3237383119230303, 0.005377730545659635)  # error of 2.88E-02 with sample range (0.00E+00,1.84E+02) resulting in fit range (8.88E-30,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2343,9 +2343,9 @@ class  fr_aniline_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.038572385626053585, 0.8111639952400167)  # error of 4.99E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (8.11E-01,1.39E+00)
     min_max_norm_parameter = (4.067547786674466e-09, 1.3022513887988345)  # error of 1.73E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.18131870166733124, 1.4627551170239292)  # error of 1.27E-03 with sample range (0.00E+00,1.50E+01) resulting in fit range (4.34E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.18131870166733124, 1.0, 1.4627551170239292)  # error of 1.27E-03 with sample range (0.00E+00,1.50E+01) resulting in fit range (4.34E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.18129261187647874, 91.42925286295274, 1.4627135733922834)  # error of 8.26E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (6.33E-08,1.00E+00)
     genlog_norm_parameter = (2.7416784853412803, -0.5918191727088815, 0.008059096289137093, 0.0003733096193239703)  # error of 1.35E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (1.42E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2358,7 +2358,7 @@ class  BCUT2D_MWHI_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06382980925203052, 0.0914070582631521)  # error of 7.74E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (8.35E-02,8.19E+00)
     min_max_norm_parameter = (-0.12367738038301467, 13.619949109255183)  # error of 9.41E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.983255681107075, 0.32288774435232176)  # error of 8.34E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (1.22E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.7931432911967606, 1.1841140348165382, 0.20355402639270814)  # error of 6.08E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (3.07E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.7970938163841925, 1.1803039065034748, 0.20362210160668412)  # error of 6.07E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (3.08E-02,1.00E+00)
     genlog_norm_parameter = (0.24661874523046712, -2.2059114704545935, 0.0006588747523962266, 0.00015970079475727318)  # error of 7.49E-02 with sample range (-1.24E-01,1.27E+02) resulting in fit range (8.47E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2373,7 +2373,7 @@ class  Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.1846796920584458, 0.12308022240634398)  # error of 1.49E-01 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.23E-01,4.41E+01)
     min_max_norm_parameter = (0.4365031459643245, 3.319224643809378)  # error of 3.97E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.8494300166801143, 1.6807292424962799)  # error of 3.13E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (4.28E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.7216523305680784, 2.287102552977168, 1.2587726126085808)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.7217931490660436, 2.2865005312485036, 1.2589856485533308)  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2402,7 +2402,7 @@ class  Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.13641142111605653, 0.06481842365937796)  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
     min_max_norm_parameter = (0.9571111913222607, 5.030476311519345)  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.9588780643186574, 1.1889256254049316)  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.798222121514068, 1.5668854376121493, 0.9198752649381355)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.798221903514353, 1.5668857301099821, 0.9198749149438118)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2431,7 +2431,7 @@ class  Chi1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.021402601422805922, 0.057358382906918415)  # error of 1.75E-01 with sample range (0.00E+00,4.28E+02) resulting in fit range (5.74E-02,9.23E+00)
     min_max_norm_parameter = (10.35770293280183, 30.318616722974067)  # error of 4.02E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (20.218648442527503, 0.24321989118039597)  # error of 2.60E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (7.26E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (19.497180383047468, 0.31860651031309306, 0.19451567750637339)  # error of 1.08E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (2.00E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (19.497970716081007, 0.31854028517260596, 0.1945431362682854)  # error of 1.08E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (2.00E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2445,7 +2445,7 @@ class  FpDensityMorgan1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.6114489442416012, -0.2500130662147515)  # error of 1.07E-01 with sample range (1.72E-02,4.50E+00) resulting in fit range (-2.39E-01,2.50E+00)
     min_max_norm_parameter = (0.7464667046271726, 1.5888733629158822)  # error of 3.23E-02 with sample range (1.72E-02,4.50E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.167586022382926, 6.06701731964724)  # error of 7.87E-03 with sample range (1.72E-02,4.50E+00) resulting in fit range (9.30E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.1745399912705168, 5.851158145308263, 6.523356769876131)  # error of 7.03E-03 with sample range (1.72E-02,4.50E+00) resulting in fit range (1.14E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.1745399912761414, 5.851158150793598, 6.523356772700546)  # error of 7.03E-03 with sample range (1.72E-02,4.50E+00) resulting in fit range (1.14E-03,1.00E+00)
     genlog_norm_parameter = (7.016933461459958, 0.9758849407148891, 6.252276609214549, 1.3640331931641156)  # error of 5.29E-03 with sample range (1.72E-02,4.50E+00) resulting in fit range (1.88E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2475,7 +2475,7 @@ class  SlogP_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0030832580459571788, 0.41517180790701097)  # error of 1.77E-01 with sample range (0.00E+00,2.18E+03) resulting in fit range (4.15E-01,7.12E+00)
     min_max_norm_parameter = (13.274337247983418, 99.35584702819898)  # error of 4.24E-02 with sample range (0.00E+00,2.18E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (55.95034092538948, 0.05594705841606074)  # error of 2.08E-02 with sample range (0.00E+00,2.18E+03) resulting in fit range (4.19E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (53.71656336108127, 0.0743286674865532, 0.04858962687912679)  # error of 1.11E-02 with sample range (0.00E+00,2.18E+03) resulting in fit range (1.81E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (53.71656201320551, 0.0743286650853182, 0.048589611246767174)  # error of 1.11E-02 with sample range (0.00E+00,2.18E+03) resulting in fit range (1.81E-02,1.00E+00)
     genlog_norm_parameter = (1.090165598041791, 0.6339658426861253, 0.8996167179643567, 5.664716239481225e-09)  # error of 3.94E-01 with sample range (0.00E+00,2.18E+03) resulting in fit range (0.00E+00,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -2505,9 +2505,9 @@ class  fr_Ar_N_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0505043831748716, 0.706005745196576)  # error of 5.36E-02 with sample range (0.00E+00,3.20E+01) resulting in fit range (7.06E-01,2.32E+00)
     min_max_norm_parameter = (0.0, 2.1715264674397554)  # error of 5.56E-02 with sample range (0.00E+00,3.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.20224173292892467, 0.8623990343842892)  # error of 4.21E-03 with sample range (0.00E+00,3.20E+01) resulting in fit range (4.57E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.20224173108680912, 1.0, 0.8623990337225991)  # error of 4.21E-03 with sample range (0.00E+00,3.20E+01) resulting in fit range (4.57E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.20233370179919816, 73.80950237221694, 0.8624656268051756)  # error of 2.50E-03 with sample range (0.00E+00,3.20E+01) resulting in fit range (3.27E-07,1.00E+00)
     genlog_norm_parameter = (1.0634893160980838, 1.442852440655972, 1.6171594102405107, 3.1756676466784426)  # error of 1.02E-03 with sample range (0.00E+00,3.20E+01) resulting in fit range (5.10E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2520,7 +2520,7 @@ class  SMR_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.002902392328484771, 0.5504163136192717)  # error of 1.80E-01 with sample range (0.00E+00,1.49E+03) resulting in fit range (5.50E-01,4.89E+00)
     min_max_norm_parameter = (2.783727923618457e-16, 60.67206561974408)  # error of 4.76E-02 with sample range (0.00E+00,1.49E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (29.231452891359663, 0.07160204674656424)  # error of 2.47E-02 with sample range (0.00E+00,1.49E+03) resulting in fit range (1.10E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (27.033473604340355, 0.10374643251952695, 0.06093935202142024)  # error of 1.53E-02 with sample range (0.00E+00,1.49E+03) resulting in fit range (5.71E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (27.029412112232396, 0.10378791856638528, 0.06092739825372446)  # error of 1.53E-02 with sample range (0.00E+00,1.49E+03) resulting in fit range (5.70E-02,1.00E+00)
     genlog_norm_parameter = (0.05458732293792028, -36.99489788287852, 0.0030850944423266584, 0.0001255986870847963)  # error of 1.36E-02 with sample range (0.00E+00,1.49E+03) resulting in fit range (3.84E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2535,7 +2535,7 @@ class  SlogP_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005572864820903245, 0.7183501823787287)  # error of 1.09E-01 with sample range (0.00E+00,4.79E+02) resulting in fit range (7.18E-01,3.39E+00)
     min_max_norm_parameter = (2.408585330451039e-20, 22.439152351441383)  # error of 5.09E-02 with sample range (0.00E+00,4.79E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (9.49158537571278, 0.16960656906498323)  # error of 1.48E-02 with sample range (0.00E+00,4.79E+02) resulting in fit range (1.67E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (8.952585532461732, 0.26147507132416203, 0.15907497123208453)  # error of 1.16E-02 with sample range (0.00E+00,4.79E+02) resulting in fit range (8.78E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (8.968468865831698, 0.2604162096282373, 0.1593241753703142)  # error of 1.16E-02 with sample range (0.00E+00,4.79E+02) resulting in fit range (8.82E-02,1.00E+00)
     genlog_norm_parameter = (0.1413990191079397, -19.24491345309785, 0.006259613060538872, 0.00015608204799613998)  # error of 9.62E-03 with sample range (0.00E+00,4.79E+02) resulting in fit range (7.15E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2550,7 +2550,7 @@ class  BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0002435689316791905, 0.08402337833593164)  # error of 1.62E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (8.40E-02,1.15E+01)
     min_max_norm_parameter = (589.3484428971769, 2551.6280739737376)  # error of 3.81E-02 with sample range (0.00E+00,4.67E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -2580,9 +2580,9 @@ class  NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.037486269092924296, 0.7906195585254473)  # error of 6.21E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.91E-01,1.92E+00)
     min_max_norm_parameter = (5.730855425109739e-09, 1.404946368678208)  # error of 1.95E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.36617461217911906, 1.4317359459562997)  # error of 2.83E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.72E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.36617461217911906, 1.0, 1.4317359459562997)  # error of 2.83E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.72E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.36616672566972636, 42.588115306732064, 1.4317211909754344)  # error of 1.65E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (1.69E-07,1.00E+00)
     genlog_norm_parameter = (2.361126814701105, -0.9332372421941358, 0.010759488748759415, 0.0003109299935290176)  # error of 1.37E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.20E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2595,7 +2595,7 @@ class  SMR_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.00805950974671309, 0.47073915323460086)  # error of 1.02E-01 with sample range (0.00E+00,9.17E+02) resulting in fit range (4.71E-01,7.86E+00)
     min_max_norm_parameter = (1.750898428174181e-15, 43.23543148663909)  # error of 4.79E-02 with sample range (0.00E+00,9.17E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (20.019352651600183, 0.09701956716011305)  # error of 1.52E-02 with sample range (0.00E+00,9.17E+02) resulting in fit range (1.25E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (19.446748714614163, 0.12516006519982537, 0.09265838451052572)  # error of 1.34E-02 with sample range (0.00E+00,9.17E+02) resulting in fit range (8.06E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (19.446527523828802, 0.12516516798549934, 0.09265699049870557)  # error of 1.34E-02 with sample range (0.00E+00,9.17E+02) resulting in fit range (8.06E-02,1.00E+00)
     genlog_norm_parameter = (0.08397536225621226, -9.67695202560633, 2.6257752347199226, 0.2851178401354698)  # error of 1.34E-02 with sample range (0.00E+00,9.17E+02) resulting in fit range (6.66E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2625,7 +2625,7 @@ class  Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.13641142111605653, 0.06481842365937796)  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
     min_max_norm_parameter = (0.9571111913222607, 5.030476311519345)  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.9588780643186574, 1.1889256254049316)  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.798222121514068, 1.5668854376121493, 0.9198752649381355)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.798221903514353, 1.5668857301099821, 0.9198749149438118)  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2654,7 +2654,7 @@ class  Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.009618083281699108, 0.17347984942891348)  # error of 2.14E-01 with sample range (7.63E-01,6.43E+02) resulting in fit range (1.81E-01,6.36E+00)
     min_max_norm_parameter = (16.004022253403853, 51.11689241252734)  # error of 4.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (33.37586607594709, 0.1432287247282441)  # error of 2.67E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.28E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (31.98836545966142, 0.18812033507921852, 0.1136090082864722)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (31.988365552286066, 0.18812033153864993, 0.11360901005668378)  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
     genlog_norm_parameter = (0.09991708558883805, -13.42358800932477, 0.271792016045397, 0.0039352878486176145)  # error of 1.01E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.15E-08,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2684,7 +2684,7 @@ class  Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.09656674011706068, 0.026475463133179833)  # error of 1.43E-01 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.65E-02,1.62E+01)
     min_max_norm_parameter = (1.85040714882094, 7.55574015613779)  # error of 3.72E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.659367062804354, 0.84727788625193)  # error of 2.67E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (1.89E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.449991335141199, 1.1069417196730784, 0.6703056005048558)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.20E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.4502084375740605, 1.1067186253730108, 0.6703972503948212)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.21E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2698,7 +2698,7 @@ class  BCUT2D_MRHI_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.2760716898709984, -0.05891671770132878)  # error of 3.51E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (-2.01E-01,3.86E+00)
     min_max_norm_parameter = (0.3604159078021756, 3.7266268387929946)  # error of 1.95E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.042877009089624, 1.4588708297468977)  # error of 2.02E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (2.34E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.0470577588560617, 1.4477594375506484, 1.4702672532434768)  # error of 2.01E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (2.39E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.0470603177042705, 1.4477543462395674, 1.4702724365676079)  # error of 2.01E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (2.39E-02,1.00E+00)
     genlog_norm_parameter = (1.472661851120768, 1.144889269421317, 3.912155034373345, 1.028603526979817)  # error of 2.02E-02 with sample range (-5.14E-01,1.42E+01) resulting in fit range (2.42E-02,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -2713,7 +2713,7 @@ class  SMR_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.004491810149551356, 0.8258291767126574)  # error of 7.18E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (8.26E-01,1.68E+00)
     min_max_norm_parameter = (7.03458954642263e-19, 11.924815721181979)  # error of 5.26E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (3.0253911905893234, 0.22133635579572117)  # error of 1.52E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (3.39E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.0253926833769804, 3.9225922666021376, 0.22133642902354464)  # error of 1.45E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (7.02E-06,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.0253926225003913, 3.7948488488645316, 0.2213364264257019)  # error of 1.45E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (1.03E-05,1.00E+00)
     genlog_norm_parameter = (0.1962338488568962, -6.361459309546196, 0.0021288761629645763, 0.00045569961868591007)  # error of 1.38E-02 with sample range (0.00E+00,1.90E+02) resulting in fit range (2.62E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2728,7 +2728,7 @@ class  PMI2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.364102817740711e-05, 0.2861109449057394)  # error of 1.90E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.86E-01,2.45E+01)
     min_max_norm_parameter = (44.665447243295176, 10171.614030140174)  # error of 5.66E-02 with sample range (0.00E+00,7.21E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -2758,7 +2758,7 @@ class  HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.10941027797520916, 0.8206630827667591)  # error of 1.86E-01 with sample range (-7.86E+01,6.10E+01) resulting in fit range (-7.78E+00,7.50E+00)
     min_max_norm_parameter = (-4.025047303628864, -0.27476699527518833)  # error of 2.37E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.136641082271498, 1.3958219191517867)  # error of 1.43E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (4.45E-47,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.0451007845368863, 1.1887380822440157, 1.5856961746935594)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.0451007382705924, 1.188738004380637, 1.5856962115538982)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
     genlog_norm_parameter = (1.7618968864206013, -2.0459113897478645, 2.4289416394683374, 1.8402620037112714)  # error of 7.26E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (9.11E-33,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2818,7 +2818,7 @@ class  Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.02460656481380441, 0.05696382112467857)  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
     min_max_norm_parameter = (8.215243805842091, 25.568763302868422)  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (16.800375876069985, 0.2846180730802336)  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (16.22787766733102, 0.3557663030596946, 0.2286121746689847)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (16.22854448035761, 0.3557006902802079, 0.22864396656407704)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
     genlog_norm_parameter = (0.20081911303774566, -0.3618619378577607, 1.199011524398242, 0.05743559815299407)  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2848,9 +2848,9 @@ class  EState_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.004010356366189516, 0.8323097045695795)  # error of 5.49E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (8.32E-01,8.07E+00)
     min_max_norm_parameter = (1.0419551447906305e-18, 11.80200135547047)  # error of 7.44E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.1763739551036555, 0.14514432511172065)  # error of 1.12E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (5.06E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.17637470543076575, 1.0, 0.14514431482294865)  # error of 1.12E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (5.06E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.05707558822192e-07, 18237830.635071214, 0.14716311435942953)  # error of 1.11E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (1.59E-05,1.00E+00)
     genlog_norm_parameter = (0.13267267604890298, -5.38995753218738, 0.008988954422818305, 0.00577772306001971)  # error of 1.11E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (4.68E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2863,7 +2863,7 @@ class  Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.09656674011706068, 0.026475463133179833)  # error of 1.43E-01 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.65E-02,1.62E+01)
     min_max_norm_parameter = (1.85040714882094, 7.55574015613779)  # error of 3.72E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.659367062804354, 0.84727788625193)  # error of 2.67E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (1.89E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.449991335141199, 1.1069417196730784, 0.6703056005048558)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.20E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.4502084375740605, 1.1067186253730108, 0.6703972503948212)  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.21E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2907,9 +2907,9 @@ class  fr_bicyclic_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.008955979676114945, 0.8971616364051024)  # error of 4.19E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (8.97E-01,1.27E+00)
     min_max_norm_parameter = (6.544180000802119e-09, 1.2950088357093383)  # error of 1.82E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.398308593847868, 0.8997093072499293)  # error of 8.22E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (5.89E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.398308537650087, 1.0, 0.8997093336250057)  # error of 8.22E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (5.89E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.0586534953672115e-07, 60298839.84264371, 1.1562634894824617)  # error of 6.87E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (4.06E-06,1.00E+00)
     genlog_norm_parameter = (2.6720031851941237, -0.6536880834459016, 0.010298516560499068, 0.00045059766538596655)  # error of 1.61E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (1.87E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2937,7 +2937,7 @@ class  Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.030418143185359847, 0.2871593951766924)  # error of 2.34E-01 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.87E-01,1.08E+03)
     min_max_norm_parameter = (3.446066777200142, 12.00058941506709)  # error of 4.58E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.66772112289306, 0.5795843116540953)  # error of 3.08E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (1.16E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (7.271319784936047, 0.8080128800230181, 0.4459683689150529)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (7.272013631840285, 0.8076799655613323, 0.44608338323349067)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.81E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -2951,9 +2951,9 @@ class  fr_halogen_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.017119543157199657, 0.8437328519221161)  # error of 5.64E-02 with sample range (0.00E+00,5.50E+01) resulting in fit range (8.44E-01,1.79E+00)
     min_max_norm_parameter = (0.041860184464005364, 1.3840920614215728)  # error of 2.65E-02 with sample range (0.00E+00,5.50E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.005684348962987795, 0.9165937462942823)  # error of 2.31E-03 with sample range (0.00E+00,5.50E+01) resulting in fit range (5.01E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.005684348962987795, 1.0, 0.9165937462942823)  # error of 2.31E-03 with sample range (0.00E+00,5.50E+01) resulting in fit range (5.01E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.9418851037243214e-06, 6722143.368251634, 0.919708897919921)  # error of 1.44E-03 with sample range (0.00E+00,5.50E+01) resulting in fit range (2.14E-06,1.00E+00)
     genlog_norm_parameter = (2.1527177639001365, -1.1481370597209608, 0.009703126945728951, 0.0002478140151054729)  # error of 2.13E-02 with sample range (0.00E+00,5.50E+01) resulting in fit range (3.67E-02,1.00E+00)
-    preferred_normalization = 'genlog'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -2966,7 +2966,7 @@ class  VSA_EState6_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.026302870373594356, 0.7190453852045258)  # error of 1.52E-01 with sample range (-4.76E+02,1.38E+01) resulting in fit range (-1.18E+01,1.08E+00)
     min_max_norm_parameter = (-16.488126017392656, 0.8283736118358731)  # error of 3.98E-02 with sample range (-4.76E+02,1.38E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-7.68869429717635, 0.2724099515171271)  # error of 2.50E-02 with sample range (-4.76E+02,1.38E+01) resulting in fit range (4.47E-56,9.97E-01)
-    dual_sigmoidal_norm_parameter = (-7.078277106127244, 0.2169591096464027, 0.354261836499568)  # error of 1.11E-02 with sample range (-4.76E+02,1.38E+01) resulting in fit range (7.24E-45,9.99E-01)
+    dual_sigmoidal_norm_parameter = (-7.077584581907704, 0.2169266620611263, 0.35434306084612827)  # error of 1.11E-02 with sample range (-4.76E+02,1.38E+01) resulting in fit range (7.35E-45,9.99E-01)
     genlog_norm_parameter = (0.4875336273543425, -8.435737342184726, 13.23143621938788, 3.1241409093443937)  # error of 6.47E-03 with sample range (-4.76E+02,1.38E+01) resulting in fit range (9.63E-33,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -2996,7 +2996,7 @@ class  PMI3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (2.8952313203676817e-05, 0.2866572166015228)  # error of 1.92E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.87E-01,2.52E+01)
     min_max_norm_parameter = (147.52756421954018, 11758.510463576746)  # error of 5.52E-02 with sample range (0.00E+00,8.59E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -3011,7 +3011,7 @@ class  VSA_EState8_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.018301201576055484, 0.754648223799328)  # error of 1.28E-01 with sample range (-8.99E+02,8.55E+01) resulting in fit range (-1.57E+01,2.32E+00)
     min_max_norm_parameter = (-28.897386873619986, 2.4177080960805726)  # error of 4.02E-02 with sample range (-8.99E+02,8.55E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-12.927059175873397, 0.15008821168411976)  # error of 2.62E-02 with sample range (-8.99E+02,8.55E+01) resulting in fit range (1.64E-58,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-11.891432065245638, 0.12203526246250417, 0.19311609108878666)  # error of 1.38E-02 with sample range (-8.99E+02,8.55E+01) resulting in fit range (9.15E-48,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-11.891432276406338, 0.12203527371312223, 0.19311608819477752)  # error of 1.38E-02 with sample range (-8.99E+02,8.55E+01) resulting in fit range (9.15E-48,1.00E+00)
     genlog_norm_parameter = (0.2714572668516165, -14.400885749752701, 13.80898076286348, 3.1194498243217916)  # error of 1.17E-02 with sample range (-8.99E+02,8.55E+01) resulting in fit range (1.54E-34,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3026,7 +3026,7 @@ class  BCUT2D_CHGLO_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.7653570916472574, 5.065686201381148)  # error of 5.60E-02 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (-4.74E-01,2.57E+00)
     min_max_norm_parameter = (-2.8372498211712145, -2.348799925638046)  # error of 3.18E-02 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.597093268685726, 10.060474784720004)  # error of 2.27E-02 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (4.32E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.6102535244872342, 12.029554668715791, 8.464996666963719)  # error of 1.37E-02 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (1.75E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.610242935462682, 12.02832694648774, 8.465657724472262)  # error of 1.37E-02 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (1.75E-03,1.00E+00)
     genlog_norm_parameter = (7.289649684268674, -2.0627835591883987, 0.0013325492833258581, 0.09718128045838645)  # error of 9.20E-03 with sample range (-3.14E+00,-1.41E+00) resulting in fit range (2.54E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3056,7 +3056,7 @@ class  SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (2.014040859270808, -0.004922239185380645)  # error of 8.41E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (-4.92E-03,1.89E+00)
     min_max_norm_parameter = (0.04763405868523997, 0.42911985390392243)  # error of 3.56E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.2351671867619151, 12.82810781848393)  # error of 2.66E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (4.67E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.2212419123873155, 16.425058420900328, 10.08081100416669)  # error of 1.03E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (2.57E-02,9.99E-01)
+    dual_sigmoidal_norm_parameter = (0.22125633366340652, 16.421918195920984, 10.082160667790887)  # error of 1.03E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (2.57E-02,9.99E-01)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3070,7 +3070,7 @@ class  NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.07182403555851259, 0.6979616844087828)  # error of 6.50E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (6.98E-01,3.71E+00)
     min_max_norm_parameter = (6.816327279061287e-09, 1.4697587576089106)  # error of 1.83E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5242081959438346, 1.5883082643053523)  # error of 6.06E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (3.03E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.5241697890415581, 31.347564520476126, 1.5882035074486005)  # error of 3.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (7.31E-08,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.5241697895237789, 32.139936612408746, 1.5882035086803503)  # error of 3.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (4.83E-08,1.00E+00)
     genlog_norm_parameter = (1.5563961013766956, 0.6667571953724875, 0.5870663542985489, 0.7783004040766286)  # error of 5.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (2.85E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3085,9 +3085,9 @@ class  fr_NH2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.027626013199217845, 0.904411104115867)  # error of 2.10E-02 with sample range (0.00E+00,2.40E+01) resulting in fit range (9.04E-01,1.57E+00)
     min_max_norm_parameter = (6.3934981194901046e-09, 1.1000637973187075)  # error of 2.52E-03 with sample range (0.00E+00,2.40E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-0.0551854803177655, 2.1819036489792745)  # error of 1.09E-03 with sample range (0.00E+00,2.40E+01) resulting in fit range (5.30E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-0.055185742977858755, 1.0, 2.181903125192423)  # error of 1.09E-03 with sample range (0.00E+00,2.40E+01) resulting in fit range (5.30E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (9.005842740580992e-07, 14977566.434938159, 2.298853419847412)  # error of 6.20E-04 with sample range (0.00E+00,2.40E+01) resulting in fit range (1.39E-06,1.00E+00)
     genlog_norm_parameter = (2.139757066021772, 0.08837800260788788, 0.010543799958122033, 0.015712998419264372)  # error of 1.07E-03 with sample range (0.00E+00,2.40E+01) resulting in fit range (4.47E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -3115,7 +3115,7 @@ class  fr_nitro_arom_nonortho_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.0000000000000002, 2.220446049250313e-16)  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
     min_max_norm_parameter = (1e-10, 0.9999999999)  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5027041798086037, 46.14043898879842)  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.49874072864947394, 3.68328813585096, 20.104860546890446)  # error of 4.31E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.42E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.49954642862905374, 18.83817716761341, 18.88166255189391)  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
     preferred_normalization = 'unity'
     # functions
     
@@ -3129,7 +3129,7 @@ class  SlogP_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0055106885127717, 0.760669380441174)  # error of 7.89E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (7.61E-01,1.07E+01)
     min_max_norm_parameter = (0.0, 14.831828070749904)  # error of 5.76E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.655549562955406, 0.16917248467895607)  # error of 1.66E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (3.13E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.61614010770599, 0.20613306417396923, 0.16841100863165057)  # error of 1.66E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (2.79E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.616140037567237, 0.20613311394450484, 0.16841100802007053)  # error of 1.66E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (2.79E-01,1.00E+00)
     genlog_norm_parameter = (0.14666017073020396, -11.420609605665565, 0.00658359777337903, 0.0008638133605987126)  # error of 1.58E-02 with sample range (0.00E+00,1.80E+03) resulting in fit range (2.40E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3144,7 +3144,7 @@ class  NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0016857886272905187, 0.8125456140318361)  # error of 1.82E-01 with sample range (0.00E+00,2.48E+02) resulting in fit range (8.13E-01,1.23E+00)
     min_max_norm_parameter = (1.6292528997825728, 13.174098358632333)  # error of 1.89E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.304462270693269, 0.4542440447080067)  # error of 1.34E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (3.50E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.7090015245725985, 0.6333818384913666, 0.3400706997276338)  # error of 8.05E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (1.41E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.70900145999476, 0.6333818528506181, 0.3400706824599175)  # error of 8.05E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (1.41E-02,1.00E+00)
     genlog_norm_parameter = (0.3119530376866779, -5.246761061121691, 0.016007203239645374, 0.0005020797342553604)  # error of 6.90E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (2.04E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3159,7 +3159,7 @@ class  Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.02460656481380441, 0.05696382112467857)  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
     min_max_norm_parameter = (8.215243805842091, 25.568763302868422)  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (16.800375876069985, 0.2846180730802336)  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (16.22787766733102, 0.3557663030596946, 0.2286121746689847)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (16.22854448035761, 0.3557006902802079, 0.22864396656407704)  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
     genlog_norm_parameter = (0.20081911303774566, -0.3618619378577607, 1.199011524398242, 0.05743559815299407)  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3189,7 +3189,7 @@ class  PEOE_VSA13_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.014179141123108696, 0.7394291555972963)  # error of 6.57E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (7.39E-01,2.50E+00)
     min_max_norm_parameter = (3.944304526105059e-30, 7.6449284829185435)  # error of 6.49E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.5958556965144552, 0.30276265905030647)  # error of 3.71E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (3.82E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.07933651635307, -0.4986062273546034, 0.33289138645741445)  # error of 3.55E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (7.38E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.218412985546247, -0.46896144663283507, 0.34298637709403673)  # error of 3.52E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (7.39E-01,1.00E+00)
     genlog_norm_parameter = (0.3872457370028876, 4.316346368590775, 2.291146781648952, 3.2508927309627635)  # error of 3.62E-02 with sample range (0.00E+00,1.24E+02) resulting in fit range (4.52E-01,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -3204,7 +3204,7 @@ class  Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.030418143185359847, 0.2871593951766924)  # error of 2.34E-01 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.87E-01,1.08E+03)
     min_max_norm_parameter = (3.446066777200142, 12.00058941506709)  # error of 4.58E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.66772112289306, 0.5795843116540953)  # error of 3.08E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (1.16E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (7.271319784936047, 0.8080128800230181, 0.4459683689150529)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.80E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (7.272013631840285, 0.8076799655613323, 0.44608338323349067)  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.81E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3218,7 +3218,7 @@ class  HeavyAtomCount_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005752556775892259, 0.43633424647546626)  # error of 2.06E-01 with sample range (2.00E+00,5.72E+02) resulting in fit range (4.48E-01,3.73E+00)
     min_max_norm_parameter = (11.422941214588905, 38.12137726479023)  # error of 2.20E-02 with sample range (2.00E+00,5.72E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (24.563511621430862, 0.19297073304914714)  # error of 1.69E-02 with sample range (2.00E+00,5.72E+02) resulting in fit range (1.27E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (22.896239973647287, 0.28441190110771175, 0.1398321789344552)  # error of 7.75E-03 with sample range (2.00E+00,5.72E+02) resulting in fit range (2.62E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (22.896243586651543, 0.2844117231776177, 0.13983227405587295)  # error of 7.75E-03 with sample range (2.00E+00,5.72E+02) resulting in fit range (2.62E-03,1.00E+00)
     genlog_norm_parameter = (0.1328591610228903, -10.662363837901518, 0.012852917815098123, 0.00018843531781919377)  # error of 6.51E-03 with sample range (2.00E+00,5.72E+02) resulting in fit range (3.15E-06,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3233,7 +3233,7 @@ class  fr_amide_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.018247396195880828, 0.8361339146143514)  # error of 7.21E-02 with sample range (0.00E+00,4.80E+01) resulting in fit range (8.36E-01,1.71E+00)
     min_max_norm_parameter = (0.04651569330182743, 1.4956993928811566)  # error of 2.28E-02 with sample range (0.00E+00,4.80E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4809600464417933, 1.266170913827053)  # error of 2.07E-03 with sample range (0.00E+00,4.80E+01) resulting in fit range (3.52E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.5000000055065682, 9.81151356748907, 1.2896670560945562)  # error of 1.88E-03 with sample range (0.00E+00,4.80E+01) resulting in fit range (7.35E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.480960020641994, 32.957619361505, 1.2661708722360183)  # error of 1.27E-03 with sample range (0.00E+00,4.80E+01) resulting in fit range (1.31E-07,1.00E+00)
     genlog_norm_parameter = (1.9646058102099027, -1.2572857779178173, 0.009448860004671444, 0.00024144940936888026)  # error of 1.47E-02 with sample range (0.00E+00,4.80E+01) resulting in fit range (3.66E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3277,7 +3277,7 @@ class  RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.274743032958996, -0.6363152066427643)  # error of 8.52E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (-6.36E-01,2.85E+00)
     min_max_norm_parameter = (2.68976145372615, 5.459084333173108)  # error of 2.97E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.059081941807601, 1.764235395780906)  # error of 1.73E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (7.76E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.992187925992685, 2.0752401030308176, 1.5066909435317473)  # error of 7.09E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (2.52E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.992230990546881, 2.0750846967324876, 1.5067797752888388)  # error of 7.09E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (2.52E-04,1.00E+00)
     genlog_norm_parameter = (1.347041014911159, 2.24246525276504, 1.9688953365934632, 0.23779698513445705)  # error of 2.95E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (1.59E-07,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3292,7 +3292,7 @@ class  Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03561704845372893, 0.3431665835165363)  # error of 2.45E-01 with sample range (-4.32E+00,2.80E+04) resulting in fit range (1.89E-01,9.97E+02)
     min_max_norm_parameter = (1.6209280367339833, 6.869092211937303)  # error of 4.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.207644140181935, 0.935275527719581)  # error of 3.22E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (3.42E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.9792547209665945, 1.2655211736041962, 0.6994417885081644)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.9792546917484937, 1.265521274567412, 0.6994418134155707)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3306,7 +3306,7 @@ class  Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.027431175492895643, 0.1959231987976101)  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
     min_max_norm_parameter = (5.833583645428592, 19.149899507438242)  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (12.391158701361956, 0.36836959542101233)  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (11.842303238148796, 0.5140666350188914, 0.29912163479666287)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (11.842303403027104, 0.5140666711896098, 0.2991216617631474)  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3335,9 +3335,9 @@ class  NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.06608705216326816, 0.7231759141671211)  # error of 6.12E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (7.23E-01,1.71E+00)
     min_max_norm_parameter = (2.425436375356735e-09, 1.4183360150961999)  # error of 2.28E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4595690682034204, 1.6119949186776596)  # error of 6.29E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.23E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4595690682034204, 1.0, 1.6119949186776596)  # error of 6.29E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.23E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.4595442280127375, 36.76321468072523, 1.6119316552199183)  # error of 4.35E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (4.60E-08,1.00E+00)
     genlog_norm_parameter = (1.6718834720391067, 1.1087698014134977, 0.5469129170165173, 1.4432376478453104)  # error of 5.24E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.53E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -3395,7 +3395,7 @@ class  Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03561704845372893, 0.3431665835165363)  # error of 2.45E-01 with sample range (-4.32E+00,2.80E+04) resulting in fit range (1.89E-01,9.97E+02)
     min_max_norm_parameter = (1.6209280367339833, 6.869092211937303)  # error of 4.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.207644140181935, 0.935275527719581)  # error of 3.22E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (3.42E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.9792547209665945, 1.2655211736041962, 0.6994417885081644)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.9792546917484937, 1.265521274567412, 0.6994418134155707)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3469,7 +3469,7 @@ class  fr_benzodiazepine_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.0000000000000002, 2.220446049250313e-16)  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
     min_max_norm_parameter = (1e-10, 0.9999999999)  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.5027041798086037, 46.14043898879842)  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.49874072864947394, 3.68328813585096, 20.104860546890446)  # error of 4.31E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.42E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.49954642862905374, 18.83817716761341, 18.88166255189391)  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
     preferred_normalization = 'unity'
     # functions
     
@@ -3483,7 +3483,7 @@ class  NPR2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.0363848124092283, -2.1050145083551772)  # error of 7.55E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-2.11E+00,9.31E-01)
     min_max_norm_parameter = (0.7328377706938303, 0.9989929606321605)  # error of 3.95E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.8690167433696966, 18.125099021117805)  # error of 3.57E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.44E-07,9.15E-01)
-    dual_sigmoidal_norm_parameter = (0.8826119375023386, 13.441774499098555, 25.188219083401254)  # error of 1.76E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.04E-06,9.51E-01)
+    dual_sigmoidal_norm_parameter = (0.8826306733966545, 13.438687377055738, 25.1975217333764)  # error of 1.76E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.06E-06,9.51E-01)
     genlog_norm_parameter = (41.229691541183385, 0.9463746291627356, 1.2160790825123706, 4.408357021765385)  # error of 1.41E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.37E-04,9.72E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -3498,7 +3498,7 @@ class  FpDensityMorgan2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.3914967754398223, -0.3064699812712066)  # error of 1.22E-01 with sample range (1.72E-02,5.00E+00) resulting in fit range (-3.00E-01,1.65E+00)
     min_max_norm_parameter = (1.3833635629107808, 2.497866940325602)  # error of 3.66E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.9426344460243463, 4.4864204391015186)  # error of 1.50E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (1.77E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.9697213353061016, 4.019684853988071, 5.57668286972073)  # error of 1.08E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (3.90E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.9697213352362348, 4.019684859363329, 5.576682871615822)  # error of 1.08E-02 with sample range (1.72E-02,5.00E+00) resulting in fit range (3.90E-04,1.00E+00)
     genlog_norm_parameter = (5.761552987636311, 158.08674397977347, -130.86735690333066, 17.70616615221605)  # error of 3.14E-01 with sample range (1.72E-02,5.00E+00) resulting in fit range (0.00E+00,0.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3513,7 +3513,7 @@ class  NumHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.08010064808252315, 0.5457901645984795)  # error of 1.04E-01 with sample range (0.00E+00,5.10E+01) resulting in fit range (5.46E-01,4.63E+00)
     min_max_norm_parameter = (2.3665827156630354e-30, 2.5826903013211857)  # error of 2.27E-02 with sample range (0.00E+00,5.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.1686560826020225, 1.2821472679988912)  # error of 9.61E-04 with sample range (0.00E+00,5.10E+01) resulting in fit range (1.83E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.168651725696023, 14.277943710321482, 1.2821257124964283)  # error of 5.53E-04 with sample range (0.00E+00,5.10E+01) resulting in fit range (5.67E-08,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.1481821648217836, 1.4759403526269972, 1.260097047842649)  # error of 4.81E-04 with sample range (0.00E+00,5.10E+01) resulting in fit range (1.55E-01,1.00E+00)
     genlog_norm_parameter = (1.2460768793121881, 1.6487717290239703, 0.438514655086741, 0.8475385257399649)  # error of 4.68E-04 with sample range (0.00E+00,5.10E+01) resulting in fit range (1.73E-01,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3528,7 +3528,7 @@ class  NumLipinskiHBD_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.011451805303745677, 0.8103893376864633)  # error of 1.09E-01 with sample range (0.00E+00,8.20E+01) resulting in fit range (8.10E-01,1.75E+00)
     min_max_norm_parameter = (9.860761315262648e-32, 3.187051718282465)  # error of 1.94E-02 with sample range (0.00E+00,8.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.3178308349589882, 1.1160540358868796)  # error of 6.16E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.87E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.3178308564763852, 10.470315521888269, 1.1160541755540871)  # error of 3.83E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.02E-06,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.0743143001638746, 5.214591634885128, 0.9332858170955084)  # error of 3.15E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (3.68E-03,1.00E+00)
     genlog_norm_parameter = (0.9056090949083335, -2.61356505138166, 0.03003179441465175, 0.0012602623451871441)  # error of 4.05E-03 with sample range (0.00E+00,8.20E+01) resulting in fit range (1.07E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3543,7 +3543,7 @@ class  Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0627452397151258, 0.08691967075790497)  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
     min_max_norm_parameter = (2.910758257183072, 10.518729378759696)  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.661928594684052, 0.6389477840131871)  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.384313047563608, 0.8556587318530761, 0.5214673705729024)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.384313111721113, 0.855658675292274, 0.5214673948038986)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3587,7 +3587,7 @@ class  Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0627452397151258, 0.08691967075790497)  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
     min_max_norm_parameter = (2.910758257183072, 10.518729378759696)  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.661928594684052, 0.6389477840131871)  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.384313047563608, 0.8556587318530761, 0.5214673705729024)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.384313111721113, 0.855658675292274, 0.5214673948038986)  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3616,9 +3616,9 @@ class  SMR_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.002463279237957446, 0.8723998320669256)  # error of 5.34E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (8.72E-01,1.54E+00)
     min_max_norm_parameter = (5e-324, 13.161474983617241)  # error of 4.95E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.1525795833229362, 0.15186000443615003)  # error of 1.83E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (4.56E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.1525795889639978, 1.0, 0.1518600046045379)  # error of 1.83E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (4.56E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.1525943308892048, 9.547259158595873, 0.15186024720256838)  # error of 1.76E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (1.66E-05,1.00E+00)
     genlog_norm_parameter = (0.1391729597386993, -3.678587145902322, 0.0009810210159954982, 0.0006414479949079956)  # error of 1.79E-02 with sample range (0.00E+00,2.73E+02) resulting in fit range (4.00E-01,1.00E+00)
-    preferred_normalization = 'min_max'
+    preferred_normalization = 'dual_sig'
     # functions
     
     
@@ -3646,7 +3646,7 @@ class  SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (2.014040859270808, -0.004922239185380645)  # error of 8.41E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (-4.92E-03,1.89E+00)
     min_max_norm_parameter = (0.04763405868523997, 0.42911985390392243)  # error of 3.56E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.2351671867619151, 12.82810781848393)  # error of 2.66E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (4.67E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.2212419123873155, 16.425058420900328, 10.08081100416669)  # error of 1.03E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (2.57E-02,9.99E-01)
+    dual_sigmoidal_norm_parameter = (0.22125633366340652, 16.421918195920984, 10.082160667790887)  # error of 1.03E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (2.57E-02,9.99E-01)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3675,7 +3675,7 @@ class  VSA_EState7_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.006935598460676706, 0.5277845083933819)  # error of 1.85E-01 with sample range (-7.84E+02,1.08E+01) resulting in fit range (-4.91E+00,6.03E-01)
     min_max_norm_parameter = (-24.625854914081717, 6.979695541871978)  # error of 5.05E-02 with sample range (-7.84E+02,1.08E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-8.479594411787089, 0.14779915592252638)  # error of 3.33E-02 with sample range (-7.84E+02,1.08E+01) resulting in fit range (1.74E-50,9.46E-01)
-    dual_sigmoidal_norm_parameter = (-7.0464457823056605, 0.11243413657001933, 0.23343926406202142)  # error of 1.51E-02 with sample range (-7.84E+02,1.08E+01) resulting in fit range (1.19E-38,9.85E-01)
+    dual_sigmoidal_norm_parameter = (-7.046444035217077, 0.11243405953450752, 0.23343936380826846)  # error of 1.51E-02 with sample range (-7.84E+02,1.08E+01) resulting in fit range (1.19E-38,9.85E-01)
     genlog_norm_parameter = (0.5395522034797766, 2.8636999681039996, 0.38276869755674797, 6.8178631448799)  # error of 9.45E-03 with sample range (-7.84E+02,1.08E+01) resulting in fit range (1.07E-27,9.99E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -3689,7 +3689,7 @@ class  SMR_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
     # normalization
     linear_norm_parameter = (1.0, 1.0)  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter = (0.0, 1.0, 0.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
+    dual_sigmoidal_norm_parameter = (0.0, 0.0, 1.0)  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
     genlog_norm_parameter = (0.33705420273837067, 0.3370542027383706, -9.284058023162583e-10, 2.1473819766010673)  # error of 4.84E-10 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -3704,7 +3704,7 @@ class  MolLogP_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.08784472608787079, 0.1981370072747647)  # error of 1.64E-01 with sample range (-5.89E+01,9.69E+01) resulting in fit range (-4.98E+00,8.71E+00)
     min_max_norm_parameter = (0.46977870811162403, 5.966058231862306)  # error of 3.39E-02 with sample range (-5.89E+01,9.69E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (3.206291545692704, 0.8985363235365765)  # error of 1.25E-02 with sample range (-5.89E+01,9.69E+01) resulting in fit range (5.76E-25,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.1239114240932673, 0.9965869301073036, 0.811237464475052)  # error of 7.33E-03 with sample range (-5.89E+01,9.69E+01) resulting in fit range (1.42E-27,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.1239114243134525, 0.9965869299386755, 0.8112374648461028)  # error of 7.33E-03 with sample range (-5.89E+01,9.69E+01) resulting in fit range (1.42E-27,1.00E+00)
     genlog_norm_parameter = (0.7571489399076989, 1.390600008482986, 1.6113843793551472, 0.5076714309656658)  # error of 6.47E-03 with sample range (-5.89E+01,9.69E+01) resulting in fit range (3.42E-40,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3734,7 +3734,7 @@ class  SlogP_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007436684822960693, 0.6872466373090912)  # error of 1.45E-01 with sample range (0.00E+00,4.14E+02) resulting in fit range (6.87E-01,3.76E+00)
     min_max_norm_parameter = (1.9721522630525295e-31, 16.894446647493005)  # error of 4.50E-02 with sample range (0.00E+00,4.14E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (7.760808021810809, 0.25639853999337753)  # error of 3.00E-02 with sample range (0.00E+00,4.14E+02) resulting in fit range (1.20E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (7.400786131696198, 0.3165029149114655, 0.2383662278955665)  # error of 2.94E-02 with sample range (0.00E+00,4.14E+02) resulting in fit range (8.77E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (7.393606686015775, 0.31725188648189856, 0.2380832859822617)  # error of 2.94E-02 with sample range (0.00E+00,4.14E+02) resulting in fit range (8.74E-02,1.00E+00)
     genlog_norm_parameter = (0.2191296949501139, -0.07851957643167685, 1.2561993381152745, 0.30031793241554744)  # error of 2.92E-02 with sample range (0.00E+00,4.14E+02) resulting in fit range (6.87E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3764,7 +3764,7 @@ class  BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.17660976361946912, 0.011623897998747967)  # error of 1.60E-01 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.16E-02,8.95E+00)
     min_max_norm_parameter = (1.51069451962931, 3.7663482034024947)  # error of 4.43E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.6275405979312487, 2.067375370708902)  # error of 2.69E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (4.35E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.548536235030395, 2.66279982408227, 1.6191594985042048)  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.13E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.5486119874079707, 2.6623154651762686, 1.6193606097747983)  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.13E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3778,7 +3778,7 @@ class  PMI2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (3.364102817740711e-05, 0.2861109449057394)  # error of 1.90E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.86E-01,2.45E+01)
     min_max_norm_parameter = (44.665447243295176, 10171.614030140174)  # error of 5.66E-02 with sample range (0.00E+00,7.21E+05) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.86555442244817, 1.0, 2.8655544224481697)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.8655544226961647, 2.8655544226961647, 1.0)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
     genlog_norm_parameter = (1.3122264001263977, 1.3122264001263975, 1.279660664863473, 0.2618729161321768)  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (3.30E-04,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -3808,7 +3808,7 @@ class  TPSA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0021678074691265925, 0.4909310697599548)  # error of 1.90E-01 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.91E-01,6.20E+00)
     min_max_norm_parameter = (14.599527973028703, 118.60656324496115)  # error of 3.84E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (66.26559293182696, 0.047786843726724)  # error of 1.40E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.04E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (64.41269346904815, 0.05696911545435016, 0.043756733059762035)  # error of 9.63E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (2.49E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (64.41269425069702, 0.05696911342563409, 0.04375673621418519)  # error of 9.63E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (2.49E-02,1.00E+00)
     genlog_norm_parameter = (0.039396470555296006, -1.565855746207205, 3.3127216535027557, 0.3094077325658369)  # error of 7.60E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (1.03E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3823,9 +3823,9 @@ class  InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (249.802812058766, 0.2626729794953536)  # error of 1.70E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (2.63E-01,2.41E+06)
     min_max_norm_parameter = (3.4403992924852414e-29, 0.0015516770560768962)  # error of 5.89E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.0007537390827077178, 2772.3791520268146)  # error of 5.07E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (1.10E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.0006221969804982748, 4615.762401524865, 1723.753663227779)  # error of 2.12E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (5.36E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (8.477210431460079e-09, 1.0226616162563986, 2.5040477356755724)  # error of 2.88E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (5.00E-01,1.00E+00)
     genlog_norm_parameter = (0.6335439368983742, 1.1952465398370342, 0.06337814286503886, 0.1824990146140799)  # error of 2.88E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (4.99E-01,1.00E+00)
-    preferred_normalization = 'dual_sig'
+    preferred_normalization = 'sig'
     # functions
     
     
@@ -3838,7 +3838,7 @@ class  Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.07531844296316315, 0.10272005612925916)  # error of 1.58E-01 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.06E-01,3.83E+01)
     min_max_norm_parameter = (1.58553325314983, 8.60938851018364)  # error of 3.82E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.045698563226252, 0.6990022831903797)  # error of 2.71E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (2.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.767359124032586, 0.9160893907811511, 0.5589277261645443)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.767739315887101, 0.9158440851290796, 0.5590280737588555)  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3852,7 +3852,7 @@ class  MinEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.22449008413602467, 1.529064938673871)  # error of 9.84E-02 with sample range (-2.36E+01,1.17E+00) resulting in fit range (-3.78E+00,1.79E+00)
     min_max_norm_parameter = (-6.065158419096168, -2.9821960881671177)  # error of 4.20E-02 with sample range (-2.36E+01,1.17E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-4.49507192502996, 1.6028612470816288)  # error of 2.52E-02 with sample range (-2.36E+01,1.17E+00) resulting in fit range (4.77E-14,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-4.402227821606564, 1.2805551665118835, 2.027604245118143)  # error of 8.88E-03 with sample range (-2.36E+01,1.17E+00) resulting in fit range (2.02E-11,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-4.402227844870071, 1.2805552108237557, 2.027604138125001)  # error of 8.88E-03 with sample range (-2.36E+01,1.17E+00) resulting in fit range (2.02E-11,1.00E+00)
     genlog_norm_parameter = (2.5886519555655454, -2.465861347030154, 0.03346380192846074, 2.7129756634982467)  # error of 6.76E-03 with sample range (-2.36E+01,1.17E+00) resulting in fit range (5.93E-09,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3867,7 +3867,7 @@ class  MaxEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.1160824744026907, -0.9656546887853172)  # error of 9.45E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (-9.66E-01,2.80E+00)
     min_max_norm_parameter = (10.793338979130617, 15.53686323514367)  # error of 7.37E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (13.160091893100835, 0.9136778762386883)  # error of 6.33E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (6.00E-06,1.00E+00)
-    dual_sigmoidal_norm_parameter = (13.444744292036967, 0.490702773968197, 1.4564642792613827)  # error of 3.13E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (1.36E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (13.445167722011659, 0.4906292568720514, 1.4572136129982889)  # error of 3.13E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (1.36E-03,1.00E+00)
     genlog_norm_parameter = (2.973557817315883, 14.214531367680852, 9.116290253481058, 7.28923697651459)  # error of 3.39E-02 with sample range (0.00E+00,3.25E+01) resulting in fit range (2.24E-03,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3897,7 +3897,7 @@ class  NumLipinskiHBA_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0021474686509596053, 0.8235464950362099)  # error of 1.92E-01 with sample range (0.00E+00,1.96E+02) resulting in fit range (8.24E-01,1.24E+00)
     min_max_norm_parameter = (1.2880062839960937, 9.187763624570907)  # error of 1.38E-02 with sample range (0.00E+00,1.96E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (5.184102720727361, 0.6674369952484219)  # error of 7.25E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (3.05E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (5.000220272676166, 0.7699798791319306, 0.5818113932872683)  # error of 5.06E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (2.08E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (5.01372760473936, 0.7649977970154859, 0.5850210479926004)  # error of 5.05E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (2.11E-02,1.00E+00)
     genlog_norm_parameter = (0.5268272560910332, 2.9870414098551117, 0.8114362377392241, 0.34748243027398057)  # error of 3.62E-03 with sample range (0.00E+00,1.96E+02) resulting in fit range (1.02E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -3927,7 +3927,7 @@ class  Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03561704845372893, 0.3431665835165363)  # error of 2.45E-01 with sample range (-4.32E+00,2.80E+04) resulting in fit range (1.89E-01,9.97E+02)
     min_max_norm_parameter = (1.6209280367339833, 6.869092211937303)  # error of 4.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.207644140181935, 0.935275527719581)  # error of 3.22E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (3.42E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (3.9792547209665945, 1.2655211736041962, 0.6994417885081644)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (3.9792546917484937, 1.265521274567412, 0.6994418134155707)  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -3956,7 +3956,7 @@ class  SlogP_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.0036630233160711567, 0.8928265874311769)  # error of 5.13E-02 with sample range (0.00E+00,7.96E+02) resulting in fit range (8.93E-01,3.81E+00)
     min_max_norm_parameter = (5e-324, 6.023897866072181)  # error of 4.56E-02 with sample range (0.00E+00,7.96E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4655912538215367, 0.3384327438176033)  # error of 1.07E-02 with sample range (0.00E+00,7.96E+02) resulting in fit range (4.61E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.7059211488293957, 4.566242269850751, 0.35450788290713264)  # error of 1.03E-02 with sample range (0.00E+00,7.96E+02) resulting in fit range (3.83E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.4655844230945186, 26.16053644691805, 0.33843220244046884)  # error of 1.00E-02 with sample range (0.00E+00,7.96E+02) resulting in fit range (5.13E-06,1.00E+00)
     genlog_norm_parameter = (0.3105599135425584, -7.8817149140594465, 0.0042533429031192385, 0.00040502865079720707)  # error of 9.68E-03 with sample range (0.00E+00,7.96E+02) resulting in fit range (4.03E-01,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -3971,7 +3971,7 @@ class  fr_thiocyan_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.11905202341120957, 0.45235119315332584)  # error of 3.36E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (4.52E-01,1.17E+00)
     min_max_norm_parameter = (9.608678732145031e-12, 1.000064998295486)  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.6659376309621101, 28.86030957889578)  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (4.50E-09,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4999998913713622, 4.196819719282997, 12.934269311991448)  # error of 1.07E-03 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.55E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.5520702086106327, 34.65927490403444, 21.52378723022447)  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (4.90E-09,1.00E+00)
     genlog_norm_parameter = (11.51809750434588, 0.08697144539747265, -0.3591860288535241, -0.14970429382995373)  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (8.28E-12,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -4001,7 +4001,7 @@ class  FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.1210114366616568, 0.024238385885020208)  # error of 6.63E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.42E-02,1.15E+00)
     min_max_norm_parameter = (0.030077967569291073, 0.7816451738469055)  # error of 3.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.4036392556168974, 6.810271411900117)  # error of 2.19E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (6.01E-02,9.83E-01)
-    dual_sigmoidal_norm_parameter = (0.37933375807687925, 8.369078319667627, 5.735309352343304)  # error of 1.04E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.01E-02,9.72E-01)
+    dual_sigmoidal_norm_parameter = (0.3793638964895536, 8.367627232005448, 5.736046185011766)  # error of 1.04E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.01E-02,9.72E-01)
     genlog_norm_parameter = (5.121341713037929, 0.3541805503951657, 0.1654208707795316, 0.18747997008450548)  # error of 4.98E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.38E-02,9.68E-01)
     preferred_normalization = 'genlog'
     # functions
@@ -4031,7 +4031,7 @@ class  NumHAcceptors_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.018653528399554697, 0.5574729713710027)  # error of 1.93E-01 with sample range (0.00E+00,1.71E+02) resulting in fit range (5.57E-01,3.75E+00)
     min_max_norm_parameter = (1.2630439561525542, 7.515443068519551)  # error of 1.49E-02 with sample range (0.00E+00,1.71E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (4.367102956502307, 0.8007786530186061)  # error of 9.05E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (2.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (4.18861863906966, 0.9639214876904849, 0.6754396233905521)  # error of 5.33E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (1.73E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (4.1534479232479296, 0.9876358257117317, 0.6617786555883881)  # error of 4.81E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (1.63E-02,1.00E+00)
     genlog_norm_parameter = (0.5934193512469899, 0.22514360787120383, 1.466124180627735, 0.18363318748043794)  # error of 3.35E-03 with sample range (0.00E+00,1.71E+02) resulting in fit range (4.70E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4046,7 +4046,7 @@ class  fr_unbrch_alkane_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.03889834636895251, 0.7073099439562576)  # error of 2.80E-01 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.07E-01,1.17E+00)
     min_max_norm_parameter = (7.511636441371496e-09, 1.000225030377411)  # error of 4.28E-05 with sample range (0.00E+00,1.20E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.6677048142926155, 25.276494721014547)  # error of 4.28E-05 with sample range (0.00E+00,1.20E+01) resulting in fit range (4.68E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.4999997545511281, 6.600348494015017, 14.304121514205056)  # error of 3.23E-04 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.83E-04,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.021693028028538862, 702.8923745160023, 8.585406408136345)  # error of 4.28E-05 with sample range (0.00E+00,1.20E+01) resulting in fit range (2.39E-07,1.00E+00)
     genlog_norm_parameter = (11.130654497305729, 0.08127151505956189, 0.007557498776757308, 0.0012163465757203487)  # error of 4.28E-05 with sample range (0.00E+00,1.20E+01) resulting in fit range (2.48E-07,1.00E+00)
     preferred_normalization = 'unity'
     # functions
@@ -4076,7 +4076,7 @@ class  HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.10941027797520916, 0.8206630827667591)  # error of 1.86E-01 with sample range (-7.86E+01,6.10E+01) resulting in fit range (-7.78E+00,7.50E+00)
     min_max_norm_parameter = (-4.025047303628864, -0.27476699527518833)  # error of 2.37E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.136641082271498, 1.3958219191517867)  # error of 1.43E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (4.45E-47,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.0451007845368863, 1.1887380822440157, 1.5856961746935594)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.0451007382705924, 1.188738004380637, 1.5856962115538982)  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
     genlog_norm_parameter = (1.7618968864206013, -2.0459113897478645, 2.4289416394683374, 1.8402620037112714)  # error of 7.26E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (9.11E-33,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4091,7 +4091,7 @@ class  SMR_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.004721924676151512, 0.3518106416338208)  # error of 1.44E-01 with sample range (0.00E+00,2.00E+03) resulting in fit range (3.52E-01,9.80E+00)
     min_max_norm_parameter = (0.027182952918228913, 90.6963985858831)  # error of 3.59E-02 with sample range (0.00E+00,2.00E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (45.068602585969984, 0.05384149034564499)  # error of 1.60E-02 with sample range (0.00E+00,2.00E+03) resulting in fit range (8.12E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (43.693612281700155, 0.06291259209686757, 0.04995417494201176)  # error of 1.34E-02 with sample range (0.00E+00,2.00E+03) resulting in fit range (6.02E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (43.693610417543745, 0.06291260195656685, 0.04995417054949297)  # error of 1.34E-02 with sample range (0.00E+00,2.00E+03) resulting in fit range (6.02E-02,1.00E+00)
     genlog_norm_parameter = (0.045747875021952156, -9.19552940034082, 3.664875844611263, 0.3961271397231768)  # error of 1.31E-02 with sample range (0.00E+00,2.00E+03) resulting in fit range (4.53E-02,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4106,7 +4106,7 @@ class  BCUT2D_LOGPLOW_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (1.7051602905317909, 4.918269713274668)  # error of 6.24E-02 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (-9.14E-01,2.89E+00)
     min_max_norm_parameter = (-2.845292207717101, -2.3529603749416776)  # error of 3.19E-02 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-2.603156460495485, 9.951733084541459)  # error of 2.24E-02 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (2.94E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-2.6168884537842767, 11.99429838644893, 8.316962700747439)  # error of 1.22E-02 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (6.54E-05,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-2.616876569972246, 11.992922320816978, 8.31768491859481)  # error of 1.22E-02 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (6.54E-05,1.00E+00)
     genlog_norm_parameter = (7.177091347052052, -2.084683810964218, 0.00137344728212155, 0.08451640469156121)  # error of 7.48E-03 with sample range (-3.42E+00,-1.19E+00) resulting in fit range (2.29E-16,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4121,7 +4121,7 @@ class  BCUT2D_LOGPHI_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.9221221942827517, 0.3462995547380183)  # error of 1.18E-01 with sample range (-1.76E+00,2.74E+00) resulting in fit range (-1.27E+00,2.88E+00)
     min_max_norm_parameter = (-0.2074553870185299, 0.45765097151660844)  # error of 5.19E-02 with sample range (-1.76E+00,2.74E+00) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.1195132064019319, 7.293530987809198)  # error of 3.57E-02 with sample range (-1.76E+00,2.74E+00) resulting in fit range (1.14E-06,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.10216399172035487, 8.565792715629511, 6.032209966300347)  # error of 3.18E-02 with sample range (-1.76E+00,2.74E+00) resulting in fit range (1.22E-07,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.1022300315565414, 8.561773964095105, 6.034403781508101)  # error of 3.18E-02 with sample range (-1.76E+00,2.74E+00) resulting in fit range (1.23E-07,1.00E+00)
     genlog_norm_parameter = (5.109888583609547, -0.016450255662772126, 0.057013183310217694, 0.0428114239970375)  # error of 2.84E-02 with sample range (-1.76E+00,2.74E+00) resulting in fit range (6.89E-62,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4136,7 +4136,7 @@ class  VSA_EState10_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.05651052449377392, 0.4477716191034624)  # error of 2.35E-01 with sample range (-3.87E+01,1.21E+02) resulting in fit range (-1.74E+00,7.28E+00)
     min_max_norm_parameter = (-1.6960388214922417, 3.3674968629997517)  # error of 1.76E-01 with sample range (-3.87E+01,1.21E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (0.09768644304876672, 6.040221189979557)  # error of 1.42E-01 with sample range (-3.87E+01,1.21E+02) resulting in fit range (1.42E-102,1.00E+00)
-    dual_sigmoidal_norm_parameter = (0.005214427377489521, 150.37215166432333, 0.3998539942243761)  # error of 7.98E-02 with sample range (-3.87E+01,1.21E+02) resulting in fit range (0.00E+00,1.00E+00)
+    dual_sigmoidal_norm_parameter = (0.0035845937533911135, 223.13480568444166, 0.3998340930016602)  # error of 7.98E-02 with sample range (-3.87E+01,1.21E+02) resulting in fit range (0.00E+00,1.00E+00)
     genlog_norm_parameter = (4.164014290286187, -1.264438614178022, 0.027160888482521385, 0.00013893809910547775)  # error of 1.38E-01 with sample range (-3.87E+01,1.21E+02) resulting in fit range (0.00E+00,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
@@ -4181,7 +4181,7 @@ class  SlogP_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.007179097183038996, 0.31036360002709074)  # error of 1.50E-01 with sample range (0.00E+00,1.09E+03) resulting in fit range (3.10E-01,8.13E+00)
     min_max_norm_parameter = (2.8149378256505875, 62.887170739624814)  # error of 3.91E-02 with sample range (0.00E+00,1.09E+03) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (32.49634012337661, 0.07987637026985167)  # error of 1.84E-02 with sample range (0.00E+00,1.09E+03) resulting in fit range (6.94E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (31.06377443005473, 0.10301921701855828, 0.06990432005737299)  # error of 7.32E-03 with sample range (0.00E+00,1.09E+03) resulting in fit range (3.92E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (31.064566298185326, 0.10301047742185264, 0.06990769312823802)  # error of 7.32E-03 with sample range (0.00E+00,1.09E+03) resulting in fit range (3.92E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -4210,7 +4210,7 @@ class  NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.016077495185775725, 0.5033528543882042)  # error of 2.02E-01 with sample range (0.00E+00,2.15E+02) resulting in fit range (5.03E-01,3.96E+00)
     min_max_norm_parameter = (1.9439247544979925, 10.63914346171618)  # error of 1.53E-02 with sample range (0.00E+00,2.15E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (6.309633287283373, 0.5961308359128846)  # error of 8.73E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (2.27E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (6.045320930283959, 0.7179354032850181, 0.5008061943406604)  # error of 5.10E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (1.29E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (6.055674915647298, 0.7152110168610164, 0.5023619314244931)  # error of 5.00E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (1.30E-02,1.00E+00)
     genlog_norm_parameter = (0.45068040681824034, 1.1172662980244155, 1.7144405539074021, 0.23628999990547292)  # error of 3.24E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (3.38E-03,1.00E+00)
     preferred_normalization = 'genlog'
     # functions
@@ -4225,7 +4225,7 @@ class  Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.16045617502782894, 0.06275167455712582)  # error of 1.47E-01 with sample range (0.00E+00,6.23E+01) resulting in fit range (6.28E-02,1.01E+01)
     min_max_norm_parameter = (0.8698290958911558, 4.249166143207709)  # error of 3.75E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (2.5307853903255304, 1.4301006733612187)  # error of 2.83E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.61E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (2.390012863113382, 1.9077779294117436, 1.1008446640044367)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (2.39001284835464, 1.9077778839291673, 1.1008446280194297)  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
@@ -4239,7 +4239,7 @@ class  PEOE_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.005054555707632469, 0.8464248056257232)  # error of 4.88E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (8.46E-01,1.98E+00)
     min_max_norm_parameter = (4.919925289519856e-27, 6.338586899034091)  # error of 6.33E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (-1.5531847169925812, 0.19004989659369026)  # error of 1.60E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (5.73E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter = (-1.5531846677647467, 0.910463122499567, 0.1900498974926005)  # error of 1.60E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (5.73E-01,1.00E+00)
+    dual_sigmoidal_norm_parameter = (-1.553184502245005, 2.4359009370888938, 0.19004990078391787)  # error of 1.60E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (5.73E-01,1.00E+00)
     genlog_norm_parameter = (0.2001724916564023, 1.5197898172299915, 1.0901780403502739, 1.7121894041115937)  # error of 1.59E-02 with sample range (0.00E+00,2.24E+02) resulting in fit range (5.89E-01,1.00E+00)
     preferred_normalization = 'min_max'
     # functions
@@ -4254,7 +4254,7 @@ class  Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
     linear_norm_parameter = (0.2235474556767324, 0.12057837229443968)  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
     min_max_norm_parameter = (0.40708839430881494, 2.71836618230583)  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
     sigmoidal_norm_parameter = (1.5414132407381294, 2.0927265327645506)  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter = (1.441026134320466, 2.8235640784391123, 1.5793253223087178)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter = (1.4410261354054712, 2.823564070788039, 1.5793253269271639)  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
     preferred_normalization = 'dual_sig'
     # functions
     
