@@ -139,6 +139,8 @@ _available_featurizer = {
 
 
 class AllSingleValueMoleculeFeaturizer(FeaturizerList):
+    dtype = np.float32
+
     def __init__(self, *args, **kwargs):
         super().__init__(
             [

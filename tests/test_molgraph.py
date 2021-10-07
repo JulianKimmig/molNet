@@ -4,6 +4,7 @@ import unittest
 import numpy as np
 from rdkit.Chem import MolFromSmiles
 
+from molNet.featurizer.molecule_featurizer import molecule_all_single_val_feats
 from molNet.mol.molgraph import mol_graph_from_mol, mol_graph_from_smiles
 from molNet.utils.mol.properties import assert_conformers
 
@@ -111,6 +112,15 @@ class MolGraphTest(unittest.TestCase):
         mg3 = mol_graph_from_mol(mg1.mol)
         mg3.featurize_mol(molecule_MolWt, "mwf")
         assert_molgraphs_data_equal(mg1, mg3)
+
+        mol = assert_conformers(mol)
+        mg1 = mol_graph_from_mol(mol)
+        mg2 = mol_graph_from_mol(mol)
+
+        mg1.featurize_mol(molecule_all_single_val_feats, "mwf")
+        mg2.featurize_mol(molecule_all_single_val_feats, "mwf")
+
+        assert_molgraphs_data_equal(mg1, mg2)
 
     def test_pickling(self):
         import tempfile
