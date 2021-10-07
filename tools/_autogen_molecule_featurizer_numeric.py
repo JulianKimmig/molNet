@@ -10,1159 +10,1159 @@ from rdkit.Chem.rdmolops import (GetFormalCharge,GetSSSR,)
 
 
 class fr_nitro_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_nitro)
 
 class PEOE_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA8)
 
 class fr_Imine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Imine)
 
 class PMI3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcPMI3)
 
 class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumRotatableBonds)
 
 class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi0v)
 
 class fr_quatN_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_quatN)
 
 class fr_Ndealkylation2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ndealkylation2)
 
 class EState_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA8)
 
 class fr_phos_ester_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_phos_ester)
 
 class RingCount_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(RingCount)
 
 class PEOE_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA5)
 
 class EState_VSA11_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA11)
 
 class VSA_EState1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState1)
 
 class fr_diazo_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_diazo)
 
 class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa1)
 
 class Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi4v)
 
 class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1)
 
 class fr_ketone_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_ketone)
 
 class fr_lactone_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_lactone)
 
 class fr_thiazole_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_thiazole)
 
 class MinAbsEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MinAbsEStateIndex)
 
 class fr_COO2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_COO2)
 
 class SlogP_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA9)
 
 class VSA_EState9_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState9)
 
 class fr_isothiocyan_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_isothiocyan)
 
 class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi2n)
 
 class fr_Al_OH_noTert_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Al_OH_noTert)
 
 class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcFractionCSP3)
 
 class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAliphaticHeterocycles)
 
 class Chi0_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0)
 
 class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcKappa1)
 
 class MaxAbsEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MaxAbsEStateIndex)
 
 class PEOE_VSA14_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA14)
 
 class PEOE_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA7)
 
 class NPR1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(NPR1)
 
 class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi3v)
 
 class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi4n)
 
 class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumSaturatedHeterocycles)
 
 class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi2v)
 
 class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi3n)
 
 class fr_amidine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_amidine)
 
 class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcAsphericity)
 
 class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa2)
 
 class BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BertzCT)
 
 class MaxPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MaxPartialCharge)
 
 class SlogP_VSA12_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA12)
 
 class VSA_EState2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState2)
 
 class fr_HOCCN_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_HOCCN)
 
 class MinPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MinPartialCharge)
 
 class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1n)
 
 class PEOE_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA6)
 
 class EState_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA10)
 
 class EState_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA7)
 
 class fr_pyridine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_pyridine)
 
 class BCUT2D_CHGHI_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_CHGHI)
 
 class PEOE_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA2)
 
 class qed_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(qed)
 
 class SMR_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA1)
 
 class fr_lactam_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_lactam)
 
 class fr_imidazole_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_imidazole)
 
 class fr_Al_COO_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Al_COO)
 
 class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0v)
 
 class NumHBD_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumHBD)
 
 class NumAliphaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAliphaticRings)
 
 class NumRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumRings)
 
 class fr_nitroso_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_nitroso)
 
 class fr_prisulfonamd_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_prisulfonamd)
 
 class SMR_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA2)
 
 class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi4n)
 
 class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(InertialShapeFactor)
 
 class NumAmideBonds_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAmideBonds)
 
 class NumHDonors_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumHDonors)
 
 class EState_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA5)
 
 class fr_methoxy_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_methoxy)
 
 class NumHBA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumHBA)
 
 class NPR1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcNPR1)
 
 class MaxAbsPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MaxAbsPartialCharge)
 
 class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi2n)
 
 class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1v)
 
 class fr_sulfonamd_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_sulfonamd)
 
 class PEOE_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA9)
 
 class fr_Ndealkylation1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ndealkylation1)
 
 class LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(LabuteASA)
 
 class PMI1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcPMI1)
 
 class LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcLabuteASA)
 
 class fr_imide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_imide)
 
 class NumAromaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAromaticRings)
 
 class Ipc_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Ipc)
 
 class ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcExactMolWt)
 
 class SMR_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA3)
 
 class fr_C_S_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_C_S)
 
 class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumSaturatedRings)
 
 class NumAliphaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAliphaticRings)
 
 class fr_NH0_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_NH0)
 
 class fr_alkyl_halide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_alkyl_halide)
 
 class fr_hdrzone_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_hdrzone)
 
 class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0n)
 
 class NumAromaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAromaticCarbocycles)
 
 class BCUT2D_MWLOW_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_MWLOW)
 
 class PEOE_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA10)
 
 class PEOE_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA1)
 
 class GetSSSR_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(GetSSSR)
 
 class Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi4v)
 
 class EState_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA3)
 
 class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Asphericity)
 
 class Phi_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcPhi)
 
 class VSA_EState4_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState4)
 
 class fr_ketone_Topliss_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_ketone_Topliss)
 
 class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumSaturatedHeterocycles)
 
 class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(HallKierAlpha)
 
 class GetFormalCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(GetFormalCharge)
 
 class VSA_EState5_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState5)
 
 class fr_guanido_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_guanido)
 
 class NumRadicalElectrons_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumRadicalElectrons)
 
 class SMR_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA6)
 
 class BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BalabanJ)
 
 class TPSA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(TPSA)
 
 class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi2n)
 
 class fr_nitrile_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_nitrile)
 
 class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAliphaticCarbocycles)
 
 class EState_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA6)
 
 class EState_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA1)
 
 class NumAromaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAromaticCarbocycles)
 
 class NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAromaticHeterocycles)
 
 class SlogP_VSA6_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA6)
 
 class MolWt_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MolWt)
 
 class ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(ExactMolWt)
 
 class PMI1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PMI1)
 
 class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcRadiusOfGyration)
 
 class BCUT2D_MRLOW_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_MRLOW)
 
 class VSA_EState3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState3)
 
 class fr_ether_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_ether)
 
 class NumValenceElectrons_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumValenceElectrons)
 
 class fr_N_O_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_N_O)
 
 class NPR2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcNPR2)
 
 class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0n)
 
 class MolMR_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MolMR)
 
 class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Eccentricity)
 
 class FpDensityMorgan3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(FpDensityMorgan3)
 
 class NHOHCount_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NHOHCount)
 
 class PEOE_VSA12_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA12)
 
 class fr_azide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_azide)
 
 class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi3n)
 
 class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcEccentricity)
 
 class NOCount_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NOCount)
 
 class PEOE_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA3)
 
 class fr_NH1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_NH1)
 
 class PEOE_VSA11_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA11)
 
 class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumHeteroatoms)
 
 class SlogP_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA10)
 
 class Chi0_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0)
 
 class fr_morpholine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_morpholine)
 
 class EState_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA9)
 
 class PBF_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcPBF)
 
 class MinAbsPartialCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MinAbsPartialCharge)
 
 class SlogP_VSA11_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA11)
 
 class fr_aniline_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_aniline)
 
 class BCUT2D_MWHI_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_MWHI)
 
 class Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi4v)
 
 class fr_piperdine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_piperdine)
 
 class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi3v)
 
 class fr_Nhpyrrole_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Nhpyrrole)
 
 class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1)
 
 class FpDensityMorgan1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(FpDensityMorgan1)
 
 class fr_epoxide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_epoxide)
 
 class SlogP_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA5)
 
 class fr_hdrzine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_hdrzine)
 
 class fr_Ar_N_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ar_N)
 
 class SMR_VSA5_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA5)
 
 class SlogP_VSA3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA3)
 
 class BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BertzCT)
 
 class fr_C_O_noCOO_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_C_O_noCOO)
 
 class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumSaturatedRings)
 
 class SMR_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA10)
 
 class NumSpiroAtoms_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumSpiroAtoms)
 
 class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi3v)
 
 class NumSaturatedCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumSaturatedCarbocycles)
 
 class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi0n)
 
 class fr_oxime_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_oxime)
 
 class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi2v)
 
 class BCUT2D_MRHI_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_MRHI)
 
 class SMR_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA4)
 
 class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcPMI2)
 
 class fr_Ar_COO_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ar_COO)
 
 class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcHallKierAlpha)
 
 class fr_nitro_arom_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_nitro_arom)
 
 class fr_SH_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_SH)
 
 class fr_piperzine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_piperzine)
 
 class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1n)
 
 class NumAromaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAromaticRings)
 
 class EState_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA2)
 
 class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi2v)
 
 class fr_urea_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_urea)
 
 class fr_benzene_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_benzene)
 
 class fr_bicyclic_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_bicyclic)
 
 class fr_ArN_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_ArN)
 
 class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa2)
 
 class fr_halogen_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_halogen)
 
 class VSA_EState6_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState6)
 
 class fr_Ar_OH_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ar_OH)
 
 class PMI3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PMI3)
 
 class VSA_EState8_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState8)
 
 class BCUT2D_CHGLO_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_CHGLO)
 
 class fr_phos_acid_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_phos_acid)
 
 class SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SpherocityIndex)
 
 class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumAliphaticHeterocycles)
 
 class fr_NH2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_NH2)
 
 class fr_furan_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_furan)
 
 class fr_nitro_arom_nonortho_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_nitro_arom_nonortho)
 
 class SlogP_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA4)
 
 class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumRotatableBonds)
 
 class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi1n)
 
 class fr_thiophene_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_thiophene)
 
 class PEOE_VSA13_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA13)
 
 class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcKappa2)
 
 class HeavyAtomCount_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(HeavyAtomCount)
 
 class fr_amide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_amide)
 
 class fr_barbitur_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_barbitur)
 
 class SlogP_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA8)
 
 class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(RadiusOfGyration)
 
 class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa3)
 
 class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi0v)
 
 class NumBridgeheadAtoms_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumBridgeheadAtoms)
 
 class NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAromaticHeterocycles)
 
 class Ipc_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Ipc)
 
 class fr_C_O_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_C_O)
 
 class fr_aldehyde_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_aldehyde)
 
 class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcKappa3)
 
 class EState_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(EState_VSA4)
 
 class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumAliphaticCarbocycles)
 
 class fr_tetrazole_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_tetrazole)
 
 class fr_oxazole_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_oxazole)
 
 class fr_benzodiazepine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_benzodiazepine)
 
 class NPR2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(NPR2)
 
 class FpDensityMorgan2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(FpDensityMorgan2)
 
 class NumHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumHeterocycles)
 
 class NumLipinskiHBD_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumLipinskiHBD)
 
 class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi1v)
 
 class fr_Ar_NH_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Ar_NH)
 
 class fr_aryl_methyl_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_aryl_methyl)
 
 class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcChi1v)
 
 class fr_Al_OH_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_Al_OH)
 
 class SMR_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA9)
 
 class HeavyAtomMolWt_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(HeavyAtomMolWt)
 
 class SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcSpherocityIndex)
 
 class fr_allylic_oxid_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_allylic_oxid)
 
 class VSA_EState7_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState7)
 
 class SMR_VSA8_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA8)
 
 class MolLogP_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MolLogP)
 
 class fr_phenol_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_phenol)
 
 class SlogP_VSA1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA1)
 
 class fr_azo_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_azo)
 
 class BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BalabanJ)
 
 class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PMI2)
 
 class fr_isocyan_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_isocyan)
 
 class TPSA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcTPSA)
 
 class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcInertialShapeFactor)
 
 class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa1)
 
 class MinEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MinEStateIndex)
 
 class MaxEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(MaxEStateIndex)
 
 class fr_phenol_noOrthoHbond_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_phenol_noOrthoHbond)
 
 class NumLipinskiHBA_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(CalcNumLipinskiHBA)
 
 class fr_sulfide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_sulfide)
 
 class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Kappa3)
 
 class fr_alkyl_carbamate_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_alkyl_carbamate)
 
 class SlogP_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA7)
 
 class fr_thiocyan_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_thiocyan)
 
 class fr_term_acetylene_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_term_acetylene)
 
 class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(FractionCSP3)
 
 class fr_ester_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_ester)
 
 class NumHAcceptors_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumHAcceptors)
 
 class fr_unbrch_alkane_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_unbrch_alkane)
 
 class fr_sulfone_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_sulfone)
 
 class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(HallKierAlpha)
 
 class SMR_VSA7_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SMR_VSA7)
 
 class BCUT2D_LOGPLOW_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_LOGPLOW)
 
 class BCUT2D_LOGPHI_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D_LOGPHI)
 
 class VSA_EState10_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(VSA_EState10)
 
 class fr_para_hydroxylation_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_para_hydroxylation)
 
 class NumSaturatedCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumSaturatedCarbocycles)
 
 class SlogP_VSA2_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(SlogP_VSA2)
 
 class fr_COO_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_COO)
 
 class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(NumHeteroatoms)
 
 class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi3n)
 
 class PEOE_VSA4_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(PEOE_VSA4)
 
 class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(Chi4n)
 
 class fr_dihydropyridine_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_dihydropyridine)
 
 class fr_priamide_Featurizer(SingleValueMoleculeFeaturizer):
-    dtype=np.int64
+    dtype=np.int32
     featurize=staticmethod(fr_priamide)
 
 molecule_fr_nitro=fr_nitro_Featurizer()

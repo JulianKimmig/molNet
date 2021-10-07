@@ -13,7 +13,7 @@ class EEMcharges_Featurizer(MoleculeFeaturizer):
 
 class BCUT2D_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 8
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(BCUT2D)
         
 
@@ -25,19 +25,19 @@ class GetFeatureInvariants_Featurizer(MoleculeFeaturizer):
 
 class MORSE_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 224
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcMORSE)
         
 
 class RDF_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 210
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcRDF)
         
 
 class WHIM_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 114
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcWHIM)
         
 
@@ -49,37 +49,37 @@ class GetConnectivityInvariants_Featurizer(MoleculeFeaturizer):
 
 class GetUSRCAT_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 60
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(GetUSRCAT)
         
 
 class GETAWAY_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 273
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcGETAWAY)
         
 
 class AUTOCORR2D_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 192
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcAUTOCORR2D)
         
 
 class CrippenDescriptors_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 2
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcCrippenDescriptors)
         
 
 class AUTOCORR3D_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 80
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(CalcAUTOCORR3D)
         
 
 class GetUSR_Featurizer(FixedSizeFeaturizer,MoleculeFeaturizer):
     LENGTH = 12
-    dtype=np.float64
+    dtype=np.float32
     featurize=staticmethod(GetUSR)
         
 
