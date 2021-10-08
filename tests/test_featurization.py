@@ -5,6 +5,7 @@ import unittest
 import numpy as np
 from tqdm import tqdm
 
+from molNet.featurizer.featurizer import FeaturizerList
 from molNet.featurizer.molecule_featurizer import MolWt_Featurizer
 from rdkit.Chem.Lipinski import HeavyAtomCount
 
@@ -58,11 +59,32 @@ class FeatureTest(unittest.TestCase):
 
         class TSVMF(SingleValueMoleculeFeaturizer):
             LENGTH = 1
-
+            dtype=np.float32
             featurize = staticmethod(HeavyAtomCount)
 
         c = generate_random_carbon_lattice(n=4)
+
         assert TSVMF()(c) == 4
+        assert TSVMF()(c).dtype == np.float32
+
+        class TLF(FeaturizerList):
+            def __init__(self, *args, **kwargs):
+                super().__init__([TSVMF()], *args, **kwargs)
+
+        c = generate_random_carbon_lattice(n=4)
+
+        assert TLF()(c) == 4
+        assert TLF()(c).dtype == np.float32
+
+        c = generate_random_carbon_lattice(n=4)
+        fl=FeaturizerList([TLF(),TSVMF()],dtype=np.float16)
+        assert fl(c).dtype == np.float16
+        assert np.allclose(fl(c),[4,4])
+
+        c = generate_random_carbon_lattice(n=4)
+        fl=FeaturizerList([TLF(),TSVMF()])
+        assert fl(c).dtype == np.float32
+        assert np.allclose(fl(c),[4,4])
 
     def test_parallel_featurization(self):
         # SEED=263
