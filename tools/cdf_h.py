@@ -18,7 +18,7 @@ def func(d):
     return r
 
 
-def generate_code_inject(classname, data_folder="ecdf_data"):
+def generate_code_inject(classname, data_folder):
     df_cont = os.listdir(data_folder)
     avail_norms = [f.replace(".data", "") for f in df_cont if ".data" in f]
     avail_norms = [f for f in avail_norms if f + ".data" in df_cont]

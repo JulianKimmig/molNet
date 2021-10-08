@@ -27,7 +27,7 @@ from rdkit import Chem
 from rdkit.Chem import Mol
 
 
-def _func_from_smiles(d):
+def _func_mol_from_smiles(d):
     f = d[0][3]()
     r = np.zeros((len(d), len(f))) * np.nan
     for i, data in enumerate(d):
@@ -37,10 +37,11 @@ def _func_from_smiles(d):
             r[i] = mg.as_arrays()["graph_features"]["para_feats"]
         except ConformerError:
             pass
-    return r
+    r._data_read = len(d)
+    return [r,len(d)]
 
 
-def _func_from_mol_file(d):
+def _func_mol_from_mol_file(d):
     featurizer = d[0][3](preferred_normalization="unity")
     r = np.zeros((len(d), len(featurizer))) * np.nan
     for i, data in enumerate(d):
@@ -53,7 +54,32 @@ def _func_from_mol_file(d):
             r[i] = mg.as_arrays()["graph_features"]["para_feats"]
         except ConformerError:
             pass
-    return r
+    return [r,len(d)]
+
+MAX_ATOMS=10
+from random import shuffle
+def _func_atom_from_mol_file(d):
+    featurizer = d[0][3](preferred_normalization="unity")
+    tl=0
+    atoms=[]
+    for i, data in enumerate(d):
+        with open(data[0], "rb") as file:
+            mol = Mol(file.read())
+        mg = mol_graph_from_mol(mol, *data[1], **data[2])
+        _atoms = list(mg.get_mol().GetAtoms())
+        if len(_atoms)>MAX_ATOMS:
+            shuffle(_atoms)
+            _atoms=_atoms[:MAX_ATOMS]
+        atoms.append(_atoms)
+        tl+=len(_atoms)
+        
+    r = np.zeros((tl, len(featurizer))) * np.nan
+    cp=0
+    for i,data in enumerate(d):
+        for a in atoms[i]:
+            r[cp]=featurizer(a)
+            cp+=1
+    return [r,len(d)]
 
 
 def ecdf(data, res=None, smooth=False, unique_only=False):
@@ -84,13 +110,20 @@ def ecdf(data, res=None, smooth=False, unique_only=False):
     return x, y
 
 
-def gen_ecdf_from_mol_file(*args, **kwargs):
-    return gen_ecdf(*args, func=_func_from_mol_file, **kwargs)
+def gen_mol_ecdf_from_mol_file(*args, **kwargs):
+    return gen_ecdf(*args, func=_func_mol_from_mol_file, **kwargs)
 
 
-def gen_ecdf_from_smiles(*args, **kwargs):
-    return gen_ecdf(*args, func=_func_from_smiles, **kwargs)
+def gen_mol_ecdf_from_smiles(*args, **kwargs):
+    return gen_ecdf(*args, func=_func_mol_from_smiles, **kwargs)
 
+
+
+def gen_mol_atom_from_smiles(*args, **kwargs):
+    return gen_ecdf(*args, func=_func_atom_from_smiles, **kwargs)
+
+def gen_atom_ecdf_from_mol_file(*args, **kwargs):
+    return gen_ecdf(*args, func=_func_atom_from_mol_file, **kwargs,stretcher=MAX_ATOMS)
 
 def gen_ecdf(
     data,
@@ -103,9 +136,10 @@ def gen_ecdf(
     split=100,
     cores="all-1",
     min_run=0,
+    stretcher=1,
 ):
 
-    r = np.zeros((len(data), len(featurizer_class()))) * np.nan
+    r = np.zeros((len(data)*stretcher, len(featurizer_class()))) * np.nan
 
     cores = solve_cores(cores)
     MOLNET_LOGGER.info(f"Using {cores} cores")
@@ -128,55 +162,58 @@ def gen_ecdf(
 
     rcp = 0
     runs = 0
+    rounds=0
     with Pool(cores) as p:
         if progess_bar:
             with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
-                for ri in p.imap(func, sub_data):
-                    lri = ri.shape[0]
+                for (ri,lri) in p.imap(func, sub_data):
                     runs += lri
-
+                    rounds+=1
+                    
+                    
                     ri = ri[(~np.isnan(ri).any(axis=1))]
                     r[rcp : rcp + ri.shape[0]] = ri
                     rcp += ri.shape[0]
+                    
+                    if rounds%stretcher == 0:
+                        necdf_data = ecdf(r, ecdres, smooth=True)
+                        necdf_x = []
+                        necdf_y = []
+                        if isinstance(necdf_data, tuple):
+                            necdf_x.append(necdf_data[0])
+                            necdf_y.append(necdf_data[1])
+                        else:
+                            for d in necdf_data:
+                                necdf_x.append(d[0])
+                                necdf_y.append(d[1])
 
-                    necdf_data = ecdf(r, ecdres, smooth=True)
-                    necdf_x = []
-                    necdf_y = []
-                    if isinstance(necdf_data, tuple):
-                        necdf_x.append(necdf_data[0])
-                        necdf_y.append(necdf_data[1])
-                    else:
-                        for d in necdf_data:
-                            necdf_x.append(d[0])
-                            necdf_y.append(d[1])
+                        cat_necdf_y = np.concatenate(necdf_y)
+                        error.append(np.sqrt(((cat_necdf_y - precfd) ** 2).mean()))
 
-                    cat_necdf_y = np.concatenate(necdf_y)
-                    error.append(np.sqrt(((cat_necdf_y - precfd) ** 2).mean()))
+                        if error[-1] < th:
+                            _th_patience -= lri
+                            if _th_patience <= 0 and runs >= min_run:
+                                MOLNET_LOGGER.info(
+                                    "stop due to  beeing long under threshold"
+                                )
+                                pbar.update(lri)
+                                break
+                        else:
+                            _th_patience = th_patience
 
-                    if error[-1] < th:
-                        _th_patience -= lri
-                        if _th_patience <= 0 and runs >= min_run:
-                            MOLNET_LOGGER.info(
-                                "stop due to  beeing long under threshold"
-                            )
-                            pbar.update(lri)
-                            break
-                    else:
-                        _th_patience = th_patience
+                        if error[-1] < min_error:
+                            min_error = error[-1]
+                            _es_patience = es_patience
 
-                    if error[-1] < min_error:
-                        min_error = error[-1]
-                        _es_patience = es_patience
+                        else:
+                            _es_patience -= lri
+                            if _es_patience <= 0 and runs >= min_run:
+                                MOLNET_LOGGER.info("stop due to not getting any better")
+                                pbar.update(lri)
+                                break
 
-                    else:
-                        _es_patience -= lri
-                        if _es_patience <= 0 and runs >= min_run:
-                            MOLNET_LOGGER.info("stop due to not getting any better")
-                            pbar.update(lri)
-                            break
-
-                    precfd = cat_necdf_y
-                    pbar.set_postfix({"diff": error[-1]})
+                        precfd = cat_necdf_y
+                        pbar.set_postfix({"diff": error[-1]})
                     pbar.update(lri)
     r = r[(~np.isnan(r).any(axis=1))]
 
