@@ -19,7 +19,7 @@ class Featurizer(NormalizationClass):
     def pre_featurize(self, x):
         return x
 
-    def __init__(self, name=None, pre_featurize=None,dtype=None, *args, **kwargs):
+    def __init__(self, name=None, pre_featurize=None, dtype=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if name is None:
@@ -32,7 +32,7 @@ class Featurizer(NormalizationClass):
 
         if dtype is None:
             dtype = self.dtype
-        self._dtype=dtype
+        self._dtype = dtype
         self._pre_featurize = pre_featurize
         self._name = name
 
@@ -133,8 +133,10 @@ class FeaturizerList(Featurizer):
     def __init__(self, feature_list, name=None, *args, **kwargs):
         if name == None:
             name = "FeatureList({})".format(",".join([str(f) for f in feature_list]))
-        if not "dtype" in kwargs and len(feature_list)>0:
-            kwargs["dtype"]=(np.concatenate([np.ones(1,dtype=f.get_dtype()) for f in feature_list])).dtype
+        if not "dtype" in kwargs and len(feature_list) > 0:
+            kwargs["dtype"] = (
+                np.concatenate([np.ones(1, dtype=f.get_dtype()) for f in feature_list])
+            ).dtype
 
         self._feature_list = feature_list
         super().__init__(name=name, *args, **kwargs)

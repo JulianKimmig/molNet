@@ -59,7 +59,7 @@ class FeatureTest(unittest.TestCase):
 
         class TSVMF(SingleValueMoleculeFeaturizer):
             LENGTH = 1
-            dtype=np.float32
+            dtype = np.float32
             featurize = staticmethod(HeavyAtomCount)
 
         c = generate_random_carbon_lattice(n=4)
@@ -77,14 +77,14 @@ class FeatureTest(unittest.TestCase):
         assert TLF()(c).dtype == np.float32
 
         c = generate_random_carbon_lattice(n=4)
-        fl=FeaturizerList([TLF(),TSVMF()],dtype=np.float16)
+        fl = FeaturizerList([TLF(), TSVMF()], dtype=np.float16)
         assert fl(c).dtype == np.float16
-        assert np.allclose(fl(c),[4,4])
+        assert np.allclose(fl(c), [4, 4])
 
         c = generate_random_carbon_lattice(n=4)
-        fl=FeaturizerList([TLF(),TSVMF()])
+        fl = FeaturizerList([TLF(), TSVMF()])
         assert fl(c).dtype == np.float32
-        assert np.allclose(fl(c),[4,4])
+        assert np.allclose(fl(c), [4, 4])
 
     def test_parallel_featurization(self):
         # SEED=263
