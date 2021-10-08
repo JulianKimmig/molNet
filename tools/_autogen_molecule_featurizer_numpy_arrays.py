@@ -2,7 +2,7 @@ from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer,SingleValu
 from molNet.featurizer.featurizer import FixedSizeFeaturizer
 import numpy as np
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
-from rdkit.Chem.rdmolops import (GetDistanceMatrix,GetAdjacencyMatrix,Get3DDistanceMatrix,)
+from rdkit.Chem.rdmolops import (GetAdjacencyMatrix,Get3DDistanceMatrix,GetDistanceMatrix,)
 
 
 class GetDistanceMatrix_Featurizer(MoleculeFeaturizer):
