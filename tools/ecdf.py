@@ -38,7 +38,7 @@ def _func_mol_from_smiles(d):
         except ConformerError:
             pass
     r._data_read = len(d)
-    return [r,len(d)]
+    return [r, len(d)]
 
 
 def _func_mol_from_mol_file(d):
@@ -54,32 +54,35 @@ def _func_mol_from_mol_file(d):
             r[i] = mg.as_arrays()["graph_features"]["para_feats"]
         except ConformerError:
             pass
-    return [r,len(d)]
+    return [r, len(d)]
 
-MAX_ATOMS=10
+
+MAX_ATOMS = 10
 from random import shuffle
+
+
 def _func_atom_from_mol_file(d):
     featurizer = d[0][3](preferred_normalization="unity")
-    tl=0
-    atoms=[]
+    tl = 0
+    atoms = []
     for i, data in enumerate(d):
         with open(data[0], "rb") as file:
             mol = Mol(file.read())
         mg = mol_graph_from_mol(mol, *data[1], **data[2])
         _atoms = list(mg.get_mol().GetAtoms())
-        if len(_atoms)>MAX_ATOMS:
+        if len(_atoms) > MAX_ATOMS:
             shuffle(_atoms)
-            _atoms=_atoms[:MAX_ATOMS]
+            _atoms = _atoms[:MAX_ATOMS]
         atoms.append(_atoms)
-        tl+=len(_atoms)
-        
+        tl += len(_atoms)
+
     r = np.zeros((tl, len(featurizer))) * np.nan
-    cp=0
-    for i,data in enumerate(d):
+    cp = 0
+    for i, data in enumerate(d):
         for a in atoms[i]:
-            r[cp]=featurizer(a)
-            cp+=1
-    return [r,len(d)]
+            r[cp] = featurizer(a)
+            cp += 1
+    return [r, len(d)]
 
 
 def ecdf(data, res=None, smooth=False, unique_only=False):
@@ -118,12 +121,13 @@ def gen_mol_ecdf_from_smiles(*args, **kwargs):
     return gen_ecdf(*args, func=_func_mol_from_smiles, **kwargs)
 
 
-
 def gen_mol_atom_from_smiles(*args, **kwargs):
     return gen_ecdf(*args, func=_func_atom_from_smiles, **kwargs)
 
+
 def gen_atom_ecdf_from_mol_file(*args, **kwargs):
-    return gen_ecdf(*args, func=_func_atom_from_mol_file, **kwargs,stretcher=MAX_ATOMS)
+    return gen_ecdf(*args, func=_func_atom_from_mol_file, **kwargs, stretcher=MAX_ATOMS)
+
 
 def gen_ecdf(
     data,
@@ -139,7 +143,7 @@ def gen_ecdf(
     stretcher=1,
 ):
 
-    r = np.zeros((len(data)*stretcher, len(featurizer_class()))) * np.nan
+    r = np.zeros((len(data) * stretcher, len(featurizer_class()))) * np.nan
 
     cores = solve_cores(cores)
     MOLNET_LOGGER.info(f"Using {cores} cores")
@@ -162,20 +166,19 @@ def gen_ecdf(
 
     rcp = 0
     runs = 0
-    rounds=0
+    rounds = 0
     with Pool(cores) as p:
         if progess_bar:
             with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
-                for (ri,lri) in p.imap(func, sub_data):
+                for (ri, lri) in p.imap(func, sub_data):
                     runs += lri
-                    rounds+=1
-                    
-                    
+                    rounds += 1
+
                     ri = ri[(~np.isnan(ri).any(axis=1))]
                     r[rcp : rcp + ri.shape[0]] = ri
                     rcp += ri.shape[0]
-                    
-                    if rounds%stretcher == 0:
+
+                    if rounds % stretcher == 0:
                         necdf_data = ecdf(r, ecdres, smooth=True)
                         necdf_x = []
                         necdf_y = []

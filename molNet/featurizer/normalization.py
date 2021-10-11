@@ -16,11 +16,29 @@ def min_max_norm(x, min: float = 0, max: float = 1):
 def sig_norm(x, m: float = 0, d: float = 1):
     return 1 / (1 + np.exp(-d * (x - m)))
 
+<<<<<<< HEAD
+=======
+
+def scaled_sig_norm(x, m: float = 0, d: float = 1, ml: float = 1, cl: float = 0):
+    return linear_norm(sig_norm(x, m, d), ml, cl)
+
+
+>>>>>>> 3a4ef9b47d39261f7b23c48e5302154b6b288fc7
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
     li = x <= m
     # mx = np.argmin(np.abs(x - m))
     return np.concatenate((sig_norm(x[li], m=m, d=d1), sig_norm(x[~li], m=m, d=d2)))
 
+<<<<<<< HEAD
+=======
+
+def scaled_dual_sig_norm(
+    x, m: float = 0, d1: float = 1, d2: float = 1, ml: float = 1, cl: float = 0
+):
+    return linear_norm(dual_sig_norm(x, m, d1, d2), ml, cl)
+
+
+>>>>>>> 3a4ef9b47d39261f7b23c48e5302154b6b288fc7
 def genlog_norm(x, B, M, Q, v):
     # B=growth rate (-np.inf,np.inf)
     # M=shifts horizontally (-np.inf,np.inf)
@@ -28,7 +46,16 @@ def genlog_norm(x, B, M, Q, v):
     # v=stepness (1e-12,np.inf)
     return np.nan_to_num(1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v), nan=np.nan)
 
+<<<<<<< HEAD
 _t_array = np.arange(-4, 4)
+=======
+
+def scaled_genlog_norm(x, B, M, Q, v, m, c):
+    return linear_norm(genlog_norm(x, B, M, Q, v), m, c)
+
+
+_t_array = np.linspace(0, 1, 5)
+>>>>>>> 3a4ef9b47d39261f7b23c48e5302154b6b288fc7
 
 
 class NormalizationException(Exception):
@@ -129,6 +156,7 @@ class NormalizationClass:
     @preferred_norm.setter
     def preferred_norm(self, normalization):
         self._preferred_norm = self._norm_map[normalization]
+
         if np.isnan(self.normalize(_t_array)).any():
             raise NormalizationException(
                 f"cannot set normalization to '{normalization}', there is nan in the result"

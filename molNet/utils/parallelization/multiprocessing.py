@@ -30,12 +30,27 @@ def solve_cores(cores="all-1"):
 
 
 def parallelize(
-    func, data, cores=None, progess_bar=True, max_split=1000, progress_bar_kwargs={}
+    func, data, cores=None, progess_bar=True, split_parts=None, progress_bar_kwargs={}
 ):
-    data = np.array(data)
+    # data = np.array(data)
     cores = solve_cores(cores)
-    MOLNET_LOGGER.debug(f"using {cores} cores")
-    sub_data = np.array_split(data, min(max_split, int(np.ceil(len(data) / cores))))
+
+    l = len(data)
+    if split_parts is None or split_parts < 1:
+        split_parts = cores
+
+    # perfect_split=int(np.ceil(l / cores))
+    p = min(l, split_parts)
+    MOLNET_LOGGER.debug(f"using {cores} cores to work on {p} fragments")
+
+    pl = l // p
+    pl1 = pl + 1
+    r = l % p
+    sr = [[i * pl1, (i + 1) * pl1] for i in range(r)] + [
+        [i * pl + r, (i + 1) * pl + r] for i in range(r, p)
+    ]
+    sub_data = (data[i:k] for i, k in sr)
+    # sub_data = np.array_split(data, min(max_split, int(np.ceil(len(data) / cores))))
     r = []
     if cores > 1:
         with Pool(cores) as p:
@@ -57,4 +72,7 @@ def parallelize(
         else:
             for sd in sub_data:
                 r.extend(func(sd))
-    return np.array(r)
+
+    if len(r) > 0 and isinstance(r[0], np.ndarray):
+        return np.array(r)
+    return r
