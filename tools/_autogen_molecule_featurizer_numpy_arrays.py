@@ -7,8 +7,8 @@ import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdmolops import (
-    Get3DDistanceMatrix,
     GetAdjacencyMatrix,
+    Get3DDistanceMatrix,
     GetDistanceMatrix,
 )
 

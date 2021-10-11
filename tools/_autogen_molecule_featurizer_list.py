@@ -7,19 +7,19 @@ import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
-    CalcRDF,
-    GetUSR,
-    GetUSRCAT,
-    CalcMORSE,
-    CalcEEMcharges,
     CalcGETAWAY,
-    GetConnectivityInvariants,
     BCUT2D,
-    GetFeatureInvariants,
-    CalcAUTOCORR2D,
-    CalcAUTOCORR3D,
+    CalcRDF,
+    GetConnectivityInvariants,
     CalcCrippenDescriptors,
     CalcWHIM,
+    GetUSR,
+    CalcMORSE,
+    CalcAUTOCORR2D,
+    CalcAUTOCORR3D,
+    GetUSRCAT,
+    CalcEEMcharges,
+    GetFeatureInvariants,
 )
 
 

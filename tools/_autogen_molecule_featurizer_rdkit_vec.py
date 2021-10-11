@@ -7,16 +7,16 @@ import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
+    GetHashedAtomPairFingerprint,
     GetHashedAtomPairFingerprintAsBitVect,
     GetMACCSKeysFingerprint,
     GetHashedTopologicalTorsionFingerprint,
-    GetHashedAtomPairFingerprint,
     GetHashedTopologicalTorsionFingerprintAsBitVect,
 )
 from rdkit.Chem.rdmolops import (
-    LayeredFingerprint,
-    RDKFingerprint,
     PatternFingerprint,
+    RDKFingerprint,
+    LayeredFingerprint,
 )
 
 
