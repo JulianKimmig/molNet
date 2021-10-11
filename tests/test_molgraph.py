@@ -1,16 +1,29 @@
+import logging
 import pickle
 import random
+import sys
 import unittest
 
 import numpy as np
+
 from rdkit.Chem import MolFromSmiles, MolToSmiles
 
 from molNet.featurizer.atom_featurizer import AtomMassFeaturizer, AtomicNumberFeaturizer
-from molNet.featurizer.molecule_featurizer import molecule_all_single_val_feats, NumAtoms_Featurizer
-from molNet.mol.molgraph import mol_graph_from_mol, mol_graph_from_smiles, parallel_molgraph_from_mol, \
-    parallel_featurize_molgraphs, assert_molgraphs_data_equal, MolgraphEqualsException, parallel_asset_conformers
+from molNet.featurizer.molecule_featurizer import (
+    molecule_all_single_val_feats,
+    NumAtoms_Featurizer,
+)
+from molNet.mol import molgraph
+from molNet.mol.molgraph import (
+    mol_graph_from_mol,
+    mol_graph_from_smiles,
+    parallel_molgraph_from_mol,
+    parallel_featurize_molgraphs,
+    assert_molgraphs_data_equal,
+    MolgraphEqualsException,
+)
 from molNet.utils.mol.generator import generate_n_random_hetero_carbon_lattice
-from molNet.utils.mol.properties import assert_conformers
+from molNet.utils.mol.properties import assert_conformers, parallel_asset_conformers
 
 
 class MolGraphTest(unittest.TestCase):
@@ -173,46 +186,46 @@ class MolGraphTest(unittest.TestCase):
             if isinstance(v, np.ndarray):
                 assert np.allclose(nfmgd["graph_features"][k], v)
 
-
     def test_parallelization(self):
-        mols = generate_n_random_hetero_carbon_lattice(10,max_c=20)
-        mgs= parallel_molgraph_from_mol(mols)
-        mgs= [mg for mg  in parallel_asset_conformers(mgs,iterations=1) if mg is not None]
+        L = 1
+        mols = generate_n_random_hetero_carbon_lattice(L, max_c=10)
+        mols = [
+            mg for mg in parallel_asset_conformers(mols, iterations=1) if mg is not None
+        ]
+        mgs = parallel_molgraph_from_mol(mols)
 
-        for mg in mgs:
-            assert_conformers(mg.get_mol())
+        mgsf = parallel_featurize_molgraphs(mgs, mol_x_feats=[NumAtoms_Featurizer])
 
-        mgsf=parallel_featurize_molgraphs(mgs,mol_x_feats=[NumAtoms_Featurizer])
-        f=NumAtoms_Featurizer()
+        assert len(mgsf) > 0.9 * L
+
+        f = NumAtoms_Featurizer()
         for idx in range(len(mgsf)):
-            #idx = random.randint(0,len(mgs))
-            mg=mgs[idx]
+            # idx = random.randint(0,len(mgs))
+            mg = mgs[idx]
             with self.assertRaises(MolgraphEqualsException) as context:
-                assert_molgraphs_data_equal(mg,mgsf[idx])
+                assert_molgraphs_data_equal(mg, mgsf[idx])
             mg.featurize_mol(f)
-            assert_molgraphs_data_equal(mg,mgsf[idx])
+            assert_molgraphs_data_equal(mg, mgsf[idx])
 
-        mgsf=parallel_featurize_molgraphs(mgs,atom_x_feats=[AtomMassFeaturizer])
-        f=AtomMassFeaturizer()
+        mgsf = parallel_featurize_molgraphs(mgs, atom_x_feats=[AtomMassFeaturizer])
+        f = AtomMassFeaturizer()
         for idx in range(len(mgsf)):
-            #idx = random.randint(0,len(mgs))
-            mg=mgs[idx]
+            # idx = random.randint(0,len(mgs))
+            mg = mgs[idx]
             with self.assertRaises(MolgraphEqualsException) as context:
-                assert_molgraphs_data_equal(mg,mgsf[idx])
+                assert_molgraphs_data_equal(mg, mgsf[idx])
             mg.featurize_atoms(f)
-            assert_molgraphs_data_equal(mg,mgsf[idx])
+            assert_molgraphs_data_equal(mg, mgsf[idx])
 
-        mgsf=parallel_featurize_molgraphs(mgs,atom_y_feats=[AtomicNumberFeaturizer])
-        f=AtomicNumberFeaturizer()
+        mgsf = parallel_featurize_molgraphs(mgs, atom_y_feats=[AtomicNumberFeaturizer])
+        f = AtomicNumberFeaturizer()
         for idx in range(len(mgsf)):
-            #idx = random.randint(0,len(mgs))
-            mg=mgs[idx]
+            # idx = random.randint(0,len(mgs))
+            mg = mgs[idx]
             with self.assertRaises(MolgraphEqualsException) as context:
-                assert_molgraphs_data_equal(mg,mgsf[idx])
-            mg.featurize_atoms(f,as_y=True)
-            assert_molgraphs_data_equal(mg,mgsf[idx])
+                assert_molgraphs_data_equal(mg, mgsf[idx])
+            mg.featurize_atoms(f, as_y=True)
+            assert_molgraphs_data_equal(mg, mgsf[idx])
 
 
-
-
-
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)

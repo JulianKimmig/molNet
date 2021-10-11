@@ -199,22 +199,25 @@ def parallel_molgraph_from_smiles(
         progress_bar_kwargs=dict(unit=" mg"),
     )
 
-def _single_call_asset_conformers(molgraphs:List[Tuple[MolGraph,int]]):
-    mgs=[]
-    for mg,iterations in molgraphs:
+
+def _single_call_asset_conformers(molgraphs: List[Tuple[MolGraph, int]]):
+    mgs = []
+    for mg, iterations in molgraphs:
         try:
-            assert_conformers(mg.get_mol(),iterations=iterations)
+            mg._mol = assert_conformers(mg.get_mol(), iterations=iterations)
+            mgs.append(mg)
         except ConformerError:
             mgs.append(None)
-        mgs.append(mg)
+
     return mgs
 
+
 def parallel_asset_conformers(
-        molgraphs:List[MolGraph],iterations=100, cores="all-1", progess_bar=True
+    molgraphs: List[MolGraph], iterations=100, cores="all-1", progess_bar=True
 ):
     return parallelize(
         _single_call_asset_conformers,
-        [[mg,iterations] for mg  in molgraphs],
+        [[mg, iterations] for mg in molgraphs],
         cores=cores,
         progess_bar=progess_bar,
         progress_bar_kwargs=dict(unit=" mg"),
@@ -223,7 +226,7 @@ def parallel_asset_conformers(
 
 def parallel_molgraph_from_mol(
     mols, gen_args=[], gen_kwargs={}, cores="all-1", progess_bar=True
-)->List[MolGraph]:
+) -> List[MolGraph]:
     return parallelize(
         _single_call_mol_graph_from_mol,
         [(s, gen_args, gen_kwargs) for s in mols],
@@ -232,34 +235,45 @@ def parallel_molgraph_from_mol(
         progress_bar_kwargs=dict(unit=" mg"),
     )
 
+
 def _single_call_parallel_featurize_molgraphs(d):
-    atomx_feats=[f() for f in d[0][1]]
-    atomy_feats=[f() for f in d[0][2]]
-    molx_feats=[f() for f in d[0][3]]
-    moly_feats=[f() for f in d[0][4]]
-    mgs=[]
+    atomx_feats = [f() for f in d[0][1]]
+    atomy_feats = [f() for f in d[0][2]]
+    molx_feats = [f() for f in d[0][3]]
+    moly_feats = [f() for f in d[0][4]]
+    mgs = []
     for i, data in enumerate(d):
-        mg:MolGraph=data[0]
+        mg: MolGraph = data[0]
         try:
             for axf in atomx_feats:
                 mg.featurize_atoms(axf)
             for ayf in atomy_feats:
-                mg.featurize_atoms(ayf,as_y=True)
+                mg.featurize_atoms(ayf, as_y=True)
             for mxf in molx_feats:
                 mg.featurize_mol(mxf)
             for myf in moly_feats:
-                mg.featurize_mol(myf,as_y=True)
+                mg.featurize_mol(myf, as_y=True)
             mgs.append(mg)
         except ConformerError:
             mgs.append(None)
     return mgs
 
+
 def parallel_featurize_molgraphs(
-        molgraphs:List[MolGraph], atom_x_feats=[],atom_y_feats=[], mol_x_feats=[], mol_y_feats=[], cores="all-1", progess_bar=True
+    molgraphs: List[MolGraph],
+    atom_x_feats=[],
+    atom_y_feats=[],
+    mol_x_feats=[],
+    mol_y_feats=[],
+    cores="all-1",
+    progess_bar=True,
 ):
     return parallelize(
         _single_call_parallel_featurize_molgraphs,
-        [(mg,atom_x_feats,atom_y_feats,mol_x_feats,mol_y_feats) for mg in molgraphs],
+        [
+            (mg, atom_x_feats, atom_y_feats, mol_x_feats, mol_y_feats)
+            for mg in molgraphs
+        ],
         cores=cores,
         progess_bar=progess_bar,
         progress_bar_kwargs=dict(unit=" mg"),

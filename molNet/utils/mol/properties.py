@@ -1,9 +1,11 @@
 import random
+from typing import List
 
 from rdkit.Chem import AllChem, AddHs
 from rdkit.Chem.rdchem import Mol
 
 from molNet import ConformerError
+from molNet.utils.parallelization.multiprocessing import parallelize
 
 
 def create_conformers(mol: Mol, iterations: int = 100, seed=None) -> Mol:
@@ -91,3 +93,27 @@ def has_confomers(mol):
 
     except:
         return False
+
+
+def _single_call_asset_conformers(data):
+    mols = []
+    for mol, iterations in data:
+        try:
+            mol = assert_conformers(mol, iterations=iterations)
+            mols.append(mol)
+        except ConformerError:
+            mols.append(None)
+
+    return mols
+
+
+def parallel_asset_conformers(
+    mols: List[Mol], iterations=100, cores="all-1", progess_bar=True
+):
+    return parallelize(
+        _single_call_asset_conformers,
+        [[m, iterations] for m in mols],
+        cores=cores,
+        progess_bar=progess_bar,
+        progress_bar_kwargs=dict(unit=" mol"),
+    )
