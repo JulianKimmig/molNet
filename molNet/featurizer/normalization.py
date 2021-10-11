@@ -16,16 +16,10 @@ def min_max_norm(x, min: float = 0, max: float = 1):
 def sig_norm(x, m: float = 0, d: float = 1):
     return 1 / (1 + np.exp(-d * (x - m)))
 
-def scaled_sig_norm(x,m: float = 0, d: float = 1,ml: float = 1,cl: float = 0):
-    return linear_norm(sig_norm(x,m, d),ml,cl)
-
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
     li = x <= m
     # mx = np.argmin(np.abs(x - m))
     return np.concatenate((sig_norm(x[li], m=m, d=d1), sig_norm(x[~li], m=m, d=d2)))
-
-def scaled_dual_sig_norm(x,m: float = 0, d1: float = 1, d2: float = 1,ml: float = 1,cl: float = 0):
-    return linear_norm(dual_sig_norm(x,m, d1,d2),ml,cl)
 
 def genlog_norm(x, B, M, Q, v):
     # B=growth rate (-np.inf,np.inf)
@@ -33,9 +27,6 @@ def genlog_norm(x, B, M, Q, v):
     # Q=urvibess/stepness (0,np.inf)
     # v=stepness (1e-12,np.inf)
     return np.nan_to_num(1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v), nan=np.nan)
-
-def scaled_genlog_norm(x, B, M, Q, v,m,c):
-    return linear_norm(genlog_norm(x, B, M, Q, v),m,c)
 
 _t_array = np.arange(-4, 4)
 
