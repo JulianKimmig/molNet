@@ -1,4 +1,5 @@
 import copy
+import inspect
 from typing import Dict, List, Tuple
 
 import networkx as nx
@@ -237,10 +238,10 @@ def parallel_molgraph_from_mol(
 
 
 def _single_call_parallel_featurize_molgraphs(d):
-    atomx_feats = [f() for f in d[0][1]]
-    atomy_feats = [f() for f in d[0][2]]
-    molx_feats = [f() for f in d[0][3]]
-    moly_feats = [f() for f in d[0][4]]
+    atomx_feats = [f() if inspect.isclass(f) else f for f in d[0][1]]
+    atomy_feats = [f() if inspect.isclass(f) else f  for f in d[0][2]]
+    molx_feats = [f() if inspect.isclass(f) else f  for f in d[0][3]]
+    moly_feats = [f() if inspect.isclass(f) else f  for f in d[0][4]]
     mgs = []
     for i, data in enumerate(d):
         mg: MolGraph = data[0]
