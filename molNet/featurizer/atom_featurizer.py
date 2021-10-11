@@ -160,7 +160,7 @@ class ConnectedAtomsFeaturizer(AtomFeaturizer):
         connected_atom_types=np.zeros(self.LENGTH)
         for b in atom.GetBonds():
             connected_atom_types[self.atoms.index(b.GetOtherAtom(atom).GetSymbol())]+=1
-
+        return connected_atom_types
 
 class AtomicNumberFeaturizer(SingleValueAtomFeaturizer):
     dtype = np.int32
