@@ -4,7 +4,7 @@ import rdkit.Chem.AllChem
 from rdkit.Chem import rdchem, SetHybridization, HybridizationType
 from rdkit.Chem.rdchem import Mol
 
-from ._atom_featurizer import SingleValueAtomFeaturizer
+from ._atom_featurizer import SingleValueAtomFeaturizer, AtomFeaturizer
 from .featurizer import OneHotFeaturizer, FeaturizerList
 
 __all__ = [
@@ -150,6 +150,16 @@ atom_atomic_number_one_hot = OneHotFeaturizer(
     pre_featurize=_get_atom_num,
     name="atomic_number_one_hot",
 )
+
+class ConnectedAtomsFeaturizer(AtomFeaturizer):
+    dtype = np.int32
+    LENGTH = len(ATOMIC_SYMBOL_NUMBERS)
+    atoms=list(ATOMIC_SYMBOL_NUMBERS.keys())
+
+    def featurize(self,atom):
+        connected_atom_types=np.zeros(len(self))
+        for b in atom.GetBonds():
+            connected_atom_types[self.atoms.index(b.GetOtherAtom(atom).GetSymbol())]+=1
 
 
 class AtomicNumberFeaturizer(SingleValueAtomFeaturizer):
