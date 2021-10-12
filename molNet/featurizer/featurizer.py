@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Union
 from warnings import warn
 
 AS_NUMPY_ARRY = False
@@ -15,11 +15,12 @@ class Featurizer(NormalizationClass):
     dtype = object
     NAME = None
     NORMALIZATION = None
+    DESCRIPTION=None
 
     def pre_featurize(self, x):
         return x
 
-    def __init__(self, name=None, pre_featurize=None, dtype=None, *args, **kwargs):
+    def __init__(self, name=None, pre_featurize=None, dtype=None, feature_descriptions=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if name is None:
@@ -36,11 +37,19 @@ class Featurizer(NormalizationClass):
         self._pre_featurize = pre_featurize
         self._name = name
 
+        if feature_descriptions is None and self.DESCRIPTION is not None:
+            feature_descriptions = self.DESCRIPTION
+        self._feature_descriptions = feature_descriptions
+
     def __str__(self):
         return self._name
 
     def __repr__(self):
-        return self._name
+        return {"name":self._name,
+                "description":self._feature_descriptions,
+                "dtype":self._dtype,
+                "norm":self._preferred_norm_name,
+                }
 
     def __add__(self, other):
         if isinstance(other, FeaturizerList):
@@ -63,20 +72,20 @@ class Featurizer(NormalizationClass):
         f = self.normalize(f)
         return f
 
+    def describe_features(self):
+        if self._feature_descriptions is None:
+            return self.__repr__
+        return self._feature_descriptions
 
-class FixedSizeFeaturizer:
+class FixedSizeFeaturizer(Featurizer):
     LENGTH: int = -1
-    FEATURE_DESCRIPTION: List[str] = None
+    DESCRIPTION: Union[str,List[str]] = None
 
-    def __init__(self, length=None, feature_descriptions=None, *args, **kwargs):
+    def __init__(self, length=None, *args, **kwargs):
         if length is None and self.LENGTH > 0:
             length = self.LENGTH
         self._length = length
 
-        if feature_descriptions is None and self.FEATURE_DESCRIPTION is not None:
-            feature_descriptions = self.FEATURE_DESCRIPTION
-
-        self._feature_descriptions = feature_descriptions
         super().__init__(*args, **kwargs)
 
     def __len__(self):
@@ -98,10 +107,13 @@ class FixedSizeFeaturizer:
         if self._feature_descriptions is None:
             return [str(self)] * len(self)
 
+        if isinstance(self._feature_descriptions,str):
+            return super().describe_features()
+
         return [self._feature_descriptions[i] for i in range(len(self))]
 
 
-class OneHotFeaturizer(FixedSizeFeaturizer, Featurizer):
+class OneHotFeaturizer(FixedSizeFeaturizer):
     dtype = np.bool_
 
     def __init__(self, possible_values, *args, **kwargs):

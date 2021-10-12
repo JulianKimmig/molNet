@@ -130,12 +130,12 @@ molecule_num_fragments = NumFragments_Featurizer()
 
 from ._autogen_molecule_featurizer import _available_featurizer as _agaf
 
-_available_featurizer = {
-    **_agaf,
-    "molecule_num_atoms": molecule_num_atoms,
-    "molecule_num_bonds": molecule_num_bonds,
-    "molecule_num_fragments": molecule_num_fragments,
-}
+_available_featurizer = [
+    *_agaf,
+    molecule_num_atoms,
+    molecule_num_bonds,
+    molecule_num_fragments,
+]
 
 
 class AllSingleValueMoleculeFeaturizer(FeaturizerList):
@@ -145,7 +145,7 @@ class AllSingleValueMoleculeFeaturizer(FeaturizerList):
         super().__init__(
             [
                 f
-                for f in _available_featurizer.values()
+                for f in _available_featurizer
                 if isinstance(f, SingleValueMoleculeFeaturizer)
             ],
             *args,

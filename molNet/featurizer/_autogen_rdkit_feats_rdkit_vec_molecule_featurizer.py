@@ -1,26 +1,27 @@
 from molNet.featurizer._molecule_featurizer import (
     MoleculeFeaturizer,
     SingleValueMoleculeFeaturizer,
+    FixedSizeMoleculeFeaturizer,
+    VarSizeMoleculeFeaturizer,
 )
-from molNet.featurizer.featurizer import FixedSizeFeaturizer
 import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
-    GetHashedAtomPairFingerprint,
-    GetHashedAtomPairFingerprintAsBitVect,
     GetMACCSKeysFingerprint,
-    GetHashedTopologicalTorsionFingerprint,
     GetHashedTopologicalTorsionFingerprintAsBitVect,
+    GetHashedAtomPairFingerprintAsBitVect,
+    GetHashedTopologicalTorsionFingerprint,
+    GetHashedAtomPairFingerprint,
 )
 from rdkit.Chem.rdmolops import (
-    PatternFingerprint,
     RDKFingerprint,
     LayeredFingerprint,
+    PatternFingerprint,
 )
 
 
-class GetHashedAtomPairFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class GetHashedAtomPairFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
@@ -32,9 +33,7 @@ class GetHashedAtomPairFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeatu
         return a
 
 
-class GetHashedAtomPairFingerprintAsBitVect_Featurizer(
-    FixedSizeFeaturizer, MoleculeFeaturizer
-):
+class GetHashedAtomPairFingerprintAsBitVect_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
@@ -46,9 +45,7 @@ class GetHashedAtomPairFingerprintAsBitVect_Featurizer(
         return a
 
 
-class GetHashedTopologicalTorsionFingerprint_Featurizer(
-    FixedSizeFeaturizer, MoleculeFeaturizer
-):
+class GetHashedTopologicalTorsionFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int64
@@ -61,7 +58,7 @@ class GetHashedTopologicalTorsionFingerprint_Featurizer(
 
 
 class GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(
-    FixedSizeFeaturizer, MoleculeFeaturizer
+    FixedSizeMoleculeFeaturizer
 ):
     # statics
     LENGTH = 2048
@@ -74,7 +71,7 @@ class GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(
         return a
 
 
-class GetMACCSKeysFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class GetMACCSKeysFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 167
     dtype = np.int32
@@ -86,7 +83,7 @@ class GetMACCSKeysFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer
         return a
 
 
-class LayeredFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class LayeredFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
@@ -98,7 +95,7 @@ class LayeredFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
         return a
 
 
-class PatternFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class PatternFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
@@ -110,7 +107,7 @@ class PatternFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
         return a
 
 
-class RDKFingerprint_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class RDKFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
@@ -137,24 +134,24 @@ molecule_LayeredFingerprint = LayeredFingerprint_Featurizer()
 molecule_PatternFingerprint = PatternFingerprint_Featurizer()
 molecule_RDKFingerprint = RDKFingerprint_Featurizer()
 
-_available_featurizer = {
-    "molecule_GetHashedAtomPairFingerprint": molecule_GetHashedAtomPairFingerprint,
-    "molecule_GetHashedAtomPairFingerprintAsBitVect": molecule_GetHashedAtomPairFingerprintAsBitVect,
-    "molecule_GetHashedTopologicalTorsionFingerprint": molecule_GetHashedTopologicalTorsionFingerprint,
-    "molecule_GetHashedTopologicalTorsionFingerprintAsBitVect": molecule_GetHashedTopologicalTorsionFingerprintAsBitVect,
-    "molecule_GetMACCSKeysFingerprint": molecule_GetMACCSKeysFingerprint,
-    "molecule_LayeredFingerprint": molecule_LayeredFingerprint,
-    "molecule_PatternFingerprint": molecule_PatternFingerprint,
-    "molecule_RDKFingerprint": molecule_RDKFingerprint,
-}
+_available_featurizer = [
+    molecule_GetHashedAtomPairFingerprint,
+    molecule_GetHashedAtomPairFingerprintAsBitVect,
+    molecule_GetHashedTopologicalTorsionFingerprint,
+    molecule_GetHashedTopologicalTorsionFingerprintAsBitVect,
+    molecule_GetMACCSKeysFingerprint,
+    molecule_LayeredFingerprint,
+    molecule_PatternFingerprint,
+    molecule_RDKFingerprint,
+]
 
 
 def main():
     from rdkit import Chem
 
     testmol = Chem.MolFromSmiles("c1ccccc1")
-    for k, f in _available_featurizer.items():
-        print(k, f(testmol))
+    for f in _available_featurizer.items():
+        print(f, f(testmol))
 
 
 if __name__ == "__main__":

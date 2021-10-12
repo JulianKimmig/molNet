@@ -1,29 +1,30 @@
 from molNet.featurizer._molecule_featurizer import (
     MoleculeFeaturizer,
     SingleValueMoleculeFeaturizer,
+    FixedSizeMoleculeFeaturizer,
+    VarSizeMoleculeFeaturizer,
 )
-from molNet.featurizer.featurizer import FixedSizeFeaturizer
 import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
-    CalcGETAWAY,
     BCUT2D,
-    CalcRDF,
-    GetConnectivityInvariants,
-    CalcCrippenDescriptors,
-    CalcWHIM,
-    GetUSR,
-    CalcMORSE,
-    CalcAUTOCORR2D,
-    CalcAUTOCORR3D,
-    GetUSRCAT,
-    CalcEEMcharges,
     GetFeatureInvariants,
+    GetUSRCAT,
+    CalcMORSE,
+    GetConnectivityInvariants,
+    CalcAUTOCORR2D,
+    CalcGETAWAY,
+    CalcCrippenDescriptors,
+    GetUSR,
+    CalcRDF,
+    CalcEEMcharges,
+    CalcAUTOCORR3D,
+    CalcWHIM,
 )
 
 
-class AUTOCORR2D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class AUTOCORR2D_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 192
     dtype = np.float32
@@ -32,7 +33,7 @@ class AUTOCORR2D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class AUTOCORR3D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class AUTOCORR3D_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 80
     dtype = np.float32
@@ -41,7 +42,7 @@ class AUTOCORR3D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class BCUT2D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class BCUT2D_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 8
     dtype = np.float32
@@ -50,7 +51,7 @@ class BCUT2D_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class CrippenDescriptors_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class CrippenDescriptors_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2
     dtype = np.float32
@@ -59,7 +60,7 @@ class CrippenDescriptors_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class EEMcharges_Featurizer(MoleculeFeaturizer):
+class EEMcharges_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
     dtype = np.float64
 
@@ -68,7 +69,7 @@ class EEMcharges_Featurizer(MoleculeFeaturizer):
     # functions
 
 
-class GETAWAY_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class GETAWAY_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 273
     dtype = np.float32
@@ -77,7 +78,7 @@ class GETAWAY_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class GetConnectivityInvariants_Featurizer(MoleculeFeaturizer):
+class GetConnectivityInvariants_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
     dtype = np.int64
 
@@ -86,16 +87,16 @@ class GetConnectivityInvariants_Featurizer(MoleculeFeaturizer):
     # functions
 
 
-class GetFeatureInvariants_Featurizer(MoleculeFeaturizer):
+class GetFeatureInvariants_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
-    dtype = np.int64
+    dtype = np.int32
 
     featurize = staticmethod(GetFeatureInvariants)
     # normalization
     # functions
 
 
-class GetUSR_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class GetUSR_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 12
     dtype = np.float32
@@ -104,7 +105,7 @@ class GetUSR_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class GetUSRCAT_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class GetUSRCAT_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 60
     dtype = np.float32
@@ -113,7 +114,7 @@ class GetUSRCAT_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class MORSE_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class MORSE_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 224
     dtype = np.float32
@@ -122,7 +123,7 @@ class MORSE_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class RDF_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class RDF_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 210
     dtype = np.float32
@@ -131,7 +132,7 @@ class RDF_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
     # functions
 
 
-class WHIM_Featurizer(FixedSizeFeaturizer, MoleculeFeaturizer):
+class WHIM_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 114
     dtype = np.float32
@@ -154,29 +155,29 @@ molecule_MORSE = MORSE_Featurizer()
 molecule_RDF = RDF_Featurizer()
 molecule_WHIM = WHIM_Featurizer()
 
-_available_featurizer = {
-    "molecule_AUTOCORR2D": molecule_AUTOCORR2D,
-    "molecule_AUTOCORR3D": molecule_AUTOCORR3D,
-    "molecule_BCUT2D": molecule_BCUT2D,
-    "molecule_CrippenDescriptors": molecule_CrippenDescriptors,
-    "molecule_EEMcharges": molecule_EEMcharges,
-    "molecule_GETAWAY": molecule_GETAWAY,
-    "molecule_GetConnectivityInvariants": molecule_GetConnectivityInvariants,
-    "molecule_GetFeatureInvariants": molecule_GetFeatureInvariants,
-    "molecule_GetUSR": molecule_GetUSR,
-    "molecule_GetUSRCAT": molecule_GetUSRCAT,
-    "molecule_MORSE": molecule_MORSE,
-    "molecule_RDF": molecule_RDF,
-    "molecule_WHIM": molecule_WHIM,
-}
+_available_featurizer = [
+    molecule_AUTOCORR2D,
+    molecule_AUTOCORR3D,
+    molecule_BCUT2D,
+    molecule_CrippenDescriptors,
+    molecule_EEMcharges,
+    molecule_GETAWAY,
+    molecule_GetConnectivityInvariants,
+    molecule_GetFeatureInvariants,
+    molecule_GetUSR,
+    molecule_GetUSRCAT,
+    molecule_MORSE,
+    molecule_RDF,
+    molecule_WHIM,
+]
 
 
 def main():
     from rdkit import Chem
 
     testmol = Chem.MolFromSmiles("c1ccccc1")
-    for k, f in _available_featurizer.items():
-        print(k, f(testmol))
+    for f in _available_featurizer.items():
+        print(f, f(testmol))
 
 
 if __name__ == "__main__":

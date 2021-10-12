@@ -84,6 +84,7 @@ class NormalizationClass:
             "dual_sig": self.dual_sig_norm,
             "genlog": self.genlog_norm,
         }
+        self._preferred_norm_name=""
         self._preferred_norm = self.preferred_normalization
         if preferred_normalization is None:
             preferred_normalization = self.preferred_normalization
@@ -130,9 +131,11 @@ class NormalizationClass:
 
     @preferred_norm.setter
     def preferred_norm(self, normalization):
+        prenorm= self._preferred_norm,self._preferred_norm_name
         self._preferred_norm = self._norm_map[normalization]
-
+        self._preferred_norm_name = normalization
         if np.isnan(self.normalize(_t_array)).any():
+            self._preferred_norm,self._preferred_norm_name=prenorm
             raise NormalizationException(
                 f"cannot set normalization to '{normalization}', there is nan in the result"
             )
