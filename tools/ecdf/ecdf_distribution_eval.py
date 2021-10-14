@@ -107,7 +107,7 @@ class ECDF:
                 pickle.dump((x,y),f)
         return x,y     
     
-    def show_ecdf(self)
+    def get_ecdf_img_path(self):
         path=os.path.join(self.dirname,str(self)+"_ecdf.png")
         if not os.path.exists(path):
             plt.plot(*self.full_ecdf,label="ECDF")
@@ -115,6 +115,7 @@ class ECDF:
             plt.legend()
             plt.savefig(path)
             plt.close()
+        return path
         
         
 available_ds=[]
@@ -136,8 +137,8 @@ samples_dir=os.path.join(ecdf_conf.DATADIR,str(available_ds[0]))
 
 def work_ecdf(ecdf):
     print(ecdf)
-    ecdf.full_ecdf
-    ecdf.smooth_ecdf
+    #ecdf.full_ecdf
+    #ecdf.smooth_ecdf
     return
 
     need_run=False

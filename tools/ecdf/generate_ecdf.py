@@ -20,7 +20,7 @@ import sys
 from tqdm import tqdm
 
 from molNet import ConformerError
-from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer
+from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer,VarSizeMoleculeFeaturizer
 from molNet.mol import molgraph
 from molNet.mol.molgraph import mol_graph_from_mol
 from molNet.utils.parallelization.multiprocessing import parallelize
@@ -33,7 +33,7 @@ logging.getLogger('matplotlib').setLevel(logging.WARNING)
 import matplotlib.pyplot as plt
 
 
-from rdkit.Chem import Mol
+from rdkit.Chem import Mol, MolFromSmiles
 
 
 ignore=["GETAWAY_Featurizer",
@@ -85,14 +85,14 @@ print(f"found {len(molfeats)} molecule featurizer")
 molfeats= [f for f in molfeats if f.dtype!=bool]
 print(f"{len(molfeats)} remain after removal of bool types")
 
-test_mg = molgraph.mol_graph_from_smiles("CCC")
+test_mol = MolFromSmiles("CCC")
 
 def _single_call_parallel_featurize_molgraph(d:List[MoleculeFeaturizer]):
     feats=d
     r=[]
     for f in feats:
         f.preferred_norm=None
-        r.append(test_mg.featurize_mol(f))
+        r.append(f(test_mol))
     return r
 
 
@@ -107,6 +107,26 @@ generated_test_feats = parallelize(
 
 molfeats=[molfeats[i] for i in range(len(molfeats)) if np.issubdtype(generated_test_feats[i].dtype,np.number)]
 print(f"{len(molfeats)} remain after removal invalid types")
+
+
+
+for f in molfeats:
+    print(f"gen info {f}")
+    f.ddir=os.path.join(datadir, inspect.getfile(f.__class__).replace(basedir_featurizer + os.sep, "").replace(".py", ""))
+    os.makedirs(f.ddir,exist_ok=True)
+    target_file=os.path.join(
+        f.ddir,
+        f"{f.__class__.__name__}_feature_info.pckl"
+    )
+    
+    feature_info={}
+    if os.path.exists(target_file):
+        with open(target_file,"rb") as dfile:
+            feature_info = pickle.load(dfile)
+    
+    feature_info["shape"]=f(test_mol).shape
+    with open(target_file,"w+b") as dfile:
+        pickle.dump(feature_info,dfile)
 
 
 basedir_featurizer=os.path.dirname(inspect.getfile(MoleculeFeaturizer))
@@ -137,6 +157,11 @@ for f in molfeats:
         ddir,
         f"{f.__class__.__name__}_feature_dist.pckl"
     )
+    if isinstance(f,VarSizeMoleculeFeaturizer):
+        if os.path.exists(target_file):
+            print("remove",target_file)
+            #os.remove(target_file)
+        continue
     if os.path.exists(target_file):
         continue
     
