@@ -154,6 +154,7 @@ class Datalaoder():
         return (k for k  in self._data_streamer)
 
     def get_n_entries(self,n:int,**kwargs):
+        self._needs_raw()
         return self._data_streamer.get_n_entries(n=n,**kwargs)
 
     def unpack(self, dl):
