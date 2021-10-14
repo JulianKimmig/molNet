@@ -45,11 +45,15 @@ class Featurizer(NormalizationClass):
         return self._name
 
     def __repr__(self):
+        return repr(self.dict)
+
+    @property
+    def dict(self):
         return {"name":self._name,
-                "description":self._feature_descriptions,
-                "dtype":self._dtype,
-                "norm":self._preferred_norm_name,
-                }
+                    "description":self._feature_descriptions,
+                    "dtype":self._dtype,
+                    "norm":self._preferred_norm_name,
+                    }
 
     def __add__(self, other):
         if isinstance(other, FeaturizerList):

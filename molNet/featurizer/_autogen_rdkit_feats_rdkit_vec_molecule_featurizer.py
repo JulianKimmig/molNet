@@ -8,16 +8,16 @@ import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
+    GetHashedAtomPairFingerprintAsBitVect,
     GetMACCSKeysFingerprint,
     GetHashedTopologicalTorsionFingerprintAsBitVect,
-    GetHashedAtomPairFingerprintAsBitVect,
-    GetHashedTopologicalTorsionFingerprint,
     GetHashedAtomPairFingerprint,
+    GetHashedTopologicalTorsionFingerprint,
 )
 from rdkit.Chem.rdmolops import (
-    RDKFingerprint,
-    LayeredFingerprint,
     PatternFingerprint,
+    LayeredFingerprint,
+    RDKFingerprint,
 )
 
 
@@ -36,7 +36,7 @@ class GetHashedAtomPairFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
 class GetHashedAtomPairFingerprintAsBitVect_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):
@@ -62,7 +62,7 @@ class GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(
 ):
     # statics
     LENGTH = 2048
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):
@@ -74,7 +74,7 @@ class GetHashedTopologicalTorsionFingerprintAsBitVect_Featurizer(
 class GetMACCSKeysFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 167
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):
@@ -86,7 +86,7 @@ class GetMACCSKeysFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
 class LayeredFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):
@@ -98,7 +98,7 @@ class LayeredFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
 class PatternFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):
@@ -110,7 +110,7 @@ class PatternFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
 class RDKFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
-    dtype = np.int32
+    dtype = bool
     # normalization
     # functions
     def featurize(self, mol):

@@ -9,18 +9,18 @@ from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
     BCUT2D,
-    GetFeatureInvariants,
-    GetUSRCAT,
-    CalcMORSE,
     GetConnectivityInvariants,
-    CalcAUTOCORR2D,
-    CalcGETAWAY,
     CalcCrippenDescriptors,
-    GetUSR,
-    CalcRDF,
-    CalcEEMcharges,
-    CalcAUTOCORR3D,
     CalcWHIM,
+    CalcMORSE,
+    GetUSRCAT,
+    CalcGETAWAY,
+    CalcRDF,
+    GetUSR,
+    GetFeatureInvariants,
+    CalcAUTOCORR2D,
+    CalcAUTOCORR3D,
+    CalcEEMcharges,
 )
 
 
@@ -89,7 +89,7 @@ class GetConnectivityInvariants_Featurizer(VarSizeMoleculeFeaturizer):
 
 class GetFeatureInvariants_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
-    dtype = np.int32
+    dtype = np.int64
 
     featurize = staticmethod(GetFeatureInvariants)
     # normalization

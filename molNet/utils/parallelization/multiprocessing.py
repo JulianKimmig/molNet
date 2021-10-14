@@ -73,6 +73,9 @@ def parallelize(
             for sd in sub_data:
                 r.extend(func(sd))
 
-    if len(r) > 0 and isinstance(r[0], np.ndarray):
+    #for i in r:
+    #    print(isinstance(i,np.ndarray))
+    if len(r) > 0 and all([isinstance(ri, np.ndarray) for ri in r]):
         return np.array(r)
+        #return np.concatenate(r,axis=0)
     return r

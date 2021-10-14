@@ -15,7 +15,9 @@ dependencies:
   - torchvision
   - torchaudio
   - pyg
+  #dev
   - pytest
+  - black
   #no_gpu
   - cudatoolkit=11.1
   #- pip:

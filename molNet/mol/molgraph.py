@@ -74,7 +74,10 @@ class MolGraph(BaseMolGraph):
             name = str(mol_featurizer)
         if as_y:
             name = "_y_" + name
-        self.set_property(name, mol_featurizer(self.mol))
+        feat=mol_featurizer(self.mol)
+        self.set_property(name, feat)
+        return feat
+
 
     def featurize_atoms(
         self, atom_featurizer: AtomFeaturizer, name: str = None, as_y: bool = False
@@ -83,9 +86,13 @@ class MolGraph(BaseMolGraph):
             name = str(atom_featurizer)
         if as_y:
             name = "_y_" + name
+        feats=[]
         for n in self.nodes:
             node = self.nodes[n]
-            node[name] = atom_featurizer(self.mol.GetAtomWithIdx(n))
+            feat=atom_featurizer(self.mol.GetAtomWithIdx(n))
+            node[name] = feat
+            feats.append(feat)
+        return feats
 
     def get_mol(self):
         return self._mol

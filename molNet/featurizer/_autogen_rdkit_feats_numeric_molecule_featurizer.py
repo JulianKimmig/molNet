@@ -7,304 +7,304 @@ from molNet.featurizer._molecule_featurizer import (
 import numpy as np
 from numpy import inf, nan
 from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
-from rdkit.Chem.rdMolDescriptors import (
-    CalcPhi,
-    CalcKappa2,
-    CalcNPR2,
-    CalcNumAmideBonds,
-    CalcChi0v,
-    CalcChi2v,
-    CalcNumSaturatedHeterocycles,
-    CalcAsphericity,
-    CalcNumHBA,
-    CalcChi4v,
-    CalcNumRotatableBonds,
-    CalcPBF,
-    CalcChi3n,
-    CalcPMI2,
-    CalcTPSA,
-    CalcExactMolWt,
-    CalcChi1v,
-    CalcNumAliphaticCarbocycles,
-    CalcSpherocityIndex,
-    CalcFractionCSP3,
-    CalcNumHeteroatoms,
-    CalcHallKierAlpha,
-    CalcNumRings,
-    CalcNumHeterocycles,
-    CalcNumLipinskiHBA,
-    CalcNumAromaticRings,
-    CalcNumSaturatedRings,
-    CalcChi4n,
-    CalcNumBridgeheadAtoms,
-    CalcNumAromaticCarbocycles,
-    CalcRadiusOfGyration,
-    CalcChi2n,
-    CalcChi1n,
-    CalcKappa3,
-    CalcKappa1,
-    CalcNumAliphaticRings,
-    CalcPMI3,
-    CalcNumLipinskiHBD,
-    CalcNumAliphaticHeterocycles,
-    CalcEccentricity,
-    CalcNumHBD,
-    CalcNumSaturatedCarbocycles,
-    CalcChi3v,
-    CalcInertialShapeFactor,
-    CalcPMI1,
-    CalcNumAromaticHeterocycles,
-    CalcNumSpiroAtoms,
-    CalcLabuteASA,
-    CalcNPR1,
-    CalcChi0n,
-)
 from rdkit.Chem.Descriptors3D import (
-    RadiusOfGyration,
-    NPR2,
     PMI1,
-    InertialShapeFactor,
-    Asphericity,
-    NPR1,
-    SpherocityIndex,
+    RadiusOfGyration,
     PMI2,
     Eccentricity,
     PMI3,
+    NPR2,
+    Asphericity,
+    NPR1,
+    InertialShapeFactor,
+    SpherocityIndex,
+)
+from rdkit.Chem.rdMolDescriptors import (
+    CalcChi4v,
+    CalcNumAromaticRings,
+    CalcFractionCSP3,
+    CalcPBF,
+    CalcChi3n,
+    CalcNumRings,
+    CalcTPSA,
+    CalcKappa1,
+    CalcNumLipinskiHBD,
+    CalcPMI2,
+    CalcNumAmideBonds,
+    CalcNumAliphaticRings,
+    CalcNumHeterocycles,
+    CalcNumLipinskiHBA,
+    CalcNumSpiroAtoms,
+    CalcExactMolWt,
+    CalcSpherocityIndex,
+    CalcLabuteASA,
+    CalcNumHBA,
+    CalcNumHBD,
+    CalcNumAliphaticCarbocycles,
+    CalcNumSaturatedRings,
+    CalcAsphericity,
+    CalcNumSaturatedHeterocycles,
+    CalcNumHeteroatoms,
+    CalcNumBridgeheadAtoms,
+    CalcChi2n,
+    CalcKappa2,
+    CalcNumSaturatedCarbocycles,
+    CalcPMI3,
+    CalcNumAliphaticHeterocycles,
+    CalcNumAromaticHeterocycles,
+    CalcChi1n,
+    CalcNumRotatableBonds,
+    CalcRadiusOfGyration,
+    CalcInertialShapeFactor,
+    CalcChi3v,
+    CalcEccentricity,
+    CalcNPR2,
+    CalcChi2v,
+    CalcNPR1,
+    CalcChi0v,
+    CalcNumAromaticCarbocycles,
+    CalcPhi,
+    CalcPMI1,
+    CalcChi4n,
+    CalcChi1v,
+    CalcChi0n,
+    CalcKappa3,
+    CalcHallKierAlpha,
 )
 from rdkit.Chem.Descriptors import (
-    NumAromaticHeterocycles,
-    PEOE_VSA5,
-    SMR_VSA3,
-    BCUT2D_MRLOW,
-    EState_VSA4,
-    PEOE_VSA9,
-    fr_piperzine,
-    PEOE_VSA8,
-    MolLogP,
-    SMR_VSA9,
-    VSA_EState7,
-    Kappa3,
-    SlogP_VSA5,
-    fr_isocyan,
-    fr_sulfide,
-    NumRotatableBonds,
-    FpDensityMorgan3,
-    NumAromaticCarbocycles,
-    fr_benzodiazepine,
-    fr_piperdine,
-    fr_nitro_arom_nonortho,
-    fr_aldehyde,
-    Ipc,
-    MinEStateIndex,
-    fr_oxazole,
-    SlogP_VSA6,
-    Chi1v,
-    MaxEStateIndex,
-    Chi1n,
-    NumAliphaticHeterocycles,
-    PEOE_VSA12,
-    fr_nitro,
-    NumSaturatedHeterocycles,
-    fr_Ar_COO,
-    SMR_VSA7,
-    fr_SH,
-    EState_VSA11,
-    FpDensityMorgan2,
-    Chi3n,
-    MolMR,
-    EState_VSA2,
-    fr_phos_acid,
-    BCUT2D_CHGHI,
-    SMR_VSA4,
-    fr_COO2,
-    fr_Ar_N,
-    ExactMolWt,
-    BCUT2D_MWLOW,
-    SlogP_VSA1,
-    fr_Al_OH,
-    fr_unbrch_alkane,
-    fr_C_O,
-    fr_N_O,
-    SMR_VSA2,
-    PEOE_VSA10,
-    VSA_EState5,
-    fr_amidine,
-    SlogP_VSA8,
-    fr_NH2,
-    fr_NH0,
-    Chi2n,
-    fr_ether,
-    EState_VSA6,
-    fr_prisulfonamd,
-    EState_VSA10,
-    RingCount,
-    fr_barbitur,
-    EState_VSA8,
-    fr_ketone,
-    NumHeteroatoms,
-    VSA_EState4,
-    fr_Ndealkylation2,
-    fr_HOCCN,
-    fr_sulfone,
-    NumSaturatedRings,
-    NumAromaticRings,
-    fr_nitro_arom,
-    Chi0,
-    SMR_VSA5,
-    fr_oxime,
+    MinAbsPartialCharge,
     SlogP_VSA3,
-    fr_term_acetylene,
-    fr_Ar_NH,
-    EState_VSA1,
-    fr_epoxide,
-    BCUT2D_MRHI,
-    Kappa2,
-    EState_VSA9,
-    PEOE_VSA7,
-    fr_aryl_methyl,
-    fr_lactam,
-    SMR_VSA10,
-    BCUT2D_LOGPHI,
-    NumHAcceptors,
-    SlogP_VSA9,
-    MinPartialCharge,
-    VSA_EState3,
-    FractionCSP3,
-    fr_diazo,
-    fr_imidazole,
-    BCUT2D_MWHI,
-    VSA_EState10,
-    VSA_EState9,
-    fr_Al_COO,
-    fr_thiocyan,
-    fr_phenol,
-    SlogP_VSA2,
-    fr_priamide,
-    HeavyAtomCount,
-    Chi0v,
-    SMR_VSA8,
-    SlogP_VSA12,
-    EState_VSA7,
-    BCUT2D_LOGPLOW,
-    fr_Nhpyrrole,
-    fr_bicyclic,
-    fr_alkyl_halide,
-    fr_quatN,
-    Chi1,
-    NumHDonors,
-    SlogP_VSA4,
-    PEOE_VSA1,
-    fr_allylic_oxid,
-    FpDensityMorgan1,
-    fr_phenol_noOrthoHbond,
-    Chi2v,
-    MaxPartialCharge,
-    NOCount,
-    NumSaturatedCarbocycles,
-    PEOE_VSA14,
+    fr_urea,
     VSA_EState8,
-    fr_amide,
-    PEOE_VSA4,
     fr_lactone,
-    NumAliphaticCarbocycles,
+    fr_benzodiazepine,
+    fr_isothiocyan,
     EState_VSA5,
-    fr_thiophene,
-    fr_Al_OH_noTert,
-    BertzCT,
-    HeavyAtomMolWt,
-    VSA_EState1,
-    LabuteASA,
-    fr_halogen,
+    EState_VSA6,
+    fr_aniline,
+    fr_lactam,
+    fr_para_hydroxylation,
+    fr_phos_acid,
+    NumAromaticCarbocycles,
+    fr_bicyclic,
+    fr_C_S,
+    VSA_EState4,
+    fr_aryl_methyl,
     SMR_VSA1,
-    fr_C_O_noCOO,
-    SMR_VSA6,
-    fr_thiazole,
-    Chi4n,
-    fr_furan,
-    fr_COO,
-    fr_alkyl_carbamate,
-    MaxAbsPartialCharge,
-    MinAbsEStateIndex,
-    fr_nitrile,
-    NumAliphaticRings,
-    fr_sulfonamd,
-    fr_Ndealkylation1,
-    fr_ketone_Topliss,
-    BCUT2D_CHGLO,
+    SlogP_VSA1,
+    Chi2n,
+    fr_Al_OH,
+    NumHAcceptors,
+    EState_VSA3,
+    SlogP_VSA5,
+    qed,
+    Chi0v,
+    NumSaturatedCarbocycles,
+    SlogP_VSA6,
+    fr_N_O,
+    fr_Ndealkylation2,
+    EState_VSA10,
+    fr_sulfone,
+    BCUT2D_LOGPLOW,
+    PEOE_VSA12,
+    fr_COO2,
     SlogP_VSA11,
+    SlogP_VSA8,
+    fr_C_O,
+    SlogP_VSA10,
+    HeavyAtomMolWt,
+    PEOE_VSA1,
+    fr_SH,
+    fr_Al_COO,
+    SlogP_VSA7,
+    SMR_VSA7,
+    SMR_VSA4,
+    VSA_EState3,
+    fr_COO,
+    fr_sulfide,
+    NumSaturatedHeterocycles,
+    fr_ether,
+    NumAliphaticCarbocycles,
+    SlogP_VSA2,
+    Chi4n,
+    TPSA,
+    NumRotatableBonds,
+    fr_Ar_NH,
+    EState_VSA7,
+    fr_Ar_COO,
+    fr_ArN,
+    PEOE_VSA10,
+    fr_epoxide,
+    Chi3n,
+    EState_VSA8,
+    fr_hdrzine,
+    MolWt,
+    NumAromaticRings,
+    FpDensityMorgan1,
+    NumRadicalElectrons,
+    SMR_VSA6,
+    fr_nitro,
+    Chi0n,
+    MinEStateIndex,
+    fr_imide,
+    fr_diazo,
+    fr_azide,
+    EState_VSA1,
+    MinAbsEStateIndex,
+    fr_quatN,
+    NumAliphaticHeterocycles,
+    fr_amide,
+    Ipc,
+    MaxAbsEStateIndex,
+    fr_nitrile,
     fr_morpholine,
     fr_pyridine,
-    Kappa1,
-    fr_guanido,
-    TPSA,
-    fr_ester,
-    Chi4v,
-    fr_methoxy,
-    MinAbsPartialCharge,
-    MaxAbsEStateIndex,
-    VSA_EState6,
-    MolWt,
-    qed,
-    fr_benzene,
     fr_Imine,
-    PEOE_VSA13,
-    fr_C_S,
-    SlogP_VSA10,
-    EState_VSA3,
-    NumValenceElectrons,
-    fr_azo,
-    fr_urea,
-    fr_tetrazole,
-    VSA_EState2,
-    Chi0n,
-    fr_ArN,
-    NHOHCount,
-    PEOE_VSA6,
-    SlogP_VSA7,
-    HallKierAlpha,
-    PEOE_VSA2,
-    fr_NH1,
-    BalabanJ,
-    fr_hdrzine,
-    fr_Ar_OH,
-    fr_azide,
-    fr_aniline,
-    fr_imide,
+    PEOE_VSA8,
+    RingCount,
+    fr_prisulfonamd,
     PEOE_VSA11,
-    fr_dihydropyridine,
-    fr_para_hydroxylation,
-    fr_nitroso,
-    fr_hdrzone,
-    fr_isothiocyan,
-    PEOE_VSA3,
-    NumRadicalElectrons,
-    Chi3v,
     fr_phos_ester,
+    PEOE_VSA3,
+    VSA_EState10,
+    fr_halogen,
+    fr_tetrazole,
+    Chi3v,
+    SMR_VSA5,
+    FpDensityMorgan3,
+    PEOE_VSA9,
+    Chi1,
+    fr_thiophene,
+    VSA_EState7,
+    fr_Al_OH_noTert,
+    fr_unbrch_alkane,
+    BCUT2D_MRHI,
+    fr_hdrzone,
+    SMR_VSA10,
+    PEOE_VSA5,
+    fr_oxime,
+    SlogP_VSA4,
+    fr_term_acetylene,
+    EState_VSA9,
+    fr_Ar_OH,
+    HallKierAlpha,
+    SlogP_VSA12,
+    Kappa1,
+    fr_phenol,
+    Chi0,
+    fr_imidazole,
+    NumAromaticHeterocycles,
+    BCUT2D_LOGPHI,
+    HeavyAtomCount,
+    MinPartialCharge,
+    VSA_EState2,
+    ExactMolWt,
+    FpDensityMorgan2,
+    SMR_VSA2,
+    fr_ketone,
+    fr_Ndealkylation1,
+    BCUT2D_MWLOW,
+    fr_piperdine,
+    NOCount,
+    fr_NH1,
+    fr_barbitur,
+    VSA_EState1,
+    fr_thiocyan,
+    PEOE_VSA7,
+    fr_thiazole,
+    NumHeteroatoms,
+    fr_azo,
+    Chi1n,
+    BCUT2D_MWHI,
+    PEOE_VSA14,
+    LabuteASA,
+    fr_alkyl_carbamate,
+    NumValenceElectrons,
+    fr_nitro_arom_nonortho,
+    fr_HOCCN,
+    fr_Ar_N,
+    BalabanJ,
+    fr_nitroso,
+    fr_Nhpyrrole,
+    PEOE_VSA4,
+    Chi2v,
+    VSA_EState9,
+    fr_nitro_arom,
+    fr_amidine,
+    PEOE_VSA13,
+    fr_sulfonamd,
+    NumSaturatedRings,
+    fr_C_O_noCOO,
+    EState_VSA11,
+    MaxAbsPartialCharge,
+    fr_dihydropyridine,
+    fr_guanido,
+    NHOHCount,
+    Chi1v,
+    fr_alkyl_halide,
+    MaxEStateIndex,
+    fr_NH2,
+    PEOE_VSA6,
+    SMR_VSA9,
+    fr_isocyan,
+    SMR_VSA8,
+    Kappa2,
+    MolMR,
+    EState_VSA4,
+    Kappa3,
+    PEOE_VSA2,
+    NumHDonors,
+    fr_oxazole,
+    BCUT2D_CHGHI,
+    FractionCSP3,
+    Chi4v,
+    VSA_EState6,
+    BertzCT,
+    fr_piperzine,
+    fr_benzene,
+    fr_priamide,
+    fr_allylic_oxid,
+    fr_aldehyde,
+    fr_furan,
+    MolLogP,
+    fr_ester,
+    fr_NH0,
+    NumAliphaticRings,
+    BCUT2D_MRLOW,
+    fr_methoxy,
+    EState_VSA2,
+    fr_phenol_noOrthoHbond,
+    BCUT2D_CHGLO,
+    MaxPartialCharge,
+    fr_ketone_Topliss,
+    SlogP_VSA9,
+    SMR_VSA3,
+    VSA_EState5,
 )
 from rdkit.Chem.GraphDescriptors import (
-    Kappa1,
-    Chi0v,
-    Chi4v,
-    Chi1,
-    Chi2n,
-    Chi2v,
-    Kappa3,
-    BertzCT,
-    Ipc,
-    Chi0n,
+    Chi4n,
     Chi1v,
     HallKierAlpha,
+    Kappa1,
     Chi0,
-    Chi1n,
-    BalabanJ,
-    Chi4n,
-    Kappa2,
     Chi3n,
+    Chi2n,
+    Kappa2,
+    Kappa3,
+    Chi0v,
+    Chi0n,
+    Chi4v,
+    BertzCT,
+    Ipc,
+    Chi1n,
     Chi3v,
+    BalabanJ,
+    Chi1,
+    Chi2v,
 )
 from rdkit.Chem.rdmolops import (
-    GetFormalCharge,
     GetSSSR,
+    GetFormalCharge,
 )
 from rdkit.Chem import (
     rdqueries,
@@ -314,7 +314,7 @@ from rdkit.Chem import (
 class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcAsphericity)
+    featurize = staticmethod(Asphericity)
     # normalization
     linear_norm_parameter = (
         1.4721378049698663,
@@ -358,7 +358,7 @@ class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
 class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Asphericity)
+    featurize = staticmethod(CalcAsphericity)
     # normalization
     linear_norm_parameter = (
         1.4721378049698663,
@@ -1186,50 +1186,6 @@ class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
 class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Chi0v)
-    # normalization
-    linear_norm_parameter = (
-        0.027431175492895643,
-        0.1959231987976101,
-    )  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
-    linear_norm_parameter_normdata = {"error": 0.18435911083822928}
-    min_max_norm_parameter = (
-        5.833583645428592,
-        19.149899507438242,
-    )  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0423165024732474}
-    sigmoidal_norm_parameter = (
-        12.391158701361956,
-        0.36836959542101233,
-    )  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02620473856261326}
-    dual_sigmoidal_norm_parameter = (
-        11.842303403027104,
-        0.5140666711896098,
-        0.2991216617631474,
-    )  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011572965050369354}
-    genlog_norm_parameter = (
-        0.2681312003670772,
-        -18.83996729447344,
-        0.18053251723602642,
-        6.445742816927413e-05,
-    )  # error of 7.72E-03 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.12E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007721812904196733}
-    autogen_normdata = {
-        "sample_bounds": [[1.0, 277.3277282714844], [1.120763376208642e-06, 1.0]],
-        "sample_bounds99": [
-            [1.0, 33.21092224121094],
-            [0.010061172965595765, 0.9987700087476209],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
     featurize = staticmethod(CalcChi0v)
     # normalization
     linear_norm_parameter = (
@@ -1315,6 +1271,50 @@ class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
+class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+    featurize = staticmethod(Chi0v)
+    # normalization
+    linear_norm_parameter = (
+        0.027431175492895643,
+        0.1959231987976101,
+    )  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
+    linear_norm_parameter_normdata = {"error": 0.18435911083822928}
+    min_max_norm_parameter = (
+        5.833583645428592,
+        19.149899507438242,
+    )  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.0423165024732474}
+    sigmoidal_norm_parameter = (
+        12.391158701361956,
+        0.36836959542101233,
+    )  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.02620473856261326}
+    dual_sigmoidal_norm_parameter = (
+        11.842303403027104,
+        0.5140666711896098,
+        0.2991216617631474,
+    )  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011572965050369354}
+    genlog_norm_parameter = (
+        0.2681312003670772,
+        -18.83996729447344,
+        0.18053251723602642,
+        6.445742816927413e-05,
+    )  # error of 7.72E-03 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.12E-06,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.007721812904196733}
+    autogen_normdata = {
+        "sample_bounds": [[1.0, 277.3277282714844], [1.120763376208642e-06, 1.0]],
+        "sample_bounds99": [
+            [1.0, 33.21092224121094],
+            [0.010061172965595765, 0.9987700087476209],
+        ],
+    }
+    preferred_normalization = "genlog"
+    # functions
+
+
 class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -1397,6 +1397,50 @@ class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 53.370033264160156],
             [0.004867140847930712, 0.9995846495813856],
+        ],
+    }
+    preferred_normalization = "genlog"
+    # functions
+
+
+class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+    featurize = staticmethod(Chi1n)
+    # normalization
+    linear_norm_parameter = (
+        0.02460656481380441,
+        0.05696382112467857,
+    )  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
+    linear_norm_parameter_normdata = {"error": 0.18291393291527094}
+    min_max_norm_parameter = (
+        8.215243805842091,
+        25.568763302868422,
+    )  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.038979148512106314}
+    sigmoidal_norm_parameter = (
+        16.800375876069985,
+        0.2846180730802336,
+    )  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.02441944444484631}
+    dual_sigmoidal_norm_parameter = (
+        16.22854448035761,
+        0.3557006902802079,
+        0.22864396656407704,
+    )  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011309864829293758}
+    genlog_norm_parameter = (
+        0.20081899416624355,
+        -3.9155988161228468,
+        2.447646307417477,
+        0.05743409500456496,
+    )  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.007916880713483804}
+    autogen_normdata = {
+        "sample_bounds": [[0.0, 331.6630859375], [2.168463774955951e-06, 1.0]],
+        "sample_bounds99": [
+            [0.0, 43.43079376220703],
+            [0.005005294570965555, 0.9996657899932929],
         ],
     }
     preferred_normalization = "genlog"
@@ -1491,44 +1535,44 @@ class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
+class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Chi1n)
+    featurize = staticmethod(Chi1v)
     # normalization
     linear_norm_parameter = (
-        0.02460656481380441,
-        0.05696382112467857,
-    )  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.18291393291527094}
+        0.0627452397151258,
+        0.08691967075790497,
+    )  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
+    linear_norm_parameter_normdata = {"error": 0.15977372838461698}
     min_max_norm_parameter = (
-        8.215243805842091,
-        25.568763302868422,
-    )  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.038979148512106314}
+        2.910758257183072,
+        10.518729378759696,
+    )  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.039869239162642046}
     sigmoidal_norm_parameter = (
-        16.800375876069985,
-        0.2846180730802336,
-    )  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02441944444484631}
+        6.661928594684052,
+        0.6389477840131871,
+    )  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.025429672953429426}
     dual_sigmoidal_norm_parameter = (
-        16.22854448035761,
-        0.3557006902802079,
-        0.22864396656407704,
-    )  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011309864829293758}
+        6.384313111721113,
+        0.855658675292274,
+        0.5214673948038986,
+    )  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01053044473974626}
     genlog_norm_parameter = (
-        0.20081899416624355,
-        -3.9155988161228468,
-        2.447646307417477,
-        0.05743409500456496,
-    )  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007916880713483804}
+        0.46026801832546155,
+        -8.095863453866041,
+        0.035194021485851955,
+        6.0705507117096385e-05,
+    )  # error of 5.40E-03 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-07,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.0054043850231123795}
     autogen_normdata = {
-        "sample_bounds": [[0.0, 331.6630859375], [2.168463774955951e-06, 1.0]],
+        "sample_bounds": [[0.0, 166.4846954345703], [8.689704479646525e-07, 1.0]],
         "sample_bounds99": [
-            [0.0, 43.43079376220703],
-            [0.005005294570965555, 0.9996657899932929],
+            [0.0, 17.79261589050293],
+            [0.009344479363126993, 0.9985030616467082],
         ],
     }
     preferred_normalization = "genlog"
@@ -1583,50 +1627,6 @@ class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(CalcChi1v)
-    # normalization
-    linear_norm_parameter = (
-        0.0627452397151258,
-        0.08691967075790497,
-    )  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
-    linear_norm_parameter_normdata = {"error": 0.15977372838461698}
-    min_max_norm_parameter = (
-        2.910758257183072,
-        10.518729378759696,
-    )  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039869239162642046}
-    sigmoidal_norm_parameter = (
-        6.661928594684052,
-        0.6389477840131871,
-    )  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.025429672953429426}
-    dual_sigmoidal_norm_parameter = (
-        6.384313111721113,
-        0.855658675292274,
-        0.5214673948038986,
-    )  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01053044473974626}
-    genlog_norm_parameter = (
-        0.46026801832546155,
-        -8.095863453866041,
-        0.035194021485851955,
-        6.0705507117096385e-05,
-    )  # error of 5.40E-03 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0054043850231123795}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 166.4846954345703], [8.689704479646525e-07, 1.0]],
-        "sample_bounds99": [
-            [0.0, 17.79261589050293],
-            [0.009344479363126993, 0.9985030616467082],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi1v)
     # normalization
     linear_norm_parameter = (
         0.0627452397151258,
@@ -1802,7 +1802,7 @@ class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
 class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcChi2v)
+    featurize = staticmethod(Chi2v)
     # normalization
     linear_norm_parameter = (
         0.09656674011706068,
@@ -1846,7 +1846,7 @@ class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
 class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Chi2v)
+    featurize = staticmethod(CalcChi2v)
     # normalization
     linear_norm_parameter = (
         0.09656674011706068,
@@ -2066,94 +2066,6 @@ class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
 class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Chi3v)
-    # normalization
-    linear_norm_parameter = (
-        0.13641142111605653,
-        0.06481842365937796,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
-    min_max_norm_parameter = (
-        0.9571111913222607,
-        5.030476311519345,
-    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
-    sigmoidal_norm_parameter = (
-        2.9588780643186574,
-        1.1889256254049316,
-    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
-    dual_sigmoidal_norm_parameter = (
-        2.798221903514353,
-        1.5668857301099821,
-        0.9198749149438118,
-    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
-    genlog_norm_parameter = (
-        0.8306394357062581,
-        -8.216329250032336,
-        0.5115200078187916,
-        7.287918580914142e-05,
-    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
-        "sample_bounds99": [
-            [0.0, 8.783188819885254],
-            [0.011920355611963635, 0.9985455134519171],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi3v)
-    # normalization
-    linear_norm_parameter = (
-        0.13641142111605653,
-        0.06481842365937796,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
-    min_max_norm_parameter = (
-        0.9571111913222607,
-        5.030476311519345,
-    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
-    sigmoidal_norm_parameter = (
-        2.9588780643186574,
-        1.1889256254049316,
-    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
-    dual_sigmoidal_norm_parameter = (
-        2.798221903514353,
-        1.5668857301099821,
-        0.9198749149438118,
-    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
-    genlog_norm_parameter = (
-        0.8306394357062581,
-        -8.216329250032336,
-        0.5115200078187916,
-        7.287918580914142e-05,
-    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
-        "sample_bounds99": [
-            [0.0, 8.783188819885254],
-            [0.011920355611963635, 0.9985455134519171],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
     featurize = staticmethod(CalcChi3v)
     # normalization
     linear_norm_parameter = (
@@ -2189,6 +2101,138 @@ class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 8.783188819885254],
             [0.011920355611963635, 0.9985455134519171],
+        ],
+    }
+    preferred_normalization = "genlog"
+    # functions
+
+
+class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+    featurize = staticmethod(Chi3v)
+    # normalization
+    linear_norm_parameter = (
+        0.13641142111605653,
+        0.06481842365937796,
+    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
+    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
+    min_max_norm_parameter = (
+        0.9571111913222607,
+        5.030476311519345,
+    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
+    sigmoidal_norm_parameter = (
+        2.9588780643186574,
+        1.1889256254049316,
+    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
+    dual_sigmoidal_norm_parameter = (
+        2.798221903514353,
+        1.5668857301099821,
+        0.9198749149438118,
+    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
+    genlog_norm_parameter = (
+        0.8306394357062581,
+        -8.216329250032336,
+        0.5115200078187916,
+        7.287918580914142e-05,
+    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
+    autogen_normdata = {
+        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
+        "sample_bounds99": [
+            [0.0, 8.783188819885254],
+            [0.011920355611963635, 0.9985455134519171],
+        ],
+    }
+    preferred_normalization = "genlog"
+    # functions
+
+
+class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+    featurize = staticmethod(Chi3v)
+    # normalization
+    linear_norm_parameter = (
+        0.13641142111605653,
+        0.06481842365937796,
+    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
+    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
+    min_max_norm_parameter = (
+        0.9571111913222607,
+        5.030476311519345,
+    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
+    sigmoidal_norm_parameter = (
+        2.9588780643186574,
+        1.1889256254049316,
+    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
+    dual_sigmoidal_norm_parameter = (
+        2.798221903514353,
+        1.5668857301099821,
+        0.9198749149438118,
+    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
+    genlog_norm_parameter = (
+        0.8306394357062581,
+        -8.216329250032336,
+        0.5115200078187916,
+        7.287918580914142e-05,
+    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
+    autogen_normdata = {
+        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
+        "sample_bounds99": [
+            [0.0, 8.783188819885254],
+            [0.011920355611963635, 0.9985455134519171],
+        ],
+    }
+    preferred_normalization = "genlog"
+    # functions
+
+
+class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+    featurize = staticmethod(Chi4n)
+    # normalization
+    linear_norm_parameter = (
+        0.2235474556767324,
+        0.12057837229443968,
+    )  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
+    linear_norm_parameter_normdata = {"error": 0.15222099244306292}
+    min_max_norm_parameter = (
+        0.40708839430881494,
+        2.71836618230583,
+    )  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.03939655652763707}
+    sigmoidal_norm_parameter = (
+        1.5414132407381294,
+        2.0927265327645506,
+    )  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.030256595482341535}
+    dual_sigmoidal_norm_parameter = (
+        1.4410261354054712,
+        2.823564070788039,
+        1.5793253269271639,
+    )  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011186659825690531}
+    genlog_norm_parameter = (
+        1.4612311355483178,
+        -3.1076538629942276,
+        0.036869609927097875,
+        6.329448915489527e-05,
+    )  # error of 8.27E-03 with sample range (0.00E+00,3.81E+01) resulting in fit range (2.01E-03,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.00827292069878479}
+    autogen_normdata = {
+        "sample_bounds": [[0.0, 38.074581146240234], [0.0020094042543737406, 1.0]],
+        "sample_bounds99": [
+            [0.0, 5.326207160949707],
+            [0.011537014447146662, 0.9993217233815135],
         ],
     }
     preferred_normalization = "genlog"
@@ -2243,50 +2287,6 @@ class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(CalcChi4n)
-    # normalization
-    linear_norm_parameter = (
-        0.2235474556767324,
-        0.12057837229443968,
-    )  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
-    linear_norm_parameter_normdata = {"error": 0.15222099244306292}
-    min_max_norm_parameter = (
-        0.40708839430881494,
-        2.71836618230583,
-    )  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03939655652763707}
-    sigmoidal_norm_parameter = (
-        1.5414132407381294,
-        2.0927265327645506,
-    )  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.030256595482341535}
-    dual_sigmoidal_norm_parameter = (
-        1.4410261354054712,
-        2.823564070788039,
-        1.5793253269271639,
-    )  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011186659825690531}
-    genlog_norm_parameter = (
-        1.4612311355483178,
-        -3.1076538629942276,
-        0.036869609927097875,
-        6.329448915489527e-05,
-    )  # error of 8.27E-03 with sample range (0.00E+00,3.81E+01) resulting in fit range (2.01E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00827292069878479}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 38.074581146240234], [0.0020094042543737406, 1.0]],
-        "sample_bounds99": [
-            [0.0, 5.326207160949707],
-            [0.011537014447146662, 0.9993217233815135],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi4n)
     # normalization
     linear_norm_parameter = (
         0.2235474556767324,
@@ -2955,7 +2955,7 @@ class EState_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
 class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcEccentricity)
+    featurize = staticmethod(Eccentricity)
     # normalization
     linear_norm_parameter = (
         4.5706147462074735,
@@ -2999,7 +2999,7 @@ class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
 class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Eccentricity)
+    featurize = staticmethod(CalcEccentricity)
     # normalization
     linear_norm_parameter = (
         4.5706147462074735,
@@ -3266,7 +3266,7 @@ class FpDensityMorgan3_Featurizer(SingleValueMoleculeFeaturizer):
 class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(FractionCSP3)
+    featurize = staticmethod(CalcFractionCSP3)
     # normalization
     linear_norm_parameter = (
         1.1210114366616568,
@@ -3310,7 +3310,7 @@ class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
 class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcFractionCSP3)
+    featurize = staticmethod(FractionCSP3)
     # normalization
     linear_norm_parameter = (
         1.1210114366616568,
@@ -13394,7 +13394,7 @@ class HeavyAtomMolWt_Featurizer(SingleValueMoleculeFeaturizer):
 class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcInertialShapeFactor)
+    featurize = staticmethod(InertialShapeFactor)
     # normalization
     linear_norm_parameter = (
         249.802812058766,
@@ -13438,7 +13438,7 @@ class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
 class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(InertialShapeFactor)
+    featurize = staticmethod(CalcInertialShapeFactor)
     # normalization
     linear_norm_parameter = (
         249.802812058766,
@@ -13564,7 +13564,7 @@ class Ipc_Featurizer(SingleValueMoleculeFeaturizer):
 class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Kappa1)
+    featurize = staticmethod(CalcKappa1)
     # normalization
     linear_norm_parameter = (
         0.07531844296316315,
@@ -13611,7 +13611,7 @@ class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
 class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcKappa1)
+    featurize = staticmethod(Kappa1)
     # normalization
     linear_norm_parameter = (
         0.07531844296316315,
@@ -13837,7 +13837,7 @@ class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
 class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcKappa3)
+    featurize = staticmethod(Kappa3)
     # normalization
     linear_norm_parameter = (
         0.03561704845372893,
@@ -13884,7 +13884,7 @@ class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
 class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Kappa3)
+    featurize = staticmethod(CalcKappa3)
     # normalization
     linear_norm_parameter = (
         0.03561704845372893,
@@ -14826,7 +14826,7 @@ class NPR2_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumAliphaticCarbocycles)
+    featurize = staticmethod(CalcNumAliphaticCarbocycles)
     # normalization
     linear_norm_parameter = (
         0.029386355676372537,
@@ -14867,7 +14867,7 @@ class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumAliphaticCarbocycles)
+    featurize = staticmethod(NumAliphaticCarbocycles)
     # normalization
     linear_norm_parameter = (
         0.029386355676372537,
@@ -14908,7 +14908,7 @@ class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumAliphaticHeterocycles)
+    featurize = staticmethod(NumAliphaticHeterocycles)
     # normalization
     linear_norm_parameter = (
         0.07182403555851259,
@@ -14949,7 +14949,7 @@ class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumAliphaticHeterocycles)
+    featurize = staticmethod(CalcNumAliphaticHeterocycles)
     # normalization
     linear_norm_parameter = (
         0.07182403555851259,
@@ -15564,7 +15564,7 @@ class NumHDonors_Featurizer(SingleValueMoleculeFeaturizer):
 class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumHeteroatoms)
+    featurize = staticmethod(CalcNumHeteroatoms)
     # normalization
     linear_norm_parameter = (
         0.016077495185775725,
@@ -15605,7 +15605,7 @@ class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
 class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumHeteroatoms)
+    featurize = staticmethod(NumHeteroatoms)
     # normalization
     linear_norm_parameter = (
         0.016077495185775725,
@@ -15848,7 +15848,7 @@ class NumRings_Featurizer(SingleValueMoleculeFeaturizer):
 class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumRotatableBonds)
+    featurize = staticmethod(NumRotatableBonds)
     # normalization
     linear_norm_parameter = (
         0.0016857886272905187,
@@ -15889,7 +15889,7 @@ class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
 class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumRotatableBonds)
+    featurize = staticmethod(CalcNumRotatableBonds)
     # normalization
     linear_norm_parameter = (
         0.0016857886272905187,
@@ -16012,7 +16012,7 @@ class NumSaturatedCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumSaturatedHeterocycles)
+    featurize = staticmethod(NumSaturatedHeterocycles)
     # normalization
     linear_norm_parameter = (
         0.06338179563839252,
@@ -16053,7 +16053,7 @@ class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumSaturatedHeterocycles)
+    featurize = staticmethod(CalcNumSaturatedHeterocycles)
     # normalization
     linear_norm_parameter = (
         0.06338179563839252,
@@ -16094,7 +16094,7 @@ class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumSaturatedRings)
+    featurize = staticmethod(CalcNumSaturatedRings)
     # normalization
     linear_norm_parameter = (
         0.037486269092924296,
@@ -16135,7 +16135,7 @@ class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
 class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumSaturatedRings)
+    featurize = staticmethod(NumSaturatedRings)
     # normalization
     linear_norm_parameter = (
         0.037486269092924296,
@@ -17009,7 +17009,7 @@ class PMI1_Featurizer(SingleValueMoleculeFeaturizer):
 class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcPMI2)
+    featurize = staticmethod(PMI2)
     # normalization
     linear_norm_parameter = (
         3.364102817740711e-05,
@@ -17053,7 +17053,7 @@ class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
 class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(PMI2)
+    featurize = staticmethod(CalcPMI2)
     # normalization
     linear_norm_parameter = (
         3.364102817740711e-05,
@@ -17229,7 +17229,7 @@ class Phi_Featurizer(SingleValueMoleculeFeaturizer):
 class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(RadiusOfGyration)
+    featurize = staticmethod(CalcRadiusOfGyration)
     # normalization
     linear_norm_parameter = (
         0.274743032958996,
@@ -17276,7 +17276,7 @@ class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
 class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcRadiusOfGyration)
+    featurize = staticmethod(RadiusOfGyration)
     # normalization
     linear_norm_parameter = (
         0.274743032958996,

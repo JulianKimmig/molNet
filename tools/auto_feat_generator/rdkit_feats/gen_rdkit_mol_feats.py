@@ -1,7 +1,9 @@
-import black
+import json
+import os
+import pickle
 
-from molNet.featurizer import molecule_featurizer
-from molNet.utils.mol.properties import has_confomers, assert_conformers
+import black
+import numpy as np
 from rdkit import Chem
 from rdkit.Chem import (
     rdMolDescriptors,
@@ -11,11 +13,9 @@ from rdkit.Chem import (
     rdmolops,
     rdForceFieldHelpers,
 )
-import pickle
-import os
-import numpy as np
-import json
 
+from molNet.featurizer import molecule_featurizer
+from molNet.utils.mol.properties import assert_conformers
 
 modules = [rdMolDescriptors, Descriptors3D, GraphDescriptors, Descriptors, rdmolops]
 modules = {mod.__name__: mod for mod in modules}
@@ -346,9 +346,6 @@ for func_name in dir(testmols[0]):
     # print(func_name)
 len(succs)
 
-
-from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
-
 MAX_LENGTH = 4096
 
 loded_funcs = []
@@ -475,7 +472,7 @@ for s in succs[::-1]:
                         s["dtype"] = "np.int32"
                     continue
                 elif r.__class__.__name__.endswith("BitVect"):
-                    s["dtype"] = "np.int32"
+                    s["dtype"] = "bool"
                     continue
             else:
                 continue
