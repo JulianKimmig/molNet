@@ -11,10 +11,18 @@ from rdkit.Chem.rdchem import Mol
 
 from tqdm import tqdm
 
+from molNet.utils.parallelization.multiprocessing import solve_cores
+
 
 class DataStreamer:
-    def __init__(self,dataloader):
+    def __init__(self, dataloader, cached=False, progress_bar_kwargs=None):
+        if progress_bar_kwargs is None:
+            progress_bar_kwargs = {}
+        self._progress_bar_kwargs = progress_bar_kwargs
         self.dataloader = dataloader
+        self._cache = cached
+        self._cache_data=[]
+        self._all_cached=False
 
     def __iter__(self):
         pass
@@ -25,22 +33,57 @@ class DataStreamer:
             return cls(*args,**{**kwargs,**skwargs})
         return _generator
 
+    def get_n_entries(self,n:int,progress_bar=False):
+        if len(self._cache_data)<n and not self._all_cached:
+            if progress_bar:
+                g=tqdm(enumerate(self),total=n,**self._progress_bar_kwargs)
+            else:
+                g=enumerate(self)
+
+            for j,d in g:
+                if j>=n:
+                    break
+        else:
+            l=len(self._cache_data)
+            if l<n:
+                n=l
+            if progress_bar:
+                return [self._cache_data[i] for i in tqdm(range(n),total=n,**self._progress_bar_kwargs)]
+        return self._cache_data[:n]
+
+
+
 class SDFStreamer(DataStreamer):
-    def __init__(self,dataloader,file_getter,gz=True,):
-        super(SDFStreamer, self).__init__(dataloader)
+    def __init__(self,dataloader,file_getter,gz=True,cached=False,threads="all-1"):
+        super(SDFStreamer, self).__init__(dataloader,cached=cached,progress_bar_kwargs=dict(unit="mol",unit_scale=True))
+        if gz:
+            threads=1
+        self._threads = threads
         self._gz = gz
+
         self._file_getter = file_getter
 
     def __iter__(self):
+        cores = solve_cores(self._threads)
+        if cores>1:
+            sdfclasd=Chem.MultithreadedSDMolSupplier
+        else:
+            sdfclasd=Chem.ForwardSDMolSupplier
         def _it():
             if self._gz:
                 with gzip.open(self._file_getter(self),"rb") as f:
-                    for mol in Chem.ForwardSDMolSupplier(f):
+                    for mol in sdfclasd(f):
+                        if self._cache:
+                            self._cache_data.append(mol)
                         yield mol
             else:
                 with open(self._file_getter(self),"rb") as f:
-                    for mol in Chem.ForwardSDMolSupplier(f):
+                    for mol in sdfclasd(f):
+                        if self._cache:
+                            self._cache_data.append(mol)
                         yield mol
+            if self._cache:
+                self._all_cached=True
         return _it()
 
 
@@ -110,6 +153,9 @@ class Datalaoder():
         self._needs_raw()
         return (k for k  in self._data_streamer)
 
+    def get_n_entries(self,n:int,**kwargs):
+        return self._data_streamer.get_n_entries(n=n,**kwargs)
+
     def unpack(self, dl):
         return dl
 
@@ -165,16 +211,28 @@ class ChemBLdb29(Datalaoder):
     source = "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_29.sdf.gz"
     raw_file = "chembl_29.sdf.gz"
     expected_data_size = 2084724
-    data_streamer_generator = SDFStreamer.generator(gz=True,file_getter=lambda self: self.dataloader.raw_file_path)
+    data_streamer_generator = SDFStreamer.generator(gz=True,file_getter=lambda self: self.dataloader.raw_file_path,cached=True)
 
 
 def main():
     tdir=os.path.join(gettempdir(), "molNet", "ChemBLdb29")
     loader = ChemBLdb29(tdir)
     # loader.get_data()
-    for mol in tqdm(loader,unit="mol",unit_scale=True):
-        print(mol)
-        break
+    k=10000
+    print(len(loader.get_n_entries(k,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k-1,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k-10,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k-100,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k+1,progress_bar=True)),flush=True)
+    print(len(loader.get_n_entries(k+10,progress_bar=True)),flush=True)
+
+    for mol in tqdm(loader,unit="mol",unit_scale=True,total=ChemBLdb29.expected_data_size):
+        pass
+
+
+        #print(mol)
+        #break
     # loader.downlaod()
     # print(loader.parent_dir)
 
