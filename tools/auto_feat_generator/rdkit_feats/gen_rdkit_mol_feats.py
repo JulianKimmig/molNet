@@ -362,8 +362,6 @@ for s in succs[::-1]:
             return f(Chem.Mol(mol))
 
         except Exception as e:
-            display(mol)
-            display(s)
             print(Chem.MolToSmiles(mol))
             # raise e
 

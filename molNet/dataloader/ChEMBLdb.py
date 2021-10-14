@@ -21,43 +21,50 @@ class DataStreamer:
         self._progress_bar_kwargs = progress_bar_kwargs
         self.dataloader = dataloader
         self._cache = cached
-        self._cache_data=[]
-        self._all_cached=False
+        self._cache_data = []
+        self._all_cached = False
 
     def __iter__(self):
         pass
 
     @classmethod
-    def generator(cls,**kwargs):
-        def _generator(*args,**skwargs):
-            return cls(*args,**{**kwargs,**skwargs})
+    def generator(cls, **kwargs):
+        def _generator(*args, **skwargs):
+            return cls(*args, **{**kwargs, **skwargs})
+
         return _generator
 
-    def get_n_entries(self,n:int,progress_bar=False):
-        if len(self._cache_data)<n and not self._all_cached:
+    def get_n_entries(self, n: int, progress_bar=False):
+        if len(self._cache_data) < n and not self._all_cached:
             if progress_bar:
-                g=tqdm(enumerate(self),total=n,**self._progress_bar_kwargs)
+                g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs)
             else:
-                g=enumerate(self)
+                g = enumerate(self)
 
-            for j,d in g:
-                if j>=n:
+            for j, d in g:
+                if j >= n:
                     break
         else:
-            l=len(self._cache_data)
-            if l<n:
-                n=l
+            l = len(self._cache_data)
+            if l < n:
+                n = l
             if progress_bar:
-                return [self._cache_data[i] for i in tqdm(range(n),total=n,**self._progress_bar_kwargs)]
+                return [
+                    self._cache_data[i]
+                    for i in tqdm(range(n), total=n, **self._progress_bar_kwargs)
+                ]
         return self._cache_data[:n]
 
 
-
 class SDFStreamer(DataStreamer):
-    def __init__(self,dataloader,file_getter,gz=True,cached=False,threads="all-1"):
-        super(SDFStreamer, self).__init__(dataloader,cached=cached,progress_bar_kwargs=dict(unit="mol",unit_scale=True))
+    def __init__(self, dataloader, file_getter, gz=True, cached=False, threads="all-1"):
+        super(SDFStreamer, self).__init__(
+            dataloader,
+            cached=cached,
+            progress_bar_kwargs=dict(unit="mol", unit_scale=True),
+        )
         if gz:
-            threads=1
+            threads = 1
         self._threads = threads
         self._gz = gz
 
@@ -65,35 +72,35 @@ class SDFStreamer(DataStreamer):
 
     def __iter__(self):
         cores = solve_cores(self._threads)
-        if cores>1:
-            sdfclasd=Chem.MultithreadedSDMolSupplier
+        if cores > 1:
+            sdfclasd = Chem.MultithreadedSDMolSupplier
         else:
-            sdfclasd=Chem.ForwardSDMolSupplier
+            sdfclasd = Chem.ForwardSDMolSupplier
+
         def _it():
             if self._gz:
-                with gzip.open(self._file_getter(self),"rb") as f:
+                with gzip.open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
                         if self._cache:
                             self._cache_data.append(mol)
                         yield mol
             else:
-                with open(self._file_getter(self),"rb") as f:
+                with open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
                         if self._cache:
                             self._cache_data.append(mol)
                         yield mol
             if self._cache:
-                self._all_cached=True
+                self._all_cached = True
+
         return _it()
 
 
-
-
-class Datalaoder():
+class Datalaoder:
     source: str = None
     raw_file: str = "filename"
     expected_data_size: int = -1
-    data_streamer_generator:Callable = None
+    data_streamer_generator: Callable = None
 
     def __init__(self, parent_dir):
         os.makedirs(parent_dir, exist_ok=True)
@@ -102,7 +109,7 @@ class Datalaoder():
 
     def _downlaod(self) -> str:
         response = requests.get(self.source, stream=True)
-        total_length = response.headers.get('content-length')
+        total_length = response.headers.get("content-length")
         chunk_size = 4096
         if total_length:
             total_length = int(total_length)
@@ -111,11 +118,15 @@ class Datalaoder():
             # print(chunk_size)
 
         if "Content-Disposition" in response.headers.keys():
-            fname = re.findall("filename=(.+)", response.headers["Content-Disposition"])[0]
+            fname = re.findall(
+                "filename=(.+)", response.headers["Content-Disposition"]
+            )[0]
         else:
             fname = self.source.split("/")[-1]
 
-        with open(os.path.join(self.parent_dir,fname), "wb") as handle, tqdm(total=total_length,unit="byte",unit_scale=True) as pbar:
+        with open(os.path.join(self.parent_dir, fname), "wb") as handle, tqdm(
+            total=total_length, unit="byte", unit_scale=True
+        ) as pbar:
             for data in response.iter_content(chunk_size=chunk_size):
                 handle.write(data)
                 pbar.update(len(data))
@@ -151,11 +162,11 @@ class Datalaoder():
 
     def __iter__(self):
         self._needs_raw()
-        return (k for k  in self._data_streamer)
+        return (k for k in self._data_streamer)
 
-    def get_n_entries(self,n:int,**kwargs):
+    def get_n_entries(self, n: int, **kwargs):
         self._needs_raw()
-        return self._data_streamer.get_n_entries(n=n,**kwargs)
+        return self._data_streamer.get_n_entries(n=n, **kwargs)
 
     def unpack(self, dl):
         return dl
@@ -206,37 +217,40 @@ class SDFDatalaoder(MolDatalaoder):
         return suppl
 
 
-
-
 class ChemBLdb29(Datalaoder):
-    source = "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_29.sdf.gz"
+    source = (
+        "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_29.sdf.gz"
+    )
     raw_file = "chembl_29.sdf.gz"
     expected_data_size = 2084724
-    data_streamer_generator = SDFStreamer.generator(gz=True,file_getter=lambda self: self.dataloader.raw_file_path,cached=True)
+    data_streamer_generator = SDFStreamer.generator(
+        gz=True, file_getter=lambda self: self.dataloader.raw_file_path, cached=True
+    )
 
 
 def main():
-    tdir=os.path.join(gettempdir(), "molNet", "ChemBLdb29")
+    tdir = os.path.join(gettempdir(), "molNet", "ChemBLdb29")
     loader = ChemBLdb29(tdir)
     # loader.get_data()
-    k=10000
-    print(len(loader.get_n_entries(k,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k-1,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k-10,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k-100,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k+1,progress_bar=True)),flush=True)
-    print(len(loader.get_n_entries(k+10,progress_bar=True)),flush=True)
+    k = 10000
+    print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k - 1, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k - 10, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k - 100, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k + 1, progress_bar=True)), flush=True)
+    print(len(loader.get_n_entries(k + 10, progress_bar=True)), flush=True)
 
-    for mol in tqdm(loader,unit="mol",unit_scale=True,total=ChemBLdb29.expected_data_size):
+    for mol in tqdm(
+        loader, unit="mol", unit_scale=True, total=ChemBLdb29.expected_data_size
+    ):
         pass
 
-
-        #print(mol)
-        #break
+        # print(mol)
+        # break
     # loader.downlaod()
     # print(loader.parent_dir)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
