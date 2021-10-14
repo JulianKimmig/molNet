@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0,modp)
@@ -9,7 +9,6 @@ from tools.ecdf import ecdf_conf
 
 import inspect
 import pickle
-from pprint import pprint
 
 import numpy as np
 from typing import List, Tuple
@@ -21,8 +20,6 @@ from tqdm import tqdm
 
 from molNet import ConformerError
 from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer,VarSizeMoleculeFeaturizer
-from molNet.mol import molgraph
-from molNet.mol.molgraph import mol_graph_from_mol
 from molNet.utils.parallelization.multiprocessing import parallelize
 
 lg = RDLogger.logger()
@@ -30,8 +27,6 @@ lg.setLevel(RDLogger.CRITICAL)
 import logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.getLogger('matplotlib').setLevel(logging.WARNING)
-import matplotlib.pyplot as plt
-
 
 from rdkit.Chem import Mol, MolFromSmiles
 
@@ -41,6 +36,62 @@ ignore=["GETAWAY_Featurizer",
        ]
 
 print("get mol file list")
+loader = ecdf_conf.MOL_DATALOADER(ecdf_conf.MOL_DIR)
+loader.data_streamer.cached=True
+loader.get_n_entries(1000, progress_bar=True)
+
+test_mol = MolFromSmiles("CCC")
+
+def _single_call_parallel_featurize_molgraph(d:List[MoleculeFeaturizer]):
+    feats=d
+    r=[]
+    for f in feats:
+        f.preferred_norm=None
+        r.append(f(test_mol))
+    return r
+
+import molNet.featurizer.molecule_featurizer as mf
+
+molfeats=mf._available_featurizer
+print(f"found {len(molfeats)} molecule featurizer")
+
+# bool is already between 0 and 1
+molfeats= [f for f in molfeats if f.dtype!=bool]
+molfeats= [f for f in molfeats if f not in ignore]
+print(f"{len(molfeats)} remain after removal of bool types")
+
+test_mol = MolFromSmiles("CCC")
+
+generated_test_feats = parallelize(
+    _single_call_parallel_featurize_molgraph,
+    molfeats,
+    cores="all-1",
+    progess_bar=True,
+    progress_bar_kwargs=dict(unit=" feats"),
+)
+
+
+exit(0)
+
+
+
+def _single_call_parallel_featurize_molgraph(d:List[MoleculeFeaturizer]):
+    feats=d
+    r=[]
+    for f in feats:
+        f.preferred_norm=None
+        r.append(f(test_mol))
+    return r
+
+
+
+generated_test_feats = parallelize(
+    _single_call_parallel_featurize_molgraph,
+    molfeats,
+    cores="all-1",
+    progess_bar=True,
+    progress_bar_kwargs=dict(unit=" feats"),
+)
 
 
 was_rem=True

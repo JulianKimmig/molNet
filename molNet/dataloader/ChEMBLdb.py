@@ -20,7 +20,7 @@ class DataStreamer:
             progress_bar_kwargs = {}
         self._progress_bar_kwargs = progress_bar_kwargs
         self.dataloader = dataloader
-        self._cache = cached
+        self._cached = cached
         self._cache_data = []
         self._all_cached = False
 
@@ -55,6 +55,19 @@ class DataStreamer:
                 ]
         return self._cache_data[:n]
 
+    @property
+    def cached(self):
+        return self._cached
+
+    def clear_cache(self):
+        self._cache_data = []
+        self._all_cached = False
+
+    @cached.setter
+    def cached(self,cached:bool):
+        if cached != self._cached:
+            self.clear_cache()
+            self._cached=cached
 
 class SDFStreamer(DataStreamer):
     def __init__(self, dataloader, file_getter, gz=True, cached=False, threads="all-1"):
@@ -81,16 +94,16 @@ class SDFStreamer(DataStreamer):
             if self._gz:
                 with gzip.open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
-                        if self._cache:
+                        if self._cached:
                             self._cache_data.append(mol)
                         yield mol
             else:
                 with open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
-                        if self._cache:
+                        if self._cached:
                             self._cache_data.append(mol)
                         yield mol
-            if self._cache:
+            if self._cached:
                 self._all_cached = True
 
         return _it()
@@ -147,6 +160,10 @@ class Datalaoder:
             self.download()
 
     @property
+    def data_streamer(self) -> DataStreamer:
+        return self._data_streamer
+
+    @property
     def parent_dir(self) -> str:
         return self._parent_dir
 
@@ -172,51 +189,6 @@ class Datalaoder:
         return dl
 
 
-class MolDatalaoder(Datalaoder):
-    autosafe = True
-    store = "sdf.gz"
-
-    @property
-    def mol_path(self) -> str:
-        p = os.path.join(self.parent_dir, "mol")
-        os.makedirs(p, exist_ok=True)
-        return p
-
-    def get_stored_molfiles(self):
-        mp = self.mol_path
-        return [os.path.join(mp, f) for f in os.listdir(mp) if f.endswith(".mol")]
-
-    @property
-    def stored_molfiles(self) -> str:
-        if self._stored_molfiles is None:
-            self._stored_molfiles = self.get_stored_molfiles()
-        return self._stored_molfiles
-
-    def is_saved(self):
-        return len(self._stored_molfiles) == self.expected_data_size
-
-    def stream_mol_data(self) -> Generator[Mol, None, None]:
-        if self.is_saved():
-            for f in self.stored_molfiles:
-                with open(f, "rb") as file:
-                    mol = Mol(file.read())
-                yield mol
-        for d in self.read_raw_data():
-            if not isinstance(d, Mol):  # noqa
-                raise ValueError(f"{d} is not of type Mol")
-            yield d
-
-
-class SDFDatalaoder(MolDatalaoder):
-    autosafe = False
-    store = "sdf.gz"
-
-    def read_raw_data(self) -> Chem.SDMolSupplier:
-        self._needs_raw()
-        suppl = Chem.SDMolSupplier(self.raw_file_path)
-        return suppl
-
-
 class ChemBLdb29(Datalaoder):
     source = (
         "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_29.sdf.gz"
@@ -224,7 +196,7 @@ class ChemBLdb29(Datalaoder):
     raw_file = "chembl_29.sdf.gz"
     expected_data_size = 2084724
     data_streamer_generator = SDFStreamer.generator(
-        gz=True, file_getter=lambda self: self.dataloader.raw_file_path, cached=True
+        gz=True, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
 
 
