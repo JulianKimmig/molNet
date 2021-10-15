@@ -11,6 +11,7 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def generate_ecdf(data, res=None, smooth=False, unique_only=False):
     if data.ndim > 1:
         data = np.squeeze(data)
