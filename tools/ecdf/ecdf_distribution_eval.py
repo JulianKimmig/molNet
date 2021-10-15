@@ -2,12 +2,12 @@ import gzip
 import os
 import sys
 
-from tools.ecdf._generate_ecdf_helper import get_molecule_featurizer, attach_output_dir_molecule_featurizer, \
-    ECDFGroup
-
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, modp)
 sys.path.append(modp)
+
+from tools.ecdf._generate_ecdf_helper import get_molecule_featurizer, attach_output_dir_molecule_featurizer, \
+    ECDFGroup
 
 import pickle
 
