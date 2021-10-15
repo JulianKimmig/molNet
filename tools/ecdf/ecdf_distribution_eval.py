@@ -31,10 +31,10 @@ def main():
 
     for f in mf:
         print(f)
-        eg = ECDFGroup(f.feature_dist_gpckl, save_full_data=True, save_smooth_data=True)
+        eg = ECDFGroup(f.feature_dist_gpckl, save_full_data=False, save_smooth_data=True)
 
         print(eg.dist_data.shape)
-        print(eg.get_ecdf_img_paths())
+        print(eg.get_smooth_data())
 
 
 if __name__ == '__main__':

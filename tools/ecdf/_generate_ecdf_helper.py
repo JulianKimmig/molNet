@@ -143,27 +143,35 @@ def write_info(key, value, feat):
     save_info(feature_info, feat)
 
 
-def generate_ecdf(data, res=None, smooth=False, unique_only=False):
+def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
     if data.ndim > 1:
         data = np.squeeze(data)
         if data.ndim > 1:
             return [
-                generate_ecdf(data[..., i], res=res, smooth=smooth, unique_only=unique_only)
+                generate_ecdf(data[..., i], res_1_99=res_1_99, smooth=smooth, unique_only=unique_only)
                 for i in range(data.shape[-1])
             ]
     x = np.sort(data)
     n = len(data)
     y = np.arange(1, n + 1) / n
     if smooth:
+        unique_only = True
         x, uindices = np.unique(x, return_index=True)
         y = np.array([a.mean() for a in np.split(y, uindices[1:])])
         y[0] = 0
         y[-1] = 1
-    if res:
-        dp = (np.linspace(0, 1, res) * (len(x) - 1)).astype(int)
-        n = res
-        x = x[dp]
-        y = y[dp]
+
+    if res_1_99:
+        x1 = x[(y >= 0.01).argmin()]
+        x99 = x[(y >= 0.99).argmin()]
+        if x99 == x[0]:
+            x99 = x[-1]
+        if x1 != x99:
+            res = res_1_99 / (x99 - x1)  # ppu
+            points = int((x[-1] - x[0]) * res)
+            dp = (np.linspace(0, 1, points) * (len(x) - 1)).astype(int)
+            x = x[dp]
+            y = y[dp]
 
     if unique_only:
         x, uindices = np.unique(x, return_index=True)
@@ -266,13 +274,19 @@ class ECDFGroup():
         if self.full_data[k] is None:
             self.need_save = True
             print(f"gen full ecdf for {self}[{k}]")
-            x, y = generate_ecdf(self.feat_dist[:, k], res=None, smooth=False, unique_only=False)
+            x, y = generate_ecdf(self.feat_dist[:, k], smooth=False, unique_only=False)
             self.full_data[k] = (x, y)
 
         if self.full_data[k] is None:
             raise ValueError()
 
         return self.full_data[k]
+
+    def get_smooth_data(self):
+        self.check_ecdfs()
+        paths = [ecdf.smooth_ecdf for ecdf in self.ecdfs]
+        self.save()
+        return paths
 
     def _get_sub_smooth_data(self, k):
         self.check_ecdfs()
@@ -287,7 +301,7 @@ class ECDFGroup():
         if self.smooth_data[k] is None:
             self.need_save = True
             print(f"gen smooth ecdf for {self}[{k}]")
-            x, y = generate_ecdf(self.feat_dist[:, k], res=None, smooth=True, unique_only=False)
+            x, y = generate_ecdf(self.feat_dist[:, k], res_1_99=10_000, smooth=True)
             self.smooth_data[k] = (x, y)
 
         if self.smooth_data[k] is None:
@@ -339,7 +353,7 @@ class ECDF:
 
         if x is None or y is None:
             print(self, "generate full_ecdf")
-            x, y = generate_ecdf(self.dist_data, res=None, smooth=False, unique_only=False)
+            x, y = generate_ecdf(self.dist_data, smooth=False, unique_only=False)
             if self.save_full_data:
                 with gzip.open(path, "w+b") as f:
                     pickle.dump((x, y), f)
@@ -360,7 +374,7 @@ class ECDF:
 
         if x is None or y is None:
             print(self, "generate smooth_ecdf")
-            x, y = generate_ecdf(self.dist_data, res=None, smooth=True, unique_only=False)
+            x, y = generate_ecdf(self.dist_data, res_1_99=10_000, smooth=True)
             if self.save_smooth_data:
                 with gzip.open(path, "w+b") as f:
                     pickle.dump((x, y), f)
