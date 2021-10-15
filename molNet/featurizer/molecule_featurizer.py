@@ -1,8 +1,7 @@
-from rdkit.Chem.rdmolops import GetMolFrags
+from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer
 
 from ._autogen_molecule_featurizer import *
 from ._autogen_molecule_featurizer import (
-    MoleculeFeaturizer,
     SingleValueMoleculeFeaturizer,
 )
 from .featurizer import FeaturizerList
