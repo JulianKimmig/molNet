@@ -1,21 +1,19 @@
 import gzip
 import os
 import re
-import shutil
-from tempfile import mkdtemp, gettempdir
-from typing import Callable, Any, Generator
+from tempfile import gettempdir
+from typing import Callable
 
 import requests
 from rdkit import Chem
-from rdkit.Chem.rdchem import Mol
-
 from tqdm import tqdm
 
+from molNet import MOLNET_LOGGER
 from molNet.utils.parallelization.multiprocessing import solve_cores
 
 
 class DataStreamer:
-    def __init__(self, dataloader, cached=False, progress_bar_kwargs=None):
+    def __init__(self, dataloader: "Datalaoder", cached=False, progress_bar_kwargs=None):
         if progress_bar_kwargs is None:
             progress_bar_kwargs = {}
         self._progress_bar_kwargs = progress_bar_kwargs
@@ -24,9 +22,6 @@ class DataStreamer:
         self._cache_data = []
         self._all_cached = False
 
-    def __iter__(self):
-        pass
-
     @classmethod
     def generator(cls, **kwargs):
         def _generator(*args, **skwargs):
@@ -34,14 +29,17 @@ class DataStreamer:
 
         return _generator
 
+    def get_all_entries(self, *args, **kwargs):
+        return self.get_n_entries(self.dataloader.expected_data_size, *args, **kwargs)
+
     def get_n_entries(self, n: int, progress_bar=False):
-        dat=[]
+        dat = []
         if len(self._cache_data) < n and not self._all_cached:
             if progress_bar:
                 g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs)
             else:
                 g = enumerate(self)
-            
+
             if self.cached:
                 for j, d in g:
                     if j >= n:
@@ -64,6 +62,7 @@ class DataStreamer:
         if self.cached:
             return self._cache_data[:n]
         return dat[:n]
+
     @property
     def cached(self):
         return self._cached
@@ -73,10 +72,25 @@ class DataStreamer:
         self._all_cached = False
 
     @cached.setter
-    def cached(self,cached:bool):
+    def cached(self, cached: bool):
         if cached != self._cached:
             self.clear_cache()
-            self._cached=cached
+            self._cached = cached
+
+    def iterate(self):
+        raise NotImplementedError()
+
+    def __iter__(self):
+        def _it():
+            i = 0
+            for i, k in enumerate(self.iterate()):
+                yield k
+            if i + 1 != self.dataloader.expected_data_size:
+                MOLNET_LOGGER.warning(
+                    f"{self.dataloader} returns a different size ({i}) than expected({self.dataloader.expected_data_size})")
+
+        return _it()
+
 
 class SDFStreamer(DataStreamer):
     def __init__(self, dataloader, file_getter, gz=True, cached=False, threads="all-1"):
@@ -92,7 +106,7 @@ class SDFStreamer(DataStreamer):
 
         self._file_getter = file_getter
 
-    def __iter__(self):
+    def iterate(self):
         cores = solve_cores(self._threads)
         if cores > 1:
             sdfclasd = Chem.MultithreadedSDMolSupplier
@@ -194,13 +208,28 @@ class Datalaoder:
         self._needs_raw()
         return self._data_streamer.get_n_entries(n=n, **kwargs)
 
+    def get_all_entries(self, **kwargs):
+        self._needs_raw()
+        return self._data_streamer.get_all_entries(**kwargs)
+
     def unpack(self, dl):
         return dl
 
 
+class ChemBLdb01(Datalaoder):
+    source = (
+        "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_01/chembl_01.sdf.gz"
+    )
+    raw_file = "chembl_01.sdf.gz"
+    expected_data_size = 440055
+    data_streamer_generator = SDFStreamer.generator(
+        gz=True, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
+    )
+
+
 class ChemBLdb29(Datalaoder):
     source = (
-        "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_29.sdf.gz"
+        "https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_29/chembl_29.sdf.gz"
     )
     raw_file = "chembl_29.sdf.gz"
     expected_data_size = 2084724
@@ -210,10 +239,11 @@ class ChemBLdb29(Datalaoder):
 
 
 def main():
-    tdir = os.path.join(gettempdir(), "molNet", "ChemBLdb29")
-    loader = ChemBLdb29(tdir)
+    tdir = os.path.join(gettempdir(), "molNet", "ChemBLdb01")
+    loader = ChemBLdb01(tdir)
     # loader.get_data()
     k = 10000
+    loader.data_streamer.cached = True
     print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
     print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
     print(len(loader.get_n_entries(k - 1, progress_bar=True)), flush=True)
@@ -222,13 +252,11 @@ def main():
     print(len(loader.get_n_entries(k + 1, progress_bar=True)), flush=True)
     print(len(loader.get_n_entries(k + 10, progress_bar=True)), flush=True)
 
-    for mol in tqdm(
-        loader, unit="mol", unit_scale=True, total=ChemBLdb29.expected_data_size
-    ):
-        pass
-
-        # print(mol)
-        # break
+    print(len([None for mol in tqdm(
+        loader, unit="mol", unit_scale=True, total=loader.expected_data_size
+    )]))
+    # print(mol)
+    # break
     # loader.downlaod()
     # print(loader.parent_dir)
 
