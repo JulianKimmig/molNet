@@ -25,6 +25,23 @@ def _single_call_parallel_featurize_molgraph(d: List[MoleculeFeaturizer]) -> Lis
         r.append(f(test_mol))
     return r
 
+def _single_call_check_distributionfiles(d):
+    to_work = []
+    for f in d:
+        if os.path.exists(f.feature_dist_gpckl):
+            continue
+
+        if os.path.exists(f.feature_dist_pckl):
+            with open(f.feature_dist_pckl, "rb") as dfile:
+                mol_feats = pickle.load(dfile)
+
+            with gzip.open(f.feature_dist_gpckl, "w+b") as dfile:
+                pickle.dump(mol_feats, dfile)
+            os.remove(f.feature_dist_pckl)
+            continue
+
+        to_work.append(f)
+    return to_work
 
 def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
     feat = d[0][1]

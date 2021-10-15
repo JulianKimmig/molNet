@@ -8,7 +8,8 @@ sys.path.insert(0, modp)
 sys.path.append(modp)
 
 from tools.ecdf._generate_ecdf_helper import test_mol, \
-    _single_call_parallel_featurize_molfiles, get_molecule_featurizer, attach_output_dir_molecule_featurizer, write_info
+    _single_call_parallel_featurize_molfiles, get_molecule_featurizer, attach_output_dir_molecule_featurizer, \
+    write_info, _single_call_check_distributionfiles
 
 import pickle
 
@@ -52,21 +53,14 @@ def load_mols(loader, conf) -> List[Mol]:
 
 
 def check_preexisting(molfeats):
-    to_work = []
-    for f in molfeats:
-        if os.path.exists(f.feature_dist_gpckl):
-            continue
-
-        if os.path.exists(f.feature_dist_pckl):
-            with open(f.feature_dist_pckl, "rb") as dfile:
-                mol_feats = pickle.load(dfile)
-
-            with gzip.open(f.feature_dist_gpckl, "w+b") as dfile:
-                pickle.dump(mol_feats, dfile)
-            os.remove(f.feature_dist_pckl)
-            continue
-
-        to_work.append(f)
+    to_work = parallelize(
+        _single_call_check_distributionfiles,
+        molfeats,
+        cores="all-1",
+        progess_bar=True,
+        progress_bar_kwargs=dict(unit=" feats"),
+        split_parts=1000
+    )
     return to_work
 
 def generate_ecdf_dist(mols, molfeats):
