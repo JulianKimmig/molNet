@@ -2,12 +2,14 @@ import gzip
 import os
 import sys
 
+from molNet.utils.parallelization.multiprocessing import parallelize
+
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, modp)
 sys.path.append(modp)
 
 from tools.ecdf._generate_ecdf_helper import get_molecule_featurizer, attach_output_dir_molecule_featurizer, \
-    ECDFGroup
+    _single_call_gen_ecdf_images
 
 import pickle
 
@@ -29,12 +31,15 @@ def main():
 
     mf = [f for f in mf if os.path.exists(f.feature_dist_gpckl)]
 
-    for f in mf:
-        print(f)
-        eg = ECDFGroup(f.feature_dist_gpckl, save_full_data=False, save_smooth_data=True)
-
-        print(eg.dist_data.shape)
-        print(eg.get_smooth_data())
+    to_work = parallelize(
+        _single_call_gen_ecdf_images,
+        mf,
+        cores="all-1",
+        progess_bar=True,
+        progress_bar_kwargs=dict(unit=" feats"),
+        split_parts=1000
+    )
+    return to_work
 
 
 if __name__ == '__main__':

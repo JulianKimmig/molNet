@@ -169,7 +169,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
             points = int((x[-1] - x[0]) * res)
-            dp = (np.linspace(0, 1, points) * (len(x) - 1)).astype(int)
+            dp = np.round((np.linspace(0, (len(x) - 1), points))).astype(int)
             x = x[dp]
             y = y[dp]
 
@@ -177,6 +177,17 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         x, uindices = np.unique(x, return_index=True)
         y = y[uindices]
     return x, y
+
+
+def _single_call_gen_ecdf_images(mf):
+    paths = []
+    for f in mf:
+        print(f)
+        eg = ECDFGroup(f.feature_dist_gpckl, save_full_data=False, save_smooth_data=True)
+
+        # print(eg.dist_data.shape)
+        paths.extend(eg.get_ecdf_img_paths())
+    return paths
 
 
 class ECDFGroup():
