@@ -35,15 +35,23 @@ class DataStreamer:
         return _generator
 
     def get_n_entries(self, n: int, progress_bar=False):
+        dat=[]
         if len(self._cache_data) < n and not self._all_cached:
             if progress_bar:
                 g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs)
             else:
                 g = enumerate(self)
-
-            for j, d in g:
-                if j >= n:
-                    break
+            
+            if self.cached:
+                for j, d in g:
+                    if j >= n:
+                        break
+            else:
+                for j, d in g:
+                    dat.append(d)
+                    if j >= n:
+                        break
+                
         else:
             l = len(self._cache_data)
             if l < n:
@@ -53,8 +61,9 @@ class DataStreamer:
                     self._cache_data[i]
                     for i in tqdm(range(n), total=n, **self._progress_bar_kwargs)
                 ]
-        return self._cache_data[:n]
-
+        if self.cached:
+            return self._cache_data[:n]
+        return dat[:n]
     @property
     def cached(self):
         return self._cached
