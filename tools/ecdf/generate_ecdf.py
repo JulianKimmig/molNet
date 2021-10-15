@@ -32,9 +32,9 @@ logging.getLogger('matplotlib').setLevel(logging.WARNING)
 from rdkit.Chem import Mol
 import time
 
-IGNORED_FEATURIZER = ["GETAWAY_Featurizer",
-                      # "FpDensityMorgan1_Featurizer",
-                      ]
+IGNORED_FEATURIZER = [  # "GETAWAY_Featurizer",
+    # "FpDensityMorgan1_Featurizer",
+]
 
 
 
