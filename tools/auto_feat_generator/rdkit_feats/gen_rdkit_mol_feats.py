@@ -24,6 +24,18 @@ data_to_work_pckl = "rdkit_feat_ex_data_to_work.pckl"
 unsucsess_mods_pckl = "rdkit_feat_ex_unsucsess_mods.pckl"
 sucsess_mods_pckl = "rdkit_feat_ex_sucsess_mods.pckl"
 
+MANUAL_PRECLASSCODES = {
+    "CalcGETAWAY": """
+from rdkit.Chem.rdMolDescriptors import CalcGETAWAY as _oCalcGETAWAY
+from rdkit.Chem import GetMolFrags
+def CalcGETAWAY(mol):
+    frags=GetMolFrags(mol,asMols=True)
+    if len(frags)>1:
+        frags=sorted(frags,key=lambda m: mol.GetNumAtoms(),reverse=True)
+        return  _oCalcGETAWAY(frags[0])
+    return  _oCalcGETAWAY(mol)"""
+}
+
 BAD_LIST = [
     "^SplitMolByPDBResidues$",
     "^SplitMolByPDBChainId$",
@@ -631,7 +643,6 @@ for s in succs:
 
 succs = sorted(succs, key=lambda d: d["red_name"])
 
-
 avail_norms = []
 data_folder = "molecule_ecdf_data"
 if os.path.exists(data_folder):
@@ -641,6 +652,12 @@ if os.path.exists(data_folder):
     avail_norms = [f for f in avail_norms if f + ".ecdf" in df_cont]
 len(avail_norms)
 
+for s in succs:
+    if s["func_name"] in MANUAL_PRECLASSCODES:
+        if "preclasscode" not in s:
+            s["preclasscode"] = MANUAL_PRECLASSCODES[s["func_name"]]
+        else:
+            s["preclasscode"] += "\n" + MANUAL_PRECLASSCODES[s["func_name"]]
 
 imports = defaultdict(lambda: defaultdict(lambda: set()))
 
@@ -695,8 +712,10 @@ def numeric_coder(s):
     for mod, imp in s["additional_imports"]:
         imports[s["type"]][mod].add(imp)
     imports[s["type"]][s["module"]].add(s["func_name"])
-
-    code = class_string_numeric.format(
+    code = ""
+    if "preclasscode" in s:
+        code += s["preclasscode"] + "\n"
+    code += class_string_numeric.format(
         classname=s["classname"], classcall=s["func_call"], dtype=s["dtype"]
     )
 
@@ -782,9 +801,12 @@ def rdkit_vec_coder(s):
         ConvertToNumpyArray({classcall}(mol),a)
         return a
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
             length=s["length"],
         )
@@ -806,9 +828,12 @@ def rdkit_vec_coder(s):
         ConvertToNumpyArray(r,a)
         return a
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
         )
     elif s["length_type"] == "too_long":
@@ -834,9 +859,12 @@ def list_coder(s):
     # normalization
     # functions
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
             length=s["length"],
         )
@@ -849,9 +877,12 @@ def list_coder(s):
     # normalization
     # functions
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
         )
     elif s["length_type"] == "too_long":
@@ -878,9 +909,12 @@ def numpy_arrays_coder(s):
     def featurize(self,mol):
         return {classcall}(mol).flatten()
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
             length=s["length"],
         )
@@ -894,9 +928,12 @@ def numpy_arrays_coder(s):
     def featurize(self,mol):
         return {classcall}(mol).flatten()
         """
-        code = class_string.format(
+        code = ""
+        if "preclasscode" in s:
+            code += s["preclasscode"] + "\n"
+        code += class_string.format(
             classname=s["classname"],
-            classcall=s["func_name"],
+            classcall=s["func_call"],
             dtype=s["dtype"],
         )
 

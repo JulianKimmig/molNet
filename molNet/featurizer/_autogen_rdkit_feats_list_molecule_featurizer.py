@@ -1,26 +1,22 @@
+import numpy as np
+from rdkit.Chem.rdMolDescriptors import (
+    GetConnectivityInvariants,
+    CalcWHIM,
+    GetUSR,
+    BCUT2D,
+    GetUSRCAT,
+    CalcMORSE,
+    CalcAUTOCORR2D,
+    CalcCrippenDescriptors,
+    CalcEEMcharges,
+    GetFeatureInvariants,
+    CalcRDF,
+    CalcAUTOCORR3D,
+)
+
 from molNet.featurizer._molecule_featurizer import (
-    MoleculeFeaturizer,
-    SingleValueMoleculeFeaturizer,
     FixedSizeMoleculeFeaturizer,
     VarSizeMoleculeFeaturizer,
-)
-import numpy as np
-from numpy import inf, nan
-from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
-from rdkit.Chem.rdMolDescriptors import (
-    BCUT2D,
-    GetConnectivityInvariants,
-    CalcCrippenDescriptors,
-    CalcWHIM,
-    CalcMORSE,
-    GetUSRCAT,
-    CalcGETAWAY,
-    CalcRDF,
-    GetUSR,
-    GetFeatureInvariants,
-    CalcAUTOCORR2D,
-    CalcAUTOCORR3D,
-    CalcEEMcharges,
 )
 
 
@@ -69,6 +65,18 @@ class EEMcharges_Featurizer(VarSizeMoleculeFeaturizer):
     # functions
 
 
+from rdkit.Chem.rdMolDescriptors import CalcGETAWAY as _oCalcGETAWAY
+from rdkit.Chem import GetMolFrags
+
+
+def CalcGETAWAY(mol):
+    frags = GetMolFrags(mol, asMols=True)
+    if len(frags) > 1:
+        frags = sorted(frags, key=lambda m: mol.GetNumAtoms(), reverse=True)
+        return _oCalcGETAWAY(frags[0])
+    return _oCalcGETAWAY(mol)
+
+
 class GETAWAY_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 273
@@ -89,7 +97,7 @@ class GetConnectivityInvariants_Featurizer(VarSizeMoleculeFeaturizer):
 
 class GetFeatureInvariants_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
-    dtype = np.int64
+    dtype = np.int32
 
     featurize = staticmethod(GetFeatureInvariants)
     # normalization

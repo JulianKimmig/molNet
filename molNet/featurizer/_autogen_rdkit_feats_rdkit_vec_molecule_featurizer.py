@@ -1,23 +1,20 @@
-from molNet.featurizer._molecule_featurizer import (
-    MoleculeFeaturizer,
-    SingleValueMoleculeFeaturizer,
-    FixedSizeMoleculeFeaturizer,
-    VarSizeMoleculeFeaturizer,
-)
 import numpy as np
-from numpy import inf, nan
-from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdMolDescriptors import (
-    GetHashedAtomPairFingerprintAsBitVect,
-    GetMACCSKeysFingerprint,
-    GetHashedTopologicalTorsionFingerprintAsBitVect,
-    GetHashedAtomPairFingerprint,
     GetHashedTopologicalTorsionFingerprint,
+    GetHashedAtomPairFingerprintAsBitVect,
+    GetHashedAtomPairFingerprint,
+    GetHashedTopologicalTorsionFingerprintAsBitVect,
+    GetMACCSKeysFingerprint,
 )
 from rdkit.Chem.rdmolops import (
-    PatternFingerprint,
-    LayeredFingerprint,
     RDKFingerprint,
+    LayeredFingerprint,
+    PatternFingerprint,
+)
+from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
+
+from molNet.featurizer._molecule_featurizer import (
+    FixedSizeMoleculeFeaturizer,
 )
 
 
@@ -25,6 +22,7 @@ class GetHashedAtomPairFingerprint_Featurizer(FixedSizeMoleculeFeaturizer):
     # statics
     LENGTH = 2048
     dtype = np.int32
+
     # normalization
     # functions
     def featurize(self, mol):

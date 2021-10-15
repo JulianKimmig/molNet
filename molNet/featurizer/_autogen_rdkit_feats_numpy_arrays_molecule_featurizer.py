@@ -1,22 +1,19 @@
-from molNet.featurizer._molecule_featurizer import (
-    MoleculeFeaturizer,
-    SingleValueMoleculeFeaturizer,
-    FixedSizeMoleculeFeaturizer,
-    VarSizeMoleculeFeaturizer,
-)
 import numpy as np
-from numpy import inf, nan
-from rdkit.DataStructs.cDataStructs import ConvertToNumpyArray
 from rdkit.Chem.rdmolops import (
-    GetDistanceMatrix,
-    Get3DDistanceMatrix,
     GetAdjacencyMatrix,
+    Get3DDistanceMatrix,
+    GetDistanceMatrix,
+)
+
+from molNet.featurizer._molecule_featurizer import (
+    VarSizeMoleculeFeaturizer,
 )
 
 
 class Get3DDistanceMatrix_Featurizer(VarSizeMoleculeFeaturizer):
     # statics
     dtype = np.float64
+
     # normalization
     # functions
 
