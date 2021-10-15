@@ -1,3 +1,4 @@
+import gzip
 import os
 import sys
 
@@ -7,8 +8,6 @@ from tools.ecdf._generate_ecdf_helper import test_mol, \
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, modp)
 sys.path.append(modp)
-
-from tools.ecdf import ecdf_conf
 
 import pickle
 
@@ -31,9 +30,9 @@ logging.getLogger('matplotlib').setLevel(logging.WARNING)
 from rdkit.Chem import Mol
 import time
 
-IGNORED_FEATURIZER = [  # "GETAWAY_Featurizer",
-    # "FpDensityMorgan1_Featurizer",
-]
+IGNORED_FEATURIZER = ["GETAWAY_Featurizer",
+                      # "FpDensityMorgan1_Featurizer",
+                      ]
 
 
 
@@ -51,18 +50,39 @@ def load_mols(loader, conf) -> List[Mol]:
     )]
 
 
+def check_preexisting(molfeats):
+    to_work = []
+    for f in molfeats:
+        if os.path.exists(f.feature_dist_gpckl):
+            continue
+
+        if os.path.exists(f.feature_dist_pckl):
+            with open(f.feature_dist_pckl, "rb") as dfile:
+                mol_feats = pickle.load(dfile)
+
+            with gzip.open(f.feature_dist_gpckl, "w+b") as dfile:
+                pickle.dump(mol_feats, dfile)
+            os.remove(f.feature_dist_pckl)
+            continue
+
+        to_work.append(f)
+    return to_work
 
 def generate_ecdf_dist(mols, molfeats):
     nmols = len(mols)
     for f in molfeats:
         print(f"load {f}")
 
-        target_file = os.path.join(
-            f.ddir,
-            f"{f.__class__.__name__}_feature_dist.pckl"
-        )
+        if os.path.exists(f.feature_dist_gpckl):
+            continue
 
-        if os.path.exists(target_file):
+        if os.path.exists(f.feature_dist_pckl):
+            with open(f.feature_dist_pckl, "rb") as dfile:
+                mol_feats = pickle.load(dfile)
+
+            with gzip.open(f.feature_dist_gpckl, "w+b") as dfile:
+                pickle.dump(mol_feats, dfile)
+            os.remove(f.feature_dist_pckl)
             continue
 
         ts = time.time()
@@ -76,18 +96,25 @@ def generate_ecdf_dist(mols, molfeats):
         )
         te = time.time()
 
-        with open(target_file, "w+b") as dfile:
+        with gzip.open(f.feature_dist_gpckl, "w+b") as dfile:
             pickle.dump(mol_feats, dfile)
 
         write_info(key="time", value=(te - ts) / nmols, feat=f)
 
 
 def main():
+    from tools.ecdf import ecdf_conf
+
     loader = ecdf_conf.MOL_DATALOADER(ecdf_conf.MOL_DIR)
     molfeats = get_molecule_featurizer(ignored_names=IGNORED_FEATURIZER)
     attach_output_dir_molecule_featurizer(molfeats, ecdf_conf)
+
     generate_info(molfeats)
 
+    molfeats = check_preexisting(molfeats)
+    if len(molfeats) == 0:
+        print("no more feats")
+        return
     mols = load_mols(loader, ecdf_conf)
 
     generate_ecdf_dist(mols, molfeats)
