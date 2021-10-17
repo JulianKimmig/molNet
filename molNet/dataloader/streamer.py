@@ -77,7 +77,6 @@ class DataStreamer:
             i = 0
             _removed=0
             for i, k in enumerate(self.iterate()):
-
                 if not self._iter_None and k is None:
                     self.dataloader.expected_data_size-=1
                     _removed+=1
@@ -91,6 +90,12 @@ class DataStreamer:
                     continue
 
                 yield k
+                if self._cached:
+                    self._cache_data.append(k)
+
+            if self._cached:
+                self._all_cached = True
+
             if i + 1 != self.dataloader.expected_data_size+_removed:
                 MOLNET_LOGGER.warning(
                     f"{self.dataloader} returns a different size ({i}) than expected({self.dataloader.expected_data_size})")

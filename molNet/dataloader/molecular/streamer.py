@@ -65,17 +65,11 @@ class SDFStreamer(MolStreamer):
             if self._gz:
                 with gzip.open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
-                        if self._cached:
-                            self._cache_data.append(mol)
                         yield mol
             else:
                 with open(self._file_getter(self), "rb") as f:
                     for mol in sdfclasd(f):
-                        if self._cached:
-                            self._cache_data.append(mol)
                         yield mol
-            if self._cached:
-                self._all_cached = True
 
         return _it()
 
