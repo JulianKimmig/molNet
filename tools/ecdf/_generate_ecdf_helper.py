@@ -168,6 +168,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
             x99 = x[-1]
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
+            print(res_1_99,x99,x1,x[0],x[-1])
             points = int((x[-1] - x[0]) * res)
             dp = np.round((np.linspace(0, (len(x) - 1), points))).astype(int)
             x = x[dp]
