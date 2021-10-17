@@ -255,6 +255,7 @@ class ECDFGroup():
 
     def get_ecdf_img_paths(self):
         paths = [ecdf.get_ecdf_img_path(create_if_not_exist=False) for ecdf in self.ecdfs]
+        print([not os.path.exists(p) for p in paths])
         if any([not os.path.exists(p) for p in paths]):
             self.check_ecdfs()
             paths = [ecdf.get_ecdf_img_path() for ecdf in self.ecdfs]
