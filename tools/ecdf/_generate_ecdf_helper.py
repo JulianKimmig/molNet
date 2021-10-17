@@ -181,6 +181,8 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
             x1 = x[ix1]
             x99 = x[ix99]
         print(ix1,ix99,len(x))
+        print(x)
+        print(x[ix1:x99])
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
             print(res_1_99,x99,x1,x[0],x[-1])
