@@ -178,7 +178,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
             else:
                 dix99+=9
                 ix99+=1
-            x1 = x[x1]
+            x1 = x[ix1]
             x99 = x[ix99]
         print(ix1,ix99,len(x))
         if x1 != x99:
@@ -188,6 +188,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
             dp = np.round((np.linspace(0, (len(x) - 1), points))).astype(int)
             x = x[dp]
             y = y[dp]
+        raise ValueError()
 
     if unique_only:
         x, uindices = np.unique(x, return_index=True)
