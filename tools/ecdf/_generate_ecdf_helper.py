@@ -164,6 +164,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
     if res_1_99:
         ix1=(y >= 0.01).argmin()
         ix99=(y >= 0.99).argmin()
+        print("AA",ix1,ix99)
         dix1=0
         dix99=0
         x1 = x[ix1]
