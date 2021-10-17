@@ -152,7 +152,9 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
                 for i in range(data.shape[-1])
             ]
     x = np.sort(data)
-    n = len(data)
+    nfi=np.isfinite(x)
+    x = x[nfi]
+    n = len(x)
     y = np.arange(1, n + 1) / n
     if smooth:
         unique_only = True
@@ -162,15 +164,14 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         y[-1] = 1
 
     if res_1_99:
-        ix1=(y >= 0.01).argmin()
-        ix99=(y >= 0.99).argmin()
-        print("AA",ix1,ix99)
+        ix1=(y >= 0.01).argmax()
+        ix99=(y >= 0.99).argmax()
         dix1=0
         dix99=0
         x1 = x[ix1]
         x99 = x[ix99]
         while ix1>=0 and ix99<len(x)-1 and x1==x99 and (dix1<np.inf or dix99<np.inf):
-            print(ix1,ix99)
+            #print(ix1,ix99)
             if dix1<=dix99:
                 dix1+=1
                 ix1-=1
@@ -185,22 +186,26 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
                     dix99=np.inf
             x1 = x[ix1]
             x99 = x[ix99]
-        print(ix1,ix99,len(x))
-        print(x[max(0,ix1-10):min(len(x),ix99+30)])
-        print(y[max(0,ix1-10):min(len(x),ix99+30)])
-        print(x[:30])
-        print(x[-30:])
-        print(y[:30])
-        print(y[-30:])
-        print(x[ix1:ix99+1])
+        #print(ix1,ix99,len(x))
+        #print(x[max(0,ix1-10):min(len(x),ix99+30)])
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
-            print(res_1_99,x99,x1,x[0],x[-1])
+            #print(res_1_99,x99,x1,x[0],x[-1])
             points = int((x[-1] - x[0]) * res)
-            dp = np.round((np.linspace(0, (len(x) - 1), points))).astype(int)
+            #print(points)
+            if points>res_1_99*10**3:
+                dp=np.concatenate([
+                    np.linspace(0, ix1, min(res_1_99,ix1+10)),
+                    np.linspace(ix1, ix99, res_1_99),
+                    np.linspace(ix99, (len(x) - 1), min(res_1_99,len(x)-ix99+10)),
+                ])
+            else:
+                dp=(np.linspace(0, (len(x) - 1), points))
+            #print(dp)
+            dp = np.round(dp).astype(int)
             x = x[dp]
             y = y[dp]
-        raise ValueError()
+        #raise ValueError()
 
     if unique_only:
         x, uindices = np.unique(x, return_index=True)
