@@ -168,7 +168,8 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         dix99=0
         x1 = x[ix1]
         x99 = x[ix99]
-        while ix1>=0 and ix99<len(x)-1 and x1==x99:
+        while ix1>=0 and ix99<len(x)-1 and x1==x99 and (dix1<np.inf or dix99<np.inf):
+            print(ix1,ix99)
             if dix1<=dix99:
                 dix1+=1
                 ix1-=1
@@ -176,8 +177,11 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
                     dix1=np.inf
                     ix1=0
             else:
-                dix99+=9
+                dix99+=1
                 ix99+=1
+                if ix99>=len(x)-1:
+                    ix99=len(x)-1
+                    dix99=np.inf
             x1 = x[ix1]
             x99 = x[ix99]
         print(ix1,ix99,len(x))
