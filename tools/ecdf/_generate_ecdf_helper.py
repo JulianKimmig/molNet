@@ -253,9 +253,11 @@ class ECDFGroup():
         return d
 
     def get_ecdf_img_paths(self):
-        self.check_ecdfs()
-        paths = [ecdf.get_ecdf_img_path() for ecdf in self.ecdfs]
-        self.save()
+        paths = [ecdf.get_ecdf_img_path(create_if_not_exist=False) for ecdf in self.ecdfs]
+        if any([not os.path.exists(p) for p in paths]):
+            self.check_ecdfs()
+            paths = [ecdf.get_ecdf_img_path() for ecdf in self.ecdfs]
+            self.save()
         return paths
 
     def save(self):
@@ -397,9 +399,9 @@ class ECDF:
     def smooth_ecdf(self):
         return self.get_smooth_ecdf()
 
-    def get_ecdf_img_path(self):
+    def get_ecdf_img_path(self,create_if_not_exist=True):
         path = os.path.join(self.dirname, str(self) + "_ecdf.png")
-        if not os.path.exists(path):
+        if not os.path.exists(path) and create_if_not_exist:
             print(f"generate image for {self}")
             plt.plot(*self.full_ecdf, label="ECDF")
             plt.plot(*self.smooth_ecdf, label="smoothed ECDF")
