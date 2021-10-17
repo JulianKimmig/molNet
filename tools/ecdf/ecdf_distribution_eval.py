@@ -3,11 +3,13 @@ import gzip
 import os
 import sys
 
-from molNet.utils.parallelization.multiprocessing import parallelize
 
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, modp)
 sys.path.append(modp)
+
+from molNet.utils.parallelization.multiprocessing import parallelize
+
 
 from tools.ecdf._generate_ecdf_helper import get_molecule_featurizer, attach_output_dir_molecule_featurizer, \
     _single_call_gen_ecdf_images
