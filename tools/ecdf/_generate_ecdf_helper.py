@@ -166,6 +166,7 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         x99 = x[(y >= 0.99).argmin()]
         if x99 == x[0]:
             x99 = x[-1]
+            print(x)
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
             print(res_1_99,x99,x1,x[0],x[-1])
