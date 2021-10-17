@@ -47,7 +47,7 @@ def main(cores):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('cores', type=str, help='cores for worker',default="all-1")
+    parser.add_argument('-c','--cores', type=str, help='cores for worker',default="all-1")
 
     args = parser.parse_args()
     main(**vars(args))
