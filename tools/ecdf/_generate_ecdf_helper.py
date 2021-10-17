@@ -162,11 +162,25 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         y[-1] = 1
 
     if res_1_99:
-        x1 = x[(y >= 0.01).argmin()]
-        x99 = x[(y >= 0.99).argmin()]
-        if x99 == x[0]:
-            x99 = x[-1]
-            print(x)
+        ix1=(y >= 0.01).argmin()
+        ix99=(y >= 0.99).argmin()
+        dix1=0
+        dix99=0
+        x1 = x[ix1]
+        x99 = x[ix99]
+        while ix1>=0 and ix99<len(x) and x1==x99:
+            if dix1<=dix99:
+                dix1+=1
+                ix1-=1
+                if ix1<=0:
+                    dix1=np.inf
+                    ix1=0
+            else:
+                dix99+=9
+                ix99+=1
+            x1 = x[x1]
+            x99 = x[ix99]
+        print(ix1,ix99,len(x))
         if x1 != x99:
             res = res_1_99 / (x99 - x1)  # ppu
             print(res_1_99,x99,x1,x[0],x[-1])
