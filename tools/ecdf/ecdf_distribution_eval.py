@@ -1,3 +1,4 @@
+import argparse
 import gzip
 import os
 import sys
@@ -14,7 +15,7 @@ from tools.ecdf._generate_ecdf_helper import get_molecule_featurizer, attach_out
 import pickle
 
 
-def main():
+def main(cores):
     from tools.ecdf import ecdf_conf
     mf = get_molecule_featurizer(check_number=False)
     attach_output_dir_molecule_featurizer(mf, ecdf_conf, create=False)
@@ -34,7 +35,7 @@ def main():
     to_work = parallelize(
         _single_call_gen_ecdf_images,
         mf,
-        cores="all-1",
+        cores=cores,
         progess_bar=True,
         progress_bar_kwargs=dict(unit=" feats"),
         split_parts=1000
@@ -43,4 +44,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('cores', type=str, help='cores for worker',default="all-1")
+
+    args = parser.parse_args()
+    main(**vars(args))
