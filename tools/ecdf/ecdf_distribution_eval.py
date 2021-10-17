@@ -2,7 +2,7 @@ import argparse
 import gzip
 import os
 import sys
-
+from warnings import warn
 
 modp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, modp)
@@ -34,6 +34,9 @@ def main(cores):
 
     mf = [f for f in mf if os.path.exists(f.feature_dist_gpckl)]
 
+    warn("remove me")
+    from molNet.featurizer._molecule_featurizer import SingleValueMoleculeFeaturizer
+    mf = [f for f in mf if isinstance(f,SingleValueMoleculeFeaturizer)]
     to_work = parallelize(
         _single_call_gen_ecdf_images,
         mf,
