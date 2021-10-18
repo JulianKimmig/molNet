@@ -89,6 +89,17 @@ def get_molecule_featurizer(ignored_names=None, ignore_var_size=True, check_numb
                     np.issubdtype(generated_test_feats[i].dtype, np.number)]
         print(f"{len(molfeats)} remain after removal invalid types")
 
+    classes=[
+        'molecule_featurizer',
+        '_autogen_rdkit_feats_numeric_molecule_featurizer',
+        '_autogen_rdkit_feats_list_molecule_featurizer',
+        '_autogen_rdkit_feats_rdkit_vec_molecule_featurizer',
+    ]
+    cf = lambda _f: inspect.getfile(_f.__class__).split(os.sep)[-1].replace(".py","")
+
+    classes.extend(set([cf(f) for f in molfeats])-set(classes))
+    molfeats = list(sorted(molfeats,key=lambda _f: classes.index(cf(_f))))
+
     return molfeats
 
 
