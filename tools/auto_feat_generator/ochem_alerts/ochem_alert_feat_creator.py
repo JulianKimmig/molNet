@@ -1,5 +1,12 @@
 import os
-import os
+import sys
+
+modp=os.path.abspath(os.path.dirname(__file__))
+while not "molNet" in os.listdir(modp) and not "setup.py" in os.listdir(modp):
+    modp=os.path.dirname(modp) 
+sys.path.append(modp)
+sys.path.insert(0,modp)
+
 import pickle
 from re import sub
 
@@ -13,7 +20,7 @@ from molNet.featurizer import molecule_featurizer
 lg = RDLogger.logger()
 lg.setLevel(RDLogger.CRITICAL)
 
-with open("ochem_alerts.pickle", "rb") as f:
+with open(os.path.join(os.path.dirname(__file__),"ochem_alerts.pickle"), "rb") as f:
     data = pickle.load(f)
 
 
@@ -191,18 +198,20 @@ for d in data:
 if error:
     exit(0)
 # print(code)
-code += "_available_featurizer = [\n"
+code += "_available_featurizer = {\n"
 for d in data:
-    code += f"    molecule_functional_group_{d['classname']}_featurizer,\n"
-code += "]"
+    vn=f"molecule_functional_group_{d['classname']}_featurizer"
+    
+    code += f"   '{vn}':{vn},\n"
+code += "}"
 
 code += """
 def main():
     from rdkit import Chem
 
     testmol = Chem.MolFromSmiles("c1ccccc1")
-    for f in _available_featurizer:
-        print(f, f(testmol))
+    for n,f in _available_featurizer.items():
+        print(n, f(testmol))
 
 if __name__ == "__main__":
     main()

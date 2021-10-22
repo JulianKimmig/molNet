@@ -107,6 +107,7 @@ def main():
     generate_info(molfeats)
 
     molfeats = check_preexisting(molfeats)
+    print(molfeats)
     if len(molfeats) == 0:
         print("no more feats")
         return

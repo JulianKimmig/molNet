@@ -144,8 +144,10 @@ def save_info(feature_info, feat):
         feat.ddir,
         f"{feat.__class__.__name__}_feature_info.json"
     )
+    s = json.dumps(feature_info, indent=4)
     with open(target_file, "w+") as dfile:
-        json.dump(feature_info, dfile, indent=4)
+        dfile.write(s)
+        
 
 
 def write_info(key, value, feat):
@@ -154,7 +156,7 @@ def write_info(key, value, feat):
     save_info(feature_info, feat)
 
 
-def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
+def generate_ecdf(data, resolution_y=None, smooth=False, unique_only=False):
     if data.ndim > 1:
         data = np.squeeze(data)
         if data.ndim > 1:
@@ -173,50 +175,56 @@ def generate_ecdf(data, res_1_99=None, smooth=False, unique_only=False):
         y = np.array([a.mean() for a in np.split(y, uindices[1:])])
         y[0] = 0
         y[-1] = 1
-
-    if res_1_99:
-        ix1=(y >= 0.01).argmax()
-        ix99=(y >= 0.99).argmax()
-        dix1=0
-        dix99=0
-        x1 = x[ix1]
-        x99 = x[ix99]
-        while ix1>=0 and ix99<len(x)-1 and x1==x99 and (dix1<np.inf or dix99<np.inf):
-            #print(ix1,ix99)
-            if dix1<=dix99:
-                dix1+=1
-                ix1-=1
-                if ix1<=0:
-                    dix1=np.inf
-                    ix1=0
-            else:
-                dix99+=1
-                ix99+=1
-                if ix99>=len(x)-1:
-                    ix99=len(x)-1
-                    dix99=np.inf
-            x1 = x[ix1]
-            x99 = x[ix99]
-        #print(ix1,ix99,len(x))
-        #print(x[max(0,ix1-10):min(len(x),ix99+30)])
-        if x1 != x99:
-            res = res_1_99 / (x99 - x1)  # ppu
-            #print(res_1_99,x99,x1,x[0],x[-1])
-            points = int((x[-1] - x[0]) * res)
-            #print(points)
-            if points>res_1_99*10**3:
-                dp=np.concatenate([
-                    np.linspace(0, ix1, min(res_1_99,ix1+10)),
-                    np.linspace(ix1, ix99, res_1_99),
-                    np.linspace(ix99, (len(x) - 1), min(res_1_99,len(x)-ix99+10)),
-                ])
-            else:
-                dp=(np.linspace(0, (len(x) - 1), points))
-            #print(dp)
-            dp = np.round(dp).astype(int)
-            x = x[dp]
-            y = y[dp]
-        #raise ValueError()
+    if resolution_y:
+        ylin=np.linspace(0,1,resolution_y)
+        indices = np.unique(np.abs(np.subtract.outer(ylin,y)).argmin(1))
+        
+        y=y[indices]
+        x=x[indices]
+        
+   # if res_1_99:
+   #     ix1=(y >= 0.01).argmax()
+   #     ix99=(y >= 0.99).argmax()
+   #     dix1=0
+   #     dix99=0
+   #     x1 = x[ix1]
+    #    x99 = x[ix99]
+    #    while ix1>=0 and ix99<len(x)-1 and x1==x99 and (dix1<np.inf or dix99<np.inf):
+    #        #print(ix1,ix99)
+    #        if dix1<=dix99:
+    #            dix1+=1
+    #            ix1-=1
+    #            if ix1<=0:
+    #                dix1=np.inf
+    #                ix1=0
+    #        else:
+    #            dix99+=1
+    #            ix99+=1
+    #            if ix99>=len(x)-1:
+    #                ix99=len(x)-1
+    #                dix99=np.inf
+    #        x1 = x[ix1]
+    #        x99 = x[ix99]
+    #    #print(ix1,ix99,len(x))
+    #    #print(x[max(0,ix1-10):min(len(x),ix99+30)])
+    #    if x1 != x99:
+    #        res = res_1_99 / (x99 - x1)  # ppu
+    #        #print(res_1_99,x99,x1,x[0],x[-1])
+    #        points = int((x[-1] - x[0]) * res)
+    #        #print(points)
+    #        if points>res_1_99*10**3:
+    #            dp=np.concatenate([
+    #                np.linspace(0, ix1, min(res_1_99,ix1+10)),
+    #                np.linspace(ix1, ix99, res_1_99),
+    #                np.linspace(ix99, (len(x) - 1), min(res_1_99,len(x)-ix99+10)),
+    #            ])
+    #        else:
+    #            dp=(np.linspace(0, (len(x) - 1), points))
+    #        #print(dp)
+    #        dp = np.round(dp).astype(int)
+    #        x = x[dp]
+    #        y = y[dp]
+    #    #raise ValueError()
 
     if unique_only:
         x, uindices = np.unique(x, return_index=True)
@@ -357,7 +365,7 @@ class ECDFGroup():
         if self.smooth_data[k] is None:
             self.need_save = True
             print(f"gen smooth ecdf for {self}[{k}]")
-            x, y = generate_ecdf(self.feat_dist[:, k], res_1_99=10_000, smooth=True)
+            x, y = generate_ecdf(self.feat_dist[:, k], resolution_y=1000, smooth=True)
             self.smooth_data[k] = (x, y)
 
         if self.smooth_data[k] is None:
@@ -378,7 +386,11 @@ class ECDF:
 
     def __str__(self):
         return f"{self.basename}_{self._n}"
-
+    
+    @property
+    def n(self):
+        return self._n
+    
     @property
     def dist_data(self):
         if self._dist_data is not None:
@@ -430,7 +442,7 @@ class ECDF:
 
         if x is None or y is None:
             print(self, "generate smooth_ecdf")
-            x, y = generate_ecdf(self.dist_data, res_1_99=10_000, smooth=True)
+            x, y = generate_ecdf(self.dist_data, resolution_y=1000, smooth=True)
             if self.save_smooth_data:
                 with gzip.open(path, "w+b") as f:
                     pickle.dump((x, y), f)
