@@ -1,32 +1,74 @@
 import numpy as np
+import numba
+from numba import jit
+from numba.extending import register_jitable,overload
 
+@register_jitable
+def _jitclip_array(x,minval,maxval):
+    xn = np.zeros_like(x,dtype=np.float64)
+    for i in range(len(x)):
+        xn[i] = jitclip(x[i],minval,maxval)
+    return xn
 
+@register_jitable
+def _jitclip_value(x,minval,maxval):
+    if x<minval:
+        return minval
+    elif x>maxval:
+        return maxval
+    return x
+
+def jitclip(x,minval,maxval):
+    raise NotImplementedError
+
+@overload(jitclip)
+def ov_jitclip(x,minval,maxval):
+    if isinstance(x, numba.types.Number):
+        return _jitclip_value#(x,minval,maxval)
+    elif  isinstance(x, numba.types.Array):
+        return _jitclip_array#(x,minval,maxval)
+    raise NotImplementedError()
+
+@jit(nopython=True)
+def tanh_norm(x,m:float=0,d:float=1):
+    dx=d*(x-m)
+    ex = np.exp(dx)
+    enx= np.exp(-dx)
+    return (ex-enx)/(ex+enx)
+
+@jit(nopython=True)
 def linear_norm(x, m: float = 1, c: float = 0):
     return x * m + c
 
-
+@jit(nopython=True)
 def min_max_norm(x, min: float = 0, max: float = 1):
     # if min>max:
     #    max,min=min,max
     # if min == max:
     #    max*= 1+1e-6
-    return np.clip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)), 0, 1)
+    ll:double = 0.0
+    ul:double = 1.0
+    return jitclip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)),ll,ul)
 
-
+@jit(nopython=True)
 def sig_norm(x, m: float = 0, d: float = 1):
     return 1 / (1 + np.exp(-d * (x - m)))
 
+@jit(nopython=True)
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
-    li = x <= m
-    # mx = np.argmin(np.abs(x - m))
-    return np.concatenate((sig_norm(x[li], m=m, d=d1), sig_norm(x[~li], m=m, d=d2)))
+    dt=max(d1/d2,d2/d1)*10
+    s1=sig_norm(x, m, d1)
+    s2=sig_norm(x, m, d2)
+    st=sig_norm(x, m, dt)
+    return s1*(1-st)+s2*st
 
-def genlog_norm(x, B, M, Q, v):
+@jit(nopython=True)
+def genlog_norm(x, B: float = 1, M: float = 0, Q: float = 1, v: float = 0.1):
     # B=growth rate (-np.inf,np.inf)
     # M=shifts horizontally (-np.inf,np.inf)
     # Q=urvibess/stepness (0,np.inf)
     # v=stepness (1e-12,np.inf)
-    return np.nan_to_num(1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v), nan=np.nan)
+    return 1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v)
 
 
 _t_array = np.linspace(0, 1, 5)
