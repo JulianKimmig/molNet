@@ -112,6 +112,35 @@ def to_cls_name(oname):
     if len(back_info) > 0:
         name = name + "_" + back_info
 
+    # greek replacements
+    name = name.replace("Α", "Alpha").replace("α", "alpha")
+    name = name.replace("Β", "Beta").replace("β", "beta")
+    name = name.replace("Γ", "Gamma").replace("γ", "gamma")
+    name = name.replace("Δ", "Delta").replace("δ", "delta")
+    name = name.replace("Ε", "Epsilon").replace("ε", "epsilon")
+    name = name.replace("Ζ", "Zeta").replace("ζ", "zeta")
+    name = name.replace("Η", "Eta").replace("η", "eta")
+    name = name.replace("Θ", "Theta").replace("θ", "theta")
+    name = name.replace("Ι", "Iota").replace("ι", "iota")
+    name = name.replace("Κ", "Kappa").replace("κ", "kappa")
+    name = name.replace("Λ", "Lambda").replace("λ", "lambda")
+    name = name.replace("Μ", "Mu").replace("μ", "mu")
+    name = name.replace("Ν", "Nu").replace("ν", "nu")
+    name = name.replace("Ξ", "Xi").replace("ξ", "xi")
+    name = name.replace("Ο", "Omicron").replace("ο", "omicron")
+    name = name.replace("Π", "Pi").replace("π", "pi")
+    name = name.replace("Ρ", "Rho").replace("ρ", "rho")
+    name = name.replace("Σ", "Sigma").replace("σ", "sigma").replace("ς", "sigma")
+    name = name.replace("Τ", "Tau").replace("τ", "tau")
+    name = name.replace("Υ", "Upsilon").replace("υ", "upsilon")
+    name = name.replace("Φ", "Phi").replace("φ", "phi")
+    name = name.replace("Χ", "Chi").replace("χ", "chi")
+    name = name.replace("Ψ", "Psi").replace("ψ", "psi")
+    name = name.replace("Ω", "Omega").replace("ω", "omega")
+
+    # other replacements that are insidde prob becaus eby mistake:
+    name = name.replace("С", "C").replace("с", "c")
+
     name = name.title()
     name = sub("\s", "", name)
     name = sub("_+", "_", name)
@@ -200,17 +229,25 @@ if error:
 # print(code)
 code += "_available_featurizer = {\n"
 for d in data:
-    vn=f"molecule_functional_group_{d['classname']}_featurizer"
-    
+    vn = f"molecule_functional_group_{d['classname']}_featurizer"
+
     code += f"   '{vn}':{vn},\n"
-code += "}"
+code += "}\n"
+
+code += "def get_available_featurizer():\n    return _available_featurizer\n"
+
+code += "__all__=["
+for d in data:
+    vn = f"molecule_functional_group_{d['classname']}_featurizer"
+    code += f"'{vn}',"
+code += "]\n"
 
 code += """
 def main():
     from rdkit import Chem
 
     testmol = Chem.MolFromSmiles("c1ccccc1")
-    for n,f in _available_featurizer.items():
+    for n,f in get_available_featurizer().items():
         print(n, f(testmol))
 
 if __name__ == "__main__":

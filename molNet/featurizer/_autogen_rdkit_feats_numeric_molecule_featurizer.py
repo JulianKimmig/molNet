@@ -4,280 +4,241 @@ from rdkit.Chem import (
     rdqueries,
 )
 from rdkit.Chem.Descriptors import (
-    VSA_EState9,
-    VSA_EState7,
-    fr_alkyl_carbamate,
-    fr_oxime,
-    fr_piperdine,
-    NumHAcceptors,
-    fr_sulfone,
-    PEOE_VSA10,
-    EState_VSA5,
-    VSA_EState1,
-    fr_Ar_N,
-    HeavyAtomCount,
-    fr_C_S,
-    fr_sulfide,
-    fr_thiophene,
+    VSA_EState4,
+    fr_C_O,
+    SlogP_VSA5,
+    EState_VSA7,
+    fr_benzene,
+    HeavyAtomMolWt,
+    fr_priamide,
+    fr_lactam,
+    fr_oxazole,
     fr_guanido,
-    fr_nitro_arom_nonortho,
-    MaxPartialCharge,
-    fr_bicyclic,
+    MolLogP,
+    fr_unbrch_alkane,
+    SlogP_VSA9,
+    MolMR,
+    fr_benzodiazepine,
+    fr_NH1,
+    fr_oxime,
+    fr_thiophene,
+    Chi3n,
+    fr_piperzine,
+    BCUT2D_LOGPLOW,
+    SlogP_VSA2,
+    EState_VSA8,
+    fr_Al_OH,
+    fr_C_O_noCOO,
+    BCUT2D_MWHI,
+    SMR_VSA1,
+    VSA_EState5,
+    MinPartialCharge,
+    Chi1,
+    EState_VSA1,
+    EState_VSA3,
+    SMR_VSA6,
+    NOCount,
+    fr_azide,
+    fr_imidazole,
+    Chi4v,
+    MinAbsEStateIndex,
+    BCUT2D_MRHI,
+    fr_aryl_methyl,
+    fr_lactone,
+    SlogP_VSA7,
+    fr_ether,
+    PEOE_VSA11,
+    SlogP_VSA11,
+    Kappa1,
+    fr_Nhpyrrole,
+    NumSaturatedRings,
+    fr_hdrzone,
+    BCUT2D_CHGHI,
     fr_phos_acid,
     fr_term_acetylene,
-    NumSaturatedCarbocycles,
-    fr_piperzine,
-    SlogP_VSA9,
-    fr_allylic_oxid,
-    fr_morpholine,
-    PEOE_VSA9,
-    fr_furan,
-    fr_sulfonamd,
-    EState_VSA3,
-    SMR_VSA7,
-    fr_pyridine,
-    ExactMolWt,
-    PEOE_VSA11,
-    PEOE_VSA2,
-    SMR_VSA9,
-    EState_VSA9,
-    fr_imidazole,
-    VSA_EState2,
-    MaxAbsPartialCharge,
-    MolWt,
-    NumHeteroatoms,
-    SlogP_VSA1,
-    fr_halogen,
-    MaxAbsEStateIndex,
-    fr_nitro_arom,
-    fr_Ar_COO,
-    SlogP_VSA5,
-    fr_ArN,
-    fr_isothiocyan,
-    PEOE_VSA13,
-    fr_thiazole,
-    FractionCSP3,
-    fr_epoxide,
-    EState_VSA11,
-    MolLogP,
-    NOCount,
-    fr_phenol_noOrthoHbond,
-    PEOE_VSA8,
-    fr_ketone_Topliss,
-    EState_VSA4,
-    fr_prisulfonamd,
-    SlogP_VSA12,
-    NumRotatableBonds,
-    BCUT2D_MRLOW,
-    PEOE_VSA6,
-    NumAromaticRings,
-    fr_Ar_NH,
-    NumSaturatedHeterocycles,
-    SlogP_VSA2,
-    EState_VSA10,
-    fr_Al_COO,
     NumAliphaticHeterocycles,
-    PEOE_VSA3,
+    fr_para_hydroxylation,
+    fr_phenol_noOrthoHbond,
+    fr_morpholine,
+    fr_COO2,
+    fr_Ar_OH,
     PEOE_VSA1,
-    MinAbsPartialCharge,
-    fr_hdrzone,
+    PEOE_VSA12,
+    qed,
+    VSA_EState8,
     fr_HOCCN,
-    SMR_VSA8,
+    fr_prisulfonamd,
+    fr_imide,
+    VSA_EState6,
+    FractionCSP3,
+    VSA_EState3,
+    fr_bicyclic,
+    MaxEStateIndex,
+    VSA_EState2,
+    fr_barbitur,
+    PEOE_VSA10,
+    NumValenceElectrons,
+    EState_VSA11,
+    fr_dihydropyridine,
+    SlogP_VSA12,
+    fr_sulfide,
+    fr_Ar_COO,
+    SlogP_VSA10,
+    fr_azo,
+    fr_Ar_NH,
+    PEOE_VSA7,
+    fr_N_O,
+    Chi1v,
+    fr_nitro_arom_nonortho,
+    MaxAbsPartialCharge,
+    BCUT2D_CHGLO,
+    fr_pyridine,
+    fr_nitro,
+    fr_thiazole,
+    BCUT2D_LOGPHI,
+    EState_VSA4,
+    fr_Imine,
+    EState_VSA5,
+    fr_Ndealkylation1,
+    fr_isothiocyan,
+    fr_ketone,
+    MinEStateIndex,
+    EState_VSA10,
+    HeavyAtomCount,
+    SMR_VSA7,
+    NHOHCount,
+    fr_halogen,
+    VSA_EState10,
+    fr_piperdine,
+    EState_VSA2,
+    SMR_VSA2,
+    NumAliphaticRings,
+    SMR_VSA9,
     EState_VSA6,
+    fr_alkyl_carbamate,
+    fr_hdrzine,
     RingCount,
-    EState_VSA7,
-    PEOE_VSA14,
-    SMR_VSA6,
-    fr_aniline,
+    SlogP_VSA1,
+    fr_nitrile,
     SMR_VSA4,
     fr_COO,
-    NumAromaticCarbocycles,
-    MinEStateIndex,
-    MolMR,
-    fr_SH,
-    SlogP_VSA10,
-    BCUT2D_MWLOW,
-    fr_methoxy,
-    BCUT2D_CHGLO,
-    LabuteASA,
-    fr_NH1,
-    fr_priamide,
-    fr_ester,
-    BCUT2D_MWHI,
-    MaxEStateIndex,
-    NHOHCount,
-    fr_N_O,
-    fr_ketone,
-    SMR_VSA10,
-    NumAromaticHeterocycles,
-    fr_Ar_OH,
-    VSA_EState10,
-    fr_barbitur,
-    fr_nitro,
-    SMR_VSA5,
-    fr_Ndealkylation1,
-    fr_NH0,
-    VSA_EState6,
-    EState_VSA8,
-    fr_unbrch_alkane,
-    EState_VSA1,
-    VSA_EState5,
-    fr_alkyl_halide,
-    NumAliphaticCarbocycles,
-    FpDensityMorgan1,
-    fr_C_O_noCOO,
-    BCUT2D_CHGHI,
-    PEOE_VSA12,
-    fr_azide,
-    SlogP_VSA11,
-    SlogP_VSA6,
-    fr_isocyan,
-    fr_oxazole,
-    fr_para_hydroxylation,
-    NumValenceElectrons,
-    fr_nitrile,
-    fr_dihydropyridine,
-    fr_thiocyan,
-    EState_VSA2,
-    NumHDonors,
-    fr_azo,
-    fr_NH2,
-    FpDensityMorgan2,
-    qed,
-    VSA_EState3,
-    fr_lactam,
-    SMR_VSA2,
-    fr_ether,
-    fr_Al_OH_noTert,
-    SMR_VSA3,
-    fr_Nhpyrrole,
-    MinPartialCharge,
-    HeavyAtomMolWt,
-    fr_Imine,
-    fr_C_O,
     fr_urea,
-    NumRadicalElectrons,
-    NumSaturatedRings,
-    VSA_EState4,
-    fr_hdrzine,
-    fr_quatN,
-    fr_COO2,
-    PEOE_VSA4,
-    BCUT2D_LOGPLOW,
-    BCUT2D_LOGPHI,
-    TPSA,
-    SMR_VSA1,
-    fr_phos_ester,
+    fr_ArN,
     fr_aldehyde,
-    fr_diazo,
-    fr_tetrazole,
-    fr_aryl_methyl,
+    fr_Ar_N,
+    VSA_EState1,
     FpDensityMorgan3,
-    PEOE_VSA7,
-    fr_phenol,
-    VSA_EState8,
-    NumAliphaticRings,
-    BCUT2D_MRHI,
-    fr_benzodiazepine,
-    fr_nitroso,
-    SlogP_VSA7,
-    SlogP_VSA3,
-    fr_amidine,
-    fr_lactone,
-    fr_Al_OH,
-    fr_benzene,
+    fr_Al_COO,
+    fr_allylic_oxid,
+    VSA_EState7,
     SlogP_VSA4,
-    SlogP_VSA8,
-    fr_amide,
-    fr_Ndealkylation2,
-    fr_imide,
-    MinAbsEStateIndex,
     PEOE_VSA5,
+    fr_SH,
+    SMR_VSA10,
+    VSA_EState9,
+    MolWt,
+    fr_tetrazole,
+    BCUT2D_MWLOW,
+    fr_ketone_Topliss,
+    PEOE_VSA4,
+    fr_Al_OH_noTert,
+    FpDensityMorgan2,
+    fr_phenol,
+    NumSaturatedHeterocycles,
+    fr_NH2,
+    fr_sulfonamd,
+    fr_thiocyan,
+    fr_amidine,
+    fr_sulfone,
+    SlogP_VSA6,
+    PEOE_VSA13,
+    fr_epoxide,
+    Chi0,
+    fr_diazo,
+    fr_aniline,
+    fr_C_S,
+    fr_NH0,
+    PEOE_VSA6,
+    NumRadicalElectrons,
+    SMR_VSA3,
+    SMR_VSA8,
+    MinAbsPartialCharge,
+    fr_methoxy,
+    SMR_VSA5,
+    fr_nitro_arom,
+    TPSA,
+    FpDensityMorgan1,
+    fr_isocyan,
+    fr_quatN,
+    SlogP_VSA3,
+    fr_ester,
+    PEOE_VSA14,
+    fr_nitroso,
+    NumHAcceptors,
+    fr_Ndealkylation2,
+    fr_amide,
+    NumHDonors,
+    PEOE_VSA9,
+    MaxPartialCharge,
+    SlogP_VSA8,
+    MaxAbsEStateIndex,
+    PEOE_VSA2,
+    BCUT2D_MRLOW,
+    fr_phos_ester,
+    fr_furan,
+    Ipc,
+    NumSaturatedCarbocycles,
+    fr_alkyl_halide,
+    PEOE_VSA8,
+    PEOE_VSA3,
+    EState_VSA9,
+    NumRotatableBonds,
 )
 from rdkit.Chem.Descriptors3D import (
-    Asphericity,
-    Eccentricity,
     SpherocityIndex,
-    PMI3,
-    NPR1,
-    InertialShapeFactor,
-    PMI2,
-    NPR2,
     RadiusOfGyration,
+    PMI3,
     PMI1,
+    NPR2,
 )
 from rdkit.Chem.GraphDescriptors import (
-    Chi4v,
-    HallKierAlpha,
-    Kappa3,
-    Chi3v,
-    Chi0,
     Chi4n,
-    BertzCT,
-    Ipc,
-    Kappa2,
-    Chi1,
-    Chi3n,
     Chi0n,
-    Chi1v,
-    Chi2v,
-    Chi2n,
+    Kappa2,
     BalabanJ,
+    Chi3v,
+    Kappa3,
+    BertzCT,
     Chi1n,
-    Kappa1,
-    Chi0v,
+    HallKierAlpha,
 )
 from rdkit.Chem.rdMolDescriptors import (
-    CalcHallKierAlpha,
-    CalcKappa3,
-    CalcSpherocityIndex,
-    CalcFractionCSP3,
-    CalcAsphericity,
-    CalcChi0n,
-    CalcEccentricity,
-    CalcNumHBD,
-    CalcPMI1,
-    CalcChi1n,
-    CalcChi2n,
-    CalcChi2v,
-    CalcNumAliphaticCarbocycles,
-    CalcPMI3,
-    CalcChi3n,
-    CalcChi4v,
-    CalcNumAmideBonds,
-    CalcNumAromaticCarbocycles,
-    CalcNumAliphaticHeterocycles,
-    CalcKappa2,
-    CalcNumBridgeheadAtoms,
-    CalcChi3v,
-    CalcNumSaturatedHeterocycles,
-    CalcChi1v,
-    CalcPBF,
-    CalcPMI2,
-    CalcNPR1,
-    CalcNumLipinskiHBD,
-    CalcInertialShapeFactor,
-    CalcNumLipinskiHBA,
-    CalcNumSaturatedRings,
-    CalcNumAromaticHeterocycles,
     CalcNumHeterocycles,
-    CalcKappa1,
-    CalcNumHBA,
+    CalcPMI2,
+    CalcNumHBD,
+    CalcAsphericity,
+    CalcEccentricity,
+    CalcNumLipinskiHBD,
+    CalcChi2v,
     CalcNumSpiroAtoms,
-    CalcLabuteASA,
-    CalcTPSA,
-    CalcNumAliphaticRings,
-    CalcRadiusOfGyration,
+    CalcChi2n,
     CalcNumHeteroatoms,
-    CalcChi4n,
-    CalcChi0v,
-    CalcNumRings,
-    CalcNumSaturatedCarbocycles,
-    CalcPhi,
+    CalcNPR1,
     CalcNumAromaticRings,
+    CalcNumLipinskiHBA,
+    CalcNumAliphaticCarbocycles,
+    CalcNumAromaticCarbocycles,
+    CalcNumHBA,
+    CalcLabuteASA,
     CalcExactMolWt,
-    CalcNumRotatableBonds,
-    CalcNPR2,
+    CalcPBF,
+    CalcNumBridgeheadAtoms,
+    CalcNumRings,
+    CalcInertialShapeFactor,
+    CalcNumAmideBonds,
+    CalcChi0v,
+    CalcNumAromaticHeterocycles,
+    CalcPhi,
 )
 from rdkit.Chem.rdmolops import (
     GetFormalCharge,
@@ -287,50 +248,6 @@ from rdkit.Chem.rdmolops import (
 from molNet.featurizer._molecule_featurizer import (
     SingleValueMoleculeFeaturizer,
 )
-
-
-class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Asphericity)
-    # normalization
-    linear_norm_parameter = (
-        1.4721378049698663,
-        -0.11228706292547166,
-    )  # error of 2.90E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-1.12E-01,1.36E+00)
-    linear_norm_parameter_normdata = {"error": 0.028962171585907876}
-    min_max_norm_parameter = (
-        0.09005620590041596,
-        0.7355219615267257,
-    )  # error of 1.68E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.016794434794666063}
-    sigmoidal_norm_parameter = (
-        0.40970204866580884,
-        7.643961121304289,
-    )  # error of 2.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.18E-02,9.89E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.022019959631773577}
-    dual_sigmoidal_norm_parameter = (
-        0.39938009612685643,
-        8.419338230908746,
-        6.969158525926429,
-    )  # error of 1.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (3.35E-02,9.85E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.019882996117645317}
-    genlog_norm_parameter = (
-        6.206324202534631,
-        0.2751042956173693,
-        0.693881632805456,
-        0.396584639577746,
-    )  # error of 1.81E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.89E-02,9.81E-01)
-    genlog_norm_parameter_normdata = {"error": 0.01807082490258409}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [0.018889321268164994, 0.980803887328162]],
-        "sample_bounds99": [
-            [0.0, 0.7981497049331665],
-            [0.03746188537738742, 0.9450478288397537],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
 
 
 class Asphericity_Featurizer(SingleValueMoleculeFeaturizer):
@@ -797,53 +714,6 @@ class BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class BalabanJ_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(BalabanJ)
-    # normalization
-    linear_norm_parameter = (
-        0.17660976361946912,
-        0.011623897998747967,
-    )  # error of 1.60E-01 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.16E-02,8.95E+00)
-    linear_norm_parameter_normdata = {"error": 0.15973504817337922}
-    min_max_norm_parameter = (
-        1.51069451962931,
-        3.7663482034024947,
-    )  # error of 4.43E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04432071908453417}
-    sigmoidal_norm_parameter = (
-        2.6275405979312487,
-        2.067375370708902,
-    )  # error of 2.69E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (4.35E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02693968746344809}
-    dual_sigmoidal_norm_parameter = (
-        2.5486119874079707,
-        2.6623154651762686,
-        1.6193606097747983,
-    )  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.13E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.014749481272315054}
-    genlog_norm_parameter = (
-        1.4473269011318037,
-        -3.423175107360796,
-        0.4668648634358428,
-        0.00011138512904900963,
-    )  # error of 1.47E-02 with sample range (-7.44E-05,5.06E+01) resulting in fit range (1.52E-13,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.014735712181616116}
-    autogen_normdata = {
-        "sample_bounds": [
-            [-7.44194258004427e-05, 50.58443832397461],
-            [1.5237535890560646e-13, 1.0],
-        ],
-        "sample_bounds99": [
-            [-7.44194258004427e-05, 7.896667957305908],
-            [1.52861806529418e-13, 0.9998633763465247],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -882,94 +752,6 @@ class BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 4777.64453125],
             [0.010694724668148848, 0.9995771355136788],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class BertzCT_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(BertzCT)
-    # normalization
-    linear_norm_parameter = (
-        0.0002435689316791905,
-        0.08402337833593164,
-    )  # error of 1.62E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (8.40E-02,1.15E+01)
-    linear_norm_parameter_normdata = {"error": 0.16229801806921698}
-    min_max_norm_parameter = (
-        589.3484428971769,
-        2551.6280739737376,
-    )  # error of 3.81E-02 with sample range (0.00E+00,4.67E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03805862869115655}
-    sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-    )  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.573752388363361}
-    dual_sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-        1.0,
-    )  # error of 5.74E-01 with sample range (0.00E+00,4.67E+04) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.573752388363361}
-    genlog_norm_parameter = (
-        0.0017098593375205584,
-        -843.1415613946119,
-        0.0010786968654881758,
-        2.7454687544914185e-05,
-    )  # error of 9.82E-03 with sample range (0.00E+00,4.67E+04) resulting in fit range (9.21E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.009821748253533272}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 46697.1484375], [9.212669327697183e-05, 1.0]],
-        "sample_bounds99": [
-            [0.0, 4777.64453125],
-            [0.010694724668148848, 0.9995771355136788],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi0_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi0)
-    # normalization
-    linear_norm_parameter = (
-        0.007513574566740955,
-        0.2957974579215942,
-    )  # error of 2.01E-01 with sample range (0.00E+00,7.19E+02) resulting in fit range (2.96E-01,5.70E+00)
-    linear_norm_parameter_normdata = {"error": 0.2009157348352737}
-    min_max_norm_parameter = (
-        17.447753846956868,
-        55.71754607510952,
-    )  # error of 4.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04702712109798194}
-    sigmoidal_norm_parameter = (
-        36.35211468883877,
-        0.1295884036148426,
-    )  # error of 2.70E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (8.92E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02698700982591915}
-    dual_sigmoidal_norm_parameter = (
-        34.781883667706126,
-        0.18372919698120913,
-        0.1052982438114165,
-    )  # error of 1.38E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (1.67E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.013765009473759587}
-    genlog_norm_parameter = (
-        0.09445935703723156,
-        -40.68840587473802,
-        0.052847704469068994,
-        5.66023636095279e-05,
-    )  # error of 1.10E-02 with sample range (0.00E+00,7.19E+02) resulting in fit range (2.09E-09,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.01101534681220656}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 719.1281127929688], [2.0851897391681524e-09, 1.0]],
-        "sample_bounds99": [
-            [0.0, 106.84493255615234],
-            [0.0051956291074414995, 0.9997024207098082],
         ],
     }
     preferred_normalization = "genlog"
@@ -1061,144 +843,6 @@ class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.7634413838386536, 88.63299560546875],
             [0.003827904879572938, 0.99969464239547],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi0n)
-    # normalization
-    linear_norm_parameter = (
-        0.009618083281699108,
-        0.17347984942891348,
-    )  # error of 2.14E-01 with sample range (7.63E-01,6.43E+02) resulting in fit range (1.81E-01,6.36E+00)
-    linear_norm_parameter_normdata = {"error": 0.21447791682097878}
-    min_max_norm_parameter = (
-        16.004022253403853,
-        51.11689241252734,
-    )  # error of 4.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04311719433749951}
-    sigmoidal_norm_parameter = (
-        33.37586607594709,
-        0.1432287247282441,
-    )  # error of 2.67E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.28E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.026654493203100007}
-    dual_sigmoidal_norm_parameter = (
-        31.988365552286066,
-        0.18812033153864993,
-        0.11360901005668378,
-    )  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.013091155898891408}
-    genlog_norm_parameter = (
-        0.09991792382506794,
-        -24.750452023618326,
-        0.8473827278488687,
-        0.003956246904308439,
-    )  # error of 1.01E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.17E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.010106091422280545}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.7634413838386536, 643.3276977539062],
-            [9.165519374139487e-08, 1.0],
-        ],
-        "sample_bounds99": [
-            [0.7634413838386536, 88.63299560546875],
-            [0.003827904879572938, 0.99969464239547],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi0n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi0n)
-    # normalization
-    linear_norm_parameter = (
-        0.009618083281699108,
-        0.17347984942891348,
-    )  # error of 2.14E-01 with sample range (7.63E-01,6.43E+02) resulting in fit range (1.81E-01,6.36E+00)
-    linear_norm_parameter_normdata = {"error": 0.21447791682097878}
-    min_max_norm_parameter = (
-        16.004022253403853,
-        51.11689241252734,
-    )  # error of 4.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04311719433749951}
-    sigmoidal_norm_parameter = (
-        33.37586607594709,
-        0.1432287247282441,
-    )  # error of 2.67E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.28E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.026654493203100007}
-    dual_sigmoidal_norm_parameter = (
-        31.988365552286066,
-        0.18812033153864993,
-        0.11360901005668378,
-    )  # error of 1.31E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (2.80E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.013091155898891408}
-    genlog_norm_parameter = (
-        0.09991792382506794,
-        -24.750452023618326,
-        0.8473827278488687,
-        0.003956246904308439,
-    )  # error of 1.01E-02 with sample range (7.63E-01,6.43E+02) resulting in fit range (9.17E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.010106091422280545}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.7634413838386536, 643.3276977539062],
-            [9.165519374139487e-08, 1.0],
-        ],
-        "sample_bounds99": [
-            [0.7634413838386536, 88.63299560546875],
-            [0.003827904879572938, 0.99969464239547],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi0v)
-    # normalization
-    linear_norm_parameter = (
-        0.027431175492895643,
-        0.1959231987976101,
-    )  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
-    linear_norm_parameter_normdata = {"error": 0.18435911083822928}
-    min_max_norm_parameter = (
-        5.833583645428592,
-        19.149899507438242,
-    )  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0423165024732474}
-    sigmoidal_norm_parameter = (
-        12.391158701361956,
-        0.36836959542101233,
-    )  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02620473856261326}
-    dual_sigmoidal_norm_parameter = (
-        11.842303403027104,
-        0.5140666711896098,
-        0.2991216617631474,
-    )  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011572965050369354}
-    genlog_norm_parameter = (
-        0.2681312003670772,
-        -18.83996729447344,
-        0.18053251723602642,
-        6.445742816927413e-05,
-    )  # error of 7.72E-03 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.12E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007721812904196733}
-    autogen_normdata = {
-        "sample_bounds": [[1.0, 277.3277282714844], [1.120763376208642e-06, 1.0]],
-        "sample_bounds99": [
-            [1.0, 33.21092224121094],
-            [0.010061172965595765, 0.9987700087476209],
         ],
     }
     preferred_normalization = "genlog"
@@ -1249,94 +893,6 @@ class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class Chi0v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi0v)
-    # normalization
-    linear_norm_parameter = (
-        0.027431175492895643,
-        0.1959231987976101,
-    )  # error of 1.84E-01 with sample range (1.00E+00,2.77E+02) resulting in fit range (2.23E-01,7.80E+00)
-    linear_norm_parameter_normdata = {"error": 0.18435911083822928}
-    min_max_norm_parameter = (
-        5.833583645428592,
-        19.149899507438242,
-    )  # error of 4.23E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0423165024732474}
-    sigmoidal_norm_parameter = (
-        12.391158701361956,
-        0.36836959542101233,
-    )  # error of 2.62E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.48E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02620473856261326}
-    dual_sigmoidal_norm_parameter = (
-        11.842303403027104,
-        0.5140666711896098,
-        0.2991216617631474,
-    )  # error of 1.16E-02 with sample range (1.00E+00,2.77E+02) resulting in fit range (3.78E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011572965050369354}
-    genlog_norm_parameter = (
-        0.2681312003670772,
-        -18.83996729447344,
-        0.18053251723602642,
-        6.445742816927413e-05,
-    )  # error of 7.72E-03 with sample range (1.00E+00,2.77E+02) resulting in fit range (1.12E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007721812904196733}
-    autogen_normdata = {
-        "sample_bounds": [[1.0, 277.3277282714844], [1.120763376208642e-06, 1.0]],
-        "sample_bounds99": [
-            [1.0, 33.21092224121094],
-            [0.010061172965595765, 0.9987700087476209],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi1)
-    # normalization
-    linear_norm_parameter = (
-        0.021402601422805922,
-        0.057358382906918415,
-    )  # error of 1.75E-01 with sample range (0.00E+00,4.28E+02) resulting in fit range (5.74E-02,9.23E+00)
-    linear_norm_parameter_normdata = {"error": 0.17466614265327193}
-    min_max_norm_parameter = (
-        10.35770293280183,
-        30.318616722974067,
-    )  # error of 4.02E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.040197831953247984}
-    sigmoidal_norm_parameter = (
-        20.218648442527503,
-        0.24321989118039597,
-    )  # error of 2.60E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (7.26E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0260019712753007}
-    dual_sigmoidal_norm_parameter = (
-        19.497970716081007,
-        0.31854028517260596,
-        0.1945431362682854,
-    )  # error of 1.08E-02 with sample range (0.00E+00,4.28E+02) resulting in fit range (2.00E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010777766870155912}
-    genlog_norm_parameter = (
-        0.17155312446420867,
-        -25.562386440585016,
-        0.11328083867494013,
-        6.744819013669663e-05,
-    )  # error of 6.97E-03 with sample range (0.00E+00,4.28E+02) resulting in fit range (8.29E-10,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.006972462739463424}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 428.4106140136719], [8.292217328103303e-10, 1.0]],
-        "sample_bounds99": [
-            [0.0, 53.370033264160156],
-            [0.004867140847930712, 0.9995846495813856],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class Chi1_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -1425,94 +981,6 @@ class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi1n)
-    # normalization
-    linear_norm_parameter = (
-        0.02460656481380441,
-        0.05696382112467857,
-    )  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.18291393291527094}
-    min_max_norm_parameter = (
-        8.215243805842091,
-        25.568763302868422,
-    )  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.038979148512106314}
-    sigmoidal_norm_parameter = (
-        16.800375876069985,
-        0.2846180730802336,
-    )  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02441944444484631}
-    dual_sigmoidal_norm_parameter = (
-        16.22854448035761,
-        0.3557006902802079,
-        0.22864396656407704,
-    )  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011309864829293758}
-    genlog_norm_parameter = (
-        0.20081899416624355,
-        -3.9155988161228468,
-        2.447646307417477,
-        0.05743409500456496,
-    )  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007916880713483804}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 331.6630859375], [2.168463774955951e-06, 1.0]],
-        "sample_bounds99": [
-            [0.0, 43.43079376220703],
-            [0.005005294570965555, 0.9996657899932929],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi1n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi1n)
-    # normalization
-    linear_norm_parameter = (
-        0.02460656481380441,
-        0.05696382112467857,
-    )  # error of 1.83E-01 with sample range (0.00E+00,3.32E+02) resulting in fit range (5.70E-02,8.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.18291393291527094}
-    min_max_norm_parameter = (
-        8.215243805842091,
-        25.568763302868422,
-    )  # error of 3.90E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.038979148512106314}
-    sigmoidal_norm_parameter = (
-        16.800375876069985,
-        0.2846180730802336,
-    )  # error of 2.44E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (8.31E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02441944444484631}
-    dual_sigmoidal_norm_parameter = (
-        16.22854448035761,
-        0.3557006902802079,
-        0.22864396656407704,
-    )  # error of 1.13E-02 with sample range (0.00E+00,3.32E+02) resulting in fit range (3.10E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011309864829293758}
-    genlog_norm_parameter = (
-        0.20081899416624355,
-        -3.9155988161228468,
-        2.447646307417477,
-        0.05743409500456496,
-    )  # error of 7.92E-03 with sample range (0.00E+00,3.32E+02) resulting in fit range (2.17E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007916880713483804}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 331.6630859375], [2.168463774955951e-06, 1.0]],
-        "sample_bounds99": [
-            [0.0, 43.43079376220703],
-            [0.005005294570965555, 0.9996657899932929],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -1551,182 +1019,6 @@ class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 17.79261589050293],
             [0.009344479363126993, 0.9985030616467082],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi1v)
-    # normalization
-    linear_norm_parameter = (
-        0.0627452397151258,
-        0.08691967075790497,
-    )  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
-    linear_norm_parameter_normdata = {"error": 0.15977372838461698}
-    min_max_norm_parameter = (
-        2.910758257183072,
-        10.518729378759696,
-    )  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039869239162642046}
-    sigmoidal_norm_parameter = (
-        6.661928594684052,
-        0.6389477840131871,
-    )  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.025429672953429426}
-    dual_sigmoidal_norm_parameter = (
-        6.384313111721113,
-        0.855658675292274,
-        0.5214673948038986,
-    )  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01053044473974626}
-    genlog_norm_parameter = (
-        0.46026801832546155,
-        -8.095863453866041,
-        0.035194021485851955,
-        6.0705507117096385e-05,
-    )  # error of 5.40E-03 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0054043850231123795}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 166.4846954345703], [8.689704479646525e-07, 1.0]],
-        "sample_bounds99": [
-            [0.0, 17.79261589050293],
-            [0.009344479363126993, 0.9985030616467082],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi1v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi1v)
-    # normalization
-    linear_norm_parameter = (
-        0.0627452397151258,
-        0.08691967075790497,
-    )  # error of 1.60E-01 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-02,1.05E+01)
-    linear_norm_parameter_normdata = {"error": 0.15977372838461698}
-    min_max_norm_parameter = (
-        2.910758257183072,
-        10.518729378759696,
-    )  # error of 3.99E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039869239162642046}
-    sigmoidal_norm_parameter = (
-        6.661928594684052,
-        0.6389477840131871,
-    )  # error of 2.54E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (1.40E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.025429672953429426}
-    dual_sigmoidal_norm_parameter = (
-        6.384313111721113,
-        0.855658675292274,
-        0.5214673948038986,
-    )  # error of 1.05E-02 with sample range (0.00E+00,1.66E+02) resulting in fit range (4.22E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01053044473974626}
-    genlog_norm_parameter = (
-        0.46026801832546155,
-        -8.095863453866041,
-        0.035194021485851955,
-        6.0705507117096385e-05,
-    )  # error of 5.40E-03 with sample range (0.00E+00,1.66E+02) resulting in fit range (8.69E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0054043850231123795}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 166.4846954345703], [8.689704479646525e-07, 1.0]],
-        "sample_bounds99": [
-            [0.0, 17.79261589050293],
-            [0.009344479363126993, 0.9985030616467082],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi2n)
-    # normalization
-    linear_norm_parameter = (
-        0.11014910768339037,
-        0.02748881833733474,
-    )  # error of 1.49E-01 with sample range (0.00E+00,1.02E+02) resulting in fit range (2.75E-02,1.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14882496284018512}
-    min_max_norm_parameter = (
-        1.6850371430659572,
-        6.553874507410937,
-    )  # error of 3.80E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03803702365442874}
-    sigmoidal_norm_parameter = (
-        4.081549676171799,
-        0.9904095492145635,
-    )  # error of 2.83E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.73E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028309812384088532}
-    dual_sigmoidal_norm_parameter = (
-        3.872385716112142,
-        1.3409368307127125,
-        0.7675552000980483,
-    )  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010801044847858121}
-    genlog_norm_parameter = (
-        0.6988519183533591,
-        -5.131211636610489,
-        0.02667312124620046,
-        6.549046586159772e-05,
-    )  # error of 7.78E-03 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.26E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007780744106234158}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 102.18376922607422], [1.2601634282948772e-05, 1.0]],
-        "sample_bounds99": [
-            [0.0, 11.08464527130127],
-            [0.008217298182089881, 0.9987327007021163],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi2n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi2n)
-    # normalization
-    linear_norm_parameter = (
-        0.11014910768339037,
-        0.02748881833733474,
-    )  # error of 1.49E-01 with sample range (0.00E+00,1.02E+02) resulting in fit range (2.75E-02,1.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14882496284018512}
-    min_max_norm_parameter = (
-        1.6850371430659572,
-        6.553874507410937,
-    )  # error of 3.80E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03803702365442874}
-    sigmoidal_norm_parameter = (
-        4.081549676171799,
-        0.9904095492145635,
-    )  # error of 2.83E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.73E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028309812384088532}
-    dual_sigmoidal_norm_parameter = (
-        3.872385716112142,
-        1.3409368307127125,
-        0.7675552000980483,
-    )  # error of 1.08E-02 with sample range (0.00E+00,1.02E+02) resulting in fit range (5.53E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010801044847858121}
-    genlog_norm_parameter = (
-        0.6988519183533591,
-        -5.131211636610489,
-        0.02667312124620046,
-        6.549046586159772e-05,
-    )  # error of 7.78E-03 with sample range (0.00E+00,1.02E+02) resulting in fit range (1.26E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007780744106234158}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 102.18376922607422], [1.2601634282948772e-05, 1.0]],
-        "sample_bounds99": [
-            [0.0, 11.08464527130127],
-            [0.008217298182089881, 0.9987327007021163],
         ],
     }
     preferred_normalization = "genlog"
@@ -1821,94 +1113,6 @@ class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi2v)
-    # normalization
-    linear_norm_parameter = (
-        0.09656674011706068,
-        0.026475463133179833,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.65E-02,1.62E+01)
-    linear_norm_parameter_normdata = {"error": 0.1433450398709747}
-    min_max_norm_parameter = (
-        1.85040714882094,
-        7.55574015613779,
-    )  # error of 3.72E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.037213638027546986}
-    sigmoidal_norm_parameter = (
-        4.659367062804354,
-        0.84727788625193,
-    )  # error of 2.67E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (1.89E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.026665340230128252}
-    dual_sigmoidal_norm_parameter = (
-        4.4502084375740605,
-        1.1067186253730108,
-        0.6703972503948212,
-    )  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.21E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010507367144383972}
-    genlog_norm_parameter = (
-        0.5958613338398937,
-        -6.162941168270009,
-        0.024553039197838925,
-        5.9488626931918526e-05,
-    )  # error of 4.82E-03 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.79E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004820173884202131}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 167.90440368652344], [2.7867794576901104e-05, 1.0]],
-        "sample_bounds99": [
-            [0.0, 12.48746109008789],
-            [0.010623137145489153, 0.9983057600452417],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi2v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi2v)
-    # normalization
-    linear_norm_parameter = (
-        0.09656674011706068,
-        0.026475463133179833,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.65E-02,1.62E+01)
-    linear_norm_parameter_normdata = {"error": 0.1433450398709747}
-    min_max_norm_parameter = (
-        1.85040714882094,
-        7.55574015613779,
-    )  # error of 3.72E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.037213638027546986}
-    sigmoidal_norm_parameter = (
-        4.659367062804354,
-        0.84727788625193,
-    )  # error of 2.67E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (1.89E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.026665340230128252}
-    dual_sigmoidal_norm_parameter = (
-        4.4502084375740605,
-        1.1067186253730108,
-        0.6703972503948212,
-    )  # error of 1.05E-02 with sample range (0.00E+00,1.68E+02) resulting in fit range (7.21E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010507367144383972}
-    genlog_norm_parameter = (
-        0.5958613338398937,
-        -6.162941168270009,
-        0.024553039197838925,
-        5.9488626931918526e-05,
-    )  # error of 4.82E-03 with sample range (0.00E+00,1.68E+02) resulting in fit range (2.79E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004820173884202131}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 167.90440368652344], [2.7867794576901104e-05, 1.0]],
-        "sample_bounds99": [
-            [0.0, 12.48746109008789],
-            [0.010623137145489153, 0.9983057600452417],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -1947,182 +1151,6 @@ class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 7.702393054962158],
             [0.008353507171546724, 0.9990037203769909],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi3n)
-    # normalization
-    linear_norm_parameter = (
-        0.16045617502782894,
-        0.06275167455712582,
-    )  # error of 1.47E-01 with sample range (0.00E+00,6.23E+01) resulting in fit range (6.28E-02,1.01E+01)
-    linear_norm_parameter_normdata = {"error": 0.1467187220413775}
-    min_max_norm_parameter = (
-        0.8698290958911558,
-        4.249166143207709,
-    )  # error of 3.75E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03747229058474156}
-    sigmoidal_norm_parameter = (
-        2.5307853903255304,
-        1.4301006733612187,
-    )  # error of 2.83E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.61E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02833355770371523}
-    dual_sigmoidal_norm_parameter = (
-        2.39001284835464,
-        1.9077778839291673,
-        1.1008446280194297,
-    )  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010338586193370981}
-    genlog_norm_parameter = (
-        1.0015555418961968,
-        -6.993589109683919,
-        0.6539760540894591,
-        7.215853648046741e-05,
-    )  # error of 6.81E-03 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.68E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.006807848867536977}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 62.314781188964844], [0.0002678339660345653, 1.0]],
-        "sample_bounds99": [
-            [0.0, 7.702393054962158],
-            [0.008353507171546724, 0.9990037203769909],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi3n)
-    # normalization
-    linear_norm_parameter = (
-        0.16045617502782894,
-        0.06275167455712582,
-    )  # error of 1.47E-01 with sample range (0.00E+00,6.23E+01) resulting in fit range (6.28E-02,1.01E+01)
-    linear_norm_parameter_normdata = {"error": 0.1467187220413775}
-    min_max_norm_parameter = (
-        0.8698290958911558,
-        4.249166143207709,
-    )  # error of 3.75E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03747229058474156}
-    sigmoidal_norm_parameter = (
-        2.5307853903255304,
-        1.4301006733612187,
-    )  # error of 2.83E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.61E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02833355770371523}
-    dual_sigmoidal_norm_parameter = (
-        2.39001284835464,
-        1.9077778839291673,
-        1.1008446280194297,
-    )  # error of 1.03E-02 with sample range (0.00E+00,6.23E+01) resulting in fit range (1.04E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010338586193370981}
-    genlog_norm_parameter = (
-        1.0015555418961968,
-        -6.993589109683919,
-        0.6539760540894591,
-        7.215853648046741e-05,
-    )  # error of 6.81E-03 with sample range (0.00E+00,6.23E+01) resulting in fit range (2.68E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.006807848867536977}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 62.314781188964844], [0.0002678339660345653, 1.0]],
-        "sample_bounds99": [
-            [0.0, 7.702393054962158],
-            [0.008353507171546724, 0.9990037203769909],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi3v)
-    # normalization
-    linear_norm_parameter = (
-        0.13641142111605653,
-        0.06481842365937796,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
-    min_max_norm_parameter = (
-        0.9571111913222607,
-        5.030476311519345,
-    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
-    sigmoidal_norm_parameter = (
-        2.9588780643186574,
-        1.1889256254049316,
-    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
-    dual_sigmoidal_norm_parameter = (
-        2.798221903514353,
-        1.5668857301099821,
-        0.9198749149438118,
-    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
-    genlog_norm_parameter = (
-        0.8306394357062581,
-        -8.216329250032336,
-        0.5115200078187916,
-        7.287918580914142e-05,
-    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
-        "sample_bounds99": [
-            [0.0, 8.783188819885254],
-            [0.011920355611963635, 0.9985455134519171],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi3v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi3v)
-    # normalization
-    linear_norm_parameter = (
-        0.13641142111605653,
-        0.06481842365937796,
-    )  # error of 1.43E-01 with sample range (0.00E+00,1.56E+02) resulting in fit range (6.48E-02,2.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.14324855083703938}
-    min_max_norm_parameter = (
-        0.9571111913222607,
-        5.030476311519345,
-    )  # error of 3.74E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03735973529791995}
-    sigmoidal_norm_parameter = (
-        2.9588780643186574,
-        1.1889256254049316,
-    )  # error of 2.82E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (2.88E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.028195893463175727}
-    dual_sigmoidal_norm_parameter = (
-        2.798221903514353,
-        1.5668857301099821,
-        0.9198749149438118,
-    )  # error of 1.06E-02 with sample range (0.00E+00,1.56E+02) resulting in fit range (1.23E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010582126143067557}
-    genlog_norm_parameter = (
-        0.8306394357062581,
-        -8.216329250032336,
-        0.5115200078187916,
-        7.287918580914142e-05,
-    )  # error of 5.78E-03 with sample range (0.00E+00,1.56E+02) resulting in fit range (4.89E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005784909062420294}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 155.71441650390625], [0.000488759335530553, 1.0]],
-        "sample_bounds99": [
-            [0.0, 8.783188819885254],
-            [0.011920355611963635, 0.9985455134519171],
         ],
     }
     preferred_normalization = "genlog"
@@ -2211,182 +1239,6 @@ class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 5.326207160949707],
             [0.011537014447146662, 0.9993217233815135],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi4n)
-    # normalization
-    linear_norm_parameter = (
-        0.2235474556767324,
-        0.12057837229443968,
-    )  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
-    linear_norm_parameter_normdata = {"error": 0.15222099244306292}
-    min_max_norm_parameter = (
-        0.40708839430881494,
-        2.71836618230583,
-    )  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03939655652763707}
-    sigmoidal_norm_parameter = (
-        1.5414132407381294,
-        2.0927265327645506,
-    )  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.030256595482341535}
-    dual_sigmoidal_norm_parameter = (
-        1.4410261354054712,
-        2.823564070788039,
-        1.5793253269271639,
-    )  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011186659825690531}
-    genlog_norm_parameter = (
-        1.4612311355483178,
-        -3.1076538629942276,
-        0.036869609927097875,
-        6.329448915489527e-05,
-    )  # error of 8.27E-03 with sample range (0.00E+00,3.81E+01) resulting in fit range (2.01E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00827292069878479}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 38.074581146240234], [0.0020094042543737406, 1.0]],
-        "sample_bounds99": [
-            [0.0, 5.326207160949707],
-            [0.011537014447146662, 0.9993217233815135],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi4n_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi4n)
-    # normalization
-    linear_norm_parameter = (
-        0.2235474556767324,
-        0.12057837229443968,
-    )  # error of 1.52E-01 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.21E-01,8.63E+00)
-    linear_norm_parameter_normdata = {"error": 0.15222099244306292}
-    min_max_norm_parameter = (
-        0.40708839430881494,
-        2.71836618230583,
-    )  # error of 3.94E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03939655652763707}
-    sigmoidal_norm_parameter = (
-        1.5414132407381294,
-        2.0927265327645506,
-    )  # error of 3.03E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (3.82E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.030256595482341535}
-    dual_sigmoidal_norm_parameter = (
-        1.4410261354054712,
-        2.823564070788039,
-        1.5793253269271639,
-    )  # error of 1.12E-02 with sample range (0.00E+00,3.81E+01) resulting in fit range (1.68E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011186659825690531}
-    genlog_norm_parameter = (
-        1.4612311355483178,
-        -3.1076538629942276,
-        0.036869609927097875,
-        6.329448915489527e-05,
-    )  # error of 8.27E-03 with sample range (0.00E+00,3.81E+01) resulting in fit range (2.01E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00827292069878479}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 38.074581146240234], [0.0020094042543737406, 1.0]],
-        "sample_bounds99": [
-            [0.0, 5.326207160949707],
-            [0.011537014447146662, 0.9993217233815135],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcChi4v)
-    # normalization
-    linear_norm_parameter = (
-        0.1846796920584458,
-        0.12308022240634398,
-    )  # error of 1.49E-01 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.23E-01,4.41E+01)
-    linear_norm_parameter_normdata = {"error": 0.149173411406505}
-    min_max_norm_parameter = (
-        0.4365031459643245,
-        3.319224643809378,
-    )  # error of 3.97E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039736569580275584}
-    sigmoidal_norm_parameter = (
-        1.8494300166801143,
-        1.6807292424962799,
-    )  # error of 3.13E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (4.28E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.031295890988254055}
-    dual_sigmoidal_norm_parameter = (
-        1.7217931490660436,
-        2.2865005312485036,
-        1.2589856485533308,
-    )  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011133542768661025}
-    genlog_norm_parameter = (
-        1.1734746168371561,
-        -1.7962003612591946,
-        0.0029925667547978287,
-        6.355988886134693e-05,
-    )  # error of 8.73E-03 with sample range (0.00E+00,2.38E+02) resulting in fit range (3.28E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.008734935297766193}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 237.9375], [0.003280498218902248, 1.0]],
-        "sample_bounds99": [
-            [0.0, 6.234282970428467],
-            [0.01611400383585105, 0.9989935769817007],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Chi4v)
-    # normalization
-    linear_norm_parameter = (
-        0.1846796920584458,
-        0.12308022240634398,
-    )  # error of 1.49E-01 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.23E-01,4.41E+01)
-    linear_norm_parameter_normdata = {"error": 0.149173411406505}
-    min_max_norm_parameter = (
-        0.4365031459643245,
-        3.319224643809378,
-    )  # error of 3.97E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039736569580275584}
-    sigmoidal_norm_parameter = (
-        1.8494300166801143,
-        1.6807292424962799,
-    )  # error of 3.13E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (4.28E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.031295890988254055}
-    dual_sigmoidal_norm_parameter = (
-        1.7217931490660436,
-        2.2865005312485036,
-        1.2589856485533308,
-    )  # error of 1.11E-02 with sample range (0.00E+00,2.38E+02) resulting in fit range (1.91E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.011133542768661025}
-    genlog_norm_parameter = (
-        1.1734746168371561,
-        -1.7962003612591946,
-        0.0029925667547978287,
-        6.355988886134693e-05,
-    )  # error of 8.73E-03 with sample range (0.00E+00,2.38E+02) resulting in fit range (3.28E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.008734935297766193}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 237.9375], [0.003280498218902248, 1.0]],
-        "sample_bounds99": [
-            [0.0, 6.234282970428467],
-            [0.01611400383585105, 0.9989935769817007],
         ],
     }
     preferred_normalization = "genlog"
@@ -2933,50 +1785,6 @@ class EState_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
 class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(Eccentricity)
-    # normalization
-    linear_norm_parameter = (
-        4.5706147462074735,
-        -3.8232476425495223,
-    )  # error of 1.44E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (-3.82E+00,7.47E-01)
-    linear_norm_parameter_normdata = {"error": 0.14378004757224336}
-    min_max_norm_parameter = (
-        0.9128972962156874,
-        1.0,
-    )  # error of 8.67E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.08670948517205165}
-    sigmoidal_norm_parameter = (
-        0.9575243366977794,
-        40.76860157160623,
-    )  # error of 6.20E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.11E-17,8.50E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.062043541808452354}
-    dual_sigmoidal_norm_parameter = (
-        0.9687599765083621,
-        23.52840921810807,
-        80.91404488539182,
-    )  # error of 2.49E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.26E-10,9.26E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.024887733219507782}
-    genlog_norm_parameter = (
-        13.011559378552663,
-        -0.17556161013905733,
-        0.7479247294393261,
-        4.680504264769145e-07,
-    )  # error of 1.29E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,6.95E-01)
-    genlog_norm_parameter_normdata = {"error": 0.1285550603254054}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [0.0, 0.6951570738995947]],
-        "sample_bounds99": [
-            [0.0, 0.9972704648971558],
-            [8.970866898366992e-05, 0.688777386223641],
-        ],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
     featurize = staticmethod(CalcEccentricity)
     # normalization
     linear_norm_parameter = (
@@ -3021,7 +1829,7 @@ class Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
 class ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(ExactMolWt)
+    featurize = staticmethod(CalcExactMolWt)
     # normalization
     linear_norm_parameter = (
         0.0012840291612334909,
@@ -3059,44 +1867,11 @@ class ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
+class FormalCharge_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcExactMolWt)
+    dtype = np.int32
+    featurize = staticmethod(GetFormalCharge)
     # normalization
-    linear_norm_parameter = (
-        0.0012840291612334909,
-        0.046753757513299354,
-    )  # error of 1.65E-01 with sample range (3.31E+01,1.38E+04) resulting in fit range (8.92E-02,1.78E+01)
-    linear_norm_parameter_normdata = {"error": 0.16488932516193885}
-    min_max_norm_parameter = (
-        175.3029880379195,
-        537.2110757327455,
-    )  # error of 3.98E-02 with sample range (3.31E+01,1.38E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039783622105194066}
-    sigmoidal_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 5.01E-01 with sample range (3.31E+01,1.38E+04) resulting in fit range (1.00E+00,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5012523548781626}
-    dual_sigmoidal_norm_parameter = (
-        1.0,
-        1.0,
-        1.0,
-    )  # error of 5.01E-01 with sample range (3.31E+01,1.38E+04) resulting in fit range (1.00E+00,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5012523548781626}
-    genlog_norm_parameter = (
-        1.0,
-        1.0,
-        1.0,
-        1.000000000001,
-    )  # error of 5.01E-01 with sample range (3.31E+01,1.38E+04) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.5012523548781626}
-    autogen_normdata = {
-        "sample_bounds": [[33.06145095825195, 13806.9453125], [0.999999999999988, 1.0]],
-        "sample_bounds99": [[33.06145095825195, 881.330322265625], [1.0, 1.0]],
-    }
-    preferred_normalization = "min_max"
     # functions
 
 
@@ -3285,9958 +2060,6 @@ class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class FractionCSP3_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcFractionCSP3)
-    # normalization
-    linear_norm_parameter = (
-        1.1210114366616568,
-        0.024238385885020208,
-    )  # error of 6.63E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.42E-02,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.06629610917198944}
-    min_max_norm_parameter = (
-        0.030077967569291073,
-        0.7816451738469055,
-    )  # error of 3.99E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.039915557978113345}
-    sigmoidal_norm_parameter = (
-        0.4036392556168974,
-        6.810271411900117,
-    )  # error of 2.19E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (6.01E-02,9.83E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.021893396525646636}
-    dual_sigmoidal_norm_parameter = (
-        0.3793638964895536,
-        8.367627232005448,
-        5.736046185011766,
-    )  # error of 1.04E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.01E-02,9.72E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010390460984598808}
-    genlog_norm_parameter = (
-        5.121344220451963,
-        0.06761202500583105,
-        0.7177465382525524,
-        0.18748114357432705,
-    )  # error of 4.98E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.38E-02,9.68E-01)
-    genlog_norm_parameter_normdata = {"error": 0.004975425584248969}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [0.023842034333237446, 0.9683089421215593]],
-        "sample_bounds99": [
-            [0.0, 0.9846153855323792],
-            [0.027347836838996668, 0.9662561915761914],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class GetFormalCharge_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(GetFormalCharge)
-    # normalization
-    linear_norm_parameter = (
-        0.2979676829070069,
-        0.49840014398594723,
-    )  # error of 1.37E-01 with sample range (-1.20E+01,8.00E+00) resulting in fit range (-3.08E+00,2.88E+00)
-    linear_norm_parameter_normdata = {"error": 0.13737139001576215}
-    min_max_norm_parameter = (
-        -0.7560934218119267,
-        0.768364201281212,
-    )  # error of 2.79E-03 with sample range (-1.20E+01,8.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00278960292727761}
-    sigmoidal_norm_parameter = (
-        0.0034213113586227585,
-        4.843231446590721,
-    )  # error of 7.75E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (5.65E-26,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0007749658061891609}
-    dual_sigmoidal_norm_parameter = (
-        0.0031348749422704454,
-        5.1351561727947335,
-        4.627941673697825,
-    )  # error of 4.18E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (1.70E-27,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0004181696782787798}
-    genlog_norm_parameter = (
-        4.571551987462479,
-        -0.11031193404019918,
-        1.3468941531125165,
-        0.8488245914105825,
-    )  # error of 4.19E-04 with sample range (-1.20E+01,8.00E+00) resulting in fit range (1.09E-28,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0004185856542607711}
-    autogen_normdata = {
-        "sample_bounds": [[-12.0, 8.0], [1.0905981189481417e-28, 1.0]],
-        "sample_bounds99": [[-12.0, -12.0], [0.4959755798379905, 0.4959755798379905]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class GetNumAtoms_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    # normalization
-    linear_norm_parameter = (
-        0.002806507778867817,
-        0.45473470197802146,
-    )  # error of 2.10E-01 with sample range (1.00E+00,8.41E+02) resulting in fit range (4.58E-01,2.82E+00)
-    linear_norm_parameter_normdata = {"error": 0.2099594262342403}
-    min_max_norm_parameter = (
-        22.66905408053614,
-        70.49726350156317,
-    )  # error of 2.52E-02 with sample range (1.00E+00,8.41E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.025211170728831604}
-    sigmoidal_norm_parameter = (
-        46.36601687748812,
-        0.1064568334637108,
-    )  # error of 1.81E-02 with sample range (1.00E+00,8.41E+02) resulting in fit range (7.93E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.018141163805184605}
-    dual_sigmoidal_norm_parameter = (
-        43.69601623999105,
-        0.15112949215358837,
-        0.07810101231948194,
-    )  # error of 9.64E-03 with sample range (1.00E+00,8.41E+02) resulting in fit range (1.57E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0096429015456802}
-    genlog_norm_parameter = (
-        0.0727753602342523,
-        -47.88698159288098,
-        0.026097159197069595,
-        4.30932397781813e-05,
-    )  # error of 8.48E-03 with sample range (1.00E+00,8.41E+02) resulting in fit range (3.21E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.008475022417510032}
-    autogen_normdata = {
-        "sample_bounds": [[1.0, 841.0], [3.209536947702752e-08, 1.0]],
-        "sample_bounds99": [[1.0, 131.0], [0.006680167688470407, 0.9996101408408714]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return mol.GetNumAtoms()
-
-
-class GetNumBonds_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    # normalization
-    linear_norm_parameter = (
-        0.002463445651483187,
-        0.4744713268676017,
-    )  # error of 2.11E-01 with sample range (0.00E+00,6.70E+02) resulting in fit range (4.74E-01,2.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.21056942073912852}
-    min_max_norm_parameter = (
-        22.844223384038273,
-        74.02718116592182,
-    )  # error of 2.42E-02 with sample range (0.00E+00,6.70E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02415973546223993}
-    sigmoidal_norm_parameter = (
-        48.13809784461704,
-        0.10066839833084439,
-    )  # error of 1.72E-02 with sample range (0.00E+00,6.70E+02) resulting in fit range (7.80E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.017216618815409777}
-    dual_sigmoidal_norm_parameter = (
-        45.384303949473164,
-        0.14153158855284861,
-        0.07437487782630593,
-    )  # error of 9.25E-03 with sample range (0.00E+00,6.70E+02) resulting in fit range (1.62E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.009254475184031795}
-    genlog_norm_parameter = (
-        0.0688459669579636,
-        -51.65129697356642,
-        0.029975246251862264,
-        4.8981936120417136e-05,
-    )  # error of 8.05E-03 with sample range (0.00E+00,6.70E+02) resulting in fit range (2.60E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.008054752699761103}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 670.0], [2.5974688725884845e-08, 1.0]],
-        "sample_bounds99": [[0.0, 136.0], [0.006346384148929287, 0.9995657125749758]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return mol.GetNumBonds()
-
-
-class GetNumHeavyAtoms_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    # normalization
-    linear_norm_parameter = (
-        0.005467908306979852,
-        0.4574616244507832,
-    )  # error of 2.03E-01 with sample range (1.00E+00,3.53E+02) resulting in fit range (4.63E-01,2.39E+00)
-    linear_norm_parameter_normdata = {"error": 0.20333248018472164}
-    min_max_norm_parameter = (
-        11.453920529439214,
-        38.17970198241566,
-    )  # error of 2.18E-02 with sample range (1.00E+00,3.53E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.021786337725977024}
-    sigmoidal_norm_parameter = (
-        24.616313202398004,
-        0.19249095848414596,
-    )  # error of 1.68E-02 with sample range (1.00E+00,3.53E+02) resulting in fit range (1.05E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.016849133579195166}
-    dual_sigmoidal_norm_parameter = (
-        22.937294892052073,
-        0.283853605821794,
-        0.13930991211949958,
-    )  # error of 7.71E-03 with sample range (1.00E+00,3.53E+02) resulting in fit range (1.97E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.007706119264952398}
-    genlog_norm_parameter = (
-        0.13246138358602916,
-        -24.847554256961615,
-        0.02451623499699371,
-        5.5299623338359235e-05,
-    )  # error of 6.37E-03 with sample range (1.00E+00,3.53E+02) resulting in fit range (5.35E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00637225180509711}
-    autogen_normdata = {
-        "sample_bounds": [[1.0, 353.0], [5.346039855566931e-07, 1.0]],
-        "sample_bounds99": [[1.0, 61.0], [0.01245968589488892, 0.9984509115559849]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return mol.GetNumHeavyAtoms()
-
-
-class GetNumberAtomsAc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.3000044967173965,
-        0.2999745186014203,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.27383801759295673}
-    min_max_norm_parameter = (
-        9.671794590491717e-09,
-        1.0000599598263362,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.494528993845506e-06}
-    sigmoidal_norm_parameter = (
-        0.6643919727532761,
-        28.967797254080672,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (4.38E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.494529320561714e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.010154839386902228,
-        1745.9957644375947,
-        9.821546466904541,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (1.99E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.492908629724723e-06}
-    genlog_norm_parameter = (
-        11.446754261336451,
-        -0.5751742540943718,
-        0.16526134194556694,
-        2.1469426423278507e-05,
-    )  # error of 3.04E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (2.39E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.035015642312657e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [2.392873997613459e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(89)))
-
-
-class GetNumberAtomsAg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16665833941041142,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23569048387935287}
-    min_max_norm_parameter = (
-        5.0001249491899875e-11,
-        1.0000249897379958,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.2436473223776616e-09}
-    sigmoidal_norm_parameter = (
-        0.5063585448449018,
-        19.82304183526071,
-    )  # error of 3.10E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.37E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.103820956431274e-05}
-    genlog_norm_parameter = (
-        11.95036249680239,
-        -0.49480843627551013,
-        0.7685796732976627,
-        0.00018931479656158733,
-    )  # error of 2.83E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.73E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.8313602314636444e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [1.7296301532801493e-05, 0.9999999995425746]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(47)))
-
-
-class GetNumberAtomsAl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5,
-        0.1666117067873787,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23562453538884018}
-    min_max_norm_parameter = (
-        5.000824571391153e-11,
-        1.0001649141782143,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242460085215088e-09}
-    sigmoidal_norm_parameter = (
-        0.5385776892587676,
-        18.722136409498475,
-    )  # error of 2.51E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.18E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.5120493202934232e-05}
-    genlog_norm_parameter = (
-        11.198483616861854,
-        -0.5215383044680222,
-        0.8601483188512986,
-        0.00020779836921860722,
-    )  # error of 3.48E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (6.02E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.475983995401597e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [6.020187089623577e-06, 0.9999999977432055]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(13)))
-
-
-class GetNumberAtomsAm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(95)))
-
-
-class GetNumberAtomsAr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(18)))
-
-
-class GetNumberAtomsAs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5,
-        0.1666283612962537,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.2356480884211661}
-    min_max_norm_parameter = (
-        5.000574683845275e-11,
-        1.0001149366690436,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242884098487436e-09}
-    sigmoidal_norm_parameter = (
-        0.5296267058521238,
-        19.017341381064476,
-    )  # error of 2.60E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.22E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.596203748070994e-05}
-    genlog_norm_parameter = (
-        11.566760429776892,
-        -0.3005625858838072,
-        0.7615893612557042,
-        0.0019371549769831792,
-    )  # error of 3.50E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (6.06E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.5042585100017594e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [6.06455084178385e-06, 0.9999999989086641]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(33)))
-
-
-class GetNumberAtomsAt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(85)))
-
-
-class GetNumberAtomsAu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(79)))
-
-
-class GetNumberAtomsB_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.4984511306746078,
-        0.49845113067460767,
-    )  # error of 4.44E-16 with sample range (0.00E+00,2.00E+01) resulting in fit range (4.98E-01,1.05E+01)
-    linear_norm_parameter_normdata = {"error": 4.440892098500626e-16}
-    min_max_norm_parameter = (
-        5.698514367256244e-09,
-        1.0031073644360482,
-    )  # error of 1.11E-04 with sample range (0.00E+00,2.00E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00011074935342901181}
-    sigmoidal_norm_parameter = (
-        -1.4029107791580535,
-        2.4029107084667247,
-    )  # error of 9.63E-10 with sample range (0.00E+00,2.00E+01) resulting in fit range (9.67E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.630891639744732e-10}
-    dual_sigmoidal_norm_parameter = (
-        -1.4029107791580535,
-        1.0,
-        2.4029107084667247,
-    )  # error of 9.63E-10 with sample range (0.00E+00,2.00E+01) resulting in fit range (9.67E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 9.630891639744732e-10}
-    genlog_norm_parameter = (
-        1.1079632343488737,
-        0.28157523413111424,
-        0.012710189867625366,
-        1.8428851605959815,
-    )  # error of 3.66E-15 with sample range (0.00E+00,2.00E+01) resulting in fit range (9.91E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.6637359812630166e-15}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 20.0], [0.9907023649122625, 0.9999999999977587]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(5)))
-
-
-class GetNumberAtomsBa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.19230846097557097,
-        0.3461492341345783,
-    )  # error of 3.40E-01 with sample range (0.00E+00,4.00E+00) resulting in fit range (3.46E-01,1.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.3396785844390793}
-    min_max_norm_parameter = (
-        0.0,
-        1.000009992705474,
-    )  # error of 5.76E-11 with sample range (0.00E+00,4.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 5.756427260942926e-11}
-    sigmoidal_norm_parameter = (
-        0.5008898351980874,
-        19.841000081849504,
-    )  # error of 3.62E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.83E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.621816005104719e-05}
-    genlog_norm_parameter = (
-        12.911422536235717,
-        -0.3666895364512048,
-        0.5208821564128056,
-        0.0003978858922900933,
-    )  # error of 1.22E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (1.04E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.220115649472622e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 4.0], [1.036565146494038e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(56)))
-
-
-class GetNumberAtomsBe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(4)))
-
-
-class GetNumberAtomsBh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(107)))
-
-
-class GetNumberAtomsBi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(83)))
-
-
-class GetNumberAtomsBk_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(97)))
-
-
-class GetNumberAtomsBr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.03384529293615657,
-        0.9281674377704277,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.20E+01) resulting in fit range (9.28E-01,1.33E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    min_max_norm_parameter = (
-        7.0207205259249164e-09,
-        1.0394872830828514,
-    )  # error of 1.33E-03 with sample range (0.00E+00,1.20E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0013257593718330792}
-    sigmoidal_norm_parameter = (
-        -0.43592711097008685,
-        2.250655046812745,
-    )  # error of 1.57E-16 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.27E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.5700924586837752e-16}
-    dual_sigmoidal_norm_parameter = (
-        -0.43592711263231865,
-        1.0,
-        2.2506550426492895,
-    )  # error of 6.08E-11 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.27E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 6.075315236921131e-11}
-    genlog_norm_parameter = (
-        2.265159974866866,
-        0.43346863068597286,
-        0.26510677706726415,
-        1.8305921260430513,
-    )  # error of 1.02E-13 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.47E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.0190157098798687e-13}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 12.0], [0.7465198807706533, 0.9999999999993943]],
-        "sample_bounds99": [[0.0, 0.0], [0.9620127307067277, 0.9620127307067277]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(35)))
-
-
-class GetNumberAtomsC_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.008253335641039361,
-        0.3956676929172077,
-    )  # error of 2.08E-01 with sample range (0.00E+00,2.72E+02) resulting in fit range (3.96E-01,2.64E+00)
-    linear_norm_parameter_normdata = {"error": 0.20822734359151487}
-    min_max_norm_parameter = (
-        7.5282161093324795,
-        29.17845036228925,
-    )  # error of 2.31E-02 with sample range (0.00E+00,2.72E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02313024363950532}
-    sigmoidal_norm_parameter = (
-        18.190607022398094,
-        0.23876555151138174,
-    )  # error of 1.70E-02 with sample range (0.00E+00,2.72E+02) resulting in fit range (1.28E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.016953891044381532}
-    dual_sigmoidal_norm_parameter = (
-        16.955452057230488,
-        0.34187658833332374,
-        0.17554151287594955,
-    )  # error of 8.23E-03 with sample range (0.00E+00,2.72E+02) resulting in fit range (3.03E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.008232356977907442}
-    genlog_norm_parameter = (
-        0.16399745136878216,
-        -14.142858158875564,
-        0.005896661240859954,
-        4.629853203397945e-05,
-    )  # error of 6.90E-03 with sample range (0.00E+00,2.72E+02) resulting in fit range (3.65E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00690348139075175}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 272.0], [3.651881205236274e-06, 1.0]],
-        "sample_bounds99": [[0.0, 52.0], [0.009268273299175862, 0.999074037418415]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(6)))
-
-
-class GetNumberAtomsCa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16661670313822308,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23563160129853802}
-    min_max_norm_parameter = (
-        5.000749602505096e-11,
-        1.0001499204010031,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242587128949902e-09}
-    sigmoidal_norm_parameter = (
-        0.5360959689741353,
-        18.803121923191057,
-    )  # error of 2.53E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.19E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.531041041484055e-05}
-    genlog_norm_parameter = (
-        11.311598136141761,
-        -0.35734030168660136,
-        0.3622626489430203,
-        0.0005195556381939962,
-    )  # error of 2.89E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (5.00E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.8896508692706978e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [5.0027472478634615e-06, 0.9999999981687022]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(20)))
-
-
-class GetNumberAtomsCd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(48)))
-
-
-class GetNumberAtomsCe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(58)))
-
-
-class GetNumberAtomsCf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(98)))
-
-
-class GetNumberAtomsCl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.03493349854395633,
-        0.8768673868073616,
-    )  # error of 2.10E-02 with sample range (0.00E+00,2.20E+01) resulting in fit range (8.77E-01,1.65E+00)
-    linear_norm_parameter_normdata = {"error": 0.020997874217050832}
-    min_max_norm_parameter = (
-        1.4924065172521466e-09,
-        1.1246747844553409,
-    )  # error of 6.85E-03 with sample range (0.00E+00,2.20E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.006848732984629102}
-    sigmoidal_norm_parameter = (
-        -0.3416151540986779,
-        1.5516403161778543,
-    )  # error of 4.13E-04 with sample range (0.00E+00,2.20E+01) resulting in fit range (6.29E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00041266428543890117}
-    dual_sigmoidal_norm_parameter = (
-        -0.34161513343511624,
-        1.0,
-        1.5516403381367747,
-    )  # error of 4.13E-04 with sample range (0.00E+00,2.20E+01) resulting in fit range (6.29E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.00041266428543904884}
-    genlog_norm_parameter = (
-        1.6896853341657674,
-        0.46163989091281027,
-        1.5215042572442932,
-        4.067217781085529,
-    )  # error of 2.84E-04 with sample range (0.00E+00,2.20E+01) resulting in fit range (6.98E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0002844616170107876}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 22.0], [0.6978696364545567, 1.0]],
-        "sample_bounds99": [[0.0, 1.0], [0.8891445835887933, 0.9740034106211876]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(17)))
-
-
-class GetNumberAtomsCm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(96)))
-
-
-class GetNumberAtomsCn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(112)))
-
-
-class GetNumberAtomsCo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.30000399708060344,
-        0.2999765171409592,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.27383984198210426}
-    min_max_norm_parameter = (
-        1.3006022426205907e-08,
-        1.0000549628993278,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.494528993845506e-06}
-    sigmoidal_norm_parameter = (
-        0.6643457684214589,
-        29.22305548282198,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.70E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.494529227457431e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.005625668363016923,
-        3234.038945595664,
-        9.86432222089315,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (1.25E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.493102658684848e-06}
-    genlog_norm_parameter = (
-        12.165573901374508,
-        -0.584916472489099,
-        1.9676201922218397,
-        0.00013590704000530053,
-    )  # error of 9.03E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (7.90E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 9.031186674140286e-06}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [7.901573929659678e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(27)))
-
-
-class GetNumberAtomsCr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5,
-        0.1666283612962537,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.2356480884211661}
-    min_max_norm_parameter = (
-        5.000574683845275e-11,
-        1.0001149366690436,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242884098487436e-09}
-    sigmoidal_norm_parameter = (
-        0.5296267058521238,
-        19.017341381064476,
-    )  # error of 2.60E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.22E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.596203748070994e-05}
-    genlog_norm_parameter = (
-        11.566760429776892,
-        -0.3005625858838072,
-        0.7615893612557042,
-        0.0019371549769831792,
-    )  # error of 3.50E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (6.06E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.5042585100017594e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [6.06455084178385e-06, 0.9999999989086641]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(24)))
-
-
-class GetNumberAtomsCs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(55)))
-
-
-class GetNumberAtomsCu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.20001356152691085,
-        0.39993005106141455,
-    )  # error of 3.16E-01 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.31617246858207454}
-    min_max_norm_parameter = (
-        5.6943518663631786e-09,
-        1.0001649068267036,
-    )  # error of 9.99E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325090334e-06}
-    sigmoidal_norm_parameter = (
-        0.6800400561658753,
-        27.222552056547602,
-    )  # error of 9.99E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (9.12E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.992706370836454e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.0031986419227069875,
-        5276.050109311855,
-        8.738036296844317,
-    )  # error of 9.98E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.69E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 9.979509963643763e-06}
-    genlog_norm_parameter = (
-        11.817881568665799,
-        0.6994954731259071,
-        0.00042897645794921075,
-        0.07443529410308987,
-    )  # error of 1.00E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (1.87E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.0037948465614334e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 4.0], [1.8681743786184475e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(29)))
-
-
-class GetNumberAtomsDb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(105)))
-
-
-class GetNumberAtomsDs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(110)))
-
-
-class GetNumberAtomsDy_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(66)))
-
-
-class GetNumberAtomsEr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(68)))
-
-
-class GetNumberAtomsEs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(99)))
-
-
-class GetNumberAtomsEu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(63)))
-
-
-class GetNumberAtomsF_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.010896818076031056,
-        0.9062838671666998,
-    )  # error of 2.72E-02 with sample range (0.00E+00,3.40E+01) resulting in fit range (9.06E-01,1.28E+00)
-    linear_norm_parameter_normdata = {"error": 0.02721998996501706}
-    min_max_norm_parameter = (
-        7.70573888835718e-09,
-        1.1695553075229959,
-    )  # error of 1.73E-02 with sample range (0.00E+00,3.40E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0173487490700982}
-    sigmoidal_norm_parameter = (
-        -1.5573132790120463,
-        0.689607492107073,
-    )  # error of 2.21E-03 with sample range (0.00E+00,3.40E+01) resulting in fit range (7.45E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.002214399635678835}
-    dual_sigmoidal_norm_parameter = (
-        -1.5573132790120463,
-        1.0,
-        0.689607492107073,
-    )  # error of 2.21E-03 with sample range (0.00E+00,3.40E+01) resulting in fit range (7.45E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.002214399635678835}
-    genlog_norm_parameter = (
-        0.8376194234577312,
-        1.4923575831858584,
-        0.9995438470328846,
-        5.867933082656455,
-    )  # error of 1.79E-03 with sample range (0.00E+00,3.40E+01) resulting in fit range (7.74E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0017892980535585445}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 34.0], [0.7742204552060739, 0.9999999999997453]],
-        "sample_bounds99": [[0.0, 4.0], [0.8548610283991684, 0.99124671840398]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(9)))
-
-
-class GetNumberAtomsFe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.20002326798329553,
-        0.39987809122948964,
-    )  # error of 3.16E-01 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.3161313926158675}
-    min_max_norm_parameter = (
-        2.310424184586517e-11,
-        1.0002848732313996,
-    )  # error of 2.00E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.998541065023618e-05}
-    sigmoidal_norm_parameter = (
-        0.690437030409493,
-        26.37089495769259,
-    )  # error of 2.00E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (1.24E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.9985411703291785e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.012788266519404002,
-        1227.689886645679,
-        8.269133068845067,
-    )  # error of 1.99E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (1.52E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 1.994904805842927e-05}
-    genlog_norm_parameter = (
-        11.11290959868477,
-        0.6579173574551436,
-        0.0009539763988452902,
-        0.07431176853319946,
-    )  # error of 2.03E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (6.53E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.027080143582448e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 4.0], [6.531140016919604e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(26)))
-
-
-class GetNumberAtomsFl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(114)))
-
-
-class GetNumberAtomsFm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(100)))
-
-
-class GetNumberAtomsFr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(87)))
-
-
-class GetNumberAtomsGa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(31)))
-
-
-class GetNumberAtomsGd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(64)))
-
-
-class GetNumberAtomsGe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.3000064952569348,
-        0.2999690226119647,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.27383300062678584}
-    min_max_norm_parameter = (
-        2.133546003321189e-11,
-        1.0000749461019085,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996353240053052e-06}
-    sigmoidal_norm_parameter = (
-        0.6681336934299,
-        28.62198573916464,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (4.95E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996353279139082e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.016889710091135803,
-        1032.9007042887129,
-        9.661850258914846,
-    )  # error of 4.99E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (2.65E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.993984322920502e-06}
-    genlog_norm_parameter = (
-        11.380011482449564,
-        -0.34992769895586706,
-        0.1972944122410884,
-        0.0003448312480009227,
-    )  # error of 2.67E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (2.37E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.674980533918999e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [2.3746409634919754e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(32)))
-
-
-class GetNumberAtomsH_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.00485914577715596,
-        0.48618617363567496,
-    )  # error of 2.10E-01 with sample range (0.00E+00,5.56E+02) resulting in fit range (4.86E-01,3.19E+00)
-    linear_norm_parameter_normdata = {"error": 0.21017194653578886}
-    min_max_norm_parameter = (
-        8.788909550746197,
-        35.109528009090106,
-    )  # error of 2.25E-02 with sample range (0.00E+00,5.56E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.022477833818775477}
-    sigmoidal_norm_parameter = (
-        21.816686447068125,
-        0.19793591513969674,
-    )  # error of 1.49E-02 with sample range (0.00E+00,5.56E+02) resulting in fit range (1.31E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.014892757080512705}
-    dual_sigmoidal_norm_parameter = (
-        20.648131018164,
-        0.2618871261651436,
-        0.15288824675669394,
-    )  # error of 9.18E-03 with sample range (0.00E+00,5.56E+02) resulting in fit range (4.46E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.009182193907142916}
-    genlog_norm_parameter = (
-        0.13576800223373867,
-        -3.640183757942692,
-        0.16213645150832823,
-        0.008026935905701693,
-    )  # error of 7.96E-03 with sample range (0.00E+00,5.56E+02) resulting in fit range (7.89E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007963241435013996}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 556.0], [7.886422740067463e-06, 1.0]],
-        "sample_bounds99": [[0.0, 72.0], [0.004794046370654092, 0.9996899092499517]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(1)))
-
-
-class GetNumberAtomsHe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(2)))
-
-
-class GetNumberAtomsHf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(72)))
-
-
-class GetNumberAtomsHg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.20000656663318328,
-        0.39996602480058474,
-    )  # error of 3.16E-01 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.3162009067408555}
-    min_max_norm_parameter = (
-        1.0188498814019143e-08,
-        1.0000799480329636,
-    )  # error of 5.00E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545167e-06}
-    sigmoidal_norm_parameter = (
-        0.6751897254741637,
-        29.045021657667597,
-    )  # error of 5.00E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (3.04E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996352917993101e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.0008214154454869834,
-        22918.90444402849,
-        9.44186932474753,
-    )  # error of 4.99E-06 with sample range (0.00E+00,4.00E+00) resulting in fit range (6.67E-09,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.993182558806258e-06}
-    genlog_norm_parameter = (
-        11.051686420669574,
-        -0.914882932726246,
-        5.080377466123187,
-        2.0254627497878738e-05,
-    )  # error of 4.52E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (3.75E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.522398660447545e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 4.0], [3.754254590305033e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(80)))
-
-
-class GetNumberAtomsHo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(67)))
-
-
-class GetNumberAtomsHs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(108)))
-
-
-class GetNumberAtomsI_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.4940993075055211,
-        0.494099307505521,
-    )  # error of 2.22E-16 with sample range (0.00E+00,5.30E+01) resulting in fit range (4.94E-01,2.67E+01)
-    linear_norm_parameter_normdata = {"error": 2.220446049250313e-16}
-    min_max_norm_parameter = (
-        9.57295914686835e-09,
-        1.0119423208014233,
-    )  # error of 3.16E-04 with sample range (0.00E+00,5.30E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0003160716897600129}
-    sigmoidal_norm_parameter = (
-        -1.1042022039637618,
-        2.1042021501124775,
-    )  # error of 7.58E-11 with sample range (0.00E+00,5.30E+01) resulting in fit range (9.11E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.582778849268834e-11}
-    dual_sigmoidal_norm_parameter = (
-        -1.1042022039637618,
-        1.0,
-        2.1042021501124775,
-    )  # error of 7.58E-11 with sample range (0.00E+00,5.30E+01) resulting in fit range (9.11E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.582778849268834e-11}
-    genlog_norm_parameter = (
-        1.1036555569226527,
-        0.29565755944900524,
-        0.04774007689957244,
-        1.8283279947740738,
-    )  # error of 1.29E-08 with sample range (0.00E+00,5.30E+01) resulting in fit range (9.66E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.286432016467387e-08}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 53.0], [0.9655674522924788, 1.0]],
-        "sample_bounds99": [[0.0, 0.0], [0.9881986278753621, 0.9881986278753621]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(53)))
-
-
-class GetNumberAtomsIn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(49)))
-
-
-class GetNumberAtomsIr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.01693159604559369,
-        0.6356467740923615,
-    )  # error of 3.99E-01 with sample range (0.00E+00,2.40E+01) resulting in fit range (6.36E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.3986091151310484}
-    min_max_norm_parameter = (
-        8.474035355254578e-09,
-        1.000239882455563,
-    )  # error of 9.99E-06 with sample range (0.00E+00,2.40E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325145845e-06}
-    sigmoidal_norm_parameter = (
-        0.6914787926749988,
-        27.01713430630157,
-    )  # error of 9.99E-06 with sample range (0.00E+00,2.40E+01) resulting in fit range (7.70E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.992706071926827e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.007388075935623888,
-        2343.770441810857,
-        8.397335685425816,
-    )  # error of 9.97E-06 with sample range (0.00E+00,2.40E+01) resulting in fit range (3.02E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 9.965675291623647e-06}
-    genlog_norm_parameter = (
-        10.828226959281615,
-        -0.47272977291025514,
-        3.863716778212369,
-        0.0019077204039374908,
-    )  # error of 1.05E-05 with sample range (0.00E+00,2.40E+01) resulting in fit range (6.27E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.04733193416579e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 24.0], [6.271081319511777e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(77)))
-
-
-class GetNumberAtomsK_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.20002541002036778,
-        0.39986809628839826,
-    )  # error of 3.16E-01 with sample range (0.00E+00,4.00E+00) resulting in fit range (4.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.316123494028437}
-    min_max_norm_parameter = (
-        4.56573322610727e-09,
-        1.0003098698532464,
-    )  # error of 2.00E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.998541065023618e-05}
-    sigmoidal_norm_parameter = (
-        0.6919398396834143,
-        26.22654823920366,
-    )  # error of 2.00E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (1.31E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.998541173778893e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.006774290474032794,
-        2410.055302751869,
-        8.134333279492926,
-    )  # error of 1.99E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (8.12E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 1.9940014585951796e-05}
-    genlog_norm_parameter = (
-        10.520853405444086,
-        -0.7161238247661991,
-        3.8969500772316383,
-        0.0001805934976468036,
-    )  # error of 2.06E-05 with sample range (0.00E+00,4.00E+00) resulting in fit range (9.92E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.059624884640263e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 4.0], [9.918391292509825e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(19)))
-
-
-class GetNumberAtomsKr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(36)))
-
-
-class GetNumberAtomsLa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(57)))
-
-
-class GetNumberAtomsLi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.1428757007365914,
-        0.46417240414380534,
-    )  # error of 3.41E-01 with sample range (0.00E+00,5.00E+00) resulting in fit range (4.64E-01,1.18E+00)
-    linear_norm_parameter_normdata = {"error": 0.3406094300969331}
-    min_max_norm_parameter = (
-        5.167926951404184e-09,
-        1.000259877856064,
-    )  # error of 2.25E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.248358698153652e-05}
-    sigmoidal_norm_parameter = (
-        0.6816331705148813,
-        25.930135465839854,
-    )  # error of 2.25E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (2.11E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.2483589457288662e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.012558886663805524,
-        1261.392262235166,
-        8.360191210693408,
-    )  # error of 2.25E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (1.32E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 2.2453278913777216e-05}
-    genlog_norm_parameter = (
-        10.608187184058295,
-        -0.432673724639499,
-        0.634145176571549,
-        0.0005853200636572203,
-    )  # error of 2.48E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (1.73E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.4822507529339702e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 5.0], [1.7283116871751372e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(3)))
-
-
-class GetNumberAtomsLr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(103)))
-
-
-class GetNumberAtomsLu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(71)))
-
-
-class GetNumberAtomsLv_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(116)))
-
-
-class GetNumberAtomsMc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(115)))
-
-
-class GetNumberAtomsMd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(101)))
-
-
-class GetNumberAtomsMg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.3000179868680586,
-        0.2999230561674695,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.2737910411619351}
-    min_max_norm_parameter = (
-        2.1339016088178492e-11,
-        1.00018989575537,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352734792997e-06}
-    sigmoidal_norm_parameter = (
-        0.6870370408043794,
-        27.380315714528276,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (6.77E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996353810523617e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.028448099192719144,
-        592.2321961431439,
-        8.819915616637136,
-    )  # error of 4.98E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (4.82E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.982381343766341e-06}
-    genlog_norm_parameter = (
-        10.70232175642771,
-        -0.806526586156687,
-        1.4762537190003533,
-        2.537736631926898e-05,
-    )  # error of 2.72E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.12E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.7230070057241602e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [3.122790391111298e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(12)))
-
-
-class GetNumberAtomsMn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(25)))
-
-
-class GetNumberAtomsMo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.10843626321265576,
-        0.5060059168844158,
-    )  # error of 3.56E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.06E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.355664075472291}
-    min_max_norm_parameter = (
-        6.961439662391151e-09,
-        1.0000399724187528,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545167e-06}
-    sigmoidal_norm_parameter = (
-        0.6606788321406021,
-        29.845796461917047,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (2.73E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.9963528534675335e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.002657977586794871,
-        7083.10419624077,
-        10.154297778974312,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (6.66E-09,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.995576136458635e-06}
-    genlog_norm_parameter = (
-        10.66369514071023,
-        -0.7644242950998719,
-        0.6496321464712874,
-        1.944406186619755e-05,
-    )  # error of 9.84E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (6.57E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 9.836649038958412e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 6.0], [6.569203348234124e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(42)))
-
-
-class GetNumberAtomsMt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(109)))
-
-
-class GetNumberAtomsN_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.02993119408584899,
-        0.5812389411860539,
-    )  # error of 1.57E-01 with sample range (0.00E+00,1.06E+02) resulting in fit range (5.81E-01,3.75E+00)
-    linear_norm_parameter_normdata = {"error": 0.1573135773375952}
-    min_max_norm_parameter = (
-        0.0,
-        5.301607561850787,
-    )  # error of 1.33E-02 with sample range (0.00E+00,1.06E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.013279571600354744}
-    sigmoidal_norm_parameter = (
-        2.5445631956826857,
-        0.886375562703362,
-    )  # error of 6.62E-03 with sample range (0.00E+00,1.06E+02) resulting in fit range (9.49E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.006620665844072166}
-    dual_sigmoidal_norm_parameter = (
-        2.43580228238516,
-        1.0327602903293007,
-        0.8094079240113009,
-    )  # error of 2.11E-03 with sample range (0.00E+00,1.06E+02) resulting in fit range (7.48E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.002110949695757266}
-    genlog_norm_parameter = (
-        0.7532678656556494,
-        0.10191844303322693,
-        2.073640513981474,
-        0.4267709132215415,
-    )  # error of 1.59E-03 with sample range (0.00E+00,1.06E+02) resulting in fit range (6.37E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0015912113054305133}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 106.0], [0.06367699568932457, 1.0]],
-        "sample_bounds99": [[0.0, 7.0], [0.18510075394323097, 0.9874441151681348]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(7)))
-
-
-class GetNumberAtomsNa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49945040120711903,
-        0.4994504012071189,
-    )  # error of 3.33E-16 with sample range (0.00E+00,6.00E+00) resulting in fit range (4.99E-01,3.50E+00)
-    linear_norm_parameter_normdata = {"error": 3.3306690738754696e-16}
-    min_max_norm_parameter = (
-        8.458754508879778e-09,
-        1.0011004071413379,
-    )  # error of 1.10E-04 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00011006565906481039}
-    sigmoidal_norm_parameter = (
-        -1.6098291371321316,
-        2.609829017268794,
-    )  # error of 9.53E-07 with sample range (0.00E+00,6.00E+00) resulting in fit range (9.85E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.526087806355221e-07}
-    dual_sigmoidal_norm_parameter = (
-        -1.6098291371321316,
-        1.0,
-        2.609829017268794,
-    )  # error of 9.53E-07 with sample range (0.00E+00,6.00E+00) resulting in fit range (9.85E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 9.526087806355221e-07}
-    genlog_norm_parameter = (
-        1.1089269635746954,
-        0.2783997260615139,
-        0.00452434854943171,
-        1.8461934168861818,
-    )  # error of 6.66E-15 with sample range (0.00E+00,6.00E+00) resulting in fit range (9.97E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 6.661338147750939e-15}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 6.0], [0.9966787632191911, 0.9999956972255734]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(11)))
-
-
-class GetNumberAtomsNb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(41)))
-
-
-class GetNumberAtomsNd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16666000486129862,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.2356928391825854}
-    min_max_norm_parameter = (
-        5.000099966303277e-11,
-        1.0000199931606542,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.243689883951787e-09}
-    sigmoidal_norm_parameter = (
-        0.5046504217137724,
-        19.884213668862106,
-    )  # error of 3.16E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.39E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.16105098568775e-05}
-    genlog_norm_parameter = (
-        13.324926756587182,
-        -0.31256911667212867,
-        1.5307160901622034,
-        0.0019593714175179552,
-    )  # error of 3.58E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (6.20E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 3.581626304989567e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [6.201240144001731e-06, 0.9999999999675893]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(60)))
-
-
-class GetNumberAtomsNe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(10)))
-
-
-class GetNumberAtomsNh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(113)))
-
-
-class GetNumberAtomsNi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.13954836225181744,
-        0.4650429604981341,
-    )  # error of 3.05E-01 with sample range (0.00E+00,5.00E+00) resulting in fit range (4.65E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.30494906459707266}
-    min_max_norm_parameter = (
-        1.0881282613009522e-08,
-        1.0001699048514334,
-    )  # error of 1.20E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.2032810627030717e-05}
-    sigmoidal_norm_parameter = (
-        0.6768422736612818,
-        26.860772283763318,
-    )  # error of 1.20E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (1.27E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.2032811978619183e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.006605922154808126,
-        2525.8265078179306,
-        8.737969882417978,
-    )  # error of 1.20E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (5.67E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 1.2021523480531482e-05}
-    genlog_norm_parameter = (
-        11.440133461778846,
-        0.6078624022141372,
-        0.0006233709658068,
-        0.04083072041681522,
-    )  # error of 1.22E-05 with sample range (0.00E+00,5.00E+00) resulting in fit range (4.52E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.2236040025547849e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 5.0], [4.517391219876695e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(28)))
-
-
-class GetNumberAtomsNo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(102)))
-
-
-class GetNumberAtomsNp_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(93)))
-
-
-class GetNumberAtomsO_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.014615407652288193,
-        0.7053243195952621,
-    )  # error of 1.44E-01 with sample range (0.00E+00,1.43E+02) resulting in fit range (7.05E-01,2.80E+00)
-    linear_norm_parameter_normdata = {"error": 0.14373783838979964}
-    min_max_norm_parameter = (
-        5e-324,
-        5.25432425635999,
-    )  # error of 1.74E-02 with sample range (0.00E+00,1.43E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.017410803942722163}
-    sigmoidal_norm_parameter = (
-        2.4396705138056647,
-        0.8068434689666737,
-    )  # error of 9.37E-03 with sample range (0.00E+00,1.43E+02) resulting in fit range (1.23E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.009372306278623123}
-    dual_sigmoidal_norm_parameter = (
-        2.2923291653429407,
-        1.0092599159926885,
-        0.7202823670848013,
-    )  # error of 6.03E-03 with sample range (0.00E+00,1.43E+02) resulting in fit range (9.00E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.006034146309735808}
-    genlog_norm_parameter = (
-        0.6278246794207529,
-        -2.648448128400625,
-        1.6155120932073115,
-        0.09785609296366705,
-    )  # error of 4.84E-03 with sample range (0.00E+00,1.43E+02) resulting in fit range (6.52E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004840139852076723}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 143.0], [0.0651722459596977, 1.0]],
-        "sample_bounds99": [[0.0, 10.0], [0.21277578959182564, 0.9968697544562642]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(8)))
-
-
-class GetNumberAtomsOg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(118)))
-
-
-class GetNumberAtomsOs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(76)))
-
-
-class GetNumberAtomsP_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.006924944790303143,
-        0.9841115985330707,
-    )  # error of 0.00E+00 with sample range (0.00E+00,9.70E+01) resulting in fit range (9.84E-01,1.66E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    min_max_norm_parameter = (
-        7.964047386001053e-09,
-        1.0090445268296389,
-    )  # error of 5.66E-04 with sample range (0.00E+00,9.70E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0005661273992660514}
-    sigmoidal_norm_parameter = (
-        -2.162576898797769,
-        1.48789914586677,
-    )  # error of 1.76E-16 with sample range (0.00E+00,9.70E+01) resulting in fit range (9.61E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.7554167342883506e-16}
-    dual_sigmoidal_norm_parameter = (
-        -2.1625878007905475,
-        1.0,
-        1.487890815065815,
-    )  # error of 6.89E-08 with sample range (0.00E+00,9.70E+01) resulting in fit range (9.61E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 6.892279516024071e-08}
-    genlog_norm_parameter = (
-        1.4911849696557447,
-        0.3753606036988309,
-        0.04475372683654133,
-        1.941217545622958,
-    )  # error of 4.40E-11 with sample range (0.00E+00,9.70E+01) resulting in fit range (9.62E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.404726740667081e-11}
-    autogen_normdata = {"sample_bounds": [[0.0, 97.0], [0.9618972057443332, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(15)))
-
-
-class GetNumberAtomsPa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(91)))
-
-
-class GetNumberAtomsPb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(82)))
-
-
-class GetNumberAtomsPd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5000000000000001,
-        0.16663169219802876,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23565279902763134}
-    min_max_norm_parameter = (
-        5.000524709332878e-11,
-        1.000104941766565,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242968965240662e-09}
-    sigmoidal_norm_parameter = (
-        0.5275734329985091,
-        19.08625885173363,
-    )  # error of 2.62E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.24E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.6224179377269706e-05}
-    genlog_norm_parameter = (
-        11.472781817071604,
-        -0.39959136914890087,
-        0.656915380264271,
-        0.0005902022059428463,
-    )  # error of 1.04E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.21E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.0391074333256802e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [1.2058701525289035e-05, 0.999999998768639]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(46)))
-
-
-class GetNumberAtomsPm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(61)))
-
-
-class GetNumberAtomsPo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(84)))
-
-
-class GetNumberAtomsPr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(59)))
-
-
-class GetNumberAtomsPt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890954,
-        0.1665667396115973,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23556094220156013}
-    min_max_norm_parameter = (
-        5.001499392530204e-11,
-        1.000299878406011,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.241315153231616e-09}
-    sigmoidal_norm_parameter = (
-        0.6400801536491836,
-        22.535957223146774,
-    )  # error of 3.60E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (5.44E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.601516381372644e-07}
-    genlog_norm_parameter = (
-        10.679894227913573,
-        -0.3526259212521118,
-        0.5296153210560144,
-        0.0009421667991670626,
-    )  # error of 1.44E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (2.42E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.4352847240099659e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [2.4220773570821444e-06, 0.9999999931159504]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(78)))
-
-
-class GetNumberAtomsPu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(94)))
-
-
-class GetNumberAtomsRa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(88)))
-
-
-class GetNumberAtomsRb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(37)))
-
-
-class GetNumberAtomsRe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(75)))
-
-
-class GetNumberAtomsRf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(104)))
-
-
-class GetNumberAtomsRg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(111)))
-
-
-class GetNumberAtomsRh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16664668125419846,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23567399675672465}
-    min_max_norm_parameter = (
-        5.000299836387493e-11,
-        1.0000599671774937,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.243350865630177e-09}
-    sigmoidal_norm_parameter = (
-        0.5168753563402665,
-        19.452321018814953,
-    )  # error of 2.81E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.30E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.8133258368750053e-05}
-    genlog_norm_parameter = (
-        12.968859603941224,
-        -0.44337806533846835,
-        1.7756258589464735,
-        0.0002299989028881154,
-    )  # error of 1.54E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (2.29E-11,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.540100186898622e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [2.2903408456908307e-11, 0.9999999998667726]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(45)))
-
-
-class GetNumberAtomsRn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(86)))
-
-
-class GetNumberAtomsRu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.300010991974331,
-        0.2999410430370545,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.2738074591426819}
-    min_max_norm_parameter = (
-        8.501810546563239e-09,
-        1.0001399174475158,
-    )  # error of 1.50E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.4989057987691012e-05}
-    sigmoidal_norm_parameter = (
-        0.6742875336831569,
-        27.24628425150245,
-    )  # error of 1.50E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (1.05E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.4989058909133937e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.08570425303644558,
-        190.70192611594427,
-        9.706295202577559,
-    )  # error of 1.50E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (7.98E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 1.498485071506621e-05}
-    genlog_norm_parameter = (
-        11.041333273291805,
-        -0.49809371293858756,
-        0.12734482157191102,
-        4.8813701194461545e-05,
-    )  # error of 2.45E-05 with sample range (0.00E+00,3.00E+00) resulting in fit range (2.34E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.4533395802047394e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [2.3398708209364368e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(44)))
-
-
-class GetNumberAtomsS_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.055016837706411637,
-        0.8087371219005945,
-    )  # error of 3.69E-02 with sample range (0.00E+00,8.90E+01) resulting in fit range (8.09E-01,5.71E+00)
-    linear_norm_parameter_normdata = {"error": 0.03693879588109762}
-    min_max_norm_parameter = (
-        6.335265054469904e-09,
-        1.2141760834764015,
-    )  # error of 7.15E-03 with sample range (0.00E+00,8.90E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.007146735239101083}
-    sigmoidal_norm_parameter = (
-        0.18034599560584025,
-        1.8801972179974389,
-    )  # error of 5.20E-04 with sample range (0.00E+00,8.90E+01) resulting in fit range (4.16E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0005198041232937594}
-    dual_sigmoidal_norm_parameter = (
-        0.1801646580849797,
-        94.4133191662987,
-        1.8797978154986563,
-    )  # error of 3.29E-04 with sample range (0.00E+00,8.90E+01) resulting in fit range (4.10E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.00032928479204177445}
-    genlog_norm_parameter = (
-        3.2598227722160744,
-        -2.0400145937209713,
-        1.0472355992069562,
-        0.00026436120394807063,
-    )  # error of 5.67E-03 with sample range (0.00E+00,8.90E+01) resulting in fit range (5.96E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005666954052519522}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 89.0], [0.005962861757165253, 1.0]],
-        "sample_bounds99": [[0.0, 1.0], [0.8213580230606592, 0.9924722582212451]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(16)))
-
-
-class GetNumberAtomsSb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16664668125419846,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23567399675672465}
-    min_max_norm_parameter = (
-        5.000299836387493e-11,
-        1.0000599671774937,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.243350865630177e-09}
-    sigmoidal_norm_parameter = (
-        0.5168753563402665,
-        19.452321018814953,
-    )  # error of 2.81E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.30E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.8133258368750053e-05}
-    genlog_norm_parameter = (
-        12.968859603941224,
-        -0.44337806533846835,
-        1.7756258589464735,
-        0.0002299989028881154,
-    )  # error of 1.54E-06 with sample range (0.00E+00,2.00E+00) resulting in fit range (2.29E-11,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.540100186898622e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [2.2903408456908307e-11, 0.9999999998667726]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(51)))
-
-
-class GetNumberAtomsSc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(21)))
-
-
-class GetNumberAtomsSe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.11431469313115727,
-        0.5284125445567602,
-    )  # error of 2.97E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.28E-01,1.21E+00)
-    linear_norm_parameter_normdata = {"error": 0.29671921583077226}
-    min_max_norm_parameter = (
-        7.630953823079382e-09,
-        1.0003898674420937,
-    )  # error of 3.00E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.9978115975357352e-05}
-    sigmoidal_norm_parameter = (
-        0.6881343366456216,
-        25.170133368656522,
-    )  # error of 3.00E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (3.00E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.9978118488503334e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.005699979458385239,
-        2748.7459950469206,
-        7.89449721569537,
-    )  # error of 2.99E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.57E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 2.9921669630159807e-05}
-    genlog_norm_parameter = (
-        10.44437169979491,
-        -0.7300972559288876,
-        1.3068943401168391,
-        4.761589354858393e-05,
-    )  # error of 3.00E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.54E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.9980259811620176e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 6.0], [1.5352241986777488e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(34)))
-
-
-class GetNumberAtomsSg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(106)))
-
-
-class GetNumberAtomsSi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.005535958750112479,
-        0.9870494538986538,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.90E+01) resulting in fit range (9.87E-01,1.09E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    min_max_norm_parameter = (
-        8.102114588427778e-09,
-        1.0074699740663866,
-    )  # error of 5.75E-04 with sample range (0.00E+00,1.90E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0005748979625060784}
-    sigmoidal_norm_parameter = (
-        -2.5523928351495715,
-        1.378469096939579,
-    )  # error of 7.85E-17 with sample range (0.00E+00,1.90E+01) resulting in fit range (9.71E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.850462293418876e-17}
-    dual_sigmoidal_norm_parameter = (
-        -2.5524098950135685,
-        1.0,
-        1.3784585263052331,
-    )  # error of 8.00E-08 with sample range (0.00E+00,1.90E+01) resulting in fit range (9.71E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.999289517110367e-08}
-    genlog_norm_parameter = (
-        1.3810968865356037,
-        0.37593140595898816,
-        0.034481702332844325,
-        1.9427868739376106,
-    )  # error of 1.21E-11 with sample range (0.00E+00,1.90E+01) resulting in fit range (9.71E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.2058924790164328e-11}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 19.0], [0.9714190792883711, 0.9999999999998803]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(14)))
-
-
-class GetNumberAtomsSm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5000000009313225,
-        0.16666333421268742,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23569754978905064}
-    min_max_norm_parameter = (
-        5.000050001278806e-11,
-        1.00001000015576,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.2437746225075e-09}
-    sigmoidal_norm_parameter = (
-        0.5010508035559703,
-        20.01396529706609,
-    )  # error of 3.29E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.41E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.2904363155185755e-05}
-    genlog_norm_parameter = (
-        12.43148076418543,
-        -0.3604457873129929,
-        0.499387191775524,
-        0.0004983388301972552,
-    )  # error of 2.16E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.22E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.1556483412524022e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [1.2184321546320329e-05, 0.9999999998190987]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(62)))
-
-
-class GetNumberAtomsSn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.10845697098754636,
-        0.5058643936903228,
-    )  # error of 3.56E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.06E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.3555646133535219}
-    min_max_norm_parameter = (
-        9.824138188506802e-09,
-        1.00037486691856,
-    )  # error of 2.75E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.7479939644081686e-05}
-    sigmoidal_norm_parameter = (
-        0.6884940664450209,
-        25.32514790649455,
-    )  # error of 2.75E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (2.68E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.7479942920710752e-05}
-    dual_sigmoidal_norm_parameter = (
-        0.0071755438774303406,
-        2246.0479434564395,
-        7.945848283439733,
-    )  # error of 2.74E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.00E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 2.7413609915135815e-05}
-    genlog_norm_parameter = (
-        10.536370374361107,
-        -0.5495537372753613,
-        1.4752839321221807,
-        0.0003194971751460208,
-    )  # error of 2.75E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (7.64E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.747762373698418e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 6.0], [7.643107834142974e-07, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(50)))
-
-
-class GetNumberAtomsSr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16666167031218615,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23569519448581805}
-    min_max_norm_parameter = (
-        5.0000749836662204e-11,
-        1.0000149966332428,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.243732509624669e-09}
-    sigmoidal_norm_parameter = (
-        0.5028818469034438,
-        19.94782247239152,
-    )  # error of 3.22E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.40E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.2231151412687926e-05}
-    genlog_norm_parameter = (
-        11.551027045594573,
-        -0.5371395546715939,
-        0.6415467341812202,
-        0.00012427782084618982,
-    )  # error of 5.22E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (2.98E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 5.221260063300968e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [2.9758622866600313e-05, 0.9999999990334065]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(38)))
-
-
-class GetNumberAtomsTa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.10843536025735523,
-        0.5060116957983384,
-    )  # error of 3.56E-01 with sample range (0.00E+00,6.00E+00) resulting in fit range (5.06E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.3556681373052042}
-    min_max_norm_parameter = (
-        8.46957277907713e-09,
-        1.0000249823872052,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545167e-06}
-    sigmoidal_norm_parameter = (
-        0.6455244616078473,
-        29.89578445211575,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (4.16E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996353098492178e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.43586048910209807,
-        45.84062301587206,
-        18.78494232260952,
-    )  # error of 5.00E-06 with sample range (0.00E+00,6.00E+00) resulting in fit range (2.10E-09,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.996352688321359e-06}
-    genlog_norm_parameter = (
-        11.979419983216513,
-        -0.37460242925985804,
-        0.7264826833646829,
-        0.0007424294316801224,
-    )  # error of 2.42E-05 with sample range (0.00E+00,6.00E+00) resulting in fit range (1.73E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.4192920555187235e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 6.0], [1.734564038337311e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(73)))
-
-
-class GetNumberAtomsTb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(65)))
-
-
-class GetNumberAtomsTc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(43)))
-
-
-class GetNumberAtomsTe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.5,
-        0.1666533430595668,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23568341796965503}
-    min_max_norm_parameter = (
-        5.000199899348069e-11,
-        1.0000399797696096,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.243520470939117e-09}
-    sigmoidal_norm_parameter = (
-        0.5111537110757228,
-        19.652727756612823,
-    )  # error of 2.96E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (4.34E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.95810466364616e-05}
-    genlog_norm_parameter = (
-        12.900051333660638,
-        -0.34518233567314677,
-        0.6301240510445488,
-        0.0004583918848978305,
-    )  # error of 6.89E-08 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.18E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 6.886929882034351e-08}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [1.1837843059850803e-07, 0.9999999999002138]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(52)))
-
-
-class GetNumberAtomsTh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(90)))
-
-
-class GetNumberAtomsTi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.4999999999999998,
-        0.16658839047495333,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.2355915611435838}
-    min_max_norm_parameter = (
-        5.001174455915721e-11,
-        1.0002348910831214,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.241866723028826e-09}
-    sigmoidal_norm_parameter = (
-        0.6487733946676975,
-        23.789444834342127,
-    )  # error of 1.71E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.98E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.7069502985003616e-07}
-    genlog_norm_parameter = (
-        11.14027612884276,
-        -0.5302323378429108,
-        1.5018538877192371,
-        0.00025252147772043495,
-    )  # error of 5.64E-08 with sample range (0.00E+00,2.00E+00) resulting in fit range (9.71E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 5.63944320221382e-08}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [9.714128314693202e-08, 0.9999999965909159]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(22)))
-
-
-class GetNumberAtomsTl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(81)))
-
-
-class GetNumberAtomsTm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(69)))
-
-
-class GetNumberAtomsTs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(117)))
-
-
-class GetNumberAtomsU_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16658006321869767,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.235579784627421}
-    min_max_norm_parameter = (
-        5.001299426539998e-11,
-        1.0002598852079738,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.241654299750737e-09}
-    sigmoidal_norm_parameter = (
-        0.6515909884938929,
-        23.691610193087453,
-    )  # error of 1.80E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.98E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.800228535150319e-07}
-    genlog_norm_parameter = (
-        10.967827028745909,
-        -0.3653916341788011,
-        1.5783366241953387,
-        0.0019052483746476742,
-    )  # error of 2.16E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (3.57E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.1601348977061646e-07}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [3.56541351974982e-07, 0.9999999955201786]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(92)))
-
-
-class GetNumberAtomsV_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(23)))
-
-
-class GetNumberAtomsW_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.300008992938236,
-        0.29995653247667065,
-    )  # error of 2.74E-01 with sample range (0.00E+00,3.00E+00) resulting in fit range (3.00E-01,1.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.2738215982615804}
-    min_max_norm_parameter = (
-        1.3194001460591777e-08,
-        1.0001049344146056,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.494528993845506e-06}
-    sigmoidal_norm_parameter = (
-        0.6777763438322877,
-        28.434163637162616,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (4.27E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.494529338193447e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.1286223113652639,
-        127.2345367481992,
-        10.514575712904321,
-    )  # error of 7.49E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (7.81E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.49320690817197e-06}
-    genlog_norm_parameter = (
-        11.582609336725033,
-        -0.3152007723964252,
-        0.13403952945958594,
-        0.0002936874510643267,
-    )  # error of 8.79E-06 with sample range (0.00E+00,3.00E+00) resulting in fit range (7.27E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 8.789649063568959e-06}
-    autogen_normdata = {"sample_bounds": [[0.0, 3.0], [7.26985975862507e-06, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(74)))
-
-
-class GetNumberAtomsXe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(54)))
-
-
-class GetNumberAtomsY_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16659505227668514,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23560098235651425}
-    min_max_norm_parameter = (
-        5.001074483912921e-11,
-        1.0002148966825626,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.242035687350204e-09}
-    sigmoidal_norm_parameter = (
-        0.6463139828708355,
-        23.875553907681006,
-    )  # error of 1.63E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.99E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.6342971342795775e-07}
-    genlog_norm_parameter = (
-        10.665241289894789,
-        -0.46684153221187474,
-        0.6291475352730227,
-        0.00041071761096711854,
-    )  # error of 2.38E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (2.70E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 2.3826919788926313e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [2.7048417801070615e-05, 0.9999999942569304]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(39)))
-
-
-class GetNumberAtomsYb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        1.0000000000000002,
-        2.220446049250313e-16,
-    )  # error of 3.51E-16 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.22E-16,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 3.510833468576701e-16}
-    min_max_norm_parameter = (
-        1e-10,
-        0.9999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.5027041798086037,
-        46.14043898879842,
-    )  # error of 9.71E-11 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.44E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.714558513783135e-11}
-    dual_sigmoidal_norm_parameter = (
-        0.49954642862905374,
-        18.83817716761341,
-        18.88166255189391,
-    )  # error of 8.03E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.18E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 8.030546482298942e-05}
-    genlog_norm_parameter = (
-        12.011496984688954,
-        -0.47958199521284717,
-        1.1726250998531205,
-        0.0003411801343887883,
-    )  # error of 4.87E-05 with sample range (0.00E+00,1.00E+00) resulting in fit range (2.03E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.865612171061197e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [2.0298985067945082e-05, 0.9999342520907933]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(70)))
-
-
-class GetNumberAtomsZn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.04445060661064426,
-        0.5721488591096937,
-    )  # error of 3.78E-01 with sample range (0.00E+00,1.20E+01) resulting in fit range (5.72E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.37817836918131525}
-    min_max_norm_parameter = (
-        1.1710856355046964e-08,
-        1.0001799010523136,
-    )  # error of 7.49E-06 with sample range (0.00E+00,1.20E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.494528993845506e-06}
-    sigmoidal_norm_parameter = (
-        0.6856709200570384,
-        27.433357150351224,
-    )  # error of 7.49E-06 with sample range (0.00E+00,1.20E+01) resulting in fit range (6.77E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.494529760520364e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.5502066867995724,
-        33.97990623877215,
-        19.171253839383024,
-    )  # error of 7.49E-06 with sample range (0.00E+00,1.20E+01) resulting in fit range (7.59E-09,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 7.4945299572668875e-06}
-    genlog_norm_parameter = (
-        10.85478752557143,
-        -0.7593565899980815,
-        1.5823338318636446,
-        3.917835289388645e-05,
-    )  # error of 1.91E-05 with sample range (0.00E+00,1.20E+01) resulting in fit range (2.42E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.9085184971540784e-05}
-    autogen_normdata = {"sample_bounds": [[0.0, 12.0], [2.4245451312975296e-05, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(30)))
-
-
-class GetNumberAtomsZr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.uint32
-    # normalization
-    linear_norm_parameter = (
-        0.49999999999890943,
-        0.16655841235716007,
-    )  # error of 2.36E-01 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.67E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.23554916568539713}
-    min_max_norm_parameter = (
-        5.0016243793944116e-11,
-        1.00032487577885,
-    )  # error of 4.24E-09 with sample range (0.00E+00,2.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.24110317864482e-09}
-    sigmoidal_norm_parameter = (
-        0.6424056914462606,
-        22.458622943078367,
-    )  # error of 3.66E-07 with sample range (0.00E+00,2.00E+00) resulting in fit range (5.42E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.663477649902955e-07}
-    genlog_norm_parameter = (
-        10.393406257855725,
-        -0.480360019448491,
-        0.6494288752503828,
-        0.00040427794978618626,
-    )  # error of 1.21E-05 with sample range (0.00E+00,2.00E+00) resulting in fit range (1.88E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 1.2102223810540452e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2.0], [1.8822364228945653e-05, 0.9999999897671564]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(40)))
-
-
-class GetRelativeContentAc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        8.873801756710444,
-        0.6529496712086871,
-    )  # error of 2.86E-01 with sample range (0.00E+00,5.88E-02) resulting in fit range (6.53E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.2856810014467825}
-    min_max_norm_parameter = (
-        3.7521167951780874e-10,
-        0.008403865639076632,
-    )  # error of 2.62E-05 with sample range (0.00E+00,5.88E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.6201094405342846e-05}
-    sigmoidal_norm_parameter = (
-        0.0047051353916043055,
-        2589.70198962335,
-    )  # error of 2.14E-05 with sample range (0.00E+00,5.88E-02) resulting in fit range (5.11E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.1362949694109316e-05}
-    dual_sigmoidal_norm_parameter = (
-        1.221229651883482e-07,
-        0.0302277903235011,
-        145.52856323916893,
-    )  # error of 2.10E-01 with sample range (0.00E+00,5.88E-02) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.20988169349261887}
-    genlog_norm_parameter = (
-        18.8055363706334,
-        -0.7790725980019624,
-        0.9306688582621909,
-        1.4973842409545562e-06,
-    )  # error of 3.08E-01 with sample range (0.00E+00,5.88E-02) resulting in fit range (7.64E-01,9.15E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3075121062484959}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.05882352963089943],
-            [0.7637102955712691, 0.9146848826643261],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(89)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        7.545659329499713,
-        0.5346440445091728,
-    )  # error of 2.76E-01 with sample range (0.00E+00,8.70E-02) resulting in fit range (5.35E-01,1.19E+00)
-    linear_norm_parameter_normdata = {"error": 0.27635132064007045}
-    min_max_norm_parameter = (
-        3.964145594588421e-09,
-        0.014926566040713997,
-    )  # error of 3.76E-05 with sample range (0.00E+00,8.70E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 3.762697617336768e-05}
-    sigmoidal_norm_parameter = (
-        0.009509299084920424,
-        1741.7138189708796,
-    )  # error of 3.76E-05 with sample range (0.00E+00,8.70E-02) resulting in fit range (6.41E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.762699339933123e-05}
-    dual_sigmoidal_norm_parameter = (
-        -7.146597684952406e-07,
-        0.05318707871157502,
-        48.55000267238754,
-    )  # error of 2.44E-01 with sample range (0.00E+00,8.70E-02) resulting in fit range (5.00E-01,9.86E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.24446720142654335}
-    genlog_norm_parameter = (
-        16.768939962514665,
-        -0.9020362565278462,
-        0.9051529012064444,
-        5.909267149936146e-07,
-    )  # error of 3.03E-01 with sample range (0.00E+00,8.70E-02) resulting in fit range (6.62E-01,9.08E-01)
-    genlog_norm_parameter_normdata = {"error": 0.303119320564907}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.08695652335882187],
-            [0.661651853345143, 0.9083794751330382],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(47)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.6437197790140592,
-        0.9460793941444552,
-    )  # error of 1.62E-01 with sample range (0.00E+00,1.94E-01) resulting in fit range (9.46E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.1620834318451052}
-    min_max_norm_parameter = (
-        1.5947874656186641e-09,
-        0.004763999573770099,
-    )  # error of 2.58E-04 with sample range (0.00E+00,1.94E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00025821203411031994}
-    sigmoidal_norm_parameter = (
-        0.002764406217116148,
-        3862.4486212422034,
-    )  # error of 2.58E-04 with sample range (0.00E+00,1.94E-01) resulting in fit range (2.31E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0002580061262394652}
-    dual_sigmoidal_norm_parameter = (
-        -5.311931866282704e-08,
-        1.5240348973576234,
-        222.6568133942929,
-    )  # error of 1.03E-01 with sample range (0.00E+00,1.94E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.10312059297492727}
-    genlog_norm_parameter = (
-        32.44768792715823,
-        -0.46534893951637096,
-        1.1745370670600241,
-        2.6816261961923837e-06,
-    )  # error of 1.57E-01 with sample range (0.00E+00,1.94E-01) resulting in fit range (8.86E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.15659363967079484}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1944444477558136],
-            [0.8857733060830189, 0.9997793469891157],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(13)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(95)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(18)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.20535514590379667,
-        0.9534885469305221,
-    )  # error of 1.88E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.53E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.18789988707918204}
-    min_max_norm_parameter = (
-        3.6906136636474998e-09,
-        0.007636487558203627,
-    )  # error of 2.13E-04 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0002133186231618894}
-    sigmoidal_norm_parameter = (
-        0.005108367159054375,
-        3118.8094777220017,
-    )  # error of 2.13E-04 with sample range (0.00E+00,5.00E-01) resulting in fit range (1.20E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0002133186243391163}
-    dual_sigmoidal_norm_parameter = (
-        -8.209439203899254e-08,
-        0.047682522096571194,
-        146.96211165856124,
-    )  # error of 1.16E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.11615322727457171}
-    genlog_norm_parameter = (
-        6.982321331649274,
-        -2.2555178719432845,
-        0.7906065142837577,
-        2.0226537390695657e-06,
-    )  # error of 1.87E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.45E-01,9.98E-01)
-    genlog_norm_parameter_normdata = {"error": 0.18703644372190925}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.5], [0.94501790931064, 0.9982786169502047]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(33)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        22.999999571591623,
-        -1.0377411065853007e-35,
-    )  # error of 7.34E-36 with sample range (0.00E+00,4.35E-02) resulting in fit range (-1.04E-35,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 7.337937735824979e-36}
-    min_max_norm_parameter = (
-        1e-10,
-        0.04347826157941093,
-    )  # error of 0.00E+00 with sample range (0.00E+00,4.35E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.02179477946089172,
-        1133.8904827939898,
-    )  # error of 1.98E-11 with sample range (0.00E+00,4.35E-02) resulting in fit range (1.85E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.979041866435298e-11}
-    dual_sigmoidal_norm_parameter = (
-        -7.317570863016151e-08,
-        0.8571173865971383,
-        3.0010694405938656,
-    )  # error of 4.84E-01 with sample range (0.00E+00,4.35E-02) resulting in fit range (5.00E-01,5.33E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.4839870653073717}
-    genlog_norm_parameter = (
-        11.011290670557232,
-        -1.3592531494806346,
-        0.8378175300641888,
-        2.8065934520705655e-07,
-    )  # error of 4.17E-01 with sample range (0.00E+00,4.35E-02) resulting in fit range (3.89E-01,5.57E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4168093338606083}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.043478261679410934],
-            [0.3891908555592546, 0.5572918347989236],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(85)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentAu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        17.998299470308574,
-        0.43018788349357834,
-    )  # error of 2.68E-01 with sample range (0.00E+00,4.17E-02) resulting in fit range (4.30E-01,1.18E+00)
-    linear_norm_parameter_normdata = {"error": 0.26775768502583913}
-    min_max_norm_parameter = (
-        2.3997974821431835e-09,
-        0.01265873414630788,
-    )  # error of 1.53E-05 with sample range (0.00E+00,4.17E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.5264109516574596e-05}
-    sigmoidal_norm_parameter = (
-        0.007396872804989093,
-        1923.979152553198,
-    )  # error of 1.52E-05 with sample range (0.00E+00,4.17E-02) resulting in fit range (6.60E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.5245476411516786e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.7332680191045946e-07,
-        0.02902630322253526,
-        72.5878284433048,
-    )  # error of 2.61E-01 with sample range (0.00E+00,4.17E-02) resulting in fit range (5.00E-01,9.54E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.26125593196236696}
-    genlog_norm_parameter = (
-        14.885546344208944,
-        -1.0163341823440415,
-        0.9429272500408094,
-        8.074645625914749e-07,
-    )  # error of 3.47E-01 with sample range (0.00E+00,4.17E-02) resulting in fit range (7.30E-01,8.45E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3467771160633216}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0416666679084301],
-            [0.7304563743492181, 0.8445750666982454],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(79)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentB_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.1583286383915581,
-        0.9934884054774165,
-    )  # error of 1.47E-04 with sample range (0.00E+00,9.88E-01) resulting in fit range (9.93E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.00014655240698493532}
-    min_max_norm_parameter = (
-        7.418094653569014e-10,
-        0.005777842108990842,
-    )  # error of 3.61E-03 with sample range (0.00E+00,9.88E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0036061282037012483}
-    sigmoidal_norm_parameter = (
-        -0.10738715299668361,
-        45.17802583626747,
-    )  # error of 2.38E-04 with sample range (0.00E+00,9.88E-01) resulting in fit range (9.92E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00023811261079493596}
-    dual_sigmoidal_norm_parameter = (
-        -0.10738795131154485,
-        -0.8588989111178631,
-        45.17772505648301,
-    )  # error of 2.38E-04 with sample range (0.00E+00,9.88E-01) resulting in fit range (9.92E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.00023811261066321491}
-    genlog_norm_parameter = (
-        159.26729021391452,
-        0.038474131094724154,
-        1.0132177287671165,
-        917.325422815512,
-    )  # error of 1.16E-04 with sample range (0.00E+00,9.88E-01) resulting in fit range (9.93E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.00011580999962170987}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.987500011920929], [0.9933257817930929, 1.0]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(5)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.7960010753129402,
-        0.8337150388855908,
-    )  # error of 2.89E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (8.34E-01,1.10E+00)
-    linear_norm_parameter_normdata = {"error": 0.28873225666912766}
-    min_max_norm_parameter = (
-        7.357715349902482e-10,
-        0.006623112195335671,
-    )  # error of 3.74E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 3.738927969355373e-05}
-    sigmoidal_norm_parameter = (
-        0.0036667365319126735,
-        3087.5218349749584,
-    )  # error of 3.11E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (1.21E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.110794583124238e-05}
-    dual_sigmoidal_norm_parameter = (
-        -2.7804980708907473e-06,
-        0.09743488420222597,
-        191.5871017792839,
-    )  # error of 1.95E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.19507303853953942}
-    genlog_norm_parameter = (
-        17.949144121237733,
-        -0.8212084938333434,
-        0.9412159884354236,
-        1.357906150078548e-06,
-    )  # error of 2.75E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (7.60E-01,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.27469616521683277}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.3333333432674408],
-            [0.7595766370575145, 0.9993069444150717],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(56)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        3.246709137650853,
-        0.6557332182589724,
-    )  # error of 3.62E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (6.56E-01,1.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.3621370852210477}
-    min_max_norm_parameter = (
-        3.329235156812052e-09,
-        0.010000299566527582,
-    )  # error of 9.99E-06 with sample range (0.00E+00,1.43E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325090336e-06}
-    sigmoidal_norm_parameter = (
-        0.0052098756853551685,
-        2136.739409910385,
-    )  # error of 1.22E-05 with sample range (0.00E+00,1.43E-01) resulting in fit range (1.46E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.2233372134933657e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.1593372352056153e-07,
-        0.061561423137666,
-        68.45403005386308,
-    )  # error of 2.90E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.2904148900490234}
-    genlog_norm_parameter = (
-        14.357818887962805,
-        -1.049926538029887,
-        1.1366985370068183,
-        7.502943187897162e-07,
-    )  # error of 3.57E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (6.50E-01,9.46E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3573887764771655}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1428571492433548],
-            [0.6504410753925284, 0.9461939964434761],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(4)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(107)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        9.319289276957281,
-        0.5747063831988616,
-    )  # error of 2.29E-01 with sample range (0.00E+00,6.25E-02) resulting in fit range (5.75E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.2285605890513458}
-    min_max_norm_parameter = (
-        4.133495953721318e-09,
-        0.01250112446637394,
-    )  # error of 4.30E-05 with sample range (0.00E+00,6.25E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.303301964957213e-05}
-    sigmoidal_norm_parameter = (
-        0.00798054086472736,
-        2061.3341046126848,
-    )  # error of 4.30E-05 with sample range (0.00E+00,6.25E-02) resulting in fit range (7.17E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.3033025484710174e-05}
-    dual_sigmoidal_norm_parameter = (
-        -3.8029511114084256e-07,
-        0.041004457787055894,
-        73.53950398722483,
-    )  # error of 1.87E-01 with sample range (0.00E+00,6.25E-02) resulting in fit range (5.00E-01,9.90E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.18719941772260076}
-    genlog_norm_parameter = (
-        22.646690738127674,
-        -0.6786916018766503,
-        0.9644223962415756,
-        6.365269742965407e-07,
-    )  # error of 2.54E-01 with sample range (0.00E+00,6.25E-02) resulting in fit range (7.26E-01,9.25E-01)
-    genlog_norm_parameter_normdata = {"error": 0.25431423235182216}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.0625], [0.7260726961982079, 0.9252149113031866]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(83)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBk_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(97)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentBr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.1088519956971403,
-        0.9240013237096749,
-    )  # error of 1.14E-02 with sample range (0.00E+00,8.75E-01) resulting in fit range (9.24E-01,1.89E+00)
-    linear_norm_parameter_normdata = {"error": 0.011408976558281667}
-    min_max_norm_parameter = (
-        0.0,
-        0.0027039843272170516,
-    )  # error of 4.51E-02 with sample range (0.00E+00,8.75E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.045063950638134814}
-    sigmoidal_norm_parameter = (
-        -0.049453850722142374,
-        42.67506148254217,
-    )  # error of 7.44E-03 with sample range (0.00E+00,8.75E-01) resulting in fit range (8.92E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00743957088527991}
-    dual_sigmoidal_norm_parameter = (
-        -0.04945363053130735,
-        3.9679539824990813,
-        42.675209338963235,
-    )  # error of 7.44E-03 with sample range (0.00E+00,8.75E-01) resulting in fit range (8.92E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.007439570884310704}
-    genlog_norm_parameter = (
-        0.8100784800183958,
-        -3.4237050479420055,
-        9.6460096464885e-06,
-        1.3814807697992046e-05,
-    )  # error of 2.75E-02 with sample range (0.00E+00,8.75E-01) resulting in fit range (9.57E-01,9.79E-01)
-    genlog_norm_parameter_normdata = {"error": 0.02745604762700528}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.875], [0.9573355079116005, 0.9787669632816745]],
-        "sample_bounds99": [
-            [0.0, 0.040816325694322586],
-            [0.9574430617561915, 0.9587218980769432],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(35)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentC_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        3.5734241857083258,
-        -0.9275813895502427,
-    )  # error of 1.15E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (-9.28E-01,2.65E+00)
-    linear_norm_parameter_normdata = {"error": 0.11522077856363387}
-    min_max_norm_parameter = (
-        0.30299161362521115,
-        0.47594103456691866,
-    )  # error of 2.68E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.026826697495870983}
-    sigmoidal_norm_parameter = (
-        0.38920277971970885,
-        29.904237291838278,
-    )  # error of 4.22E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.82E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.004224121154188637}
-    dual_sigmoidal_norm_parameter = (
-        0.3888759896359589,
-        30.202690755219667,
-        29.52175360875964,
-    )  # error of 4.10E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.93E-06,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0040988208925034075}
-    genlog_norm_parameter = (
-        28.988864691241385,
-        0.39553085533828164,
-        0.7300135937526656,
-        0.9143178496341662,
-    )  # error of 3.86E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (5.05E-06,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.003857150934392668}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [5.049003975330753e-06, 0.9999999804049601]],
-        "sample_bounds99": [
-            [0.0, 0.5233644843101501],
-            [0.014899078536471606, 0.991921689714735],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(6)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.6305368615368043,
-        0.9243746223312294,
-    )  # error of 2.21E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (9.24E-01,1.08E+00)
-    linear_norm_parameter_normdata = {"error": 0.22055497182361308}
-    min_max_norm_parameter = (
-        2.306917396310906e-09,
-        0.0030966404372437515,
-    )  # error of 1.15E-04 with sample range (0.00E+00,2.50E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00011476165787465934}
-    sigmoidal_norm_parameter = (
-        0.0018920900748590414,
-        7014.82013372386,
-    )  # error of 1.15E-04 with sample range (0.00E+00,2.50E-01) resulting in fit range (1.72E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00011475888624184703}
-    dual_sigmoidal_norm_parameter = (
-        -1.6934174795252948e-06,
-        0.03950005758132928,
-        323.4116512404909,
-    )  # error of 1.40E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.14030673033247357}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.25], [0.500136917732401, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(20)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.3249839428048589,
-        0.7202030206979089,
-    )  # error of 3.80E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (7.20E-01,1.05E+00)
-    linear_norm_parameter_normdata = {"error": 0.37952268570502457}
-    min_max_norm_parameter = (
-        2.5838784212643257e-09,
-        0.0091745865703171,
-    )  # error of 9.99E-06 with sample range (0.00E+00,2.50E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325090336e-06}
-    sigmoidal_norm_parameter = (
-        0.0055677958326653095,
-        2887.516910069243,
-    )  # error of 9.99E-06 with sample range (0.00E+00,2.50E-01) resulting in fit range (1.04E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.992752520780851e-06}
-    dual_sigmoidal_norm_parameter = (
-        -5.335138720648976e-08,
-        5.090977352895619,
-        91.61164403898191,
-    )  # error of 2.82E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.2818855923279669}
-    genlog_norm_parameter = (
-        15.38134308580287,
-        -0.9678863429232758,
-        1.2412996368184634,
-        1.0753519870555384e-06,
-    )  # error of 3.65E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (6.74E-01,9.92E-01)
-    genlog_norm_parameter_normdata = {"error": 0.36452491009922267}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.25], [0.6735472765784787, 0.9915865845782414]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(48)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        24.599252782478302,
-        0.1664027083906511,
-    )  # error of 2.04E-01 with sample range (0.00E+00,4.35E-02) resulting in fit range (1.66E-01,1.24E+00)
-    linear_norm_parameter_normdata = {"error": 0.20395854584472764}
-    min_max_norm_parameter = (
-        1.7818118018300654e-09,
-        0.02439073045256064,
-    )  # error of 5.00E-06 with sample range (0.00E+00,4.35E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545167e-06}
-    sigmoidal_norm_parameter = (
-        0.013627634022272198,
-        1000.8803023598146,
-    )  # error of 4.32E-06 with sample range (0.00E+00,4.35E-02) resulting in fit range (1.19E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.31738276714954e-06}
-    dual_sigmoidal_norm_parameter = (
-        -5.276571805992777e-07,
-        0.03603995810523944,
-        40.27382889616478,
-    )  # error of 3.20E-01 with sample range (0.00E+00,4.35E-02) resulting in fit range (5.00E-01,8.52E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3199772565975251}
-    genlog_norm_parameter = (
-        13.287390531386194,
-        -1.152441464104363,
-        0.9935874220040256,
-        4.707991807778921e-07,
-    )  # error of 3.89E-01 with sample range (0.00E+00,4.35E-02) resulting in fit range (6.24E-01,7.67E-01)
-    genlog_norm_parameter_normdata = {"error": 0.38912384892308916}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.043478261679410934],
-            [0.6236836273087266, 0.767251909380174],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(58)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        10.805165292876527,
-        0.37720988373342973,
-    )  # error of 3.55E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (3.77E-01,1.10E+00)
-    linear_norm_parameter_normdata = {"error": 0.3545913808284291}
-    min_max_norm_parameter = (
-        2.0548149343145548e-11,
-        0.013698766922661872,
-    )  # error of 1.12E-13 with sample range (0.00E+00,6.67E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.1178823083509785e-13}
-    sigmoidal_norm_parameter = (
-        0.007293100521739247,
-        1789.0192260133263,
-    )  # error of 1.29E-06 with sample range (0.00E+00,6.67E-02) resulting in fit range (2.16E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.2850189871769385e-06}
-    dual_sigmoidal_norm_parameter = (
-        -4.076338208588876e-09,
-        0.04930715511385198,
-        24.443316910886935,
-    )  # error of 3.88E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.00E-01,8.36E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.38763985858959144}
-    genlog_norm_parameter = (
-        13.064808429356178,
-        -1.1523638250319064,
-        1.0830592512848065,
-        4.890802323278557e-07,
-    )  # error of 4.10E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.27E-01,7.65E-01)
-    genlog_norm_parameter_normdata = {"error": 0.41027609346116983}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.06666667014360428],
-            [0.5268187387778633, 0.7647237770022363],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(98)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.5847713031914408,
-        0.8455374283609108,
-    )  # error of 3.87E-02 with sample range (0.00E+00,6.25E-01) resulting in fit range (8.46E-01,1.84E+00)
-    linear_norm_parameter_normdata = {"error": 0.03871652969824887}
-    min_max_norm_parameter = (
-        1.5063374367513682e-33,
-        0.009744269032213447,
-    )  # error of 1.04E-01 with sample range (0.00E+00,6.25E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.10449806222236785}
-    sigmoidal_norm_parameter = (
-        -0.023787701842501674,
-        46.11316225540705,
-    )  # error of 1.25E-02 with sample range (0.00E+00,6.25E-01) resulting in fit range (7.50E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.01254909105901062}
-    dual_sigmoidal_norm_parameter = (
-        -0.023787701899801988,
-        0.04637001223133996,
-        46.113162185067516,
-    )  # error of 1.25E-02 with sample range (0.00E+00,6.25E-01) resulting in fit range (7.50E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.012549091059010241}
-    genlog_norm_parameter = (
-        18.69989954862979,
-        -0.8895021550465784,
-        1.010208382293004,
-        3.168834888637932e-07,
-    )  # error of 3.28E-02 with sample range (0.00E+00,6.25E-01) resulting in fit range (8.27E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.03277136673110774}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.625], [0.8266417183212997, 0.9999984009725935]],
-        "sample_bounds99": [
-            [0.0, 0.06521739065647125],
-            [0.8340426921597611, 0.9456730412136934],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(17)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        8.999999932944775,
-        -1.0376676381883743e-35,
-    )  # error of 7.34E-36 with sample range (0.00E+00,1.11E-01) resulting in fit range (-1.04E-35,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 7.337418235808284e-36}
-    min_max_norm_parameter = (
-        1e-10,
-        0.1111111118389534,
-    )  # error of 0.00E+00 with sample range (0.00E+00,1.11E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.055638963240427934,
-        425.5034273176805,
-    )  # error of 5.42E-11 with sample range (0.00E+00,1.11E-01) resulting in fit range (5.23E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.4228182325420356e-11}
-    dual_sigmoidal_norm_parameter = (
-        -2.0643045764876663e-09,
-        0.9120667151544418,
-        1.3741511040010392,
-    )  # error of 4.81E-01 with sample range (0.00E+00,1.11E-01) resulting in fit range (5.00E-01,5.38E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.48132862464584975}
-    genlog_norm_parameter = (
-        15.830366071320702,
-        -0.8639502032503442,
-        1.1579712525990966,
-        7.755461624426035e-07,
-    )  # error of 2.21E-01 with sample range (0.00E+00,1.11E-01) resulting in fit range (1.80E-01,7.44E-01)
-    genlog_norm_parameter_normdata = {"error": 0.22112606251110412}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1111111119389534],
-            [0.17986924063569742, 0.7441865380468279],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(96)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(112)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.7268886439609988,
-        0.9275933249429034,
-    )  # error of 2.21E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (9.28E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.22094117497580143}
-    min_max_norm_parameter = (
-        1.2461062437692423e-10,
-        0.005377311290961412,
-    )  # error of 9.68E-05 with sample range (0.00E+00,2.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.678110846300013e-05}
-    sigmoidal_norm_parameter = (
-        0.0030415951006996147,
-        3642.9040443585614,
-    )  # error of 8.84E-05 with sample range (0.00E+00,2.00E-01) resulting in fit range (1.54E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 8.840760348654911e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.6294407945824978e-06,
-        0.02946231132283448,
-        323.77751885258846,
-    )  # error of 1.31E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.13106338249891766}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.20000000298023224], [0.5001318940713375, 1.0]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(27)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.32606536197791797,
-        0.8996417402492368,
-    )  # error of 2.63E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.00E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.26305496100428605}
-    min_max_norm_parameter = (
-        3.7641075439174094e-09,
-        0.005406107817166112,
-    )  # error of 6.18E-05 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 6.175484428102472e-05}
-    sigmoidal_norm_parameter = (
-        0.0035354918458228406,
-        4785.550661828381,
-    )  # error of 6.18E-05 with sample range (0.00E+00,5.00E-01) resulting in fit range (4.49E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 6.175484553638805e-05}
-    dual_sigmoidal_norm_parameter = (
-        -2.4595490519691595e-07,
-        0.08075416178500985,
-        140.6777418302049,
-    )  # error of 1.72E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1718883388164454}
-    genlog_norm_parameter = (
-        15.681571221965195,
-        -0.9719122675892049,
-        1.0689893814927571,
-        1.4393435030974832e-06,
-    )  # error of 2.53E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (8.37E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.25314470416153056}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.5], [0.8365102814017658, 0.9999297812267477]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(24)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        16.636642282327823,
-        0.27209709410266714,
-    )  # error of 3.01E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (2.72E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.30116047673262186}
-    min_max_norm_parameter = (
-        3.5185536850732666e-11,
-        0.01851870370843831,
-    )  # error of 8.53E-14 with sample range (0.00E+00,5.26E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 8.525134576300466e-14}
-    sigmoidal_norm_parameter = (
-        0.009705910514919872,
-        1292.1194373864964,
-    )  # error of 2.21E-06 with sample range (0.00E+00,5.26E-02) resulting in fit range (3.58E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.206915548200665e-06}
-    dual_sigmoidal_norm_parameter = (
-        1.6817289154961952e-08,
-        0.04359600052241214,
-        34.26812836472066,
-    )  # error of 3.61E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.00E-01,8.59E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3605701287833475}
-    genlog_norm_parameter = (
-        10.796686537599722,
-        -1.6009966399762814,
-        6.786642730826109,
-        3.5828987881949564e-07,
-    )  # error of 4.22E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.55E-01,7.16E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4222068949656166}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.05263157933950424],
-            [0.5546367465442217, 0.7161043544990648],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(55)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentCu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5889803903943643,
-        0.9401677045074232,
-    )  # error of 1.83E-01 with sample range (0.00E+00,2.22E-01) resulting in fit range (9.40E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.18322197862744033}
-    min_max_norm_parameter = (
-        3.44474800331568e-10,
-        0.00629113105642418,
-    )  # error of 1.64E-04 with sample range (0.00E+00,2.22E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0001637973276286845}
-    sigmoidal_norm_parameter = (
-        0.003536966187754447,
-        2887.181784639537,
-    )  # error of 1.57E-04 with sample range (0.00E+00,2.22E-01) resulting in fit range (3.67E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00015704367635964081}
-    dual_sigmoidal_norm_parameter = (
-        1.2876641588044324e-08,
-        71.39718335915632,
-        333.347419557593,
-    )  # error of 1.01E-01 with sample range (0.00E+00,2.22E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.10098652934477594}
-    genlog_norm_parameter = (
-        20.720122534979353,
-        -0.7142686214267269,
-        1.14065079013455,
-        4.722193612719982e-06,
-    )  # error of 1.81E-01 with sample range (0.00E+00,2.22E-01) resulting in fit range (9.14E-01,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.18052105687617195}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.2222222238779068],
-            [0.9136801175608904, 0.9990970294523746],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(29)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentDb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(105)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentDs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(110)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentDy_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        2.0,
-        0.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    min_max_norm_parameter = (
-        1e-10,
-        0.4999999999,
-    )  # error of 0.00E+00 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.2505610260448836,
-        88.63704498136762,
-    )  # error of 2.38E-10 with sample range (0.00E+00,5.00E-01) resulting in fit range (2.26E-10,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.384664653855102e-10}
-    dual_sigmoidal_norm_parameter = (
-        0.25020843676082694,
-        38.89525139009507,
-        38.815305264052,
-    )  # error of 6.05E-05 with sample range (0.00E+00,5.00E-01) resulting in fit range (5.94E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 6.045803020809503e-05}
-    genlog_norm_parameter = (
-        64.18389465744396,
-        0.24984397853079585,
-        0.32577571366140284,
-        1.3294502157259385,
-    )  # error of 9.49E-06 with sample range (0.00E+00,5.00E-01) resulting in fit range (1.34E-05,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 9.49206785613317e-06}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.5], [1.3423785773006634e-05, 0.9999999739252747]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(66)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentEr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        105.99999842047694,
-        -1.0375941697914479e-35,
-    )  # error of 7.34E-36 with sample range (0.00E+00,9.43E-03) resulting in fit range (-1.04E-35,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 7.336898735791588e-36}
-    min_max_norm_parameter = (
-        1e-10,
-        0.009433962304727936,
-    )  # error of 0.00E+00 with sample range (0.00E+00,9.43E-03) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.004795257040933734,
-        4927.360952774711,
-    )  # error of 9.23E-11 with sample range (0.00E+00,9.43E-03) resulting in fit range (5.48E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.227234302638259e-11}
-    dual_sigmoidal_norm_parameter = (
-        -2.7280736110712974e-07,
-        0.8317152419388507,
-        1.0156073285693414,
-    )  # error of 4.99E-01 with sample range (0.00E+00,9.43E-03) resulting in fit range (5.00E-01,5.02E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.4988037969453468}
-    genlog_norm_parameter = (
-        11.999014734051478,
-        -1.1945067992421312,
-        1.093522267260678,
-        8.686747332736029e-07,
-    )  # error of 4.80E-01 with sample range (0.00E+00,9.43E-03) resulting in fit range (4.72E-01,5.12E-01)
-    genlog_norm_parameter_normdata = {"error": 0.48032484444400236}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.009433962404727936],
-            [0.472197174991659, 0.5116827462497289],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(68)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentEs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(99)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentEu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        43.005441409522824,
-        0.18836296704530103,
-    )  # error of 2.51E-01 with sample range (0.00E+00,2.27E-02) resulting in fit range (1.88E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.25057229722172636}
-    min_max_norm_parameter = (
-        4.680897571533906e-11,
-        0.010638403841908128,
-    )  # error of 2.82E-13 with sample range (0.00E+00,2.27E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.8190632982383047e-13}
-    sigmoidal_norm_parameter = (
-        0.005676150520999992,
-        2307.5765927627535,
-    )  # error of 1.24E-06 with sample range (0.00E+00,2.27E-02) resulting in fit range (2.05E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.2412625248671024e-06}
-    dual_sigmoidal_norm_parameter = (
-        1.0216730070880301e-07,
-        0.020437135904779472,
-        68.25452260300946,
-    )  # error of 3.59E-01 with sample range (0.00E+00,2.27E-02) resulting in fit range (5.00E-01,8.25E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3591169988685445}
-    genlog_norm_parameter = (
-        12.484662893532068,
-        -1.1539712213874467,
-        1.0083644067317392,
-        1.1041567454017736e-06,
-    )  # error of 4.44E-01 with sample range (0.00E+00,2.27E-02) resulting in fit range (6.03E-01,6.83E-01)
-    genlog_norm_parameter_normdata = {"error": 0.44421359890410594}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.022727273404598236],
-            [0.6031967223464116, 0.683430317049033],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(63)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentF_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.728628576514931,
-        0.8623668813188541,
-    )  # error of 4.05E-02 with sample range (0.00E+00,6.77E-01) resulting in fit range (8.62E-01,1.36E+00)
-    linear_norm_parameter_normdata = {"error": 0.040497535586976774}
-    min_max_norm_parameter = (
-        3.9417065998781894e-38,
-        0.009635004816282136,
-    )  # error of 9.38E-02 with sample range (0.00E+00,6.77E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0938405857924918}
-    sigmoidal_norm_parameter = (
-        -0.0418547621427979,
-        27.968819748369132,
-    )  # error of 5.22E-03 with sample range (0.00E+00,6.77E-01) resulting in fit range (7.63E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.005222736748197335}
-    dual_sigmoidal_norm_parameter = (
-        -0.04185476218049503,
-        0.0947894131440381,
-        27.96881973157455,
-    )  # error of 5.22E-03 with sample range (0.00E+00,6.77E-01) resulting in fit range (7.63E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.005222736748197339}
-    genlog_norm_parameter = (
-        19.027141321005647,
-        -0.8718388545176556,
-        1.0004553503357343,
-        2.6845321941349065e-07,
-    )  # error of 1.31E-02 with sample range (0.00E+00,6.77E-01) resulting in fit range (7.92E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.013130557004302884}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.6774193644523621],
-            [0.7923085424797705, 0.9999994119136734],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.12295082211494446],
-            [0.8038759182048361, 0.9779511683879664],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(9)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentFe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.13812167422846622,
-        0.949679914464116,
-    )  # error of 2.03E-01 with sample range (0.00E+00,6.25E-01) resulting in fit range (9.50E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.20318446510121216}
-    min_max_norm_parameter = (
-        3.8255054322343833e-10,
-        0.0062128564874044,
-    )  # error of 1.52E-04 with sample range (0.00E+00,6.25E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0001517329761192546}
-    sigmoidal_norm_parameter = (
-        0.003481167559924178,
-        2934.201669317722,
-    )  # error of 1.44E-04 with sample range (0.00E+00,6.25E-01) resulting in fit range (3.66E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0001444228734756821}
-    dual_sigmoidal_norm_parameter = (
-        -3.342829921673129e-07,
-        0.05142309234285134,
-        213.34692653801136,
-    )  # error of 1.28E-01 with sample range (0.00E+00,6.25E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1280066414144337}
-    genlog_norm_parameter = (
-        28.32310760184295,
-        -0.5234680848614153,
-        1.0102498380873781,
-        2.9292631124120532e-06,
-    )  # error of 1.96E-01 with sample range (0.00E+00,6.25E-01) resulting in fit range (8.82E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.1955446033571229}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.625], [0.8820376339234338, 0.9999999974227249]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(26)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentFl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(114)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentFm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        37.99999971687794,
-        -1.0375941697914479e-35,
-    )  # error of 7.34E-36 with sample range (0.00E+00,2.63E-02) resulting in fit range (-1.04E-35,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 7.336898735791588e-36}
-    min_max_norm_parameter = (
-        1e-10,
-        0.02631578956975212,
-    )  # error of 0.00E+00 with sample range (0.00E+00,2.63E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.013237010003961623,
-        1765.477330960491,
-    )  # error of 8.31E-11 with sample range (0.00E+00,2.63E-02) resulting in fit range (7.09E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 8.31226364020404e-11}
-    dual_sigmoidal_norm_parameter = (
-        1.0861897566966956e-07,
-        0.8442439704202498,
-        1.0303125381469727,
-    )  # error of 4.97E-01 with sample range (0.00E+00,2.63E-02) resulting in fit range (5.00E-01,5.07E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.4966225873734822}
-    genlog_norm_parameter = (
-        11.147941094459554,
-        -1.3082112663824212,
-        0.8327684468208215,
-        4.577606926395517e-07,
-    )  # error of 4.49E-01 with sample range (0.00E+00,2.63E-02) resulting in fit range (4.30E-01,5.33E-01)
-    genlog_norm_parameter_normdata = {"error": 0.44892432899300644}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.02631578966975212],
-            [0.4301104805414307, 0.5330191857773365],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(100)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentFr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(87)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentGa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        30.140375855257936,
-        0.23300578257801996,
-    )  # error of 2.41E-01 with sample range (0.00E+00,3.28E-02) resulting in fit range (2.33E-01,1.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.24134923946688566}
-    min_max_norm_parameter = (
-        4.905192561624135e-09,
-        0.01408478827009154,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.28E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545168e-06}
-    sigmoidal_norm_parameter = (
-        0.008704138838385446,
-        2010.9433140842789,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.28E-02) resulting in fit range (2.50E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996373884298546e-06}
-    dual_sigmoidal_norm_parameter = (
-        -6.758404632687537e-07,
-        0.02606404321713693,
-        72.26152244013208,
-    )  # error of 2.99E-01 with sample range (0.00E+00,3.28E-02) resulting in fit range (5.00E-01,9.14E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.29891187345910986}
-    genlog_norm_parameter = (
-        13.95745195421972,
-        -1.0897928316673202,
-        1.1699597071441261,
-        6.84566784429181e-07,
-    )  # error of 4.01E-01 with sample range (0.00E+00,3.28E-02) resulting in fit range (6.55E-01,7.65E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4007443260152291}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.032786883413791656],
-            [0.6547735046225203, 0.7649355137752191],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(31)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentGd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        34.48779649725773,
-        0.3782790792554405,
-    )  # error of 2.75E-01 with sample range (0.00E+00,2.56E-02) resulting in fit range (3.78E-01,1.26E+00)
-    linear_norm_parameter_normdata = {"error": 0.27505056894259156}
-    min_max_norm_parameter = (
-        7.251160045939762e-10,
-        0.009524095401884279,
-    )  # error of 9.99E-06 with sample range (0.00E+00,2.56E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325090334e-06}
-    sigmoidal_norm_parameter = (
-        0.005305866677865231,
-        2446.2395662360836,
-    )  # error of 7.17E-06 with sample range (0.00E+00,2.56E-02) resulting in fit range (2.31E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.169156568192558e-06}
-    dual_sigmoidal_norm_parameter = (
-        -2.8493896251928234e-07,
-        0.01683662598028533,
-        145.01532863235607,
-    )  # error of 2.59E-01 with sample range (0.00E+00,2.56E-02) resulting in fit range (5.00E-01,9.76E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.25861111817091986}
-    genlog_norm_parameter = (
-        15.070072147836111,
-        -0.9720185448780777,
-        1.0091808633108474,
-        1.4359741438445916e-06,
-    )  # error of 3.82E-01 with sample range (0.00E+00,2.56E-02) resulting in fit range (7.37E-01,8.13E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3823455969152059}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.025641025975346565],
-            [0.7367049899525734, 0.8125072990297432],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(64)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentGe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.32472947909280236,
-        0.9002141806485804,
-    )  # error of 2.63E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.00E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.26313979618312633}
-    min_max_norm_parameter = (
-        3.213407263262289e-09,
-        0.010527473417417573,
-    )  # error of 5.44E-05 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 5.438032130644564e-05}
-    sigmoidal_norm_parameter = (
-        0.006564668586616058,
-        2300.937080473999,
-    )  # error of 5.44E-05 with sample range (0.00E+00,5.00E-01) resulting in fit range (2.75E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.4380089769317716e-05}
-    dual_sigmoidal_norm_parameter = (
-        2.867199192841066e-07,
-        15.57206820182044,
-        139.40801908903723,
-    )  # error of 1.58E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.15758814267602342}
-    genlog_norm_parameter = (
-        20.490679541361803,
-        -0.7154042071431647,
-        0.8307548888726501,
-        1.7542655761362812e-06,
-    )  # error of 2.50E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (8.16E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.24972509557112738}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.5], [0.8157023603982035, 0.999992763910856]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(32)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentH_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        2.9008813022353284,
-        -0.8299121700327635,
-    )  # error of 1.03E-01 with sample range (0.00E+00,7.35E-01) resulting in fit range (-8.30E-01,1.30E+00)
-    linear_norm_parameter_normdata = {"error": 0.10257546096600234}
-    min_max_norm_parameter = (
-        0.3494522724922749,
-        0.5853453425304207,
-    )  # error of 2.83E-02 with sample range (0.00E+00,7.35E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.028285267173834623}
-    sigmoidal_norm_parameter = (
-        0.46764140679410054,
-        21.837230870033952,
-    )  # error of 5.74E-03 with sample range (0.00E+00,7.35E-01) resulting in fit range (3.67E-05,9.97E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.005739934363091739}
-    dual_sigmoidal_norm_parameter = (
-        0.46826729413581303,
-        21.446434416135688,
-        22.167638420507135,
-    )  # error of 5.51E-03 with sample range (0.00E+00,7.35E-01) resulting in fit range (4.35E-05,9.97E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.005512235842048458}
-    genlog_norm_parameter = (
-        11.183027206949522,
-        -0.9412802763095337,
-        1.1474880513205539,
-        2.5787951783749496e-07,
-    )  # error of 6.13E-02 with sample range (0.00E+00,7.35E-01) resulting in fit range (1.48E-52,9.68E-01)
-    genlog_norm_parameter_normdata = {"error": 0.06131598679390892}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.7346938848495483],
-            [1.484645176694784e-52, 0.9682607013864809],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.6216216087341309],
-            [0.001853339742575123, 0.9111931461677308],
-        ],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(1)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentHe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(2)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentHf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        27.123139231039634,
-        0.40695415754394243,
-    )  # error of 2.60E-01 with sample range (0.00E+00,2.86E-02) resulting in fit range (4.07E-01,1.18E+00)
-    linear_norm_parameter_normdata = {"error": 0.26042666729438896}
-    min_max_norm_parameter = (
-        4.465850131050163e-09,
-        0.009709126036065118,
-    )  # error of 1.53E-05 with sample range (0.00E+00,2.86E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.5264109516574596e-05}
-    sigmoidal_norm_parameter = (
-        0.005911469894964791,
-        2666.6705427666975,
-    )  # error of 1.53E-05 with sample range (0.00E+00,2.86E-02) resulting in fit range (1.42E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.5264114151220433e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.0207535748446782e-07,
-        0.020367183617255653,
-        105.52672701926315,
-    )  # error of 2.54E-01 with sample range (0.00E+00,2.86E-02) resulting in fit range (5.00E-01,9.53E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.25440855019410485}
-    genlog_norm_parameter = (
-        16.71262026019201,
-        -0.8969012071054286,
-        0.9831760661766514,
-        1.0686947033806075e-06,
-    )  # error of 3.53E-01 with sample range (0.00E+00,2.86E-02) resulting in fit range (7.52E-01,8.38E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3525869882373296}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.02857142873108387],
-            [0.752484935326012, 0.8382776035099156],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(72)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentHg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.2148752227677102,
-        0.8453603176459573,
-    )  # error of 2.65E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (8.45E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.2654073219177979}
-    min_max_norm_parameter = (
-        2.994460693688333e-09,
-        0.015626717684708767,
-    )  # error of 5.23E-05 with sample range (0.00E+00,2.50E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 5.2263058915371284e-05}
-    sigmoidal_norm_parameter = (
-        0.009341199199196246,
-        1450.5751719921036,
-    )  # error of 5.23E-05 with sample range (0.00E+00,2.50E-01) resulting in fit range (1.30E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.2257171285379216e-05}
-    dual_sigmoidal_norm_parameter = (
-        -5.841364816995597e-08,
-        0.0666532542583522,
-        80.8120553821597,
-    )  # error of 1.74E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.17447530939142034}
-    genlog_norm_parameter = (
-        19.656370495854883,
-        -0.7822305136083408,
-        1.0950696866315301,
-        7.902614259002228e-07,
-    )  # error of 2.48E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (7.47E-01,9.98E-01)
-    genlog_norm_parameter_normdata = {"error": 0.247695724815641}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.25], [0.7474418976484621, 0.9978649256861436]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(80)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentHo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(67)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentHs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(108)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentI_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5203111568656307,
-        0.9740279260296895,
-    )  # error of 2.74E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (9.74E-01,1.49E+00)
-    linear_norm_parameter_normdata = {"error": 0.0027398327937989664}
-    min_max_norm_parameter = (
-        8.3988936923120815e-22,
-        0.0061651686928963405,
-    )  # error of 1.39E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.013882339189051886}
-    sigmoidal_norm_parameter = (
-        -0.060706023093744725,
-        53.40289986407375,
-    )  # error of 1.81E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (9.62E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0018095507950802246}
-    dual_sigmoidal_norm_parameter = (
-        -0.06070602374754209,
-        0.023795155344251584,
-        53.402899387803316,
-    )  # error of 1.81E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (9.62E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0018095507950799897}
-    genlog_norm_parameter = (
-        0.45334748535753183,
-        -0.7895104771229206,
-        8.644489088543022e-07,
-        4.3201995694340964e-05,
-    )  # error of 8.11E-03 with sample range (0.00E+00,1.00E+00) resulting in fit range (9.86E-01,9.91E-01)
-    genlog_norm_parameter_normdata = {"error": 0.008109228072626049}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [0.9861082353025246, 0.9911493269823665]],
-        "sample_bounds99": [
-            [0.0, 0.022727273404598236],
-            [0.9861454111040165, 0.9862529202282787],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(53)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentIn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        11.214288826694734,
-        0.5931211717396255,
-    )  # error of 3.14E-01 with sample range (0.00E+00,5.56E-02) resulting in fit range (5.93E-01,1.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.31440172512603437}
-    min_max_norm_parameter = (
-        9.978029021581522e-10,
-        0.010309793147249486,
-    )  # error of 1.97E-05 with sample range (0.00E+00,5.56E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.9670660103159613e-05}
-    sigmoidal_norm_parameter = (
-        0.005736076783484964,
-        2152.4999668389446,
-    )  # error of 1.84E-05 with sample range (0.00E+00,5.56E-02) resulting in fit range (4.34E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.842196864334237e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.81904460464745e-07,
-        0.027784372795511054,
-        96.90070540229978,
-    )  # error of 2.58E-01 with sample range (0.00E+00,5.56E-02) resulting in fit range (5.00E-01,9.95E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.25763335316823616}
-    genlog_norm_parameter = (
-        16.41032168220799,
-        -0.9023026309409129,
-        0.8523475209780289,
-        1.0149855766582433e-06,
-    )  # error of 3.47E-01 with sample range (0.00E+00,5.56E-02) resulting in fit range (7.32E-01,8.82E-01)
-    genlog_norm_parameter_normdata = {"error": 0.34743563361727037}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0555555559694767],
-            [0.732312348684933, 0.8823251715595067],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(49)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentIr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.2648055645962588,
-        0.9400811577192478,
-    )  # error of 1.66E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (9.40E-01,1.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.16625833132909237}
-    min_max_norm_parameter = (
-        3.5537083566830304e-09,
-        0.0030041438162952978,
-    )  # error of 2.14E-04 with sample range (0.00E+00,1.43E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0002136608815666653}
-    sigmoidal_norm_parameter = (
-        0.0020162543873797675,
-        7981.448175882254,
-    )  # error of 2.14E-04 with sample range (0.00E+00,1.43E-01) resulting in fit range (1.03E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.000213660882283505}
-    dual_sigmoidal_norm_parameter = (
-        -1.005481235247943e-07,
-        4.415580420386736,
-        278.17480026234875,
-    )  # error of 1.06E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.10597855350528676}
-    genlog_norm_parameter = (
-        36.109392132902116,
-        -0.4083489465188256,
-        1.0382143499678633,
-        4.103500602508538e-06,
-    )  # error of 1.63E-01 with sample range (0.00E+00,1.43E-01) resulting in fit range (9.05E-01,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.16295954978722435}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1428571492433548],
-            [0.9049707875470868, 0.9994259716228804],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(77)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentK_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.376265501419435,
-        0.9625346664041621,
-    )  # error of 1.42E-01 with sample range (0.00E+00,2.86E-01) resulting in fit range (9.63E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.14157729557536888}
-    min_max_norm_parameter = (
-        1.0154291475207664e-09,
-        0.0060641811250271484,
-    )  # error of 3.43E-04 with sample range (0.00E+00,2.86E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.000343435649720672}
-    sigmoidal_norm_parameter = (
-        0.0033855197361556963,
-        2684.714114644607,
-    )  # error of 3.36E-04 with sample range (0.00E+00,2.86E-01) resulting in fit range (1.13E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00033627853983238964}
-    dual_sigmoidal_norm_parameter = (
-        1.4274905597844073e-08,
-        0.298471617468346,
-        260.24081840724284,
-    )  # error of 8.47E-02 with sample range (0.00E+00,2.86E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.08466290851924632}
-    genlog_norm_parameter = (
-        37.497210924176834,
-        -0.4158123637370965,
-        1.917106787145449,
-        3.1680794210753415e-06,
-    )  # error of 1.37E-01 with sample range (0.00E+00,2.86E-01) resulting in fit range (9.03E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.13693458154363122}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.2857142984867096],
-            [0.9026437591398384, 0.9999977217194566],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(19)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentKr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(36)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentLa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        14.064709388464669,
-        0.36475832366871,
-    )  # error of 3.49E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (3.65E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.34868975268863095}
-    min_max_norm_parameter = (
-        2.2353164858155454e-11,
-        0.011764823674857096,
-    )  # error of 1.60E-13 with sample range (0.00E+00,5.26E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.6024689053196366e-13}
-    sigmoidal_norm_parameter = (
-        0.0062312389577443995,
-        2066.9075181466646,
-    )  # error of 1.54E-06 with sample range (0.00E+00,5.26E-02) resulting in fit range (2.55E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.5420276313246927e-06}
-    dual_sigmoidal_norm_parameter = (
-        -2.8179004730836954e-07,
-        0.039495809555266825,
-        34.26633428625115,
-    )  # error of 3.79E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.00E-01,8.59E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3787883395545095}
-    genlog_norm_parameter = (
-        13.64478006080764,
-        -1.0830525024224278,
-        0.9458060122485491,
-        5.955878346692254e-07,
-    )  # error of 4.19E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.45E-01,7.44E-01)
-    genlog_norm_parameter_normdata = {"error": 0.41857042434530545}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.05263157933950424],
-            [0.5452439080880621, 0.7439557196563538],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(57)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentLi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.7099428132867398,
-        0.9050291624874924,
-    )  # error of 1.52E-01 with sample range (0.00E+00,1.11E-01) resulting in fit range (9.05E-01,1.10E+00)
-    linear_norm_parameter_normdata = {"error": 0.15229301947351412}
-    min_max_norm_parameter = (
-        2.1777908240625513e-09,
-        0.007466640825161948,
-    )  # error of 3.04E-04 with sample range (0.00E+00,1.11E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00030404892562321687}
-    sigmoidal_norm_parameter = (
-        0.004476105186591052,
-        2524.8394004707766,
-    )  # error of 3.04E-04 with sample range (0.00E+00,1.11E-01) resulting in fit range (1.24E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00030401702108295495}
-    dual_sigmoidal_norm_parameter = (
-        -2.185570730124653e-07,
-        0.04195558506307206,
-        163.54119677657098,
-    )  # error of 9.52E-02 with sample range (0.00E+00,1.11E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.09520265105856303}
-    genlog_norm_parameter = (
-        31.065533198000754,
-        -0.4802116964134464,
-        1.0087441463894076,
-        2.381613720241245e-06,
-    )  # error of 1.49E-01 with sample range (0.00E+00,1.11E-01) resulting in fit range (8.69E-01,9.96E-01)
-    genlog_norm_parameter_normdata = {"error": 0.14887645999861113}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1111111119389534],
-            [0.8688071944862754, 0.9955530975985759],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(3)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentLr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(103)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentLu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(71)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentLv_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(116)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(115)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(101)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.9936333881382158,
-        0.9060726587556169,
-    )  # error of 2.13E-01 with sample range (0.00E+00,2.14E-01) resulting in fit range (9.06E-01,1.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.21283010355419577}
-    min_max_norm_parameter = (
-        1.3490456778610197e-09,
-        0.00781413977203772,
-    )  # error of 1.11E-04 with sample range (0.00E+00,2.14E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00011068359056327226}
-    sigmoidal_norm_parameter = (
-        0.004460069828820084,
-        2519.2907196232554,
-    )  # error of 1.10E-04 with sample range (0.00E+00,2.14E-01) resulting in fit range (1.32E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00011032430611869465}
-    dual_sigmoidal_norm_parameter = (
-        9.782456655358347e-08,
-        0.04764513079072621,
-        162.67030986893639,
-    )  # error of 1.34E-01 with sample range (0.00E+00,2.14E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.133885580199592}
-    genlog_norm_parameter = (
-        20.66131989295568,
-        -0.7550766786130577,
-        1.1252519673589867,
-        1.2752346467819535e-06,
-    )  # error of 2.07E-01 with sample range (0.00E+00,2.14E-01) resulting in fit range (8.62E-01,9.98E-01)
-    genlog_norm_parameter_normdata = {"error": 0.2072827821907097}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.2142857164144516],
-            [0.8624248027950127, 0.9982335846973223],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(12)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        4.542515053319866,
-        0.8044180309390468,
-    )  # error of 2.32E-01 with sample range (0.00E+00,7.69E-02) resulting in fit range (8.04E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.2315627605085911}
-    min_max_norm_parameter = (
-        2.0403175512469707e-10,
-        0.008065563647075261,
-    )  # error of 6.58E-05 with sample range (0.00E+00,7.69E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 6.578003943164675e-05}
-    sigmoidal_norm_parameter = (
-        0.0046056703565136355,
-        2548.1104366190966,
-    )  # error of 5.88E-05 with sample range (0.00E+00,7.69E-02) resulting in fit range (8.00E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.8809213064487425e-05}
-    dual_sigmoidal_norm_parameter = (
-        3.715045474122919e-05,
-        412006.8573316508,
-        1107.3876671376765,
-    )  # error of 5.81E-05 with sample range (0.00E+00,7.69E-02) resulting in fit range (2.25E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 5.81135476299247e-05}
-    genlog_norm_parameter = (
-        25.297458975735697,
-        -0.582730168644426,
-        0.9409643971695231,
-        1.935614947135115e-06,
-    )  # error of 2.34E-01 with sample range (0.00E+00,7.69E-02) resulting in fit range (8.25E-01,9.73E-01)
-    genlog_norm_parameter_normdata = {"error": 0.23376550801141083}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.07692307978868484],
-            [0.824846371702453, 0.972867892518419],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(25)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        30.523632719345077,
-        0.2403239374890909,
-    )  # error of 2.45E-01 with sample range (0.00E+00,3.23E-02) resulting in fit range (2.40E-01,1.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.24511011734677868}
-    min_max_norm_parameter = (
-        4.74647764231648e-09,
-        0.013698903813049803,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.23E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545169e-06}
-    sigmoidal_norm_parameter = (
-        0.008454957741868633,
-        2063.3651666775468,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.23E-02) resulting in fit range (2.65E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.9963739024772325e-06}
-    dual_sigmoidal_norm_parameter = (
-        -2.1055999988896235e-07,
-        0.02537305057394998,
-        72.2612140216036,
-    )  # error of 3.02E-01 with sample range (0.00E+00,3.23E-02) resulting in fit range (5.00E-01,9.11E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.30175517258535056}
-    genlog_norm_parameter = (
-        13.772941438082004,
-        -1.0990939007996638,
-        1.0994518568928557,
-        7.016307644257258e-07,
-    )  # error of 4.02E-01 with sample range (0.00E+00,3.23E-02) resulting in fit range (6.59E-01,7.65E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4021284003246418}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.032258063554763794],
-            [0.6585856175905825, 0.7650319509097799],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(42)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentMt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(109)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentN_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        5.037324746171175,
-        0.18203314967442152,
-    )  # error of 1.46E-01 with sample range (0.00E+00,8.12E-01) resulting in fit range (1.82E-01,4.27E+00)
-    linear_norm_parameter_normdata = {"error": 0.14619418397246922}
-    min_max_norm_parameter = (
-        4.954046484787954e-28,
-        0.11180179134110624,
-    )  # error of 3.33E-02 with sample range (0.00E+00,8.12E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03331946594330672}
-    sigmoidal_norm_parameter = (
-        0.05541616868307796,
-        44.53508405120775,
-    )  # error of 1.41E-02 with sample range (0.00E+00,8.12E-01) resulting in fit range (7.81E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.01411717365222011}
-    dual_sigmoidal_norm_parameter = (
-        0.05324513671939541,
-        49.99323161042575,
-        39.42802907241535,
-    )  # error of 7.38E-03 with sample range (0.00E+00,8.12E-01) resulting in fit range (6.53E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.007376096968165714}
-    genlog_norm_parameter = (
-        12.053012839990304,
-        -1.2057741046544215,
-        1.1362547610702654,
-        3.8852402386089223e-07,
-    )  # error of 1.51E-01 with sample range (0.00E+00,8.12E-01) resulting in fit range (2.40E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.15092101778103592}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.8125], [0.24007485109810248, 0.9999203343806331]],
-        "sample_bounds99": [
-            [0.0, 0.1803278625011444],
-            [0.24892498504605579, 0.8526118447733166],
-        ],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(7)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.04955603372908647,
-        0.9976470742138964,
-    )  # error of 4.03E-05 with sample range (0.00E+00,2.11E-01) resulting in fit range (9.98E-01,1.01E+00)
-    linear_norm_parameter_normdata = {"error": 4.025644774104564e-05}
-    min_max_norm_parameter = (
-        2.29749411233296e-09,
-        0.005791458175516711,
-    )  # error of 1.14E-03 with sample range (0.00E+00,2.11E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0011354814494549876}
-    sigmoidal_norm_parameter = (
-        -0.1902302833027236,
-        31.400960735447065,
-    )  # error of 6.16E-05 with sample range (0.00E+00,2.11E-01) resulting in fit range (9.97E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 6.161072262126293e-05}
-    dual_sigmoidal_norm_parameter = (
-        -0.19022798917460543,
-        -1.4196438330881729,
-        31.40131442331817,
-    )  # error of 6.16E-05 with sample range (0.00E+00,2.11E-01) resulting in fit range (9.97E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 6.161072258216254e-05}
-    genlog_norm_parameter = (
-        270.79409618603563,
-        0.04733395910313841,
-        1.0310758599101038,
-        5454.591328297979,
-    )  # error of 4.03E-05 with sample range (0.00E+00,2.11E-01) resulting in fit range (9.98E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 4.027436234256232e-05}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.21052631735801697], [0.9976472588055678, 1.0]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(11)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.6275006957002571,
-        0.47829519289333633,
-    )  # error of 3.99E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (4.78E-01,1.02E+00)
-    linear_norm_parameter_normdata = {"error": 0.39928695059769576}
-    min_max_norm_parameter = (
-        4.166708211471542e-12,
-        0.013889027781330174,
-    )  # error of 3.44E-14 with sample range (0.00E+00,3.33E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 3.442103208626579e-14}
-    sigmoidal_norm_parameter = (
-        0.007399714205880986,
-        1765.505189108397,
-    )  # error of 1.27E-06 with sample range (0.00E+00,3.33E-01) resulting in fit range (2.12E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.2696903347451812e-06}
-    dual_sigmoidal_norm_parameter = (
-        0.013888916116155468,
-        19.046002570988424,
-        7.6582268318249795,
-    )  # error of 3.85E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (4.34E-01,9.20E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3851045990716348}
-    genlog_norm_parameter = (
-        13.719255684771777,
-        -1.1225971005613908,
-        3.425335586735364,
-        8.884098877958068e-07,
-    )  # error of 3.81E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (4.54E-01,9.92E-01)
-    genlog_norm_parameter_normdata = {"error": 0.38119973379720007}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.3333333432674408],
-            [0.45400347911442035, 0.9918791802533095],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(41)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        25.30256638697599,
-        0.14522181843098952,
-    )  # error of 1.91E-01 with sample range (0.00E+00,3.77E-02) resulting in fit range (1.45E-01,1.10E+00)
-    linear_norm_parameter_normdata = {"error": 0.19053614600596874}
-    min_max_norm_parameter = (
-        7.400965753904729e-09,
-        0.020833750325125133,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.77E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545167e-06}
-    sigmoidal_norm_parameter = (
-        0.011200463036938267,
-        1118.9985074872527,
-    )  # error of 5.33E-06 with sample range (0.00E+00,3.77E-02) resulting in fit range (3.60E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.328178244048683e-06}
-    dual_sigmoidal_norm_parameter = (
-        -2.968668917291283e-07,
-        0.03630780893695063,
-        40.27298994473965,
-    )  # error of 3.19E-01 with sample range (0.00E+00,3.77E-02) resulting in fit range (5.00E-01,8.21E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3189796012466012}
-    genlog_norm_parameter = (
-        14.273437649690969,
-        -1.0420720996001542,
-        0.899232445354015,
-        6.381551560995436e-07,
-    )  # error of 3.85E-01 with sample range (0.00E+00,3.77E-02) resulting in fit range (6.13E-01,7.52E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3850765732433653}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.03773584961891174],
-            [0.6132656651632916, 0.7517644102402039],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(60)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(10)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(113)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.32247571898156646,
-        0.9323708422226182,
-    )  # error of 2.22E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (9.32E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.22150989371949037}
-    min_max_norm_parameter = (
-        1.4117677584248648e-09,
-        0.005465463789779652,
-    )  # error of 9.63E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.629114329834687e-05}
-    sigmoidal_norm_parameter = (
-        0.0031328788285763737,
-        3691.680366855812,
-    )  # error of 9.61E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (9.49E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.608344165567657e-05}
-    dual_sigmoidal_norm_parameter = (
-        1.5247477385614384e-07,
-        32.05060102267912,
-        290.9586231144767,
-    )  # error of 1.27E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.12694638011850687}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.3333333432674408], [0.4999987782729643, 1.0]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(28)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        21.99999934434893,
-        -2.7755575615628914e-17,
-    )  # error of 1.96E-17 with sample range (0.00E+00,4.55E-02) resulting in fit range (-2.78E-17,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 1.962615573354719e-17}
-    min_max_norm_parameter = (
-        1e-10,
-        0.04545454670919647,
-    )  # error of 0.00E+00 with sample range (0.00E+00,4.55E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.02286537737419164,
-        978.8244436707939,
-    )  # error of 2.22E-10 with sample range (0.00E+00,4.55E-02) resulting in fit range (1.91E-10,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.220862072341781e-10}
-    dual_sigmoidal_norm_parameter = (
-        -1.6112491964387125e-08,
-        0.8586327197207683,
-        3.0012029351582594,
-    )  # error of 4.83E-01 with sample range (0.00E+00,4.55E-02) resulting in fit range (5.00E-01,5.34E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.4832741134437229}
-    genlog_norm_parameter = (
-        10.725380638110968,
-        -1.3930860560099105,
-        0.904519131915667,
-        3.09474749713333e-07,
-    )  # error of 4.15E-01 with sample range (0.00E+00,4.55E-02) resulting in fit range (3.87E-01,5.59E-01)
-    genlog_norm_parameter_normdata = {"error": 0.41530042321165134}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.04545454680919647],
-            [0.38749326431988085, 0.5586409022731305],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(102)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentNp_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(93)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentO_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        3.8598435433548097,
-        0.31192475435321343,
-    )  # error of 1.54E-01 with sample range (0.00E+00,6.86E-01) resulting in fit range (3.12E-01,2.96E+00)
-    linear_norm_parameter_normdata = {"error": 0.154068519524546}
-    min_max_norm_parameter = (
-        3.1554436208840472e-30,
-        0.10795963525890548,
-    )  # error of 3.44E-02 with sample range (0.00E+00,6.86E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0343578405964399}
-    sigmoidal_norm_parameter = (
-        0.052898235500474296,
-        42.84043371531338,
-    )  # error of 1.19E-02 with sample range (0.00E+00,6.86E-01) resulting in fit range (9.40E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.011863272266788103}
-    dual_sigmoidal_norm_parameter = (
-        0.050856887008522686,
-        48.58897507939771,
-        38.976478458103685,
-    )  # error of 6.92E-03 with sample range (0.00E+00,6.86E-01) resulting in fit range (7.79E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.006918122066950574}
-    genlog_norm_parameter = (
-        13.838888704455973,
-        -1.056324131256831,
-        1.2751655248958624,
-        4.336503343045763e-07,
-    )  # error of 1.23E-01 with sample range (0.00E+00,6.86E-01) resulting in fit range (2.68E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.12317499641713417}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.6857143044471741],
-            [0.2677987089498504, 0.999900347388943],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.18881118297576904],
-            [0.28282565101102436, 0.9089388936967021],
-        ],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(8)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentOg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(118)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentOs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        21.699849595347324,
-        0.4524313136899943,
-    )  # error of 3.01E-01 with sample range (0.00E+00,3.70E-02) resulting in fit range (4.52E-01,1.26E+00)
-    linear_norm_parameter_normdata = {"error": 0.3008040715455186}
-    min_max_norm_parameter = (
-        2.6445571794501016e-09,
-        0.0106386164610805,
-    )  # error of 9.99E-06 with sample range (0.00E+00,3.70E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 9.992705325090334e-06}
-    sigmoidal_norm_parameter = (
-        0.006316651646799477,
-        2409.8681427794872,
-    )  # error of 9.99E-06 with sample range (0.00E+00,3.70E-02) resulting in fit range (2.45E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.98855423842261e-06}
-    dual_sigmoidal_norm_parameter = (
-        -3.1732940246119604e-07,
-        0.02206110033730817,
-        88.91070622306019,
-    )  # error of 2.85E-01 with sample range (0.00E+00,3.70E-02) resulting in fit range (5.00E-01,9.64E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.2850891368310585}
-    genlog_norm_parameter = (
-        15.51145061184678,
-        -0.9416781712960052,
-        1.0121198583069582,
-        1.3721838934995138e-06,
-    )  # error of 3.76E-01 with sample range (0.00E+00,3.70E-02) resulting in fit range (7.16E-01,8.28E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3762380856627482}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.03703703731298447],
-            [0.7158208549331259, 0.8284316457789285],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(76)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentP_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.38647560038472906,
-        0.9825679291846878,
-    )  # error of 1.30E-03 with sample range (0.00E+00,5.03E-01) resulting in fit range (9.83E-01,1.18E+00)
-    linear_norm_parameter_normdata = {"error": 0.0012975344503817308}
-    min_max_norm_parameter = (
-        1.4244775418505716e-09,
-        0.003016358027851755,
-    )  # error of 1.07E-02 with sample range (0.00E+00,5.03E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.010653860392270939}
-    sigmoidal_norm_parameter = (
-        -0.07423729038506449,
-        50.92795854588914,
-    )  # error of 6.69E-04 with sample range (0.00E+00,5.03E-01) resulting in fit range (9.78E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0006687654653934632}
-    dual_sigmoidal_norm_parameter = (
-        -0.07423728874928753,
-        0.018492407829886925,
-        50.92795953146861,
-    )  # error of 6.69E-04 with sample range (0.00E+00,5.03E-01) resulting in fit range (9.78E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0006687654653930815}
-    genlog_norm_parameter = (
-        0.4591414661975383,
-        -0.6183689303932429,
-        1.3401581788352736e-06,
-        9.609877687012579e-05,
-    )  # error of 4.98E-03 with sample range (0.00E+00,5.03E-01) resulting in fit range (9.90E-01,9.92E-01)
-    genlog_norm_parameter_normdata = {"error": 0.004982118793821244}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.5025906562805176],
-            [0.989556264910045, 0.9916994464091041],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.017094017937779427],
-            [0.9895704097433896, 0.9896381853971994],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(15)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(91)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        2.7159355657795876,
-        0.8074751274194069,
-    )  # error of 2.71E-01 with sample range (0.00E+00,1.25E-01) resulting in fit range (8.07E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.2709269169496007}
-    min_max_norm_parameter = (
-        2.270868181940914e-10,
-        0.01333453288869187,
-    )  # error of 4.30E-05 with sample range (0.00E+00,1.25E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.303301964957213e-05}
-    sigmoidal_norm_parameter = (
-        0.007568163668244661,
-        1592.7305725969543,
-    )  # error of 3.65E-05 with sample range (0.00E+00,1.25E-01) resulting in fit range (5.82E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.6530259420200366e-05}
-    dual_sigmoidal_norm_parameter = (
-        1.3995334548565636e-05,
-        1102486.9452084806,
-        693.1894143963415,
-    )  # error of 3.49E-05 with sample range (0.00E+00,1.25E-01) resulting in fit range (1.99E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 3.491266085677669e-05}
-    genlog_norm_parameter = (
-        17.52939755749684,
-        -0.8466074285996938,
-        0.9774014947595661,
-        1.5921742886952856e-06,
-    )  # error of 2.69E-01 with sample range (0.00E+00,1.25E-01) resulting in fit range (8.02E-01,9.76E-01)
-    genlog_norm_parameter_normdata = {"error": 0.2691506090238453}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.125], [0.8023136196991927, 0.9756792672810287]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(82)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPd_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5238201546441517,
-        0.9325937602644534,
-    )  # error of 2.22E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (9.33E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.22153778849298433}
-    min_max_norm_parameter = (
-        1.279014675624023e-10,
-        0.008198113516080406,
-    )  # error of 8.87E-05 with sample range (0.00E+00,2.50E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 8.866905439327099e-05}
-    sigmoidal_norm_parameter = (
-        0.00458866119963409,
-        2366.6210972279605,
-    )  # error of 7.97E-05 with sample range (0.00E+00,2.50E-01) resulting in fit range (1.92E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 7.97494669117445e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.1751597210627407e-08,
-        1.0097008369740905,
-        220.46927749111578,
-    )  # error of 1.33E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1330928848540665}
-    genlog_norm_parameter = (
-        30.660314942372995,
-        -0.4741950514107595,
-        0.9416815259052495,
-        3.5559736692604305e-06,
-    )  # error of 2.15E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (8.79E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.21485273776285507}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.25], [0.8794531050441394, 0.9999397667111799]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(46)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(61)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPo_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        8.913084618411824,
-        0.4269375048376613,
-    )  # error of 3.77E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (4.27E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.37724112711759744}
-    min_max_norm_parameter = (
-        1.2963092034557928e-11,
-        0.00925935185421785,
-    )  # error of 1.69E-13 with sample range (0.00E+00,7.14E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.6947711142660477e-13}
-    sigmoidal_norm_parameter = (
-        0.00503938229000087,
-        2721.0230579575555,
-    )  # error of 6.66E-07 with sample range (0.00E+00,7.14E-02) resulting in fit range (1.11E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 6.65839199619477e-07}
-    dual_sigmoidal_norm_parameter = (
-        -6.447879929296063e-08,
-        0.0495620428888565,
-        31.018700232899693,
-    )  # error of 3.84E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (5.00E-01,9.02E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3844641301870937}
-    genlog_norm_parameter = (
-        11.117158942008052,
-        -1.5794923742977154,
-        9.526591531016278,
-        3.75162003660723e-07,
-    )  # error of 4.21E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (5.48E-01,7.62E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4212463572842271}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0714285746216774],
-            [0.5483661124237146, 0.7621861518276262],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(84)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.9863294587268471,
-        0.6409590731802794,
-    )  # error of 4.00E-01 with sample range (0.00E+00,4.00E-01) resulting in fit range (6.41E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.40029641353552364}
-    min_max_norm_parameter = (
-        3.450807928183186e-09,
-        0.015151818418312974,
-    )  # error of 5.00E-06 with sample range (0.00E+00,4.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545169e-06}
-    sigmoidal_norm_parameter = (
-        0.009760577742071229,
-        2007.1598665202691,
-    )  # error of 5.00E-06 with sample range (0.00E+00,4.00E-01) resulting in fit range (3.10E-09,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996352904857715e-06}
-    dual_sigmoidal_norm_parameter = (
-        -2.057130404800132e-08,
-        3.6213592510411057,
-        55.8470358863372,
-    )  # error of 3.05E-01 with sample range (0.00E+00,4.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.30532734703672715}
-    genlog_norm_parameter = (
-        13.46294748601981,
-        -1.1400122059252753,
-        1.7755765013139453,
-        7.051384357485433e-07,
-    )  # error of 3.76E-01 with sample range (0.00E+00,4.00E-01) resulting in fit range (5.80E-01,9.98E-01)
-    genlog_norm_parameter_normdata = {"error": 0.37561877756840695}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.4000000059604645],
-            [0.5804603632601453, 0.9975097026838046],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(59)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPt_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        2.6097485261401228,
-        0.9117855308640398,
-    )  # error of 1.77E-01 with sample range (0.00E+00,7.69E-02) resulting in fit range (9.12E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.17728901117873838}
-    min_max_norm_parameter = (
-        1.6997661901093679e-10,
-        0.006851642876645175,
-    )  # error of 1.96E-04 with sample range (0.00E+00,7.69E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00019621366989077007}
-    sigmoidal_norm_parameter = (
-        0.003790389528149789,
-        2521.9392230007957,
-    )  # error of 1.80E-04 with sample range (0.00E+00,7.69E-02) resulting in fit range (7.05E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00018034874037513478}
-    dual_sigmoidal_norm_parameter = (
-        -7.288794136606608e-08,
-        11.223029250578925,
-        267.07705862248355,
-    )  # error of 1.10E-01 with sample range (0.00E+00,7.69E-02) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1101361527705307}
-    genlog_norm_parameter = (
-        0.8094433965586226,
-        -2.2867668977922855,
-        0.010685776137606112,
-        0.04604690609139335,
-    )  # error of 1.82E-01 with sample range (0.00E+00,7.69E-02) resulting in fit range (9.64E-01,9.66E-01)
-    genlog_norm_parameter_normdata = {"error": 0.18232509143577377}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.07692307978868484],
-            [0.9642337152674314, 0.9663543633926169],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(78)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentPu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(94)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(88)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        10.611369987322092,
-        0.5469616184173428,
-    )  # error of 2.47E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.47E-01,1.25E+00)
-    linear_norm_parameter_normdata = {"error": 0.2465125362130858}
-    min_max_norm_parameter = (
-        1.7932936042333754e-09,
-        0.02174065157505421,
-    )  # error of 3.18E-05 with sample range (0.00E+00,6.67E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 3.177477779277494e-05}
-    sigmoidal_norm_parameter = (
-        0.012163182108462758,
-        995.7151943402548,
-    )  # error of 3.13E-05 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.50E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.133470455344033e-05}
-    dual_sigmoidal_norm_parameter = (
-        -1.6676650467366222e-07,
-        8.038023947962415,
-        72.30896955169123,
-    )  # error of 1.96E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.00E-01,9.92E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1962117895554578}
-    genlog_norm_parameter = (
-        17.98646414692332,
-        -0.841820658824743,
-        0.9490628321042275,
-        8.59045843388557e-07,
-    )  # error of 2.86E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (7.46E-01,9.15E-01)
-    genlog_norm_parameter_normdata = {"error": 0.28564121658013886}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.06666667014360428],
-            [0.7457228149765511, 0.9153483650098533],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(37)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        8.145820832997378,
-        0.5442048945855323,
-    )  # error of 2.79E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (5.44E-01,1.28E+00)
-    linear_norm_parameter_normdata = {"error": 0.2788158404891723}
-    min_max_norm_parameter = (
-        2.4632327736856456e-09,
-        0.02127787081176957,
-    )  # error of 2.62E-05 with sample range (0.00E+00,9.09E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.6235099733610763e-05}
-    sigmoidal_norm_parameter = (
-        0.012545320508083041,
-        1113.3145647694498,
-    )  # error of 2.62E-05 with sample range (0.00E+00,9.09E-02) resulting in fit range (8.60E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 2.6225387697982612e-05}
-    dual_sigmoidal_norm_parameter = (
-        1.1837685325306417e-07,
-        8.047803886252876,
-        71.58734999394292,
-    )  # error of 2.08E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (5.00E-01,9.99E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.20791957949161657}
-    genlog_norm_parameter = (
-        16.14579969356735,
-        -0.9379518496754046,
-        0.9388565890259697,
-        6.542254677955418e-07,
-    )  # error of 3.09E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (6.84E-01,9.16E-01)
-    genlog_norm_parameter_normdata = {"error": 0.30862662845383954}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.09090909361839294],
-            [0.6837776016978173, 0.9161342519431681],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(75)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRf_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.9043850689966206,
-        0.7351893765001858,
-    )  # error of 3.50E-01 with sample range (0.00E+00,4.17E-01) resulting in fit range (7.35E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.3500397738011112}
-    min_max_norm_parameter = (
-        3.8154790178342525e-09,
-        0.02222311103616959,
-    )  # error of 1.53E-05 with sample range (0.00E+00,4.17E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.5264109516574596e-05}
-    sigmoidal_norm_parameter = (
-        0.014312612816826133,
-        1280.3788403416552,
-    )  # error of 1.53E-05 with sample range (0.00E+00,4.17E-01) resulting in fit range (1.10E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.5264110181788618e-05}
-    dual_sigmoidal_norm_parameter = (
-        -8.321413496370242e-08,
-        2.9358922538140386,
-        34.79440227380962,
-    )  # error of 2.54E-01 with sample range (0.00E+00,4.17E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.25419242254503993}
-    genlog_norm_parameter = (
-        15.291232844299213,
-        -0.9911551154789369,
-        1.0785731061963848,
-        5.017625503283518e-07,
-    )  # error of 3.00E-01 with sample range (0.00E+00,4.17E-01) resulting in fit range (5.70E-01,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.30008535289285726}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.4166666567325592],
-            [0.5697321341151426, 0.9990385167778282],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(104)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(111)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        11.715199141922279,
-        0.6991015493564651,
-    )  # error of 2.41E-01 with sample range (0.00E+00,3.85E-02) resulting in fit range (6.99E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.24135463181037092}
-    min_max_norm_parameter = (
-        4.273169750329701e-09,
-        0.004926600589773751,
-    )  # error of 4.87E-05 with sample range (0.00E+00,3.85E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.869842187607846e-05}
-    sigmoidal_norm_parameter = (
-        0.003122513070943802,
-        5106.973112261302,
-    )  # error of 4.87E-05 with sample range (0.00E+00,3.85E-02) resulting in fit range (1.19E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.869843396176172e-05}
-    dual_sigmoidal_norm_parameter = (
-        -6.928444010347165e-08,
-        0.020974373865568215,
-        169.89816836500773,
-    )  # error of 1.85E-01 with sample range (0.00E+00,3.85E-02) resulting in fit range (5.00E-01,9.99E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.18484795638810622}
-    genlog_norm_parameter = (
-        18.76491495388266,
-        -0.782839822490641,
-        1.0455225926600515,
-        2.77494740315086e-06,
-    )  # error of 2.66E-01 with sample range (0.00E+00,3.85E-02) resulting in fit range (8.55E-01,9.26E-01)
-    genlog_norm_parameter_normdata = {"error": 0.2664556138620711}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.03846153989434242],
-            [0.854572207199421, 0.9264796716828801],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(45)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(86)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentRu_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        3.045016957327572,
-        0.8771246254350719,
-    )  # error of 2.21E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (8.77E-01,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.22073312343748158}
-    min_max_norm_parameter = (
-        1.0450948184130829e-09,
-        0.008622068147473034,
-    )  # error of 8.29E-05 with sample range (0.00E+00,9.09E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 8.29387853399612e-05}
-    sigmoidal_norm_parameter = (
-        0.004807915185780393,
-        2270.5235031838656,
-    )  # error of 8.16E-05 with sample range (0.00E+00,9.09E-02) resulting in fit range (1.82E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 8.164851321481659e-05}
-    dual_sigmoidal_norm_parameter = (
-        -7.961509879231364e-08,
-        13.227177517397076,
-        208.4524321034695,
-    )  # error of 1.33E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1325846545897446}
-    genlog_norm_parameter = (
-        24.98741943167109,
-        -0.5888388425727086,
-        1.0696166942117522,
-        3.394666588195472e-06,
-    )  # error of 2.21E-01 with sample range (0.00E+00,9.09E-02) resulting in fit range (8.80E-01,9.87E-01)
-    genlog_norm_parameter_normdata = {"error": 0.22077066379915067}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.09090909361839294],
-            [0.8795413773654926, 0.9868476385132319],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(44)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentS_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        4.201062611519124,
-        0.7038974003233763,
-    )  # error of 5.57E-02 with sample range (0.00E+00,6.00E-01) resulting in fit range (7.04E-01,3.22E+00)
-    linear_norm_parameter_normdata = {"error": 0.055650084041156185}
-    min_max_norm_parameter = (
-        2.945504996143719e-35,
-        0.009809805366623056,
-    )  # error of 1.76E-01 with sample range (0.00E+00,6.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.17617850241743965}
-    sigmoidal_norm_parameter = (
-        -0.008839802468717397,
-        52.179269425760765,
-    )  # error of 2.76E-02 with sample range (0.00E+00,6.00E-01) resulting in fit range (6.13E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.02756637283404558}
-    dual_sigmoidal_norm_parameter = (
-        -0.008839804149152253,
-        0.03423796410992097,
-        52.179264789577374,
-    )  # error of 2.76E-02 with sample range (0.00E+00,6.00E-01) resulting in fit range (6.13E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.027566372834091597}
-    genlog_norm_parameter = (
-        14.643646379704146,
-        -1.1469705373090802,
-        1.115369131698212,
-        1.8485066729056446e-07,
-    )  # error of 7.55E-02 with sample range (0.00E+00,6.00E-01) resulting in fit range (7.36E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.07548217486376149}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.6000000238418579],
-            [0.7361066007633866, 0.9999531767007942],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.062068965286016464],
-            [0.7409985034154823, 0.8845444993679645],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(16)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.920475203783432,
-        0.8451269520060131,
-    )  # error of 2.77E-01 with sample range (0.00E+00,1.54E-01) resulting in fit range (8.45E-01,1.14E+00)
-    linear_norm_parameter_normdata = {"error": 0.2771730069899655}
-    min_max_norm_parameter = (
-        2.090091624404227e-09,
-        0.011495286651667564,
-    )  # error of 4.30E-05 with sample range (0.00E+00,1.54E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.303301964957213e-05}
-    sigmoidal_norm_parameter = (
-        0.006823645879754016,
-        1994.4140085049007,
-    )  # error of 4.30E-05 with sample range (0.00E+00,1.54E-01) resulting in fit range (1.23E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.302415411963754e-05}
-    dual_sigmoidal_norm_parameter = (
-        4.244841093415655e-06,
-        3581501.755931058,
-        804.7334131953885,
-    )  # error of 4.21E-05 with sample range (0.00E+00,1.54E-01) resulting in fit range (2.50E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 4.2060977621386724e-05}
-    genlog_norm_parameter = (
-        18.675788512363187,
-        -0.8230489679183876,
-        0.8897533870566625,
-        9.086827139157871e-07,
-    )  # error of 2.71E-01 with sample range (0.00E+00,1.54E-01) resulting in fit range (8.13E-01,9.88E-01)
-    genlog_norm_parameter_normdata = {"error": 0.27107622359660255}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1538461595773697],
-            [0.8132876021142199, 0.9883873761811042],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(51)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        12.923039654497222,
-        0.03846000852859355,
-    )  # error of 1.13E-01 with sample range (0.00E+00,8.33E-02) resulting in fit range (3.85E-02,1.12E+00)
-    linear_norm_parameter_normdata = {"error": 0.11322318851219315}
-    min_max_norm_parameter = (
-        7.500074731519126e-11,
-        0.06250062455032235,
-    )  # error of 6.09E-15 with sample range (0.00E+00,8.33E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 6.089381840214619e-15}
-    sigmoidal_norm_parameter = (
-        0.033663463600666965,
-        397.1141668219691,
-    )  # error of 9.76E-07 with sample range (0.00E+00,8.33E-02) resulting in fit range (1.56E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 9.760657019184178e-07}
-    dual_sigmoidal_norm_parameter = (
-        -1.655702837333184e-08,
-        0.08917331704224396,
-        17.000080553988333,
-    )  # error of 3.44E-01 with sample range (0.00E+00,8.33E-02) resulting in fit range (5.00E-01,8.05E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3435373414155665}
-    genlog_norm_parameter = (
-        13.72856577537844,
-        -1.0961225829286136,
-        1.2732366155701877,
-        3.9532760939015607e-07,
-    )  # error of 3.30E-01 with sample range (0.00E+00,8.33E-02) resulting in fit range (3.91E-01,7.42E-01)
-    genlog_norm_parameter_normdata = {"error": 0.33044456511693365}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0833333358168602],
-            [0.3910693873687394, 0.7415180135274639],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(21)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        2.866054760893542,
-        0.8895622947435454,
-    )  # error of 1.49E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (8.90E-01,1.09E+00)
-    linear_norm_parameter_normdata = {"error": 0.1490696737505488}
-    min_max_norm_parameter = (
-        3.0732743264571283e-10,
-        0.01137159100914673,
-    )  # error of 4.13E-04 with sample range (0.00E+00,7.14E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0004134372390089456}
-    sigmoidal_norm_parameter = (
-        0.006359547090473474,
-        1394.644958946948,
-    )  # error of 3.94E-04 with sample range (0.00E+00,7.14E-02) resulting in fit range (1.41E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00039411645642809065}
-    dual_sigmoidal_norm_parameter = (
-        1.481282919525104e-07,
-        95376327.14183244,
-        600.356530134111,
-    )  # error of 3.64E-04 with sample range (0.00E+00,7.14E-02) resulting in fit range (7.32E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.00036420129273350934}
-    genlog_norm_parameter = (
-        55.21927663577804,
-        -0.25850625848103154,
-        0.9521143716145256,
-        2.6471787837570925e-06,
-    )  # error of 1.40E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (7.97E-01,9.96E-01)
-    genlog_norm_parameter_normdata = {"error": 0.14004228311027944}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0714285746216774],
-            [0.7966995546539909, 0.9956082028820067],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(34)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSg_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(106)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.3043395120437246,
-        0.9870405892341323,
-    )  # error of 9.66E-04 with sample range (0.00E+00,1.82E-01) resulting in fit range (9.87E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.00096568691295853}
-    min_max_norm_parameter = (
-        1.6482352012971633e-09,
-        0.00358728702030009,
-    )  # error of 6.62E-03 with sample range (0.00E+00,1.82E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.006617953170965128}
-    sigmoidal_norm_parameter = (
-        -0.07156949022848522,
-        56.084300493833574,
-    )  # error of 6.43E-04 with sample range (0.00E+00,1.82E-01) resulting in fit range (9.82E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0006431613946164625}
-    dual_sigmoidal_norm_parameter = (
-        -0.07156953027219558,
-        0.02115828783125684,
-        56.08427360406486,
-    )  # error of 6.43E-04 with sample range (0.00E+00,1.82E-01) resulting in fit range (9.82E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0006431613946297012}
-    genlog_norm_parameter = (
-        7.280926033980405,
-        -2.3493590747375848,
-        0.9732169866697019,
-        4.577091315366934e-06,
-    )  # error of 3.16E-03 with sample range (0.00E+00,1.82E-01) resulting in fit range (9.92E-01,9.98E-01)
-    genlog_norm_parameter_normdata = {"error": 0.0031563104372673042}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.1818181872367859],
-            [0.9921100780007829, 0.9978942205844626],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.011904762126505375],
-            [0.992310404480922, 0.9927703077694785],
-        ],
-    }
-    preferred_normalization = "min_max"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(14)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        21.17820978214291,
-        0.20171190845732015,
-    )  # error of 2.59E-01 with sample range (0.00E+00,4.55E-02) resulting in fit range (2.02E-01,1.16E+00)
-    linear_norm_parameter_normdata = {"error": 0.2592992161128606}
-    min_max_norm_parameter = (
-        4.489840568099764e-11,
-        0.020408366781953572,
-    )  # error of 7.61E-14 with sample range (0.00E+00,4.55E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.608522362457635e-14}
-    sigmoidal_norm_parameter = (
-        0.01046188474119797,
-        1115.4979304237067,
-    )  # error of 5.77E-06 with sample range (0.00E+00,4.55E-02) resulting in fit range (8.54E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.773218085754259e-06}
-    dual_sigmoidal_norm_parameter = (
-        2.3642058243414366e-08,
-        0.040336516822703644,
-        34.266786865385555,
-    )  # error of 3.61E-01 with sample range (0.00E+00,4.55E-02) resulting in fit range (5.00E-01,8.26E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.36077072861498344}
-    genlog_norm_parameter = (
-        12.730922354530058,
-        -1.1814453603289377,
-        1.0912171601351968,
-        5.254559115780081e-07,
-    )  # error of 4.16E-01 with sample range (0.00E+00,4.55E-02) resulting in fit range (5.43E-01,7.10E-01)
-    genlog_norm_parameter_normdata = {"error": 0.416309397605422}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.04545454680919647],
-            [0.5434501986603661, 0.7104282981301283],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(62)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5782369081160579,
-        0.9626161705849506,
-    )  # error of 1.42E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (9.63E-01,1.08E+00)
-    linear_norm_parameter_normdata = {"error": 0.14158158531895626}
-    min_max_norm_parameter = (
-        8.60746911137333e-10,
-        0.005653389546719685,
-    )  # error of 3.78E-04 with sample range (0.00E+00,2.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0003784366107412453}
-    sigmoidal_norm_parameter = (
-        0.0032000351411271733,
-        2947.2124586802315,
-    )  # error of 3.76E-04 with sample range (0.00E+00,2.00E-01) resulting in fit range (8.02E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00037557613439317234}
-    dual_sigmoidal_norm_parameter = (
-        -1.9516566150028572e-07,
-        32.02902249137682,
-        291.1972209208367,
-    )  # error of 8.01E-02 with sample range (0.00E+00,2.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0800823204538421}
-    genlog_norm_parameter = (
-        39.61397574610708,
-        -0.3680387033262839,
-        0.996294044683992,
-        5.494002633223066e-06,
-    )  # error of 1.38E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (9.19E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.13821120450988855}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.20000000298023224],
-            [0.9189974402724398, 0.9999693888416823],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(50)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentSr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.1506848113625958,
-        0.6457604004963154,
-    )  # error of 4.02E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (6.46E-01,1.03E+00)
-    linear_norm_parameter_normdata = {"error": 0.4017929365593218}
-    min_max_norm_parameter = (
-        2.4021534223790094e-09,
-        0.012048433115092528,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.33E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545169e-06}
-    sigmoidal_norm_parameter = (
-        0.007315075830127828,
-        2286.1217510356823,
-    )  # error of 5.00E-06 with sample range (0.00E+00,3.33E-01) resulting in fit range (5.46E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.996291185235683e-06}
-    dual_sigmoidal_norm_parameter = (
-        -8.563900742086506e-08,
-        4.404537989003377,
-        72.940463469562,
-    )  # error of 3.11E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.31094455731907744}
-    genlog_norm_parameter = (
-        14.670396370833492,
-        -0.9941497375144017,
-        1.2233945089624159,
-        1.1143409504717816e-06,
-    )  # error of 3.84E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (6.01E-01,9.96E-01)
-    genlog_norm_parameter_normdata = {"error": 0.38380420811537125}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.3333333432674408],
-            [0.6012147506934215, 0.9961808935746373],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(38)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTa_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        10.078708533496028,
-        0.5690457217656935,
-    )  # error of 3.08E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.69E-01,1.24E+00)
-    linear_norm_parameter_normdata = {"error": 0.30795622561882596}
-    min_max_norm_parameter = (
-        1.0252453501496956e-09,
-        0.014493333203528337,
-    )  # error of 1.53E-05 with sample range (0.00E+00,6.67E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 1.5264109516574596e-05}
-    sigmoidal_norm_parameter = (
-        0.008048037955812262,
-        1562.762701663999,
-    )  # error of 1.43E-05 with sample range (0.00E+00,6.67E-02) resulting in fit range (3.45E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.4314281359858474e-05}
-    dual_sigmoidal_norm_parameter = (
-        -7.179649315446361e-07,
-        0.03401406684472896,
-        72.65649804245535,
-    )  # error of 2.56E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (5.00E-01,9.92E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.2563487216949743}
-    genlog_norm_parameter = (
-        15.44995119505977,
-        -0.989195207017776,
-        0.953499690740608,
-        6.549478857879665e-07,
-    )  # error of 3.43E-01 with sample range (0.00E+00,6.67E-02) resulting in fit range (7.15E-01,8.87E-01)
-    genlog_norm_parameter_normdata = {"error": 0.3427055096948763}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.06666667014360428],
-            [0.7149302414746519, 0.8870966616451452],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(73)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        4.999999925494195,
-        -2.7755575615628914e-17,
-    )  # error of 1.96E-17 with sample range (0.00E+00,2.00E-01) resulting in fit range (-2.78E-17,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 1.962615573354719e-17}
-    min_max_norm_parameter = (
-        1e-10,
-        0.20000000288023223,
-    )  # error of 0.00E+00 with sample range (0.00E+00,2.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.10000278081326436,
-        238.1344113864362,
-    )  # error of 4.55E-11 with sample range (0.00E+00,2.00E-01) resulting in fit range (4.55E-11,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.549395547129041e-11}
-    dual_sigmoidal_norm_parameter = (
-        -2.421105769581763e-09,
-        1.072959469292756,
-        1.566976100608463,
-    )  # error of 4.63E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (5.00E-01,5.78E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.4627772962451255}
-    genlog_norm_parameter = (
-        18.476022143769992,
-        -0.6820112583753604,
-        1.182678447203463,
-        1.253961258512793e-06,
-    )  # error of 6.12E-02 with sample range (0.00E+00,2.00E-01) resulting in fit range (4.17E-02,9.24E-01)
-    genlog_norm_parameter_normdata = {"error": 0.06123356746059597}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.20000000298023224],
-            [0.041685388742318905, 0.9240959294022747],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(65)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        38.24075640528078,
-        0.2922750716469276,
-    )  # error of 2.70E-01 with sample range (0.00E+00,2.13E-02) resulting in fit range (2.92E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.2703084778665968}
-    min_max_norm_parameter = (
-        5.444061332836576e-09,
-        0.006993146675661076,
-    )  # error of 5.00E-06 with sample range (0.00E+00,2.13E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545198e-06}
-    sigmoidal_norm_parameter = (
-        0.0036955716611035815,
-        3258.370688001653,
-    )  # error of 5.85E-06 with sample range (0.00E+00,2.13E-02) resulting in fit range (5.89E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.854500400026528e-06}
-    dual_sigmoidal_norm_parameter = (
-        -6.155779171325866e-08,
-        0.018190969995895524,
-        89.01583304695158,
-    )  # error of 3.21E-01 with sample range (0.00E+00,2.13E-02) resulting in fit range (5.00E-01,8.69E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.3205978947889965}
-    genlog_norm_parameter = (
-        13.155547852998788,
-        -1.1370904513849573,
-        1.2037223578023886,
-        1.0247153233502605e-06,
-    )  # error of 4.12E-01 with sample range (0.00E+00,2.13E-02) resulting in fit range (6.88E-01,7.54E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4124482446557447}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.021276595070958138],
-            [0.6877283122189818, 0.7535476016504561],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(43)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        12.755178050731706,
-        0.495620401969739,
-    )  # error of 2.49E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (4.96E-01,1.17E+00)
-    linear_norm_parameter_normdata = {"error": 0.24889090672153902}
-    min_max_norm_parameter = (
-        4.51877605960596e-09,
-        0.012346542731559346,
-    )  # error of 3.24E-05 with sample range (0.00E+00,5.26E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 3.242821486751166e-05}
-    sigmoidal_norm_parameter = (
-        0.007780022705388651,
-        2095.3756648328585,
-    )  # error of 3.24E-05 with sample range (0.00E+00,5.26E-02) resulting in fit range (8.32E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.242823601714607e-05}
-    dual_sigmoidal_norm_parameter = (
-        -5.866419057996841e-08,
-        0.03589789778766541,
-        80.53407127996353,
-    )  # error of 2.12E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.00E-01,9.86E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.21207657116927706}
-    genlog_norm_parameter = (
-        18.69018147287838,
-        -0.8215091563100693,
-        1.123121331489768,
-        7.59805791024528e-07,
-    )  # error of 2.99E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (7.28E-01,8.88E-01)
-    genlog_norm_parameter_normdata = {"error": 0.29915364482664747}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.05263157933950424],
-            [0.7280968245949009, 0.8881140612396943],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(52)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTh_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        10.551991717440838,
-        0.5562489340160022,
-    )  # error of 3.73E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.56E-01,1.11E+00)
-    linear_norm_parameter_normdata = {"error": 0.37290688154377766}
-    min_max_norm_parameter = (
-        2.6712078407272777e-09,
-        0.0032680392073169764,
-    )  # error of 5.00E-06 with sample range (0.00E+00,5.26E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 4.996352662545472e-06}
-    sigmoidal_norm_parameter = (
-        0.002015301130638847,
-        8637.228264012152,
-    )  # error of 5.00E-06 with sample range (0.00E+00,5.26E-02) resulting in fit range (2.76E-08,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.9963792011275585e-06}
-    dual_sigmoidal_norm_parameter = (
-        -5.319499503553232e-08,
-        0.02797216877094852,
-        102.19505966111375,
-    )  # error of 3.33E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (5.00E-01,9.95E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.33334978532913745}
-    genlog_norm_parameter = (
-        15.376830345794364,
-        -0.9881501444905529,
-        1.0309619877204654,
-        6.104790703741227e-07,
-    )  # error of 4.01E-01 with sample range (0.00E+00,5.26E-02) resulting in fit range (6.54E-01,8.28E-01)
-    genlog_norm_parameter_normdata = {"error": 0.40138543430076934}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.05263157933950424],
-            [0.6536133252117039, 0.8275362763298676],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(90)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTi_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.06666078096433613,
-        0.9615206017999569,
-    )  # error of 1.79E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (9.62E-01,1.03E+00)
-    linear_norm_parameter_normdata = {"error": 0.179008994006384}
-    min_max_norm_parameter = (
-        5.733486377274998e-10,
-        0.005292856279017663,
-    )  # error of 1.99E-04 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00019929748714032366}
-    sigmoidal_norm_parameter = (
-        0.0029784791851048802,
-        3370.1179476990083,
-    )  # error of 1.95E-04 with sample range (0.00E+00,1.00E+00) resulting in fit range (4.37E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00019492698284816854}
-    dual_sigmoidal_norm_parameter = (
-        -7.700447845465629e-07,
-        0.07410193427811798,
-        259.8003924920185,
-    )  # error of 1.09E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1087516637542525}
-    genlog_norm_parameter = (
-        39.575175867629724,
-        -0.3712917931226887,
-        1.2666163624720022,
-        4.0505949673641554e-06,
-    )  # error of 1.71E-01 with sample range (0.00E+00,1.00E+00) resulting in fit range (8.78E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.17078633761308668}
-    autogen_normdata = {"sample_bounds": [[0.0, 1.0], [0.8781777774526681, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(22)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTl_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        6.9380853411200585,
-        0.6867058777769054,
-    )  # error of 2.39E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (6.87E-01,1.18E+00)
-    linear_norm_parameter_normdata = {"error": 0.23920339108976235}
-    min_max_norm_parameter = (
-        2.020407884692592e-09,
-        0.013514999405986544,
-    )  # error of 5.57E-05 with sample range (0.00E+00,7.14E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 5.565572069558017e-05}
-    sigmoidal_norm_parameter = (
-        0.007615471371604649,
-        1540.4420944235242,
-    )  # error of 5.52E-05 with sample range (0.00E+00,7.14E-02) resulting in fit range (8.04E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 5.523200127691608e-05}
-    dual_sigmoidal_norm_parameter = (
-        -2.93128776568438e-07,
-        0.037450245242654806,
-        89.54196636757138,
-    )  # error of 1.83E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (5.00E-01,9.98E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1830132019769919}
-    genlog_norm_parameter = (
-        18.612572467591104,
-        -0.8106569833840916,
-        0.997737535205643,
-        1.2399994388349573e-06,
-    )  # error of 2.57E-01 with sample range (0.00E+00,7.14E-02) resulting in fit range (7.98E-01,9.42E-01)
-    genlog_norm_parameter_normdata = {"error": 0.25682087294147615}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.0714285746216774],
-            [0.7982685981780059, 0.942121495611362],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(81)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTm_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        100.9599177763632,
-        0.00019590053780485506,
-    )  # error of 8.08E-03 with sample range (0.00E+00,1.00E-02) resulting in fit range (1.96E-04,1.01E+00)
-    linear_norm_parameter_normdata = {"error": 0.008078793249881137}
-    min_max_norm_parameter = (
-        9.804020201448187e-11,
-        0.009804019884271053,
-    )  # error of 2.57E-14 with sample range (0.00E+00,1.00E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 2.5703601241326973e-14}
-    sigmoidal_norm_parameter = (
-        0.005319272658166682,
-        2625.8942374832195,
-    )  # error of 3.01E-06 with sample range (0.00E+00,1.00E-02) resulting in fit range (8.59E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 3.0084737938059216e-06}
-    dual_sigmoidal_norm_parameter = (
-        -4.2727092196466316e-07,
-        0.01212889391149567,
-        87.88281497250522,
-    )  # error of 3.76E-01 with sample range (0.00E+00,1.00E-02) resulting in fit range (5.00E-01,7.07E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.37607732144079914}
-    genlog_norm_parameter = (
-        9.587552808634669,
-        -1.66487605488234,
-        3.3360868918888955,
-        8.648622808231617e-07,
-    )  # error of 4.59E-01 with sample range (0.00E+00,1.00E-02) resulting in fit range (6.37E-01,6.64E-01)
-    genlog_norm_parameter_normdata = {"error": 0.45903894383975896}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.009999999776482582],
-            [0.6370785322136545, 0.6638870747306799],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(69)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentTs_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(117)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentU_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.7553494888462774,
-        0.9537006163222329,
-    )  # error of 1.54E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (9.54E-01,1.10E+00)
-    linear_norm_parameter_normdata = {"error": 0.15438367477392476}
-    min_max_norm_parameter = (
-        3.031800843807592e-09,
-        0.006539215009430967,
-    )  # error of 2.84E-04 with sample range (0.00E+00,2.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00028372949011665064}
-    sigmoidal_norm_parameter = (
-        0.004076209781468555,
-        3090.1558695669037,
-    )  # error of 2.84E-04 with sample range (0.00E+00,2.00E-01) resulting in fit range (3.39E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00028372792406960794}
-    dual_sigmoidal_norm_parameter = (
-        -1.3256059373017903e-08,
-        34.68674450987354,
-        223.64588220323827,
-    )  # error of 9.09E-02 with sample range (0.00E+00,2.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.09089953064633471}
-    genlog_norm_parameter = (
-        39.91186021492112,
-        -0.37601993174742093,
-        1.3091617344105644,
-        3.583395134412667e-06,
-    )  # error of 1.49E-01 with sample range (0.00E+00,2.00E-01) resulting in fit range (8.95E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.14933641055460353}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.20000000298023224],
-            [0.8950224789860832, 0.9999621341102962],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(92)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentV_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5767079403087177,
-        0.8916558504774552,
-    )  # error of 2.62E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (8.92E-01,1.08E+00)
-    linear_norm_parameter_normdata = {"error": 0.26188557897422654}
-    min_max_norm_parameter = (
-        2.0576894703358552e-10,
-        0.008850530337292387,
-    )  # error of 5.44E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 5.438032130644564e-05}
-    sigmoidal_norm_parameter = (
-        0.005020147410173118,
-        2343.7658568117517,
-    )  # error of 4.77E-05 with sample range (0.00E+00,3.33E-01) resulting in fit range (7.76E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 4.767515380509613e-05}
-    dual_sigmoidal_norm_parameter = (
-        -6.853691563119861e-08,
-        1.3179433040613833,
-        129.78650001263426,
-    )  # error of 1.76E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.1763301399217185}
-    genlog_norm_parameter = (
-        18.23579304674988,
-        -0.8253407777524304,
-        1.0463245200652829,
-        1.58755269635514e-06,
-    )  # error of 2.51E-01 with sample range (0.00E+00,3.33E-01) resulting in fit range (8.26E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.2513622885687095}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.3333333432674408],
-            [0.8256050802958024, 0.9995609778006919],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(23)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentW_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.5673992453796014,
-        0.8681504627817782,
-    )  # error of 2.49E-01 with sample range (0.00E+00,3.46E-01) resulting in fit range (8.68E-01,1.06E+00)
-    linear_norm_parameter_normdata = {"error": 0.2490073504649487}
-    min_max_norm_parameter = (
-        1.0058594741960651e-09,
-        0.013700409788846029,
-    )  # error of 6.32E-05 with sample range (0.00E+00,3.46E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 6.315708241041869e-05}
-    sigmoidal_norm_parameter = (
-        0.007672950484078387,
-        1474.9331051976624,
-    )  # error of 6.21E-05 with sample range (0.00E+00,3.46E-01) resulting in fit range (1.22E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 6.212191372971835e-05}
-    dual_sigmoidal_norm_parameter = (
-        -6.272551460077393e-08,
-        1.355775996650514,
-        89.63376523756219,
-    )  # error of 1.65E-01 with sample range (0.00E+00,3.46E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.16516014752966393}
-    genlog_norm_parameter = (
-        22.778693846549128,
-        -0.6460980363052728,
-        0.9822993310342956,
-        1.2502788797518252e-06,
-    )  # error of 2.26E-01 with sample range (0.00E+00,3.46E-01) resulting in fit range (7.27E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.22591999609133562}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.3461538553237915],
-            [0.7269730747978582, 0.9998799950641979],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(74)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentXe_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    linear_norm_parameter_normdata = {"error": 0.0}
-    sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    dual_sigmoidal_norm_parameter = (
-        0.0,
-        0.0,
-        1.0,
-    )  # error of 5.00E-01 with sample range (0.00E+00,0.00E+00) resulting in fit range (5.00E-01,5.00E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5}
-    genlog_norm_parameter = (
-        0.3561956366606025,
-        0.3561956366606025,
-        0.0,
-        2.120992123914219,
-    )  # error of 0.00E+00 with sample range (0.00E+00,0.00E+00) resulting in fit range (1.00E+00,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0}
-    autogen_normdata = {"sample_bounds": [[0.0, 0.0], [1.0, 1.0]]}
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(54)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentY_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.2054811235533879,
-        0.9566803001649736,
-    )  # error of 1.68E-01 with sample range (0.00E+00,5.56E-01) resulting in fit range (9.57E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.16771856576544655}
-    min_max_norm_parameter = (
-        3.6289711457386634e-09,
-        0.00952809440062703,
-    )  # error of 2.55E-04 with sample range (0.00E+00,5.56E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0002552789082233392}
-    sigmoidal_norm_parameter = (
-        0.006426281836864763,
-        2487.9637313196945,
-    )  # error of 2.55E-04 with sample range (0.00E+00,5.56E-01) resulting in fit range (1.14E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00025527890785054366}
-    dual_sigmoidal_norm_parameter = (
-        9.243969203358384e-08,
-        16.06972197521281,
-        145.54249717859926,
-    )  # error of 9.66E-02 with sample range (0.00E+00,5.56E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.09660820182375472}
-    genlog_norm_parameter = (
-        6.793581709822165,
-        -2.439276090308871,
-        1.3110020910003872,
-        1.5509898952783707e-06,
-    )  # error of 1.67E-01 with sample range (0.00E+00,5.56E-01) resulting in fit range (9.48E-01,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.16690126022579443}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.5555555820465088],
-            [0.9476995923092636, 0.9987676609230374],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(39)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentYb_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        106.12228874294635,
-        0.09183427604241576,
-    )  # error of 1.75E-01 with sample range (0.00E+00,1.00E-02) resulting in fit range (9.18E-02,1.15E+00)
-    linear_norm_parameter_normdata = {"error": 0.17495887923642423}
-    min_max_norm_parameter = (
-        6.25006275035703e-11,
-        0.0062500625481566145,
-    )  # error of 7.69E-13 with sample range (0.00E+00,1.00E-02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 7.691850745534255e-13}
-    sigmoidal_norm_parameter = (
-        0.0033160965290755283,
-        3899.8458318601593,
-    )  # error of 1.46E-06 with sample range (0.00E+00,1.00E-02) resulting in fit range (2.42E-06,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 1.4611357154532121e-06}
-    dual_sigmoidal_norm_parameter = (
-        -6.38503672942115e-07,
-        0.009953787225382447,
-        136.7521302201513,
-    )  # error of 3.56E-01 with sample range (0.00E+00,1.00E-02) resulting in fit range (5.00E-01,7.97E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.35603726754578197}
-    genlog_norm_parameter = (
-        12.446175455899851,
-        -1.1001300566369125,
-        0.772651151112346,
-        1.9261914830816747e-06,
-    )  # error of 4.58E-01 with sample range (0.00E+00,1.00E-02) resulting in fit range (6.35E-01,6.70E-01)
-    genlog_norm_parameter_normdata = {"error": 0.4582660865048387}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.009999999776482582],
-            [0.6352890951180468, 0.6699297253421803],
-        ]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(70)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentZn_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.14804078833939083,
-        0.9624023077804411,
-    )  # error of 1.66E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.62E-01,1.04E+00)
-    linear_norm_parameter_normdata = {"error": 0.16580465604383793}
-    min_max_norm_parameter = (
-        3.6925277302381667e-09,
-        0.004465847819120512,
-    )  # error of 1.97E-04 with sample range (0.00E+00,5.00E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0001965832808188962}
-    sigmoidal_norm_parameter = (
-        0.0029682836788606968,
-        5319.474351092075,
-    )  # error of 1.97E-04 with sample range (0.00E+00,5.00E-01) resulting in fit range (1.39E-07,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.00019658328221634373}
-    dual_sigmoidal_norm_parameter = (
-        -5.430215429897262e-08,
-        120.75156168798246,
-        241.54873688457016,
-    )  # error of 1.03E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.10349654118162736}
-    genlog_norm_parameter = (
-        31.34950509808241,
-        -0.4642047854297494,
-        1.010776734034239,
-        4.892932574222506e-06,
-    )  # error of 1.61E-01 with sample range (0.00E+00,5.00E-01) resulting in fit range (9.06E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.16071907428588073}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.5], [0.9058786687390884, 0.9999999846159497]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(30)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetRelativeContentZr_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    # normalization
-    linear_norm_parameter = (
-        0.4230690659367312,
-        0.9644401571925267,
-    )  # error of 1.55E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (9.64E-01,1.07E+00)
-    linear_norm_parameter_normdata = {"error": 0.155252997237267}
-    min_max_norm_parameter = (
-        2.6507543633320805e-09,
-        0.005920058551803341,
-    )  # error of 2.84E-04 with sample range (0.00E+00,2.50E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00028382735498573103}
-    sigmoidal_norm_parameter = (
-        0.0035315861746266683,
-        3193.7730616525764,
-    )  # error of 2.84E-04 with sample range (0.00E+00,2.50E-01) resulting in fit range (1.26E-05,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0002837988193618366}
-    dual_sigmoidal_norm_parameter = (
-        1.0182222171923962e-06,
-        32.02539637564083,
-        292.72668324524966,
-    )  # error of 8.85E-02 with sample range (0.00E+00,2.50E-01) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.08847884302091015}
-    genlog_norm_parameter = (
-        30.547568799926612,
-        -0.4889428366126426,
-        1.112775996170479,
-        5.462771809789451e-06,
-    )  # error of 1.53E-01 with sample range (0.00E+00,2.50E-01) resulting in fit range (9.36E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.1528568657401187}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 0.25], [0.9357282016068612, 0.99996795955698]]
-    }
-    preferred_normalization = "unity"
-    # functions
-    def featurize(self, mol):
-        return (
-            len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(40)))
-            / mol.GetNumAtoms()
-        )
-
-
-class GetSSSR_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(GetSSSR)
-    # normalization
-    linear_norm_parameter = (
-        0.03860180770005206,
-        0.5113290906759573,
-    )  # error of 1.73E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (5.11E-01,2.87E+00)
-    linear_norm_parameter_normdata = {"error": 0.17329582361047302}
-    min_max_norm_parameter = (
-        0.334517739633367,
-        5.208998938983079,
-    )  # error of 1.60E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.01600245280122771}
-    sigmoidal_norm_parameter = (
-        2.7238161788458215,
-        1.1018114352614388,
-    )  # error of 1.08E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (4.74E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.010810851867941116}
-    dual_sigmoidal_norm_parameter = (
-        2.5715740496764488,
-        1.283226429101575,
-        0.9174925881562721,
-    )  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (3.56E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0061287005299005375}
-    genlog_norm_parameter = (
-        0.813320479300628,
-        -1.296799001575922,
-        3.1048252219308727,
-        0.173898726052091,
-    )  # error of 4.52E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.48E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004520854109330362}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 61.0], [0.014767969276556474, 1.0]],
-        "sample_bounds99": [[0.0, 9.0], [0.10515038913140289, 0.998176048141036]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcHallKierAlpha)
-    # normalization
-    linear_norm_parameter = (
-        0.10941027797520916,
-        0.8206630827667591,
-    )  # error of 1.86E-01 with sample range (-7.86E+01,6.10E+01) resulting in fit range (-7.78E+00,7.50E+00)
-    linear_norm_parameter_normdata = {"error": 0.18589725616762204}
-    min_max_norm_parameter = (
-        -4.025047303628864,
-        -0.27476699527518833,
-    )  # error of 2.37E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02373235861155972}
-    sigmoidal_norm_parameter = (
-        -2.136641082271498,
-        1.3958219191517867,
-    )  # error of 1.43E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (4.45E-47,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.014252265465030198}
-    dual_sigmoidal_norm_parameter = (
-        -2.0451007382705924,
-        1.188738004380637,
-        1.5856962115538982,
-    )  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.008427760098605581}
-    genlog_norm_parameter = (
-        1.7619009617820294,
-        -1.7315732634329195,
-        1.3960318965437657,
-        1.8402714405695966,
-    )  # error of 7.26E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (9.11E-33,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0072648523242426315}
-    autogen_normdata = {
-        "sample_bounds": [
-            [-78.5999984741211, 61.01298522949219],
-            [9.107825457921401e-33, 1.0],
-        ],
-        "sample_bounds99": [
-            [-78.5999984741211, -0.6376623511314392],
-            [0.0041931197943515875, 0.9792781553058847],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(HallKierAlpha)
-    # normalization
-    linear_norm_parameter = (
-        0.10941027797520916,
-        0.8206630827667591,
-    )  # error of 1.86E-01 with sample range (-7.86E+01,6.10E+01) resulting in fit range (-7.78E+00,7.50E+00)
-    linear_norm_parameter_normdata = {"error": 0.18589725616762204}
-    min_max_norm_parameter = (
-        -4.025047303628864,
-        -0.27476699527518833,
-    )  # error of 2.37E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02373235861155972}
-    sigmoidal_norm_parameter = (
-        -2.136641082271498,
-        1.3958219191517867,
-    )  # error of 1.43E-02 with sample range (-7.86E+01,6.10E+01) resulting in fit range (4.45E-47,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.014252265465030198}
-    dual_sigmoidal_norm_parameter = (
-        -2.0451007382705924,
-        1.188738004380637,
-        1.5856962115538982,
-    )  # error of 8.43E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (3.00E-40,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.008427760098605581}
-    genlog_norm_parameter = (
-        1.7619009617820294,
-        -1.7315732634329195,
-        1.3960318965437657,
-        1.8402714405695966,
-    )  # error of 7.26E-03 with sample range (-7.86E+01,6.10E+01) resulting in fit range (9.11E-33,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0072648523242426315}
-    autogen_normdata = {
-        "sample_bounds": [
-            [-78.5999984741211, 61.01298522949219],
-            [9.107825457921401e-33, 1.0],
-        ],
-        "sample_bounds99": [
-            [-78.5999984741211, -0.6376623511314392],
-            [0.0041931197943515875, 0.9792781553058847],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class HallKierAlpha_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -13413,91 +2236,6 @@ class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class InertialShapeFactor_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(InertialShapeFactor)
-    # normalization
-    linear_norm_parameter = (
-        249.802812058766,
-        0.2626729794953536,
-    )  # error of 1.70E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (2.63E-01,2.41E+06)
-    linear_norm_parameter_normdata = {"error": 0.17046180041647568}
-    min_max_norm_parameter = (
-        3.4403992924852414e-29,
-        0.0015516770560768962,
-    )  # error of 5.89E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.05887555931240933}
-    sigmoidal_norm_parameter = (
-        0.0007537390827077178,
-        2772.3791520268146,
-    )  # error of 5.07E-02 with sample range (0.00E+00,9.63E+03) resulting in fit range (1.10E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.05073955975989971}
-    dual_sigmoidal_norm_parameter = (
-        8.477210431460079e-09,
-        1.0226616162563986,
-        2.5040477356755724,
-    )  # error of 2.88E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (5.00E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.28764466720535214}
-    genlog_norm_parameter = (
-        10.739020490365299,
-        -1.3568177149110616,
-        0.8192065779630017,
-        5.476913749206345e-07,
-    )  # error of 2.85E-01 with sample range (0.00E+00,9.63E+03) resulting in fit range (4.95E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.28533219545622224}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 9630.4208984375], [0.4952231248484652, 1.0]],
-        "sample_bounds99": [
-            [0.0, 0.00370579375885427],
-            [0.4954010214975587, 0.5126043938160759],
-        ],
-    }
-    preferred_normalization = "sig"
-    # functions
-
-
-class Ipc_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Ipc)
-    # normalization
-    linear_norm_parameter = (
-        1.5595572574111734e-38,
-        0.4932082097701287,
-    )  # error of 2.81E-01 with sample range (0.00E+00,INF) resulting in fit range (4.93E-01,INF)
-    linear_norm_parameter_normdata = {"error": 0.28130736278670065}
-    min_max_norm_parameter = (
-        5e-324,
-        1794244951.795763,
-    )  # error of 2.42E-01 with sample range (0.00E+00,INF) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.24180427535895055}
-    sigmoidal_norm_parameter = (
-        1.0,
-        1.0,
-    )  # error of 5.79E-01 with sample range (0.00E+00,INF) resulting in fit range (2.69E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5793297328485066}
-    dual_sigmoidal_norm_parameter = (
-        1.0,
-        1.0,
-        1.0,
-    )  # error of 5.79E-01 with sample range (0.00E+00,INF) resulting in fit range (2.69E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5793297328485066}
-    genlog_norm_parameter = (
-        1.0,
-        1.0,
-        1.0,
-        1.000000000001,
-    )  # error of 5.79E-01 with sample range (0.00E+00,INF) resulting in fit range (2.69E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.5793297328485066}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, inf], [0.2689414213703484, 1.0]],
-        "sample_bounds99": [[0.0, 3.660618012617995e30], [1.0, 1.0]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-
-
 class Ipc_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -13586,144 +2324,6 @@ class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Kappa1)
-    # normalization
-    linear_norm_parameter = (
-        0.07531844296316315,
-        0.10272005612925916,
-    )  # error of 1.58E-01 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.06E-01,3.83E+01)
-    linear_norm_parameter_normdata = {"error": 0.15810130669881933}
-    min_max_norm_parameter = (
-        1.58553325314983,
-        8.60938851018364,
-    )  # error of 3.82E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03824292449888255}
-    sigmoidal_norm_parameter = (
-        5.045698563226252,
-        0.6990022831903797,
-    )  # error of 2.71E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (2.94E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.027082321270926062}
-    dual_sigmoidal_norm_parameter = (
-        4.767739315887101,
-        0.9158440851290796,
-        0.5590280737588555,
-    )  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01249947022528059}
-    genlog_norm_parameter = (
-        0.4925387826065551,
-        -8.85306821854755,
-        0.03629063704060047,
-        5.9933878301094394e-05,
-    )  # error of 4.77E-03 with sample range (4.08E-02,5.07E+02) resulting in fit range (5.12E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004767715866603624}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.040816325694322586, 506.85345458984375],
-            [0.0005115304587048784, 1.0],
-        ],
-        "sample_bounds99": [
-            [0.040816325694322586, 13.940459251403809],
-            [0.019219828125048063, 0.9967491488697972],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Kappa1_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcKappa1)
-    # normalization
-    linear_norm_parameter = (
-        0.07531844296316315,
-        0.10272005612925916,
-    )  # error of 1.58E-01 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.06E-01,3.83E+01)
-    linear_norm_parameter_normdata = {"error": 0.15810130669881933}
-    min_max_norm_parameter = (
-        1.58553325314983,
-        8.60938851018364,
-    )  # error of 3.82E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03824292449888255}
-    sigmoidal_norm_parameter = (
-        5.045698563226252,
-        0.6990022831903797,
-    )  # error of 2.71E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (2.94E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.027082321270926062}
-    dual_sigmoidal_norm_parameter = (
-        4.767739315887101,
-        0.9158440851290796,
-        0.5590280737588555,
-    )  # error of 1.25E-02 with sample range (4.08E-02,5.07E+02) resulting in fit range (1.30E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.01249947022528059}
-    genlog_norm_parameter = (
-        0.4925387826065551,
-        -8.85306821854755,
-        0.03629063704060047,
-        5.9933878301094394e-05,
-    )  # error of 4.77E-03 with sample range (4.08E-02,5.07E+02) resulting in fit range (5.12E-04,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.004767715866603624}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.040816325694322586, 506.85345458984375],
-            [0.0005115304587048784, 1.0],
-        ],
-        "sample_bounds99": [
-            [0.040816325694322586, 13.940459251403809],
-            [0.019219828125048063, 0.9967491488697972],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcKappa2)
-    # normalization
-    linear_norm_parameter = (
-        0.030418143185359847,
-        0.2871593951766924,
-    )  # error of 2.34E-01 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.87E-01,1.08E+03)
-    linear_norm_parameter_normdata = {"error": 0.23429253315089843}
-    min_max_norm_parameter = (
-        3.446066777200142,
-        12.00058941506709,
-    )  # error of 4.58E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.045835035388305335}
-    sigmoidal_norm_parameter = (
-        7.66772112289306,
-        0.5795843116540953,
-    )  # error of 3.08E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (1.16E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.030784863703215513}
-    dual_sigmoidal_norm_parameter = (
-        7.272013631840285,
-        0.8076799655613323,
-        0.44608338323349067,
-    )  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.81E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.013227753344240065}
-    genlog_norm_parameter = (
-        0.4077659253828925,
-        -9.791338200341348,
-        0.05323800602728675,
-        6.686361666192702e-05,
-    )  # error of 1.05E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (4.19E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0105000416878865}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 35659.2421875], [4.1928109866545946e-07, 1.0]],
-        "sample_bounds99": [
-            [0.0, 23.003252029418945],
-            [0.007535675172971146, 0.9999584044865643],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
@@ -13762,144 +2362,6 @@ class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [
             [0.0, 23.003252029418945],
             [0.007535675172971146, 0.9999584044865643],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Kappa2)
-    # normalization
-    linear_norm_parameter = (
-        0.030418143185359847,
-        0.2871593951766924,
-    )  # error of 2.34E-01 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.87E-01,1.08E+03)
-    linear_norm_parameter_normdata = {"error": 0.23429253315089843}
-    min_max_norm_parameter = (
-        3.446066777200142,
-        12.00058941506709,
-    )  # error of 4.58E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.045835035388305335}
-    sigmoidal_norm_parameter = (
-        7.66772112289306,
-        0.5795843116540953,
-    )  # error of 3.08E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (1.16E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.030784863703215513}
-    dual_sigmoidal_norm_parameter = (
-        7.272013631840285,
-        0.8076799655613323,
-        0.44608338323349067,
-    )  # error of 1.32E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (2.81E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.013227753344240065}
-    genlog_norm_parameter = (
-        0.4077659253828925,
-        -9.791338200341348,
-        0.05323800602728675,
-        6.686361666192702e-05,
-    )  # error of 1.05E-02 with sample range (0.00E+00,3.57E+04) resulting in fit range (4.19E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0105000416878865}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 35659.2421875], [4.1928109866545946e-07, 1.0]],
-        "sample_bounds99": [
-            [0.0, 23.003252029418945],
-            [0.007535675172971146, 0.9999584044865643],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcKappa3)
-    # normalization
-    linear_norm_parameter = (
-        0.03561704845372893,
-        0.3431665835165363,
-    )  # error of 2.45E-01 with sample range (-4.32E+00,2.80E+04) resulting in fit range (1.89E-01,9.97E+02)
-    linear_norm_parameter_normdata = {"error": 0.24538028229872727}
-    min_max_norm_parameter = (
-        1.6209280367339833,
-        6.869092211937303,
-    )  # error of 4.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04422617388183231}
-    sigmoidal_norm_parameter = (
-        4.207644140181935,
-        0.935275527719581,
-    )  # error of 3.22E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (3.42E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.03217554074352283}
-    dual_sigmoidal_norm_parameter = (
-        3.9792546917484937,
-        1.265521274567412,
-        0.6994418134155707,
-    )  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.014239041156764966}
-    genlog_norm_parameter = (
-        0.6458423546818326,
-        -5.942656398999168,
-        0.03022130405947887,
-        6.593687949417948e-05,
-    )  # error of 1.21E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.37E-70,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.012078409215171363}
-    autogen_normdata = {
-        "sample_bounds": [
-            [-4.324386119842529, 27984.41796875],
-            [2.367304459384336e-70, 1.0],
-        ],
-        "sample_bounds99": [
-            [-4.324386119842529, 15.822834014892578],
-            [0.010368133997053362, 0.9999985050724834],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class Kappa3_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(Kappa3)
-    # normalization
-    linear_norm_parameter = (
-        0.03561704845372893,
-        0.3431665835165363,
-    )  # error of 2.45E-01 with sample range (-4.32E+00,2.80E+04) resulting in fit range (1.89E-01,9.97E+02)
-    linear_norm_parameter_normdata = {"error": 0.24538028229872727}
-    min_max_norm_parameter = (
-        1.6209280367339833,
-        6.869092211937303,
-    )  # error of 4.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.04422617388183231}
-    sigmoidal_norm_parameter = (
-        4.207644140181935,
-        0.935275527719581,
-    )  # error of 3.22E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (3.42E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.03217554074352283}
-    dual_sigmoidal_norm_parameter = (
-        3.9792546917484937,
-        1.265521274567412,
-        0.6994418134155707,
-    )  # error of 1.42E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.73E-05,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.014239041156764966}
-    genlog_norm_parameter = (
-        0.6458423546818326,
-        -5.942656398999168,
-        0.03022130405947887,
-        6.593687949417948e-05,
-    )  # error of 1.21E-02 with sample range (-4.32E+00,2.80E+04) resulting in fit range (2.37E-70,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.012078409215171363}
-    autogen_normdata = {
-        "sample_bounds": [
-            [-4.324386119842529, 27984.41796875],
-            [2.367304459384336e-70, 1.0],
-        ],
-        "sample_bounds99": [
-            [-4.324386119842529, 15.822834014892578],
-            [0.010368133997053362, 0.9999985050724834],
         ],
     }
     preferred_normalization = "genlog"
@@ -13957,53 +2419,6 @@ class LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(CalcLabuteASA)
-    # normalization
-    linear_norm_parameter = (
-        0.0029906658775537,
-        -0.06099902360508458,
-    )  # error of 1.58E-01 with sample range (1.50E+01,3.79E+03) resulting in fit range (-1.62E-02,1.13E+01)
-    linear_norm_parameter_normdata = {"error": 0.1575192378522443}
-    min_max_norm_parameter = (
-        93.68303193611298,
-        261.4054366254348,
-    )  # error of 3.76E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.037596041565658364}
-    sigmoidal_norm_parameter = (
-        176.2509725704667,
-        0.028811070902678346,
-    )  # error of 2.90E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (9.50E-03,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.029039719767854237}
-    dual_sigmoidal_norm_parameter = (
-        168.88110152589715,
-        0.0387688192218933,
-        0.021877792004091706,
-    )  # error of 1.06E-02 with sample range (1.50E+01,3.79E+03) resulting in fit range (2.55E-03,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010635486087794264}
-    genlog_norm_parameter = (
-        0.02007957443756673,
-        -204.06805973664225,
-        0.0668114933774804,
-        4.9438112644249285e-05,
-    )  # error of 8.27E-03 with sample range (1.50E+01,3.79E+03) resulting in fit range (6.07E-08,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.008266373133760602}
-    autogen_normdata = {
-        "sample_bounds": [
-            [14.964731216430664, 3791.76025390625],
-            [6.073319326050133e-08, 1.0],
-        ],
-        "sample_bounds99": [
-            [14.964731216430664, 427.30023193359375],
-            [0.007384653339473905, 0.999376383619305],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class LabuteASA_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(LabuteASA)
     # normalization
     linear_norm_parameter = (
         0.0029906658775537,
@@ -14666,101 +3081,10 @@ class NPR1_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class NPR1_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(NPR1)
-    # normalization
-    linear_norm_parameter = (
-        1.993532814687622,
-        -0.07291478792771389,
-    )  # error of 6.17E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (-7.29E-02,1.83E+00)
-    linear_norm_parameter_normdata = {"error": 0.061728982485812586}
-    min_max_norm_parameter = (
-        0.06225581266603365,
-        0.49572101730415397,
-    )  # error of 2.98E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.029796855243874387}
-    sigmoidal_norm_parameter = (
-        0.27514214399673687,
-        11.301895844887198,
-    )  # error of 2.74E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (4.27E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.027352449556509766}
-    dual_sigmoidal_norm_parameter = (
-        0.2598822642874916,
-        14.136432045747458,
-        9.153928411437114,
-    )  # error of 1.65E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (2.48E-02,9.98E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.016506918848526703}
-    genlog_norm_parameter = (
-        7.873560517478882,
-        -0.9842677258585575,
-        1.1168374338530573,
-        8.53760240249483e-05,
-    )  # error of 1.08E-02 with sample range (0.00E+00,9.54E-01) resulting in fit range (3.57E-03,9.97E-01)
-    genlog_norm_parameter_normdata = {"error": 0.01075571562176027}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.9535223841667175],
-            [0.0035703351151573316, 0.9969110007503373],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.6135377287864685],
-            [0.03136893806380091, 0.968971394175979],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class NPR2_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(NPR2)
-    # normalization
-    linear_norm_parameter = (
-        3.0363848124092283,
-        -2.1050145083551772,
-    )  # error of 7.55E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (-2.11E+00,9.31E-01)
-    linear_norm_parameter_normdata = {"error": 0.07547980695973905}
-    min_max_norm_parameter = (
-        0.7328377706938303,
-        0.9989929606321605,
-    )  # error of 3.95E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03945681388392586}
-    sigmoidal_norm_parameter = (
-        0.8690167433696966,
-        18.125099021117805,
-    )  # error of 3.57E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.44E-07,9.15E-01)
-    sigmoidal_norm_parameter_normdata = {"error": 0.035723535153184105}
-    dual_sigmoidal_norm_parameter = (
-        0.8826306733966545,
-        13.438687377055738,
-        25.1975217333764,
-    )  # error of 1.76E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (7.06E-06,9.51E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.017621678627210136}
-    genlog_norm_parameter = (
-        41.22968146938368,
-        0.9555513699693968,
-        0.8329988798867941,
-        4.4083555329656905,
-    )  # error of 1.41E-02 with sample range (0.00E+00,1.00E+00) resulting in fit range (1.37E-04,9.72E-01)
-    genlog_norm_parameter_normdata = {"error": 0.01405438439828333}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 1.0], [0.00013700937456992732, 0.9720179859647797]],
-        "sample_bounds99": [
-            [0.0, 0.9843385815620422],
-            [0.04063864286909488, 0.9576813145628001],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class NPR2_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcNPR2)
     # normalization
     linear_norm_parameter = (
         3.0363848124092283,
@@ -14842,47 +3166,6 @@ class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class NumAliphaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(NumAliphaticCarbocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.029386355676372537,
-        0.8723594863010827,
-    )  # error of 2.62E-02 with sample range (0.00E+00,1.80E+01) resulting in fit range (8.72E-01,1.40E+00)
-    linear_norm_parameter_normdata = {"error": 0.02619488960538958}
-    min_max_norm_parameter = (
-        7.2035108451548135e-09,
-        1.1561266295897044,
-    )  # error of 1.01E-02 with sample range (0.00E+00,1.80E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.010078326862442933}
-    sigmoidal_norm_parameter = (
-        -0.4231823522456474,
-        1.309702732778145,
-    )  # error of 3.86E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (6.35E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0038627930443218446}
-    dual_sigmoidal_norm_parameter = (
-        -0.4231823921093463,
-        1.0,
-        1.3097026985565412,
-    )  # error of 3.86E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (6.35E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.003862793044326242}
-    genlog_norm_parameter = (
-        1.2612530269741857,
-        -4.6087319696557145,
-        0.3180813147293475,
-        0.0018673678985071268,
-    )  # error of 3.67E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (6.01E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.003668784080520261}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 18.0], [0.6011477519809362, 0.9999999999296065]],
-        "sample_bounds99": [[0.0, 2.0], [0.865693816674613, 0.9884901557981153]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-
-
 class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
@@ -14921,88 +3204,6 @@ class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
         "sample_bounds99": [[0.0, 2.0], [0.680378574283369, 0.9803767405000863]],
     }
     preferred_normalization = "dual_sig"
-    # functions
-
-
-class NumAliphaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(CalcNumAliphaticHeterocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.07182403555851259,
-        0.6979616844087828,
-    )  # error of 6.50E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (6.98E-01,3.71E+00)
-    linear_norm_parameter_normdata = {"error": 0.06501190929792677}
-    min_max_norm_parameter = (
-        6.816327279061287e-09,
-        1.4697587576089106,
-    )  # error of 1.83E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.018297669482265272}
-    sigmoidal_norm_parameter = (
-        0.5242081959438346,
-        1.5883082643053523,
-    )  # error of 6.06E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (3.03E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0006057908383317623}
-    dual_sigmoidal_norm_parameter = (
-        0.5241697895237789,
-        32.139936612408746,
-        1.5882035086803503,
-    )  # error of 3.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (4.83E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0003628683527523974}
-    genlog_norm_parameter = (
-        1.5563961403496074,
-        0.06313351849368842,
-        1.5020948194793298,
-        0.7783007105283993,
-    )  # error of 5.63E-04 with sample range (0.00E+00,4.20E+01) resulting in fit range (2.85E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0005627506710425015}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 42.0], [0.28489256061061674, 1.0]],
-        "sample_bounds99": [[0.0, 2.0], [0.680378574283369, 0.9803767405000863]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class NumAliphaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(CalcNumAliphaticRings)
-    # normalization
-    linear_norm_parameter = (
-        0.04716081590128,
-        0.7025071278256165,
-    )  # error of 8.86E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (7.03E-01,2.68E+00)
-    linear_norm_parameter_normdata = {"error": 0.0885886948242506}
-    min_max_norm_parameter = (
-        1.5777218104420236e-29,
-        2.223682308863912,
-    )  # error of 2.88E-02 with sample range (0.00E+00,4.20E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02881039066665504}
-    sigmoidal_norm_parameter = (
-        0.7813916309499217,
-        1.3224930670990482,
-    )  # error of 4.20E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (2.62E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.004203589934143805}
-    dual_sigmoidal_norm_parameter = (
-        0.7813895517185011,
-        19.442917588992998,
-        1.322487361093461,
-    )  # error of 2.34E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (2.52E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0023407868651397798}
-    genlog_norm_parameter = (
-        1.1513899435108788,
-        -4.640594483150161,
-        0.1786885365072345,
-        0.00048121717016260063,
-    )  # error of 2.04E-03 with sample range (0.00E+00,4.20E+01) resulting in fit range (1.70E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0020439716934064246}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 42.0], [0.1695677970330986, 1.0]],
-        "sample_bounds99": [[0.0, 3.0], [0.5704920037626812, 0.9824109136751766]],
-    }
-    preferred_normalization = "genlog"
     # functions
 
 
@@ -15091,47 +3292,6 @@ class NumAmideBonds_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAromaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumAromaticCarbocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.029344509343809166,
-        0.7342345249533615,
-    )  # error of 1.10E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (7.34E-01,2.52E+00)
-    linear_norm_parameter_normdata = {"error": 0.1103343753066689}
-    min_max_norm_parameter = (
-        9.860761315262648e-32,
-        2.4631545244076647,
-    )  # error of 1.96E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.019586692320725813}
-    sigmoidal_norm_parameter = (
-        1.0872508968285497,
-        1.3660589721714311,
-    )  # error of 6.47E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.85E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0064662961947873675}
-    dual_sigmoidal_norm_parameter = (
-        1.0872509124487726,
-        13.4357718685885,
-        1.366059068627403,
-    )  # error of 4.24E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (4.53E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.004237534896887361}
-    genlog_norm_parameter = (
-        1.1361653376687364,
-        -3.222488739271155,
-        0.3316020448352798,
-        0.00359737796009675,
-    )  # error of 5.54E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (9.45E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.005543065609843302}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 61.0], [0.09452214188344103, 1.0]],
-        "sample_bounds99": [[0.0, 5.0], [0.4678955094522694, 0.9974093412036721]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class NumAromaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
     featurize = staticmethod(CalcNumAromaticCarbocycles)
     # normalization
     linear_norm_parameter = (
@@ -15165,47 +3325,6 @@ class NumAromaticCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     autogen_normdata = {
         "sample_bounds": [[0.0, 61.0], [0.09452214188344103, 1.0]],
         "sample_bounds99": [[0.0, 5.0], [0.4678955094522694, 0.9974093412036721]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(NumAromaticHeterocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.06608705216326816,
-        0.7231759141671211,
-    )  # error of 6.12E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (7.23E-01,1.71E+00)
-    linear_norm_parameter_normdata = {"error": 0.061166618492081375}
-    min_max_norm_parameter = (
-        2.425436375356735e-09,
-        1.4183360150961999,
-    )  # error of 2.28E-02 with sample range (0.00E+00,1.50E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.022818659362760136}
-    sigmoidal_norm_parameter = (
-        0.4595690682034204,
-        1.6119949186776596,
-    )  # error of 6.29E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.23E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0006289089312844855}
-    dual_sigmoidal_norm_parameter = (
-        0.4595442280127375,
-        36.76321468072523,
-        1.6119316552199183,
-    )  # error of 4.35E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (4.60E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0004352269580539154}
-    genlog_norm_parameter = (
-        1.671881279088869,
-        0.4712983057709566,
-        1.5877180316534256,
-        1.4432222740017289,
-    )  # error of 5.24E-04 with sample range (0.00E+00,1.50E+01) resulting in fit range (3.53E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0005236082183723774}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 15.0], [0.3531672130703787, 0.9999999999689322]],
-        "sample_bounds99": [[0.0, 2.0], [0.7050476896281848, 0.984261728267582]],
     }
     preferred_normalization = "dual_sig"
     # functions
@@ -15255,47 +3374,6 @@ class NumAromaticHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
 class NumAromaticRings_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(NumAromaticRings)
-    # normalization
-    linear_norm_parameter = (
-        0.034866795939075525,
-        0.6345283877004492,
-    )  # error of 1.43E-01 with sample range (0.00E+00,6.10E+01) resulting in fit range (6.35E-01,2.76E+00)
-    linear_norm_parameter_normdata = {"error": 0.14320732353899343}
-    min_max_norm_parameter = (
-        4.733165431326071e-30,
-        3.555582078939516,
-    )  # error of 1.41E-02 with sample range (0.00E+00,6.10E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.014104553778604489}
-    sigmoidal_norm_parameter = (
-        1.7284808042419078,
-        1.2169190611775202,
-    )  # error of 6.86E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (1.09E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.006864483402826702}
-    dual_sigmoidal_norm_parameter = (
-        1.686248103154103,
-        1.3303663811394981,
-        1.1588291961663748,
-    )  # error of 6.13E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (9.59E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.006131762284204077}
-    genlog_norm_parameter = (
-        1.0818715704403212,
-        0.8316808527919441,
-        1.181216074235139,
-        0.5468718534498849,
-    )  # error of 5.78E-03 with sample range (0.00E+00,6.10E+01) resulting in fit range (8.28E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0057771476764493825}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 61.0], [0.08284028655371821, 1.0]],
-        "sample_bounds99": [[0.0, 7.0], [0.28555811062787634, 0.999075105694155]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class NumAromaticRings_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
     featurize = staticmethod(CalcNumAromaticRings)
     # normalization
     linear_norm_parameter = (
@@ -15332,6 +3410,92 @@ class NumAromaticRings_Featurizer(SingleValueMoleculeFeaturizer):
     }
     preferred_normalization = "genlog"
     # functions
+
+
+class NumAtoms_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.int32
+    # normalization
+    linear_norm_parameter = (
+        0.0028101191309833906,
+        0.4586559034152283,
+    )  # error of 2.08E-01 with sample range (2.00E+00,9.38E+02) resulting in fit range (4.64E-01,3.09E+00)
+    linear_norm_parameter_normdata = {"error": 0.2082344752244387}
+    min_max_norm_parameter = (
+        22.699274586285846,
+        70.39472667366697,
+    )  # error of 2.45E-02 with sample range (2.00E+00,9.38E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.02453646041713264}
+    sigmoidal_norm_parameter = (
+        46.31674761573806,
+        0.10711279271638556,
+    )  # error of 1.75E-02 with sample range (2.00E+00,9.38E+02) resulting in fit range (8.60E-03,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.017498605638079444}
+    dual_sigmoidal_norm_parameter = (
+        43.70797609285935,
+        0.1511085487560505,
+        0.07900109330436363,
+    )  # error of 9.28E-03 with sample range (2.00E+00,9.38E+02) resulting in fit range (1.83E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.009282817416233123}
+    genlog_norm_parameter = (
+        0.07326085064819542,
+        -44.92533678413176,
+        0.022954022788335537,
+        4.515441426070382e-05,
+    )  # error of 8.12E-03 with sample range (2.00E+00,9.38E+02) resulting in fit range (8.09E-08,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.008116740032060915}
+    autogen_normdata = {
+        "sample_bounds": [[2.0, 938.0], [8.090719806700145e-08, 1.0]],
+        "sample_bounds99": [[2.0, 130.0], [0.006354682073333458, 0.9995720080545568]],
+    }
+    preferred_normalization = "genlog"
+
+    # functions
+    def featurize(self, mol):
+        return mol.GetNumAtoms()
+
+
+class NumBonds_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.int32
+    # normalization
+    linear_norm_parameter = (
+        0.002743260112020973,
+        0.45085043244012823,
+    )  # error of 2.10E-01 with sample range (0.00E+00,9.97E+02) resulting in fit range (4.51E-01,3.19E+00)
+    linear_norm_parameter_normdata = {"error": 0.20980875134901514}
+    min_max_norm_parameter = (
+        22.92431994469887,
+        73.53427413100934,
+    )  # error of 2.46E-02 with sample range (0.00E+00,9.97E+02) resulting in fit range (0.00E+00,1.00E+00)
+    min_max_norm_parameter_normdata = {"error": 0.024586358347791767}
+    sigmoidal_norm_parameter = (
+        48.01236350848081,
+        0.10071768927745786,
+    )  # error of 1.76E-02 with sample range (0.00E+00,9.97E+02) resulting in fit range (7.88E-03,1.00E+00)
+    sigmoidal_norm_parameter_normdata = {"error": 0.0175895779424767}
+    dual_sigmoidal_norm_parameter = (
+        45.26546665522718,
+        0.1416051615875594,
+        0.07451723131457108,
+    )  # error of 9.14E-03 with sample range (0.00E+00,9.97E+02) resulting in fit range (1.64E-03,1.00E+00)
+    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0091429014271612}
+    genlog_norm_parameter = (
+        0.06893983960267623,
+        -54.16701644496038,
+        0.03480866141021429,
+        4.781043915143292e-05,
+    )  # error of 7.91E-03 with sample range (0.00E+00,9.97E+02) resulting in fit range (2.81E-08,1.00E+00)
+    genlog_norm_parameter_normdata = {"error": 0.007911960577461026}
+    autogen_normdata = {
+        "sample_bounds": [[0.0, 997.0], [2.8126839300004762e-08, 1.0]],
+        "sample_bounds99": [[0.0, 133.0], [0.006550172458051944, 0.999476024561193]],
+    }
+    preferred_normalization = "genlog"
+
+    # functions
+    def featurize(self, mol):
+        return mol.GetNumBonds()
 
 
 class NumBridgeheadAtoms_Featurizer(SingleValueMoleculeFeaturizer):
@@ -15539,51 +3703,20 @@ class NumHDonors_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
+class NumHeavyAtoms_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.int32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return mol.GetNumHeavyAtoms()
+
+
 class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
     featurize = staticmethod(CalcNumHeteroatoms)
-    # normalization
-    linear_norm_parameter = (
-        0.016077495185775725,
-        0.5033528543882042,
-    )  # error of 2.02E-01 with sample range (0.00E+00,2.15E+02) resulting in fit range (5.03E-01,3.96E+00)
-    linear_norm_parameter_normdata = {"error": 0.2024606514251501}
-    min_max_norm_parameter = (
-        1.9439247544979925,
-        10.63914346171618,
-    )  # error of 1.53E-02 with sample range (0.00E+00,2.15E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.015335579239956843}
-    sigmoidal_norm_parameter = (
-        6.309633287283373,
-        0.5961308359128846,
-    )  # error of 8.73E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (2.27E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.008729951760481431}
-    dual_sigmoidal_norm_parameter = (
-        6.055674915647298,
-        0.7152110168610164,
-        0.5023619314244931,
-    )  # error of 5.00E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (1.30E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.004996061706823595}
-    genlog_norm_parameter = (
-        0.45068032906750594,
-        3.1700201560253234,
-        0.6797360113219059,
-        0.23628960935552892,
-    )  # error of 3.24E-03 with sample range (0.00E+00,2.15E+02) resulting in fit range (3.38E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0032379205009833148}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 215.0], [0.003378088839170628, 1.0]],
-        "sample_bounds99": [[0.0, 18.0], [0.012667187524391483, 0.9977096060465817]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class NumHeteroatoms_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(NumHeteroatoms)
     # normalization
     linear_norm_parameter = (
         0.016077495185775725,
@@ -15826,47 +3959,6 @@ class NumRings_Featurizer(SingleValueMoleculeFeaturizer):
 class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
-    featurize = staticmethod(CalcNumRotatableBonds)
-    # normalization
-    linear_norm_parameter = (
-        0.0016857886272905187,
-        0.8125456140318361,
-    )  # error of 1.82E-01 with sample range (0.00E+00,2.48E+02) resulting in fit range (8.13E-01,1.23E+00)
-    linear_norm_parameter_normdata = {"error": 0.1817541602892939}
-    min_max_norm_parameter = (
-        1.6292528997825728,
-        13.174098358632333,
-    )  # error of 1.89E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.018912500281580716}
-    sigmoidal_norm_parameter = (
-        7.304462270693269,
-        0.4542440447080067,
-    )  # error of 1.34E-02 with sample range (0.00E+00,2.48E+02) resulting in fit range (3.50E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.013383312721439285}
-    dual_sigmoidal_norm_parameter = (
-        6.70900145999476,
-        0.6333818528506181,
-        0.3400706824599175,
-    )  # error of 8.05E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (1.41E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.008053243446220083}
-    genlog_norm_parameter = (
-        0.31189865208337914,
-        -9.114334199023174,
-        0.006438735255284094,
-        6.04991692778764e-05,
-    )  # error of 6.90E-03 with sample range (0.00E+00,2.48E+02) resulting in fit range (2.03E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.006897938936309171}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 248.0], [0.0020297781209821183, 1.0]],
-        "sample_bounds99": [[0.0, 34.0], [0.010685707622442048, 0.9998874147561215]],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class NumRotatableBonds_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
     featurize = staticmethod(NumRotatableBonds)
     # normalization
     linear_norm_parameter = (
@@ -15946,88 +4038,6 @@ class NumSaturatedCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class NumSaturatedCarbocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(CalcNumSaturatedCarbocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.020972112507738894,
-        0.9098571128596467,
-    )  # error of 1.95E-02 with sample range (0.00E+00,1.80E+01) resulting in fit range (9.10E-01,1.29E+00)
-    linear_norm_parameter_normdata = {"error": 0.019497660894072805}
-    min_max_norm_parameter = (
-        8.1643240157463e-09,
-        1.1069248512275087,
-    )  # error of 6.94E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.006944331170706256}
-    sigmoidal_norm_parameter = (
-        -0.6176260310959208,
-        1.385111849563034,
-    )  # error of 2.60E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (7.02E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0025959251447008032}
-    dual_sigmoidal_norm_parameter = (
-        -0.6176260310959208,
-        1.0,
-        1.385111849563034,
-    )  # error of 2.60E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (7.02E-01,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0025959251447008032}
-    genlog_norm_parameter = (
-        1.34934732668474,
-        -4.239877299828134,
-        0.3156576472934097,
-        0.0026523319732207028,
-    )  # error of 2.51E-03 with sample range (0.00E+00,1.80E+01) resulting in fit range (6.77E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.002510577728125684}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 18.0], [0.6772565652979902, 0.9999999999889493]],
-        "sample_bounds99": [[0.0, 2.0], [0.9038138014803501, 0.9932167596465881]],
-    }
-    preferred_normalization = "min_max"
-    # functions
-
-
-class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(CalcNumSaturatedHeterocycles)
-    # normalization
-    linear_norm_parameter = (
-        0.06338179563839252,
-        0.7789048985591301,
-    )  # error of 4.13E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.79E-01,2.68E+00)
-    linear_norm_parameter_normdata = {"error": 0.041274621876909896}
-    min_max_norm_parameter = (
-        5.3308083108781935e-09,
-        1.2539605902115512,
-    )  # error of 8.89E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.00888924278300703}
-    sigmoidal_norm_parameter = (
-        0.24911412739948294,
-        1.825541426846478,
-    )  # error of 5.15E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.88E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.0005148763310441382}
-    dual_sigmoidal_norm_parameter = (
-        0.24895656142426995,
-        70.18656709264866,
-        1.8251784944463916,
-    )  # error of 3.32E-04 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.58E-08,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.00033202723822699947}
-    genlog_norm_parameter = (
-        3.040454535261453,
-        -1.8346527987667436,
-        0.2657189128955128,
-        0.00020823617864693198,
-    )  # error of 6.76E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (8.06E-03,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.006758222733162049}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 30.0], [0.00806417751586015, 1.0]],
-        "sample_bounds99": [[0.0, 1.0], [0.7940689077655179, 0.9890353059522397]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
 class NumSaturatedHeterocycles_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
@@ -16073,47 +4083,6 @@ class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.int32
     featurize = staticmethod(NumSaturatedRings)
-    # normalization
-    linear_norm_parameter = (
-        0.037486269092924296,
-        0.7906195585254473,
-    )  # error of 6.21E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (7.91E-01,1.92E+00)
-    linear_norm_parameter_normdata = {"error": 0.06209440565791554}
-    min_max_norm_parameter = (
-        5.730855425109739e-09,
-        1.404946368678208,
-    )  # error of 1.95E-02 with sample range (0.00E+00,3.00E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.019504724572593377}
-    sigmoidal_norm_parameter = (
-        0.36617461217911906,
-        1.4317359459562997,
-    )  # error of 2.83E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (3.72E-01,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.002826421160208341}
-    dual_sigmoidal_norm_parameter = (
-        0.36616672566972636,
-        42.588115306732064,
-        1.4317211909754344,
-    )  # error of 1.65E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (1.69E-07,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.0016458490370013074}
-    genlog_norm_parameter = (
-        1.3158763699929032,
-        -4.224399447110491,
-        0.23204276022801856,
-        0.0007067117749192951,
-    )  # error of 2.06E-03 with sample range (0.00E+00,3.00E+01) resulting in fit range (2.82E-01,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.0020622735171694833}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 30.0], [0.2823294185339797, 1.0]],
-        "sample_bounds99": [[0.0, 3.0], [0.7122346710518005, 0.9934710852353208]],
-    }
-    preferred_normalization = "dual_sig"
-    # functions
-
-
-class NumSaturatedRings_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.int32
-    featurize = staticmethod(CalcNumSaturatedRings)
     # normalization
     linear_norm_parameter = (
         0.037486269092924296,
@@ -16231,6 +4200,1186 @@ class NumValenceElectrons_Featurizer(SingleValueMoleculeFeaturizer):
     }
     preferred_normalization = "genlog"
     # functions
+
+
+class NumberAtomsAc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(89)))
+
+
+class NumberAtomsAg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(47)))
+
+
+class NumberAtomsAl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(13)))
+
+
+class NumberAtomsAm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(95)))
+
+
+class NumberAtomsAr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(18)))
+
+
+class NumberAtomsAs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(33)))
+
+
+class NumberAtomsAt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(85)))
+
+
+class NumberAtomsAu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(79)))
+
+
+class NumberAtomsB_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(5)))
+
+
+class NumberAtomsBa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(56)))
+
+
+class NumberAtomsBe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(4)))
+
+
+class NumberAtomsBh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(107)))
+
+
+class NumberAtomsBi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(83)))
+
+
+class NumberAtomsBk_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(97)))
+
+
+class NumberAtomsBr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(35)))
+
+
+class NumberAtomsC_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(6)))
+
+
+class NumberAtomsCa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(20)))
+
+
+class NumberAtomsCd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(48)))
+
+
+class NumberAtomsCe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(58)))
+
+
+class NumberAtomsCf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(98)))
+
+
+class NumberAtomsCl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(17)))
+
+
+class NumberAtomsCm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(96)))
+
+
+class NumberAtomsCn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(112)))
+
+
+class NumberAtomsCo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(27)))
+
+
+class NumberAtomsCr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(24)))
+
+
+class NumberAtomsCs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(55)))
+
+
+class NumberAtomsCu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(29)))
+
+
+class NumberAtomsDb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(105)))
+
+
+class NumberAtomsDs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(110)))
+
+
+class NumberAtomsDy_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(66)))
+
+
+class NumberAtomsEr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(68)))
+
+
+class NumberAtomsEs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(99)))
+
+
+class NumberAtomsEu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(63)))
+
+
+class NumberAtomsF_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(9)))
+
+
+class NumberAtomsFe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(26)))
+
+
+class NumberAtomsFl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(114)))
+
+
+class NumberAtomsFm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(100)))
+
+
+class NumberAtomsFr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(87)))
+
+
+class NumberAtomsGa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(31)))
+
+
+class NumberAtomsGd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(64)))
+
+
+class NumberAtomsGe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(32)))
+
+
+class NumberAtomsH_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(1)))
+
+
+class NumberAtomsHe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(2)))
+
+
+class NumberAtomsHf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(72)))
+
+
+class NumberAtomsHg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(80)))
+
+
+class NumberAtomsHo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(67)))
+
+
+class NumberAtomsHs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(108)))
+
+
+class NumberAtomsI_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(53)))
+
+
+class NumberAtomsIn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(49)))
+
+
+class NumberAtomsIr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(77)))
+
+
+class NumberAtomsK_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(19)))
+
+
+class NumberAtomsKr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(36)))
+
+
+class NumberAtomsLa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(57)))
+
+
+class NumberAtomsLi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(3)))
+
+
+class NumberAtomsLr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(103)))
+
+
+class NumberAtomsLu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(71)))
+
+
+class NumberAtomsLv_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(116)))
+
+
+class NumberAtomsMc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(115)))
+
+
+class NumberAtomsMd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(101)))
+
+
+class NumberAtomsMg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(12)))
+
+
+class NumberAtomsMn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(25)))
+
+
+class NumberAtomsMo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(42)))
+
+
+class NumberAtomsMt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(109)))
+
+
+class NumberAtomsN_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(7)))
+
+
+class NumberAtomsNa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(11)))
+
+
+class NumberAtomsNb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(41)))
+
+
+class NumberAtomsNd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(60)))
+
+
+class NumberAtomsNe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(10)))
+
+
+class NumberAtomsNh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(113)))
+
+
+class NumberAtomsNi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(28)))
+
+
+class NumberAtomsNo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(102)))
+
+
+class NumberAtomsNp_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(93)))
+
+
+class NumberAtomsO_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(8)))
+
+
+class NumberAtomsOg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(118)))
+
+
+class NumberAtomsOs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(76)))
+
+
+class NumberAtomsP_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(15)))
+
+
+class NumberAtomsPa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(91)))
+
+
+class NumberAtomsPb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(82)))
+
+
+class NumberAtomsPd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(46)))
+
+
+class NumberAtomsPm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(61)))
+
+
+class NumberAtomsPo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(84)))
+
+
+class NumberAtomsPr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(59)))
+
+
+class NumberAtomsPt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(78)))
+
+
+class NumberAtomsPu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(94)))
+
+
+class NumberAtomsRa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(88)))
+
+
+class NumberAtomsRb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(37)))
+
+
+class NumberAtomsRe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(75)))
+
+
+class NumberAtomsRf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(104)))
+
+
+class NumberAtomsRg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(111)))
+
+
+class NumberAtomsRh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(45)))
+
+
+class NumberAtomsRn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(86)))
+
+
+class NumberAtomsRu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(44)))
+
+
+class NumberAtomsS_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(16)))
+
+
+class NumberAtomsSb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(51)))
+
+
+class NumberAtomsSc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(21)))
+
+
+class NumberAtomsSe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(34)))
+
+
+class NumberAtomsSg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(106)))
+
+
+class NumberAtomsSi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(14)))
+
+
+class NumberAtomsSm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(62)))
+
+
+class NumberAtomsSn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(50)))
+
+
+class NumberAtomsSr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(38)))
+
+
+class NumberAtomsTa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(73)))
+
+
+class NumberAtomsTb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(65)))
+
+
+class NumberAtomsTc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(43)))
+
+
+class NumberAtomsTe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(52)))
+
+
+class NumberAtomsTh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(90)))
+
+
+class NumberAtomsTi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(22)))
+
+
+class NumberAtomsTl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(81)))
+
+
+class NumberAtomsTm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(69)))
+
+
+class NumberAtomsTs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(117)))
+
+
+class NumberAtomsU_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(92)))
+
+
+class NumberAtomsV_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(23)))
+
+
+class NumberAtomsW_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(74)))
+
+
+class NumberAtomsXe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(54)))
+
+
+class NumberAtomsY_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(39)))
+
+
+class NumberAtomsYb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(70)))
+
+
+class NumberAtomsZn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(30)))
+
+
+class NumberAtomsZr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.uint32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(40)))
 
 
 class PBF_Featurizer(SingleValueMoleculeFeaturizer):
@@ -16899,50 +6048,6 @@ class PEOE_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
 class PMI1_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcPMI1)
-    # normalization
-    linear_norm_parameter = (
-        6.013420622833213e-05,
-        0.37438762357376315,
-    )  # error of 2.26E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (3.74E-01,3.55E+01)
-    linear_norm_parameter_normdata = {"error": 0.2264379152766898}
-    min_max_norm_parameter = (
-        5.253076648348887e-17,
-        2920.8284746927293,
-    )  # error of 6.82E-02 with sample range (0.00E+00,5.85E+05) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.0682415071915629}
-    sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-    )  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.576586544882377}
-    dual_sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-        1.0,
-    )  # error of 5.77E-01 with sample range (0.00E+00,5.85E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.576586544882377}
-    genlog_norm_parameter = (
-        0.0010903005704858534,
-        -1491.8542049268044,
-        0.00016755497187333072,
-        1.07461994166649e-05,
-    )  # error of 4.23E-02 with sample range (0.00E+00,5.85E+05) resulting in fit range (4.66E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.04234266537421787}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 584913.1875], [0.0466358544778456, 1.0]],
-        "sample_bounds99": [
-            [0.0, 10495.0009765625],
-            [0.08072263670225632, 0.9999998854464567],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class PMI1_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
     featurize = staticmethod(PMI1)
     # normalization
     linear_norm_parameter = (
@@ -17028,98 +6133,10 @@ class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class PMI2_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(PMI2)
-    # normalization
-    linear_norm_parameter = (
-        3.364102817740711e-05,
-        0.2861109449057394,
-    )  # error of 1.90E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.86E-01,2.45E+01)
-    linear_norm_parameter_normdata = {"error": 0.19023694320611}
-    min_max_norm_parameter = (
-        44.665447243295176,
-        10171.614030140174,
-    )  # error of 5.66E-02 with sample range (0.00E+00,7.21E+05) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.056605366971435034}
-    sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-    )  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5766077877462175}
-    dual_sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-        1.0,
-    )  # error of 5.77E-01 with sample range (0.00E+00,7.21E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5766077877462175}
-    genlog_norm_parameter = (
-        0.0003278945802835982,
-        -2022.7431105250037,
-        4.99666114488119e-05,
-        7.74007368127996e-06,
-    )  # error of 3.02E-02 with sample range (0.00E+00,7.21E+05) resulting in fit range (3.59E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.030199367847976676}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 721074.0625], [0.03594683846941451, 1.0]],
-        "sample_bounds99": [
-            [0.0, 25639.033203125],
-            [0.060501976927303865, 0.9999664067115498],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
 class PMI3_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(PMI3)
-    # normalization
-    linear_norm_parameter = (
-        2.8952313203676817e-05,
-        0.2866572166015228,
-    )  # error of 1.92E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.87E-01,2.52E+01)
-    linear_norm_parameter_normdata = {"error": 0.19225831135617755}
-    min_max_norm_parameter = (
-        147.52756421954018,
-        11758.510463576746,
-    )  # error of 5.52E-02 with sample range (0.00E+00,8.59E+05) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.05524107671183394}
-    sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-    )  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.5766238637518415}
-    dual_sigmoidal_norm_parameter = (
-        2.8655544226961647,
-        2.8655544226961647,
-        1.0,
-    )  # error of 5.77E-01 with sample range (0.00E+00,8.59E+05) resulting in fit range (2.71E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.5766238637518415}
-    genlog_norm_parameter = (
-        0.0002859890919949101,
-        -7568.186233062281,
-        0.0002326237441419841,
-        7.8102180557447e-06,
-    )  # error of 2.91E-02 with sample range (0.00E+00,8.59E+05) resulting in fit range (3.27E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.02913446208915581}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 859342.6875], [0.03272174193613442, 1.0]],
-        "sample_bounds99": [
-            [0.0, 29880.111328125],
-            [0.058977674007790616, 0.9999681760061229],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class PMI3_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcPMI3)
     # normalization
     linear_norm_parameter = (
         2.8952313203676817e-05,
@@ -17251,51 +6268,1538 @@ class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
     # functions
 
 
-class RadiusOfGyration_Featurizer(SingleValueMoleculeFeaturizer):
+class RelativeContentAc_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcRadiusOfGyration)
+
     # normalization
-    linear_norm_parameter = (
-        0.274743032958996,
-        -0.6363152066427643,
-    )  # error of 8.52E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (-6.36E-01,2.85E+00)
-    linear_norm_parameter_normdata = {"error": 0.08516029139429206}
-    min_max_norm_parameter = (
-        2.68976145372615,
-        5.459084333173108,
-    )  # error of 2.97E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.02966791333550533}
-    sigmoidal_norm_parameter = (
-        4.059081941807601,
-        1.764235395780906,
-    )  # error of 1.73E-02 with sample range (0.00E+00,1.27E+01) resulting in fit range (7.76E-04,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.01734440432664209}
-    dual_sigmoidal_norm_parameter = (
-        3.992230990546881,
-        2.0750846967324876,
-        1.5067797752888388,
-    )  # error of 7.09E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (2.52E-04,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.007092821402940244}
-    genlog_norm_parameter = (
-        1.347041034484673,
-        2.109976974858853,
-        2.3535858732123165,
-        0.237797029415594,
-    )  # error of 2.95E-03 with sample range (0.00E+00,1.27E+01) resulting in fit range (1.59E-07,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.002949381497062385}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 12.672340393066406],
-            [1.589518087213331e-07, 0.9999934474950445],
-        ],
-        "sample_bounds99": [
-            [0.0, 6.605759620666504],
-            [0.006238970231155407, 0.9887240756960017],
-        ],
-    }
-    preferred_normalization = "genlog"
     # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(89)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(47)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(13)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(95)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(18)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(33)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(85)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentAu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(79)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentB_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(5)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(56)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(4)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(107)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(83)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBk_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(97)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentBr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(35)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentC_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(6)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(20)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(48)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(58)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(98)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(17)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(96)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(112)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(27)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(24)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(55)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentCu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(29)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentDb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(105)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentDs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(110)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentDy_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(66)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentEr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(68)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentEs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(99)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentEu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(63)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentF_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(9)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentFe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(26)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentFl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(114)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentFm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(100)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentFr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(87)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentGa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(31)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentGd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(64)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentGe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(32)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentH_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(1)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentHe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(2)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentHf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(72)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentHg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(80)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentHo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(67)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentHs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(108)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentI_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(53)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentIn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(49)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentIr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(77)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentK_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(19)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentKr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(36)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentLa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(57)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentLi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(3)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentLr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(103)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentLu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(71)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentLv_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(116)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(115)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(101)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(12)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(25)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(42)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentMt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(109)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentN_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(7)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(11)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(41)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(60)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(10)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(113)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(28)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(102)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentNp_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(93)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentO_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(8)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentOg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(118)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentOs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(76)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentP_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(15)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(91)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(82)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPd_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(46)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(61)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPo_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(84)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(59)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPt_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(78)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentPu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(94)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(88)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(37)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(75)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRf_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(104)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(111)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(45)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(86)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentRu_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(44)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentS_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(16)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(51)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(21)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(34)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSg_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(106)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(14)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(62)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(50)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentSr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(38)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTa_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(73)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(65)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTc_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(43)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(52)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTh_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(90)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTi_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(22)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTl_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(81)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTm_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(69)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentTs_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(117)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentU_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(92)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentV_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(23)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentW_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(74)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentXe_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(54)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentY_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(39)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentYb_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(70)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentZn_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(30)))
+                / mol.GetNumAtoms()
+        )
+
+
+class RelativeContentZr_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.float32
+
+    # normalization
+    # functions
+    def featurize(self, mol):
+        return (
+                len(mol.GetAtomsMatchingQuery(rdqueries.AtomNumEqualsQueryAtom(40)))
+                / mol.GetNumAtoms()
+        )
 
 
 class RingCount_Featurizer(SingleValueMoleculeFeaturizer):
@@ -17765,6 +8269,14 @@ class SMR_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
         ],
     }
     preferred_normalization = "dual_sig"
+    # functions
+
+
+class SSSR_Featurizer(SingleValueMoleculeFeaturizer):
+    # statics
+    dtype = np.int32
+    featurize = staticmethod(GetSSSR)
+    # normalization
     # functions
 
 
@@ -18284,53 +8796,6 @@ class SlogP_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
 class SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
-    featurize = staticmethod(CalcSpherocityIndex)
-    # normalization
-    linear_norm_parameter = (
-        2.014040859270808,
-        -0.004922239185380645,
-    )  # error of 8.41E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (-4.92E-03,1.89E+00)
-    linear_norm_parameter_normdata = {"error": 0.08411362308789125}
-    min_max_norm_parameter = (
-        0.04763405868523997,
-        0.42911985390392243,
-    )  # error of 3.56E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.035620890912944805}
-    sigmoidal_norm_parameter = (
-        0.2351671867619151,
-        12.82810781848393,
-    )  # error of 2.66E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (4.67E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.026608119787476327}
-    dual_sigmoidal_norm_parameter = (
-        0.22125633366340652,
-        16.421918195920984,
-        10.082160667790887,
-    )  # error of 1.03E-02 with sample range (0.00E+00,9.39E-01) resulting in fit range (2.57E-02,9.99E-01)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.010281833492414159}
-    genlog_norm_parameter = (
-        8.900273970395503,
-        -0.9610538652694148,
-        1.12231002232635,
-        4.096671219695612e-05,
-    )  # error of 2.88E-03 with sample range (0.00E+00,9.39E-01) resulting in fit range (5.08E-03,9.99E-01)
-    genlog_norm_parameter_normdata = {"error": 0.0028831891267616333}
-    autogen_normdata = {
-        "sample_bounds": [
-            [0.0, 0.9388075470924377],
-            [0.005079999415383075, 0.9987589136149658],
-        ],
-        "sample_bounds99": [
-            [0.0, 0.6009262800216675],
-            [0.012549610123851232, 0.9847516342450336],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class SpherocityIndex_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
     featurize = staticmethod(SpherocityIndex)
     # normalization
     linear_norm_parameter = (
@@ -18379,50 +8844,6 @@ class TPSA_Featurizer(SingleValueMoleculeFeaturizer):
     # statics
     dtype = np.float32
     featurize = staticmethod(TPSA)
-    # normalization
-    linear_norm_parameter = (
-        0.0021678074691265925,
-        0.4909310697599548,
-    )  # error of 1.90E-01 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.91E-01,6.20E+00)
-    linear_norm_parameter_normdata = {"error": 0.18977395418071857}
-    min_max_norm_parameter = (
-        14.599527973028703,
-        118.60656324496115,
-    )  # error of 3.84E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (0.00E+00,1.00E+00)
-    min_max_norm_parameter_normdata = {"error": 0.03835472675388331}
-    sigmoidal_norm_parameter = (
-        66.26559293182696,
-        0.047786843726724,
-    )  # error of 1.40E-02 with sample range (0.00E+00,2.63E+03) resulting in fit range (4.04E-02,1.00E+00)
-    sigmoidal_norm_parameter_normdata = {"error": 0.01400868518265227}
-    dual_sigmoidal_norm_parameter = (
-        64.41269425069702,
-        0.05696911342563409,
-        0.04375673621418519,
-    )  # error of 9.63E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (2.49E-02,1.00E+00)
-    dual_sigmoidal_norm_parameter_normdata = {"error": 0.009625801372653755}
-    genlog_norm_parameter = (
-        0.03939646267682107,
-        -5.601968508575941,
-        3.883656715190027,
-        0.3094072416673409,
-    )  # error of 7.60E-03 with sample range (0.00E+00,2.63E+03) resulting in fit range (1.03E-02,1.00E+00)
-    genlog_norm_parameter_normdata = {"error": 0.007597944115971997}
-    autogen_normdata = {
-        "sample_bounds": [[0.0, 2632.610107421875], [0.010340085309999867, 1.0]],
-        "sample_bounds99": [
-            [0.0, 235.77999877929688],
-            [0.02004096728289619, 0.9991108244619733],
-        ],
-    }
-    preferred_normalization = "genlog"
-    # functions
-
-
-class TPSA_Featurizer(SingleValueMoleculeFeaturizer):
-    # statics
-    dtype = np.float32
-    featurize = staticmethod(CalcTPSA)
     # normalization
     linear_norm_parameter = (
         0.0021678074691265925,
@@ -22415,7 +12836,6 @@ class qed_Featurizer(SingleValueMoleculeFeaturizer):
 
 
 molecule_Asphericity = Asphericity_Featurizer()
-molecule_Asphericity = Asphericity_Featurizer()
 molecule_BCUT2D_CHGHI = BCUT2D_CHGHI_Featurizer()
 molecule_BCUT2D_CHGLO = BCUT2D_CHGLO_Featurizer()
 molecule_BCUT2D_LOGPHI = BCUT2D_LOGPHI_Featurizer()
@@ -22425,42 +12845,18 @@ molecule_BCUT2D_MRLOW = BCUT2D_MRLOW_Featurizer()
 molecule_BCUT2D_MWHI = BCUT2D_MWHI_Featurizer()
 molecule_BCUT2D_MWLOW = BCUT2D_MWLOW_Featurizer()
 molecule_BalabanJ = BalabanJ_Featurizer()
-molecule_BalabanJ = BalabanJ_Featurizer()
-molecule_BertzCT = BertzCT_Featurizer()
 molecule_BertzCT = BertzCT_Featurizer()
 molecule_Chi0 = Chi0_Featurizer()
-molecule_Chi0 = Chi0_Featurizer()
 molecule_Chi0n = Chi0n_Featurizer()
-molecule_Chi0n = Chi0n_Featurizer()
-molecule_Chi0n = Chi0n_Featurizer()
-molecule_Chi0v = Chi0v_Featurizer()
-molecule_Chi0v = Chi0v_Featurizer()
 molecule_Chi0v = Chi0v_Featurizer()
 molecule_Chi1 = Chi1_Featurizer()
-molecule_Chi1 = Chi1_Featurizer()
-molecule_Chi1n = Chi1n_Featurizer()
-molecule_Chi1n = Chi1n_Featurizer()
 molecule_Chi1n = Chi1n_Featurizer()
 molecule_Chi1v = Chi1v_Featurizer()
-molecule_Chi1v = Chi1v_Featurizer()
-molecule_Chi1v = Chi1v_Featurizer()
-molecule_Chi2n = Chi2n_Featurizer()
-molecule_Chi2n = Chi2n_Featurizer()
 molecule_Chi2n = Chi2n_Featurizer()
 molecule_Chi2v = Chi2v_Featurizer()
-molecule_Chi2v = Chi2v_Featurizer()
-molecule_Chi2v = Chi2v_Featurizer()
-molecule_Chi3n = Chi3n_Featurizer()
-molecule_Chi3n = Chi3n_Featurizer()
 molecule_Chi3n = Chi3n_Featurizer()
 molecule_Chi3v = Chi3v_Featurizer()
-molecule_Chi3v = Chi3v_Featurizer()
-molecule_Chi3v = Chi3v_Featurizer()
 molecule_Chi4n = Chi4n_Featurizer()
-molecule_Chi4n = Chi4n_Featurizer()
-molecule_Chi4n = Chi4n_Featurizer()
-molecule_Chi4v = Chi4v_Featurizer()
-molecule_Chi4v = Chi4v_Featurizer()
 molecule_Chi4v = Chi4v_Featurizer()
 molecule_EState_VSA1 = EState_VSA1_Featurizer()
 molecule_EState_VSA10 = EState_VSA10_Featurizer()
@@ -22474,274 +12870,20 @@ molecule_EState_VSA7 = EState_VSA7_Featurizer()
 molecule_EState_VSA8 = EState_VSA8_Featurizer()
 molecule_EState_VSA9 = EState_VSA9_Featurizer()
 molecule_Eccentricity = Eccentricity_Featurizer()
-molecule_Eccentricity = Eccentricity_Featurizer()
 molecule_ExactMolWt = ExactMolWt_Featurizer()
-molecule_ExactMolWt = ExactMolWt_Featurizer()
+molecule_FormalCharge = FormalCharge_Featurizer()
 molecule_FpDensityMorgan1 = FpDensityMorgan1_Featurizer()
 molecule_FpDensityMorgan2 = FpDensityMorgan2_Featurizer()
 molecule_FpDensityMorgan3 = FpDensityMorgan3_Featurizer()
 molecule_FractionCSP3 = FractionCSP3_Featurizer()
-molecule_FractionCSP3 = FractionCSP3_Featurizer()
-molecule_GetFormalCharge = GetFormalCharge_Featurizer()
-molecule_GetNumAtoms = GetNumAtoms_Featurizer()
-molecule_GetNumBonds = GetNumBonds_Featurizer()
-molecule_GetNumHeavyAtoms = GetNumHeavyAtoms_Featurizer()
-molecule_GetNumberAtomsAc = GetNumberAtomsAc_Featurizer()
-molecule_GetNumberAtomsAg = GetNumberAtomsAg_Featurizer()
-molecule_GetNumberAtomsAl = GetNumberAtomsAl_Featurizer()
-molecule_GetNumberAtomsAm = GetNumberAtomsAm_Featurizer()
-molecule_GetNumberAtomsAr = GetNumberAtomsAr_Featurizer()
-molecule_GetNumberAtomsAs = GetNumberAtomsAs_Featurizer()
-molecule_GetNumberAtomsAt = GetNumberAtomsAt_Featurizer()
-molecule_GetNumberAtomsAu = GetNumberAtomsAu_Featurizer()
-molecule_GetNumberAtomsB = GetNumberAtomsB_Featurizer()
-molecule_GetNumberAtomsBa = GetNumberAtomsBa_Featurizer()
-molecule_GetNumberAtomsBe = GetNumberAtomsBe_Featurizer()
-molecule_GetNumberAtomsBh = GetNumberAtomsBh_Featurizer()
-molecule_GetNumberAtomsBi = GetNumberAtomsBi_Featurizer()
-molecule_GetNumberAtomsBk = GetNumberAtomsBk_Featurizer()
-molecule_GetNumberAtomsBr = GetNumberAtomsBr_Featurizer()
-molecule_GetNumberAtomsC = GetNumberAtomsC_Featurizer()
-molecule_GetNumberAtomsCa = GetNumberAtomsCa_Featurizer()
-molecule_GetNumberAtomsCd = GetNumberAtomsCd_Featurizer()
-molecule_GetNumberAtomsCe = GetNumberAtomsCe_Featurizer()
-molecule_GetNumberAtomsCf = GetNumberAtomsCf_Featurizer()
-molecule_GetNumberAtomsCl = GetNumberAtomsCl_Featurizer()
-molecule_GetNumberAtomsCm = GetNumberAtomsCm_Featurizer()
-molecule_GetNumberAtomsCn = GetNumberAtomsCn_Featurizer()
-molecule_GetNumberAtomsCo = GetNumberAtomsCo_Featurizer()
-molecule_GetNumberAtomsCr = GetNumberAtomsCr_Featurizer()
-molecule_GetNumberAtomsCs = GetNumberAtomsCs_Featurizer()
-molecule_GetNumberAtomsCu = GetNumberAtomsCu_Featurizer()
-molecule_GetNumberAtomsDb = GetNumberAtomsDb_Featurizer()
-molecule_GetNumberAtomsDs = GetNumberAtomsDs_Featurizer()
-molecule_GetNumberAtomsDy = GetNumberAtomsDy_Featurizer()
-molecule_GetNumberAtomsEr = GetNumberAtomsEr_Featurizer()
-molecule_GetNumberAtomsEs = GetNumberAtomsEs_Featurizer()
-molecule_GetNumberAtomsEu = GetNumberAtomsEu_Featurizer()
-molecule_GetNumberAtomsF = GetNumberAtomsF_Featurizer()
-molecule_GetNumberAtomsFe = GetNumberAtomsFe_Featurizer()
-molecule_GetNumberAtomsFl = GetNumberAtomsFl_Featurizer()
-molecule_GetNumberAtomsFm = GetNumberAtomsFm_Featurizer()
-molecule_GetNumberAtomsFr = GetNumberAtomsFr_Featurizer()
-molecule_GetNumberAtomsGa = GetNumberAtomsGa_Featurizer()
-molecule_GetNumberAtomsGd = GetNumberAtomsGd_Featurizer()
-molecule_GetNumberAtomsGe = GetNumberAtomsGe_Featurizer()
-molecule_GetNumberAtomsH = GetNumberAtomsH_Featurizer()
-molecule_GetNumberAtomsHe = GetNumberAtomsHe_Featurizer()
-molecule_GetNumberAtomsHf = GetNumberAtomsHf_Featurizer()
-molecule_GetNumberAtomsHg = GetNumberAtomsHg_Featurizer()
-molecule_GetNumberAtomsHo = GetNumberAtomsHo_Featurizer()
-molecule_GetNumberAtomsHs = GetNumberAtomsHs_Featurizer()
-molecule_GetNumberAtomsI = GetNumberAtomsI_Featurizer()
-molecule_GetNumberAtomsIn = GetNumberAtomsIn_Featurizer()
-molecule_GetNumberAtomsIr = GetNumberAtomsIr_Featurizer()
-molecule_GetNumberAtomsK = GetNumberAtomsK_Featurizer()
-molecule_GetNumberAtomsKr = GetNumberAtomsKr_Featurizer()
-molecule_GetNumberAtomsLa = GetNumberAtomsLa_Featurizer()
-molecule_GetNumberAtomsLi = GetNumberAtomsLi_Featurizer()
-molecule_GetNumberAtomsLr = GetNumberAtomsLr_Featurizer()
-molecule_GetNumberAtomsLu = GetNumberAtomsLu_Featurizer()
-molecule_GetNumberAtomsLv = GetNumberAtomsLv_Featurizer()
-molecule_GetNumberAtomsMc = GetNumberAtomsMc_Featurizer()
-molecule_GetNumberAtomsMd = GetNumberAtomsMd_Featurizer()
-molecule_GetNumberAtomsMg = GetNumberAtomsMg_Featurizer()
-molecule_GetNumberAtomsMn = GetNumberAtomsMn_Featurizer()
-molecule_GetNumberAtomsMo = GetNumberAtomsMo_Featurizer()
-molecule_GetNumberAtomsMt = GetNumberAtomsMt_Featurizer()
-molecule_GetNumberAtomsN = GetNumberAtomsN_Featurizer()
-molecule_GetNumberAtomsNa = GetNumberAtomsNa_Featurizer()
-molecule_GetNumberAtomsNb = GetNumberAtomsNb_Featurizer()
-molecule_GetNumberAtomsNd = GetNumberAtomsNd_Featurizer()
-molecule_GetNumberAtomsNe = GetNumberAtomsNe_Featurizer()
-molecule_GetNumberAtomsNh = GetNumberAtomsNh_Featurizer()
-molecule_GetNumberAtomsNi = GetNumberAtomsNi_Featurizer()
-molecule_GetNumberAtomsNo = GetNumberAtomsNo_Featurizer()
-molecule_GetNumberAtomsNp = GetNumberAtomsNp_Featurizer()
-molecule_GetNumberAtomsO = GetNumberAtomsO_Featurizer()
-molecule_GetNumberAtomsOg = GetNumberAtomsOg_Featurizer()
-molecule_GetNumberAtomsOs = GetNumberAtomsOs_Featurizer()
-molecule_GetNumberAtomsP = GetNumberAtomsP_Featurizer()
-molecule_GetNumberAtomsPa = GetNumberAtomsPa_Featurizer()
-molecule_GetNumberAtomsPb = GetNumberAtomsPb_Featurizer()
-molecule_GetNumberAtomsPd = GetNumberAtomsPd_Featurizer()
-molecule_GetNumberAtomsPm = GetNumberAtomsPm_Featurizer()
-molecule_GetNumberAtomsPo = GetNumberAtomsPo_Featurizer()
-molecule_GetNumberAtomsPr = GetNumberAtomsPr_Featurizer()
-molecule_GetNumberAtomsPt = GetNumberAtomsPt_Featurizer()
-molecule_GetNumberAtomsPu = GetNumberAtomsPu_Featurizer()
-molecule_GetNumberAtomsRa = GetNumberAtomsRa_Featurizer()
-molecule_GetNumberAtomsRb = GetNumberAtomsRb_Featurizer()
-molecule_GetNumberAtomsRe = GetNumberAtomsRe_Featurizer()
-molecule_GetNumberAtomsRf = GetNumberAtomsRf_Featurizer()
-molecule_GetNumberAtomsRg = GetNumberAtomsRg_Featurizer()
-molecule_GetNumberAtomsRh = GetNumberAtomsRh_Featurizer()
-molecule_GetNumberAtomsRn = GetNumberAtomsRn_Featurizer()
-molecule_GetNumberAtomsRu = GetNumberAtomsRu_Featurizer()
-molecule_GetNumberAtomsS = GetNumberAtomsS_Featurizer()
-molecule_GetNumberAtomsSb = GetNumberAtomsSb_Featurizer()
-molecule_GetNumberAtomsSc = GetNumberAtomsSc_Featurizer()
-molecule_GetNumberAtomsSe = GetNumberAtomsSe_Featurizer()
-molecule_GetNumberAtomsSg = GetNumberAtomsSg_Featurizer()
-molecule_GetNumberAtomsSi = GetNumberAtomsSi_Featurizer()
-molecule_GetNumberAtomsSm = GetNumberAtomsSm_Featurizer()
-molecule_GetNumberAtomsSn = GetNumberAtomsSn_Featurizer()
-molecule_GetNumberAtomsSr = GetNumberAtomsSr_Featurizer()
-molecule_GetNumberAtomsTa = GetNumberAtomsTa_Featurizer()
-molecule_GetNumberAtomsTb = GetNumberAtomsTb_Featurizer()
-molecule_GetNumberAtomsTc = GetNumberAtomsTc_Featurizer()
-molecule_GetNumberAtomsTe = GetNumberAtomsTe_Featurizer()
-molecule_GetNumberAtomsTh = GetNumberAtomsTh_Featurizer()
-molecule_GetNumberAtomsTi = GetNumberAtomsTi_Featurizer()
-molecule_GetNumberAtomsTl = GetNumberAtomsTl_Featurizer()
-molecule_GetNumberAtomsTm = GetNumberAtomsTm_Featurizer()
-molecule_GetNumberAtomsTs = GetNumberAtomsTs_Featurizer()
-molecule_GetNumberAtomsU = GetNumberAtomsU_Featurizer()
-molecule_GetNumberAtomsV = GetNumberAtomsV_Featurizer()
-molecule_GetNumberAtomsW = GetNumberAtomsW_Featurizer()
-molecule_GetNumberAtomsXe = GetNumberAtomsXe_Featurizer()
-molecule_GetNumberAtomsY = GetNumberAtomsY_Featurizer()
-molecule_GetNumberAtomsYb = GetNumberAtomsYb_Featurizer()
-molecule_GetNumberAtomsZn = GetNumberAtomsZn_Featurizer()
-molecule_GetNumberAtomsZr = GetNumberAtomsZr_Featurizer()
-molecule_GetRelativeContentAc = GetRelativeContentAc_Featurizer()
-molecule_GetRelativeContentAg = GetRelativeContentAg_Featurizer()
-molecule_GetRelativeContentAl = GetRelativeContentAl_Featurizer()
-molecule_GetRelativeContentAm = GetRelativeContentAm_Featurizer()
-molecule_GetRelativeContentAr = GetRelativeContentAr_Featurizer()
-molecule_GetRelativeContentAs = GetRelativeContentAs_Featurizer()
-molecule_GetRelativeContentAt = GetRelativeContentAt_Featurizer()
-molecule_GetRelativeContentAu = GetRelativeContentAu_Featurizer()
-molecule_GetRelativeContentB = GetRelativeContentB_Featurizer()
-molecule_GetRelativeContentBa = GetRelativeContentBa_Featurizer()
-molecule_GetRelativeContentBe = GetRelativeContentBe_Featurizer()
-molecule_GetRelativeContentBh = GetRelativeContentBh_Featurizer()
-molecule_GetRelativeContentBi = GetRelativeContentBi_Featurizer()
-molecule_GetRelativeContentBk = GetRelativeContentBk_Featurizer()
-molecule_GetRelativeContentBr = GetRelativeContentBr_Featurizer()
-molecule_GetRelativeContentC = GetRelativeContentC_Featurizer()
-molecule_GetRelativeContentCa = GetRelativeContentCa_Featurizer()
-molecule_GetRelativeContentCd = GetRelativeContentCd_Featurizer()
-molecule_GetRelativeContentCe = GetRelativeContentCe_Featurizer()
-molecule_GetRelativeContentCf = GetRelativeContentCf_Featurizer()
-molecule_GetRelativeContentCl = GetRelativeContentCl_Featurizer()
-molecule_GetRelativeContentCm = GetRelativeContentCm_Featurizer()
-molecule_GetRelativeContentCn = GetRelativeContentCn_Featurizer()
-molecule_GetRelativeContentCo = GetRelativeContentCo_Featurizer()
-molecule_GetRelativeContentCr = GetRelativeContentCr_Featurizer()
-molecule_GetRelativeContentCs = GetRelativeContentCs_Featurizer()
-molecule_GetRelativeContentCu = GetRelativeContentCu_Featurizer()
-molecule_GetRelativeContentDb = GetRelativeContentDb_Featurizer()
-molecule_GetRelativeContentDs = GetRelativeContentDs_Featurizer()
-molecule_GetRelativeContentDy = GetRelativeContentDy_Featurizer()
-molecule_GetRelativeContentEr = GetRelativeContentEr_Featurizer()
-molecule_GetRelativeContentEs = GetRelativeContentEs_Featurizer()
-molecule_GetRelativeContentEu = GetRelativeContentEu_Featurizer()
-molecule_GetRelativeContentF = GetRelativeContentF_Featurizer()
-molecule_GetRelativeContentFe = GetRelativeContentFe_Featurizer()
-molecule_GetRelativeContentFl = GetRelativeContentFl_Featurizer()
-molecule_GetRelativeContentFm = GetRelativeContentFm_Featurizer()
-molecule_GetRelativeContentFr = GetRelativeContentFr_Featurizer()
-molecule_GetRelativeContentGa = GetRelativeContentGa_Featurizer()
-molecule_GetRelativeContentGd = GetRelativeContentGd_Featurizer()
-molecule_GetRelativeContentGe = GetRelativeContentGe_Featurizer()
-molecule_GetRelativeContentH = GetRelativeContentH_Featurizer()
-molecule_GetRelativeContentHe = GetRelativeContentHe_Featurizer()
-molecule_GetRelativeContentHf = GetRelativeContentHf_Featurizer()
-molecule_GetRelativeContentHg = GetRelativeContentHg_Featurizer()
-molecule_GetRelativeContentHo = GetRelativeContentHo_Featurizer()
-molecule_GetRelativeContentHs = GetRelativeContentHs_Featurizer()
-molecule_GetRelativeContentI = GetRelativeContentI_Featurizer()
-molecule_GetRelativeContentIn = GetRelativeContentIn_Featurizer()
-molecule_GetRelativeContentIr = GetRelativeContentIr_Featurizer()
-molecule_GetRelativeContentK = GetRelativeContentK_Featurizer()
-molecule_GetRelativeContentKr = GetRelativeContentKr_Featurizer()
-molecule_GetRelativeContentLa = GetRelativeContentLa_Featurizer()
-molecule_GetRelativeContentLi = GetRelativeContentLi_Featurizer()
-molecule_GetRelativeContentLr = GetRelativeContentLr_Featurizer()
-molecule_GetRelativeContentLu = GetRelativeContentLu_Featurizer()
-molecule_GetRelativeContentLv = GetRelativeContentLv_Featurizer()
-molecule_GetRelativeContentMc = GetRelativeContentMc_Featurizer()
-molecule_GetRelativeContentMd = GetRelativeContentMd_Featurizer()
-molecule_GetRelativeContentMg = GetRelativeContentMg_Featurizer()
-molecule_GetRelativeContentMn = GetRelativeContentMn_Featurizer()
-molecule_GetRelativeContentMo = GetRelativeContentMo_Featurizer()
-molecule_GetRelativeContentMt = GetRelativeContentMt_Featurizer()
-molecule_GetRelativeContentN = GetRelativeContentN_Featurizer()
-molecule_GetRelativeContentNa = GetRelativeContentNa_Featurizer()
-molecule_GetRelativeContentNb = GetRelativeContentNb_Featurizer()
-molecule_GetRelativeContentNd = GetRelativeContentNd_Featurizer()
-molecule_GetRelativeContentNe = GetRelativeContentNe_Featurizer()
-molecule_GetRelativeContentNh = GetRelativeContentNh_Featurizer()
-molecule_GetRelativeContentNi = GetRelativeContentNi_Featurizer()
-molecule_GetRelativeContentNo = GetRelativeContentNo_Featurizer()
-molecule_GetRelativeContentNp = GetRelativeContentNp_Featurizer()
-molecule_GetRelativeContentO = GetRelativeContentO_Featurizer()
-molecule_GetRelativeContentOg = GetRelativeContentOg_Featurizer()
-molecule_GetRelativeContentOs = GetRelativeContentOs_Featurizer()
-molecule_GetRelativeContentP = GetRelativeContentP_Featurizer()
-molecule_GetRelativeContentPa = GetRelativeContentPa_Featurizer()
-molecule_GetRelativeContentPb = GetRelativeContentPb_Featurizer()
-molecule_GetRelativeContentPd = GetRelativeContentPd_Featurizer()
-molecule_GetRelativeContentPm = GetRelativeContentPm_Featurizer()
-molecule_GetRelativeContentPo = GetRelativeContentPo_Featurizer()
-molecule_GetRelativeContentPr = GetRelativeContentPr_Featurizer()
-molecule_GetRelativeContentPt = GetRelativeContentPt_Featurizer()
-molecule_GetRelativeContentPu = GetRelativeContentPu_Featurizer()
-molecule_GetRelativeContentRa = GetRelativeContentRa_Featurizer()
-molecule_GetRelativeContentRb = GetRelativeContentRb_Featurizer()
-molecule_GetRelativeContentRe = GetRelativeContentRe_Featurizer()
-molecule_GetRelativeContentRf = GetRelativeContentRf_Featurizer()
-molecule_GetRelativeContentRg = GetRelativeContentRg_Featurizer()
-molecule_GetRelativeContentRh = GetRelativeContentRh_Featurizer()
-molecule_GetRelativeContentRn = GetRelativeContentRn_Featurizer()
-molecule_GetRelativeContentRu = GetRelativeContentRu_Featurizer()
-molecule_GetRelativeContentS = GetRelativeContentS_Featurizer()
-molecule_GetRelativeContentSb = GetRelativeContentSb_Featurizer()
-molecule_GetRelativeContentSc = GetRelativeContentSc_Featurizer()
-molecule_GetRelativeContentSe = GetRelativeContentSe_Featurizer()
-molecule_GetRelativeContentSg = GetRelativeContentSg_Featurizer()
-molecule_GetRelativeContentSi = GetRelativeContentSi_Featurizer()
-molecule_GetRelativeContentSm = GetRelativeContentSm_Featurizer()
-molecule_GetRelativeContentSn = GetRelativeContentSn_Featurizer()
-molecule_GetRelativeContentSr = GetRelativeContentSr_Featurizer()
-molecule_GetRelativeContentTa = GetRelativeContentTa_Featurizer()
-molecule_GetRelativeContentTb = GetRelativeContentTb_Featurizer()
-molecule_GetRelativeContentTc = GetRelativeContentTc_Featurizer()
-molecule_GetRelativeContentTe = GetRelativeContentTe_Featurizer()
-molecule_GetRelativeContentTh = GetRelativeContentTh_Featurizer()
-molecule_GetRelativeContentTi = GetRelativeContentTi_Featurizer()
-molecule_GetRelativeContentTl = GetRelativeContentTl_Featurizer()
-molecule_GetRelativeContentTm = GetRelativeContentTm_Featurizer()
-molecule_GetRelativeContentTs = GetRelativeContentTs_Featurizer()
-molecule_GetRelativeContentU = GetRelativeContentU_Featurizer()
-molecule_GetRelativeContentV = GetRelativeContentV_Featurizer()
-molecule_GetRelativeContentW = GetRelativeContentW_Featurizer()
-molecule_GetRelativeContentXe = GetRelativeContentXe_Featurizer()
-molecule_GetRelativeContentY = GetRelativeContentY_Featurizer()
-molecule_GetRelativeContentYb = GetRelativeContentYb_Featurizer()
-molecule_GetRelativeContentZn = GetRelativeContentZn_Featurizer()
-molecule_GetRelativeContentZr = GetRelativeContentZr_Featurizer()
-molecule_GetSSSR = GetSSSR_Featurizer()
-molecule_HallKierAlpha = HallKierAlpha_Featurizer()
-molecule_HallKierAlpha = HallKierAlpha_Featurizer()
 molecule_HallKierAlpha = HallKierAlpha_Featurizer()
 molecule_HeavyAtomCount = HeavyAtomCount_Featurizer()
 molecule_HeavyAtomMolWt = HeavyAtomMolWt_Featurizer()
 molecule_InertialShapeFactor = InertialShapeFactor_Featurizer()
-molecule_InertialShapeFactor = InertialShapeFactor_Featurizer()
-molecule_Ipc = Ipc_Featurizer()
 molecule_Ipc = Ipc_Featurizer()
 molecule_Kappa1 = Kappa1_Featurizer()
-molecule_Kappa1 = Kappa1_Featurizer()
-molecule_Kappa1 = Kappa1_Featurizer()
-molecule_Kappa2 = Kappa2_Featurizer()
-molecule_Kappa2 = Kappa2_Featurizer()
 molecule_Kappa2 = Kappa2_Featurizer()
 molecule_Kappa3 = Kappa3_Featurizer()
-molecule_Kappa3 = Kappa3_Featurizer()
-molecule_Kappa3 = Kappa3_Featurizer()
-molecule_LabuteASA = LabuteASA_Featurizer()
 molecule_LabuteASA = LabuteASA_Featurizer()
 molecule_MaxAbsEStateIndex = MaxAbsEStateIndex_Featurizer()
 molecule_MaxAbsPartialCharge = MaxAbsPartialCharge_Featurizer()
@@ -22757,28 +12899,22 @@ molecule_MolWt = MolWt_Featurizer()
 molecule_NHOHCount = NHOHCount_Featurizer()
 molecule_NOCount = NOCount_Featurizer()
 molecule_NPR1 = NPR1_Featurizer()
-molecule_NPR1 = NPR1_Featurizer()
-molecule_NPR2 = NPR2_Featurizer()
 molecule_NPR2 = NPR2_Featurizer()
 molecule_NumAliphaticCarbocycles = NumAliphaticCarbocycles_Featurizer()
-molecule_NumAliphaticCarbocycles = NumAliphaticCarbocycles_Featurizer()
 molecule_NumAliphaticHeterocycles = NumAliphaticHeterocycles_Featurizer()
-molecule_NumAliphaticHeterocycles = NumAliphaticHeterocycles_Featurizer()
-molecule_NumAliphaticRings = NumAliphaticRings_Featurizer()
 molecule_NumAliphaticRings = NumAliphaticRings_Featurizer()
 molecule_NumAmideBonds = NumAmideBonds_Featurizer()
 molecule_NumAromaticCarbocycles = NumAromaticCarbocycles_Featurizer()
-molecule_NumAromaticCarbocycles = NumAromaticCarbocycles_Featurizer()
-molecule_NumAromaticHeterocycles = NumAromaticHeterocycles_Featurizer()
 molecule_NumAromaticHeterocycles = NumAromaticHeterocycles_Featurizer()
 molecule_NumAromaticRings = NumAromaticRings_Featurizer()
-molecule_NumAromaticRings = NumAromaticRings_Featurizer()
+molecule_NumAtoms = NumAtoms_Featurizer()
+molecule_NumBonds = NumBonds_Featurizer()
 molecule_NumBridgeheadAtoms = NumBridgeheadAtoms_Featurizer()
 molecule_NumHAcceptors = NumHAcceptors_Featurizer()
 molecule_NumHBA = NumHBA_Featurizer()
 molecule_NumHBD = NumHBD_Featurizer()
 molecule_NumHDonors = NumHDonors_Featurizer()
-molecule_NumHeteroatoms = NumHeteroatoms_Featurizer()
+molecule_NumHeavyAtoms = NumHeavyAtoms_Featurizer()
 molecule_NumHeteroatoms = NumHeteroatoms_Featurizer()
 molecule_NumHeterocycles = NumHeterocycles_Featurizer()
 molecule_NumLipinskiHBA = NumLipinskiHBA_Featurizer()
@@ -22786,15 +12922,129 @@ molecule_NumLipinskiHBD = NumLipinskiHBD_Featurizer()
 molecule_NumRadicalElectrons = NumRadicalElectrons_Featurizer()
 molecule_NumRings = NumRings_Featurizer()
 molecule_NumRotatableBonds = NumRotatableBonds_Featurizer()
-molecule_NumRotatableBonds = NumRotatableBonds_Featurizer()
-molecule_NumSaturatedCarbocycles = NumSaturatedCarbocycles_Featurizer()
 molecule_NumSaturatedCarbocycles = NumSaturatedCarbocycles_Featurizer()
 molecule_NumSaturatedHeterocycles = NumSaturatedHeterocycles_Featurizer()
-molecule_NumSaturatedHeterocycles = NumSaturatedHeterocycles_Featurizer()
-molecule_NumSaturatedRings = NumSaturatedRings_Featurizer()
 molecule_NumSaturatedRings = NumSaturatedRings_Featurizer()
 molecule_NumSpiroAtoms = NumSpiroAtoms_Featurizer()
 molecule_NumValenceElectrons = NumValenceElectrons_Featurizer()
+molecule_NumberAtomsAc = NumberAtomsAc_Featurizer()
+molecule_NumberAtomsAg = NumberAtomsAg_Featurizer()
+molecule_NumberAtomsAl = NumberAtomsAl_Featurizer()
+molecule_NumberAtomsAm = NumberAtomsAm_Featurizer()
+molecule_NumberAtomsAr = NumberAtomsAr_Featurizer()
+molecule_NumberAtomsAs = NumberAtomsAs_Featurizer()
+molecule_NumberAtomsAt = NumberAtomsAt_Featurizer()
+molecule_NumberAtomsAu = NumberAtomsAu_Featurizer()
+molecule_NumberAtomsB = NumberAtomsB_Featurizer()
+molecule_NumberAtomsBa = NumberAtomsBa_Featurizer()
+molecule_NumberAtomsBe = NumberAtomsBe_Featurizer()
+molecule_NumberAtomsBh = NumberAtomsBh_Featurizer()
+molecule_NumberAtomsBi = NumberAtomsBi_Featurizer()
+molecule_NumberAtomsBk = NumberAtomsBk_Featurizer()
+molecule_NumberAtomsBr = NumberAtomsBr_Featurizer()
+molecule_NumberAtomsC = NumberAtomsC_Featurizer()
+molecule_NumberAtomsCa = NumberAtomsCa_Featurizer()
+molecule_NumberAtomsCd = NumberAtomsCd_Featurizer()
+molecule_NumberAtomsCe = NumberAtomsCe_Featurizer()
+molecule_NumberAtomsCf = NumberAtomsCf_Featurizer()
+molecule_NumberAtomsCl = NumberAtomsCl_Featurizer()
+molecule_NumberAtomsCm = NumberAtomsCm_Featurizer()
+molecule_NumberAtomsCn = NumberAtomsCn_Featurizer()
+molecule_NumberAtomsCo = NumberAtomsCo_Featurizer()
+molecule_NumberAtomsCr = NumberAtomsCr_Featurizer()
+molecule_NumberAtomsCs = NumberAtomsCs_Featurizer()
+molecule_NumberAtomsCu = NumberAtomsCu_Featurizer()
+molecule_NumberAtomsDb = NumberAtomsDb_Featurizer()
+molecule_NumberAtomsDs = NumberAtomsDs_Featurizer()
+molecule_NumberAtomsDy = NumberAtomsDy_Featurizer()
+molecule_NumberAtomsEr = NumberAtomsEr_Featurizer()
+molecule_NumberAtomsEs = NumberAtomsEs_Featurizer()
+molecule_NumberAtomsEu = NumberAtomsEu_Featurizer()
+molecule_NumberAtomsF = NumberAtomsF_Featurizer()
+molecule_NumberAtomsFe = NumberAtomsFe_Featurizer()
+molecule_NumberAtomsFl = NumberAtomsFl_Featurizer()
+molecule_NumberAtomsFm = NumberAtomsFm_Featurizer()
+molecule_NumberAtomsFr = NumberAtomsFr_Featurizer()
+molecule_NumberAtomsGa = NumberAtomsGa_Featurizer()
+molecule_NumberAtomsGd = NumberAtomsGd_Featurizer()
+molecule_NumberAtomsGe = NumberAtomsGe_Featurizer()
+molecule_NumberAtomsH = NumberAtomsH_Featurizer()
+molecule_NumberAtomsHe = NumberAtomsHe_Featurizer()
+molecule_NumberAtomsHf = NumberAtomsHf_Featurizer()
+molecule_NumberAtomsHg = NumberAtomsHg_Featurizer()
+molecule_NumberAtomsHo = NumberAtomsHo_Featurizer()
+molecule_NumberAtomsHs = NumberAtomsHs_Featurizer()
+molecule_NumberAtomsI = NumberAtomsI_Featurizer()
+molecule_NumberAtomsIn = NumberAtomsIn_Featurizer()
+molecule_NumberAtomsIr = NumberAtomsIr_Featurizer()
+molecule_NumberAtomsK = NumberAtomsK_Featurizer()
+molecule_NumberAtomsKr = NumberAtomsKr_Featurizer()
+molecule_NumberAtomsLa = NumberAtomsLa_Featurizer()
+molecule_NumberAtomsLi = NumberAtomsLi_Featurizer()
+molecule_NumberAtomsLr = NumberAtomsLr_Featurizer()
+molecule_NumberAtomsLu = NumberAtomsLu_Featurizer()
+molecule_NumberAtomsLv = NumberAtomsLv_Featurizer()
+molecule_NumberAtomsMc = NumberAtomsMc_Featurizer()
+molecule_NumberAtomsMd = NumberAtomsMd_Featurizer()
+molecule_NumberAtomsMg = NumberAtomsMg_Featurizer()
+molecule_NumberAtomsMn = NumberAtomsMn_Featurizer()
+molecule_NumberAtomsMo = NumberAtomsMo_Featurizer()
+molecule_NumberAtomsMt = NumberAtomsMt_Featurizer()
+molecule_NumberAtomsN = NumberAtomsN_Featurizer()
+molecule_NumberAtomsNa = NumberAtomsNa_Featurizer()
+molecule_NumberAtomsNb = NumberAtomsNb_Featurizer()
+molecule_NumberAtomsNd = NumberAtomsNd_Featurizer()
+molecule_NumberAtomsNe = NumberAtomsNe_Featurizer()
+molecule_NumberAtomsNh = NumberAtomsNh_Featurizer()
+molecule_NumberAtomsNi = NumberAtomsNi_Featurizer()
+molecule_NumberAtomsNo = NumberAtomsNo_Featurizer()
+molecule_NumberAtomsNp = NumberAtomsNp_Featurizer()
+molecule_NumberAtomsO = NumberAtomsO_Featurizer()
+molecule_NumberAtomsOg = NumberAtomsOg_Featurizer()
+molecule_NumberAtomsOs = NumberAtomsOs_Featurizer()
+molecule_NumberAtomsP = NumberAtomsP_Featurizer()
+molecule_NumberAtomsPa = NumberAtomsPa_Featurizer()
+molecule_NumberAtomsPb = NumberAtomsPb_Featurizer()
+molecule_NumberAtomsPd = NumberAtomsPd_Featurizer()
+molecule_NumberAtomsPm = NumberAtomsPm_Featurizer()
+molecule_NumberAtomsPo = NumberAtomsPo_Featurizer()
+molecule_NumberAtomsPr = NumberAtomsPr_Featurizer()
+molecule_NumberAtomsPt = NumberAtomsPt_Featurizer()
+molecule_NumberAtomsPu = NumberAtomsPu_Featurizer()
+molecule_NumberAtomsRa = NumberAtomsRa_Featurizer()
+molecule_NumberAtomsRb = NumberAtomsRb_Featurizer()
+molecule_NumberAtomsRe = NumberAtomsRe_Featurizer()
+molecule_NumberAtomsRf = NumberAtomsRf_Featurizer()
+molecule_NumberAtomsRg = NumberAtomsRg_Featurizer()
+molecule_NumberAtomsRh = NumberAtomsRh_Featurizer()
+molecule_NumberAtomsRn = NumberAtomsRn_Featurizer()
+molecule_NumberAtomsRu = NumberAtomsRu_Featurizer()
+molecule_NumberAtomsS = NumberAtomsS_Featurizer()
+molecule_NumberAtomsSb = NumberAtomsSb_Featurizer()
+molecule_NumberAtomsSc = NumberAtomsSc_Featurizer()
+molecule_NumberAtomsSe = NumberAtomsSe_Featurizer()
+molecule_NumberAtomsSg = NumberAtomsSg_Featurizer()
+molecule_NumberAtomsSi = NumberAtomsSi_Featurizer()
+molecule_NumberAtomsSm = NumberAtomsSm_Featurizer()
+molecule_NumberAtomsSn = NumberAtomsSn_Featurizer()
+molecule_NumberAtomsSr = NumberAtomsSr_Featurizer()
+molecule_NumberAtomsTa = NumberAtomsTa_Featurizer()
+molecule_NumberAtomsTb = NumberAtomsTb_Featurizer()
+molecule_NumberAtomsTc = NumberAtomsTc_Featurizer()
+molecule_NumberAtomsTe = NumberAtomsTe_Featurizer()
+molecule_NumberAtomsTh = NumberAtomsTh_Featurizer()
+molecule_NumberAtomsTi = NumberAtomsTi_Featurizer()
+molecule_NumberAtomsTl = NumberAtomsTl_Featurizer()
+molecule_NumberAtomsTm = NumberAtomsTm_Featurizer()
+molecule_NumberAtomsTs = NumberAtomsTs_Featurizer()
+molecule_NumberAtomsU = NumberAtomsU_Featurizer()
+molecule_NumberAtomsV = NumberAtomsV_Featurizer()
+molecule_NumberAtomsW = NumberAtomsW_Featurizer()
+molecule_NumberAtomsXe = NumberAtomsXe_Featurizer()
+molecule_NumberAtomsY = NumberAtomsY_Featurizer()
+molecule_NumberAtomsYb = NumberAtomsYb_Featurizer()
+molecule_NumberAtomsZn = NumberAtomsZn_Featurizer()
+molecule_NumberAtomsZr = NumberAtomsZr_Featurizer()
 molecule_PBF = PBF_Featurizer()
 molecule_PEOE_VSA1 = PEOE_VSA1_Featurizer()
 molecule_PEOE_VSA10 = PEOE_VSA10_Featurizer()
@@ -22811,14 +13061,128 @@ molecule_PEOE_VSA7 = PEOE_VSA7_Featurizer()
 molecule_PEOE_VSA8 = PEOE_VSA8_Featurizer()
 molecule_PEOE_VSA9 = PEOE_VSA9_Featurizer()
 molecule_PMI1 = PMI1_Featurizer()
-molecule_PMI1 = PMI1_Featurizer()
 molecule_PMI2 = PMI2_Featurizer()
-molecule_PMI2 = PMI2_Featurizer()
-molecule_PMI3 = PMI3_Featurizer()
 molecule_PMI3 = PMI3_Featurizer()
 molecule_Phi = Phi_Featurizer()
 molecule_RadiusOfGyration = RadiusOfGyration_Featurizer()
-molecule_RadiusOfGyration = RadiusOfGyration_Featurizer()
+molecule_RelativeContentAc = RelativeContentAc_Featurizer()
+molecule_RelativeContentAg = RelativeContentAg_Featurizer()
+molecule_RelativeContentAl = RelativeContentAl_Featurizer()
+molecule_RelativeContentAm = RelativeContentAm_Featurizer()
+molecule_RelativeContentAr = RelativeContentAr_Featurizer()
+molecule_RelativeContentAs = RelativeContentAs_Featurizer()
+molecule_RelativeContentAt = RelativeContentAt_Featurizer()
+molecule_RelativeContentAu = RelativeContentAu_Featurizer()
+molecule_RelativeContentB = RelativeContentB_Featurizer()
+molecule_RelativeContentBa = RelativeContentBa_Featurizer()
+molecule_RelativeContentBe = RelativeContentBe_Featurizer()
+molecule_RelativeContentBh = RelativeContentBh_Featurizer()
+molecule_RelativeContentBi = RelativeContentBi_Featurizer()
+molecule_RelativeContentBk = RelativeContentBk_Featurizer()
+molecule_RelativeContentBr = RelativeContentBr_Featurizer()
+molecule_RelativeContentC = RelativeContentC_Featurizer()
+molecule_RelativeContentCa = RelativeContentCa_Featurizer()
+molecule_RelativeContentCd = RelativeContentCd_Featurizer()
+molecule_RelativeContentCe = RelativeContentCe_Featurizer()
+molecule_RelativeContentCf = RelativeContentCf_Featurizer()
+molecule_RelativeContentCl = RelativeContentCl_Featurizer()
+molecule_RelativeContentCm = RelativeContentCm_Featurizer()
+molecule_RelativeContentCn = RelativeContentCn_Featurizer()
+molecule_RelativeContentCo = RelativeContentCo_Featurizer()
+molecule_RelativeContentCr = RelativeContentCr_Featurizer()
+molecule_RelativeContentCs = RelativeContentCs_Featurizer()
+molecule_RelativeContentCu = RelativeContentCu_Featurizer()
+molecule_RelativeContentDb = RelativeContentDb_Featurizer()
+molecule_RelativeContentDs = RelativeContentDs_Featurizer()
+molecule_RelativeContentDy = RelativeContentDy_Featurizer()
+molecule_RelativeContentEr = RelativeContentEr_Featurizer()
+molecule_RelativeContentEs = RelativeContentEs_Featurizer()
+molecule_RelativeContentEu = RelativeContentEu_Featurizer()
+molecule_RelativeContentF = RelativeContentF_Featurizer()
+molecule_RelativeContentFe = RelativeContentFe_Featurizer()
+molecule_RelativeContentFl = RelativeContentFl_Featurizer()
+molecule_RelativeContentFm = RelativeContentFm_Featurizer()
+molecule_RelativeContentFr = RelativeContentFr_Featurizer()
+molecule_RelativeContentGa = RelativeContentGa_Featurizer()
+molecule_RelativeContentGd = RelativeContentGd_Featurizer()
+molecule_RelativeContentGe = RelativeContentGe_Featurizer()
+molecule_RelativeContentH = RelativeContentH_Featurizer()
+molecule_RelativeContentHe = RelativeContentHe_Featurizer()
+molecule_RelativeContentHf = RelativeContentHf_Featurizer()
+molecule_RelativeContentHg = RelativeContentHg_Featurizer()
+molecule_RelativeContentHo = RelativeContentHo_Featurizer()
+molecule_RelativeContentHs = RelativeContentHs_Featurizer()
+molecule_RelativeContentI = RelativeContentI_Featurizer()
+molecule_RelativeContentIn = RelativeContentIn_Featurizer()
+molecule_RelativeContentIr = RelativeContentIr_Featurizer()
+molecule_RelativeContentK = RelativeContentK_Featurizer()
+molecule_RelativeContentKr = RelativeContentKr_Featurizer()
+molecule_RelativeContentLa = RelativeContentLa_Featurizer()
+molecule_RelativeContentLi = RelativeContentLi_Featurizer()
+molecule_RelativeContentLr = RelativeContentLr_Featurizer()
+molecule_RelativeContentLu = RelativeContentLu_Featurizer()
+molecule_RelativeContentLv = RelativeContentLv_Featurizer()
+molecule_RelativeContentMc = RelativeContentMc_Featurizer()
+molecule_RelativeContentMd = RelativeContentMd_Featurizer()
+molecule_RelativeContentMg = RelativeContentMg_Featurizer()
+molecule_RelativeContentMn = RelativeContentMn_Featurizer()
+molecule_RelativeContentMo = RelativeContentMo_Featurizer()
+molecule_RelativeContentMt = RelativeContentMt_Featurizer()
+molecule_RelativeContentN = RelativeContentN_Featurizer()
+molecule_RelativeContentNa = RelativeContentNa_Featurizer()
+molecule_RelativeContentNb = RelativeContentNb_Featurizer()
+molecule_RelativeContentNd = RelativeContentNd_Featurizer()
+molecule_RelativeContentNe = RelativeContentNe_Featurizer()
+molecule_RelativeContentNh = RelativeContentNh_Featurizer()
+molecule_RelativeContentNi = RelativeContentNi_Featurizer()
+molecule_RelativeContentNo = RelativeContentNo_Featurizer()
+molecule_RelativeContentNp = RelativeContentNp_Featurizer()
+molecule_RelativeContentO = RelativeContentO_Featurizer()
+molecule_RelativeContentOg = RelativeContentOg_Featurizer()
+molecule_RelativeContentOs = RelativeContentOs_Featurizer()
+molecule_RelativeContentP = RelativeContentP_Featurizer()
+molecule_RelativeContentPa = RelativeContentPa_Featurizer()
+molecule_RelativeContentPb = RelativeContentPb_Featurizer()
+molecule_RelativeContentPd = RelativeContentPd_Featurizer()
+molecule_RelativeContentPm = RelativeContentPm_Featurizer()
+molecule_RelativeContentPo = RelativeContentPo_Featurizer()
+molecule_RelativeContentPr = RelativeContentPr_Featurizer()
+molecule_RelativeContentPt = RelativeContentPt_Featurizer()
+molecule_RelativeContentPu = RelativeContentPu_Featurizer()
+molecule_RelativeContentRa = RelativeContentRa_Featurizer()
+molecule_RelativeContentRb = RelativeContentRb_Featurizer()
+molecule_RelativeContentRe = RelativeContentRe_Featurizer()
+molecule_RelativeContentRf = RelativeContentRf_Featurizer()
+molecule_RelativeContentRg = RelativeContentRg_Featurizer()
+molecule_RelativeContentRh = RelativeContentRh_Featurizer()
+molecule_RelativeContentRn = RelativeContentRn_Featurizer()
+molecule_RelativeContentRu = RelativeContentRu_Featurizer()
+molecule_RelativeContentS = RelativeContentS_Featurizer()
+molecule_RelativeContentSb = RelativeContentSb_Featurizer()
+molecule_RelativeContentSc = RelativeContentSc_Featurizer()
+molecule_RelativeContentSe = RelativeContentSe_Featurizer()
+molecule_RelativeContentSg = RelativeContentSg_Featurizer()
+molecule_RelativeContentSi = RelativeContentSi_Featurizer()
+molecule_RelativeContentSm = RelativeContentSm_Featurizer()
+molecule_RelativeContentSn = RelativeContentSn_Featurizer()
+molecule_RelativeContentSr = RelativeContentSr_Featurizer()
+molecule_RelativeContentTa = RelativeContentTa_Featurizer()
+molecule_RelativeContentTb = RelativeContentTb_Featurizer()
+molecule_RelativeContentTc = RelativeContentTc_Featurizer()
+molecule_RelativeContentTe = RelativeContentTe_Featurizer()
+molecule_RelativeContentTh = RelativeContentTh_Featurizer()
+molecule_RelativeContentTi = RelativeContentTi_Featurizer()
+molecule_RelativeContentTl = RelativeContentTl_Featurizer()
+molecule_RelativeContentTm = RelativeContentTm_Featurizer()
+molecule_RelativeContentTs = RelativeContentTs_Featurizer()
+molecule_RelativeContentU = RelativeContentU_Featurizer()
+molecule_RelativeContentV = RelativeContentV_Featurizer()
+molecule_RelativeContentW = RelativeContentW_Featurizer()
+molecule_RelativeContentXe = RelativeContentXe_Featurizer()
+molecule_RelativeContentY = RelativeContentY_Featurizer()
+molecule_RelativeContentYb = RelativeContentYb_Featurizer()
+molecule_RelativeContentZn = RelativeContentZn_Featurizer()
+molecule_RelativeContentZr = RelativeContentZr_Featurizer()
 molecule_RingCount = RingCount_Featurizer()
 molecule_SMR_VSA1 = SMR_VSA1_Featurizer()
 molecule_SMR_VSA10 = SMR_VSA10_Featurizer()
@@ -22830,6 +13194,7 @@ molecule_SMR_VSA6 = SMR_VSA6_Featurizer()
 molecule_SMR_VSA7 = SMR_VSA7_Featurizer()
 molecule_SMR_VSA8 = SMR_VSA8_Featurizer()
 molecule_SMR_VSA9 = SMR_VSA9_Featurizer()
+molecule_SSSR = SSSR_Featurizer()
 molecule_SlogP_VSA1 = SlogP_VSA1_Featurizer()
 molecule_SlogP_VSA10 = SlogP_VSA10_Featurizer()
 molecule_SlogP_VSA11 = SlogP_VSA11_Featurizer()
@@ -22843,8 +13208,6 @@ molecule_SlogP_VSA7 = SlogP_VSA7_Featurizer()
 molecule_SlogP_VSA8 = SlogP_VSA8_Featurizer()
 molecule_SlogP_VSA9 = SlogP_VSA9_Featurizer()
 molecule_SpherocityIndex = SpherocityIndex_Featurizer()
-molecule_SpherocityIndex = SpherocityIndex_Featurizer()
-molecule_TPSA = TPSA_Featurizer()
 molecule_TPSA = TPSA_Featurizer()
 molecule_VSA_EState1 = VSA_EState1_Featurizer()
 molecule_VSA_EState10 = VSA_EState10_Featurizer()
@@ -22943,535 +13306,1425 @@ molecule_fr_unbrch_alkane = fr_unbrch_alkane_Featurizer()
 molecule_fr_urea = fr_urea_Featurizer()
 molecule_qed = qed_Featurizer()
 
-_available_featurizer = [
-    molecule_Asphericity,
-    molecule_Asphericity,
-    molecule_BCUT2D_CHGHI,
-    molecule_BCUT2D_CHGLO,
-    molecule_BCUT2D_LOGPHI,
-    molecule_BCUT2D_LOGPLOW,
-    molecule_BCUT2D_MRHI,
-    molecule_BCUT2D_MRLOW,
-    molecule_BCUT2D_MWHI,
-    molecule_BCUT2D_MWLOW,
-    molecule_BalabanJ,
-    molecule_BalabanJ,
-    molecule_BertzCT,
-    molecule_BertzCT,
-    molecule_Chi0,
-    molecule_Chi0,
-    molecule_Chi0n,
-    molecule_Chi0n,
-    molecule_Chi0n,
-    molecule_Chi0v,
-    molecule_Chi0v,
-    molecule_Chi0v,
-    molecule_Chi1,
-    molecule_Chi1,
-    molecule_Chi1n,
-    molecule_Chi1n,
-    molecule_Chi1n,
-    molecule_Chi1v,
-    molecule_Chi1v,
-    molecule_Chi1v,
-    molecule_Chi2n,
-    molecule_Chi2n,
-    molecule_Chi2n,
-    molecule_Chi2v,
-    molecule_Chi2v,
-    molecule_Chi2v,
-    molecule_Chi3n,
-    molecule_Chi3n,
-    molecule_Chi3n,
-    molecule_Chi3v,
-    molecule_Chi3v,
-    molecule_Chi3v,
-    molecule_Chi4n,
-    molecule_Chi4n,
-    molecule_Chi4n,
-    molecule_Chi4v,
-    molecule_Chi4v,
-    molecule_Chi4v,
-    molecule_EState_VSA1,
-    molecule_EState_VSA10,
-    molecule_EState_VSA11,
-    molecule_EState_VSA2,
-    molecule_EState_VSA3,
-    molecule_EState_VSA4,
-    molecule_EState_VSA5,
-    molecule_EState_VSA6,
-    molecule_EState_VSA7,
-    molecule_EState_VSA8,
-    molecule_EState_VSA9,
-    molecule_Eccentricity,
-    molecule_Eccentricity,
-    molecule_ExactMolWt,
-    molecule_ExactMolWt,
-    molecule_FpDensityMorgan1,
-    molecule_FpDensityMorgan2,
-    molecule_FpDensityMorgan3,
-    molecule_FractionCSP3,
-    molecule_FractionCSP3,
-    molecule_GetFormalCharge,
-    molecule_GetNumAtoms,
-    molecule_GetNumBonds,
-    molecule_GetNumHeavyAtoms,
-    molecule_GetNumberAtomsAc,
-    molecule_GetNumberAtomsAg,
-    molecule_GetNumberAtomsAl,
-    molecule_GetNumberAtomsAm,
-    molecule_GetNumberAtomsAr,
-    molecule_GetNumberAtomsAs,
-    molecule_GetNumberAtomsAt,
-    molecule_GetNumberAtomsAu,
-    molecule_GetNumberAtomsB,
-    molecule_GetNumberAtomsBa,
-    molecule_GetNumberAtomsBe,
-    molecule_GetNumberAtomsBh,
-    molecule_GetNumberAtomsBi,
-    molecule_GetNumberAtomsBk,
-    molecule_GetNumberAtomsBr,
-    molecule_GetNumberAtomsC,
-    molecule_GetNumberAtomsCa,
-    molecule_GetNumberAtomsCd,
-    molecule_GetNumberAtomsCe,
-    molecule_GetNumberAtomsCf,
-    molecule_GetNumberAtomsCl,
-    molecule_GetNumberAtomsCm,
-    molecule_GetNumberAtomsCn,
-    molecule_GetNumberAtomsCo,
-    molecule_GetNumberAtomsCr,
-    molecule_GetNumberAtomsCs,
-    molecule_GetNumberAtomsCu,
-    molecule_GetNumberAtomsDb,
-    molecule_GetNumberAtomsDs,
-    molecule_GetNumberAtomsDy,
-    molecule_GetNumberAtomsEr,
-    molecule_GetNumberAtomsEs,
-    molecule_GetNumberAtomsEu,
-    molecule_GetNumberAtomsF,
-    molecule_GetNumberAtomsFe,
-    molecule_GetNumberAtomsFl,
-    molecule_GetNumberAtomsFm,
-    molecule_GetNumberAtomsFr,
-    molecule_GetNumberAtomsGa,
-    molecule_GetNumberAtomsGd,
-    molecule_GetNumberAtomsGe,
-    molecule_GetNumberAtomsH,
-    molecule_GetNumberAtomsHe,
-    molecule_GetNumberAtomsHf,
-    molecule_GetNumberAtomsHg,
-    molecule_GetNumberAtomsHo,
-    molecule_GetNumberAtomsHs,
-    molecule_GetNumberAtomsI,
-    molecule_GetNumberAtomsIn,
-    molecule_GetNumberAtomsIr,
-    molecule_GetNumberAtomsK,
-    molecule_GetNumberAtomsKr,
-    molecule_GetNumberAtomsLa,
-    molecule_GetNumberAtomsLi,
-    molecule_GetNumberAtomsLr,
-    molecule_GetNumberAtomsLu,
-    molecule_GetNumberAtomsLv,
-    molecule_GetNumberAtomsMc,
-    molecule_GetNumberAtomsMd,
-    molecule_GetNumberAtomsMg,
-    molecule_GetNumberAtomsMn,
-    molecule_GetNumberAtomsMo,
-    molecule_GetNumberAtomsMt,
-    molecule_GetNumberAtomsN,
-    molecule_GetNumberAtomsNa,
-    molecule_GetNumberAtomsNb,
-    molecule_GetNumberAtomsNd,
-    molecule_GetNumberAtomsNe,
-    molecule_GetNumberAtomsNh,
-    molecule_GetNumberAtomsNi,
-    molecule_GetNumberAtomsNo,
-    molecule_GetNumberAtomsNp,
-    molecule_GetNumberAtomsO,
-    molecule_GetNumberAtomsOg,
-    molecule_GetNumberAtomsOs,
-    molecule_GetNumberAtomsP,
-    molecule_GetNumberAtomsPa,
-    molecule_GetNumberAtomsPb,
-    molecule_GetNumberAtomsPd,
-    molecule_GetNumberAtomsPm,
-    molecule_GetNumberAtomsPo,
-    molecule_GetNumberAtomsPr,
-    molecule_GetNumberAtomsPt,
-    molecule_GetNumberAtomsPu,
-    molecule_GetNumberAtomsRa,
-    molecule_GetNumberAtomsRb,
-    molecule_GetNumberAtomsRe,
-    molecule_GetNumberAtomsRf,
-    molecule_GetNumberAtomsRg,
-    molecule_GetNumberAtomsRh,
-    molecule_GetNumberAtomsRn,
-    molecule_GetNumberAtomsRu,
-    molecule_GetNumberAtomsS,
-    molecule_GetNumberAtomsSb,
-    molecule_GetNumberAtomsSc,
-    molecule_GetNumberAtomsSe,
-    molecule_GetNumberAtomsSg,
-    molecule_GetNumberAtomsSi,
-    molecule_GetNumberAtomsSm,
-    molecule_GetNumberAtomsSn,
-    molecule_GetNumberAtomsSr,
-    molecule_GetNumberAtomsTa,
-    molecule_GetNumberAtomsTb,
-    molecule_GetNumberAtomsTc,
-    molecule_GetNumberAtomsTe,
-    molecule_GetNumberAtomsTh,
-    molecule_GetNumberAtomsTi,
-    molecule_GetNumberAtomsTl,
-    molecule_GetNumberAtomsTm,
-    molecule_GetNumberAtomsTs,
-    molecule_GetNumberAtomsU,
-    molecule_GetNumberAtomsV,
-    molecule_GetNumberAtomsW,
-    molecule_GetNumberAtomsXe,
-    molecule_GetNumberAtomsY,
-    molecule_GetNumberAtomsYb,
-    molecule_GetNumberAtomsZn,
-    molecule_GetNumberAtomsZr,
-    molecule_GetRelativeContentAc,
-    molecule_GetRelativeContentAg,
-    molecule_GetRelativeContentAl,
-    molecule_GetRelativeContentAm,
-    molecule_GetRelativeContentAr,
-    molecule_GetRelativeContentAs,
-    molecule_GetRelativeContentAt,
-    molecule_GetRelativeContentAu,
-    molecule_GetRelativeContentB,
-    molecule_GetRelativeContentBa,
-    molecule_GetRelativeContentBe,
-    molecule_GetRelativeContentBh,
-    molecule_GetRelativeContentBi,
-    molecule_GetRelativeContentBk,
-    molecule_GetRelativeContentBr,
-    molecule_GetRelativeContentC,
-    molecule_GetRelativeContentCa,
-    molecule_GetRelativeContentCd,
-    molecule_GetRelativeContentCe,
-    molecule_GetRelativeContentCf,
-    molecule_GetRelativeContentCl,
-    molecule_GetRelativeContentCm,
-    molecule_GetRelativeContentCn,
-    molecule_GetRelativeContentCo,
-    molecule_GetRelativeContentCr,
-    molecule_GetRelativeContentCs,
-    molecule_GetRelativeContentCu,
-    molecule_GetRelativeContentDb,
-    molecule_GetRelativeContentDs,
-    molecule_GetRelativeContentDy,
-    molecule_GetRelativeContentEr,
-    molecule_GetRelativeContentEs,
-    molecule_GetRelativeContentEu,
-    molecule_GetRelativeContentF,
-    molecule_GetRelativeContentFe,
-    molecule_GetRelativeContentFl,
-    molecule_GetRelativeContentFm,
-    molecule_GetRelativeContentFr,
-    molecule_GetRelativeContentGa,
-    molecule_GetRelativeContentGd,
-    molecule_GetRelativeContentGe,
-    molecule_GetRelativeContentH,
-    molecule_GetRelativeContentHe,
-    molecule_GetRelativeContentHf,
-    molecule_GetRelativeContentHg,
-    molecule_GetRelativeContentHo,
-    molecule_GetRelativeContentHs,
-    molecule_GetRelativeContentI,
-    molecule_GetRelativeContentIn,
-    molecule_GetRelativeContentIr,
-    molecule_GetRelativeContentK,
-    molecule_GetRelativeContentKr,
-    molecule_GetRelativeContentLa,
-    molecule_GetRelativeContentLi,
-    molecule_GetRelativeContentLr,
-    molecule_GetRelativeContentLu,
-    molecule_GetRelativeContentLv,
-    molecule_GetRelativeContentMc,
-    molecule_GetRelativeContentMd,
-    molecule_GetRelativeContentMg,
-    molecule_GetRelativeContentMn,
-    molecule_GetRelativeContentMo,
-    molecule_GetRelativeContentMt,
-    molecule_GetRelativeContentN,
-    molecule_GetRelativeContentNa,
-    molecule_GetRelativeContentNb,
-    molecule_GetRelativeContentNd,
-    molecule_GetRelativeContentNe,
-    molecule_GetRelativeContentNh,
-    molecule_GetRelativeContentNi,
-    molecule_GetRelativeContentNo,
-    molecule_GetRelativeContentNp,
-    molecule_GetRelativeContentO,
-    molecule_GetRelativeContentOg,
-    molecule_GetRelativeContentOs,
-    molecule_GetRelativeContentP,
-    molecule_GetRelativeContentPa,
-    molecule_GetRelativeContentPb,
-    molecule_GetRelativeContentPd,
-    molecule_GetRelativeContentPm,
-    molecule_GetRelativeContentPo,
-    molecule_GetRelativeContentPr,
-    molecule_GetRelativeContentPt,
-    molecule_GetRelativeContentPu,
-    molecule_GetRelativeContentRa,
-    molecule_GetRelativeContentRb,
-    molecule_GetRelativeContentRe,
-    molecule_GetRelativeContentRf,
-    molecule_GetRelativeContentRg,
-    molecule_GetRelativeContentRh,
-    molecule_GetRelativeContentRn,
-    molecule_GetRelativeContentRu,
-    molecule_GetRelativeContentS,
-    molecule_GetRelativeContentSb,
-    molecule_GetRelativeContentSc,
-    molecule_GetRelativeContentSe,
-    molecule_GetRelativeContentSg,
-    molecule_GetRelativeContentSi,
-    molecule_GetRelativeContentSm,
-    molecule_GetRelativeContentSn,
-    molecule_GetRelativeContentSr,
-    molecule_GetRelativeContentTa,
-    molecule_GetRelativeContentTb,
-    molecule_GetRelativeContentTc,
-    molecule_GetRelativeContentTe,
-    molecule_GetRelativeContentTh,
-    molecule_GetRelativeContentTi,
-    molecule_GetRelativeContentTl,
-    molecule_GetRelativeContentTm,
-    molecule_GetRelativeContentTs,
-    molecule_GetRelativeContentU,
-    molecule_GetRelativeContentV,
-    molecule_GetRelativeContentW,
-    molecule_GetRelativeContentXe,
-    molecule_GetRelativeContentY,
-    molecule_GetRelativeContentYb,
-    molecule_GetRelativeContentZn,
-    molecule_GetRelativeContentZr,
-    molecule_GetSSSR,
-    molecule_HallKierAlpha,
-    molecule_HallKierAlpha,
-    molecule_HallKierAlpha,
-    molecule_HeavyAtomCount,
-    molecule_HeavyAtomMolWt,
-    molecule_InertialShapeFactor,
-    molecule_InertialShapeFactor,
-    molecule_Ipc,
-    molecule_Ipc,
-    molecule_Kappa1,
-    molecule_Kappa1,
-    molecule_Kappa1,
-    molecule_Kappa2,
-    molecule_Kappa2,
-    molecule_Kappa2,
-    molecule_Kappa3,
-    molecule_Kappa3,
-    molecule_Kappa3,
-    molecule_LabuteASA,
-    molecule_LabuteASA,
-    molecule_MaxAbsEStateIndex,
-    molecule_MaxAbsPartialCharge,
-    molecule_MaxEStateIndex,
-    molecule_MaxPartialCharge,
-    molecule_MinAbsEStateIndex,
-    molecule_MinAbsPartialCharge,
-    molecule_MinEStateIndex,
-    molecule_MinPartialCharge,
-    molecule_MolLogP,
-    molecule_MolMR,
-    molecule_MolWt,
-    molecule_NHOHCount,
-    molecule_NOCount,
-    molecule_NPR1,
-    molecule_NPR1,
-    molecule_NPR2,
-    molecule_NPR2,
-    molecule_NumAliphaticCarbocycles,
-    molecule_NumAliphaticCarbocycles,
-    molecule_NumAliphaticHeterocycles,
-    molecule_NumAliphaticHeterocycles,
-    molecule_NumAliphaticRings,
-    molecule_NumAliphaticRings,
-    molecule_NumAmideBonds,
-    molecule_NumAromaticCarbocycles,
-    molecule_NumAromaticCarbocycles,
-    molecule_NumAromaticHeterocycles,
-    molecule_NumAromaticHeterocycles,
-    molecule_NumAromaticRings,
-    molecule_NumAromaticRings,
-    molecule_NumBridgeheadAtoms,
-    molecule_NumHAcceptors,
-    molecule_NumHBA,
-    molecule_NumHBD,
-    molecule_NumHDonors,
-    molecule_NumHeteroatoms,
-    molecule_NumHeteroatoms,
-    molecule_NumHeterocycles,
-    molecule_NumLipinskiHBA,
-    molecule_NumLipinskiHBD,
-    molecule_NumRadicalElectrons,
-    molecule_NumRings,
-    molecule_NumRotatableBonds,
-    molecule_NumRotatableBonds,
-    molecule_NumSaturatedCarbocycles,
-    molecule_NumSaturatedCarbocycles,
-    molecule_NumSaturatedHeterocycles,
-    molecule_NumSaturatedHeterocycles,
-    molecule_NumSaturatedRings,
-    molecule_NumSaturatedRings,
-    molecule_NumSpiroAtoms,
-    molecule_NumValenceElectrons,
-    molecule_PBF,
-    molecule_PEOE_VSA1,
-    molecule_PEOE_VSA10,
-    molecule_PEOE_VSA11,
-    molecule_PEOE_VSA12,
-    molecule_PEOE_VSA13,
-    molecule_PEOE_VSA14,
-    molecule_PEOE_VSA2,
-    molecule_PEOE_VSA3,
-    molecule_PEOE_VSA4,
-    molecule_PEOE_VSA5,
-    molecule_PEOE_VSA6,
-    molecule_PEOE_VSA7,
-    molecule_PEOE_VSA8,
-    molecule_PEOE_VSA9,
-    molecule_PMI1,
-    molecule_PMI1,
-    molecule_PMI2,
-    molecule_PMI2,
-    molecule_PMI3,
-    molecule_PMI3,
-    molecule_Phi,
-    molecule_RadiusOfGyration,
-    molecule_RadiusOfGyration,
-    molecule_RingCount,
-    molecule_SMR_VSA1,
-    molecule_SMR_VSA10,
-    molecule_SMR_VSA2,
-    molecule_SMR_VSA3,
-    molecule_SMR_VSA4,
-    molecule_SMR_VSA5,
-    molecule_SMR_VSA6,
-    molecule_SMR_VSA7,
-    molecule_SMR_VSA8,
-    molecule_SMR_VSA9,
-    molecule_SlogP_VSA1,
-    molecule_SlogP_VSA10,
-    molecule_SlogP_VSA11,
-    molecule_SlogP_VSA12,
-    molecule_SlogP_VSA2,
-    molecule_SlogP_VSA3,
-    molecule_SlogP_VSA4,
-    molecule_SlogP_VSA5,
-    molecule_SlogP_VSA6,
-    molecule_SlogP_VSA7,
-    molecule_SlogP_VSA8,
-    molecule_SlogP_VSA9,
-    molecule_SpherocityIndex,
-    molecule_SpherocityIndex,
-    molecule_TPSA,
-    molecule_TPSA,
-    molecule_VSA_EState1,
-    molecule_VSA_EState10,
-    molecule_VSA_EState2,
-    molecule_VSA_EState3,
-    molecule_VSA_EState4,
-    molecule_VSA_EState5,
-    molecule_VSA_EState6,
-    molecule_VSA_EState7,
-    molecule_VSA_EState8,
-    molecule_VSA_EState9,
-    molecule_fr_Al_COO,
-    molecule_fr_Al_OH,
-    molecule_fr_Al_OH_noTert,
-    molecule_fr_ArN,
-    molecule_fr_Ar_COO,
-    molecule_fr_Ar_N,
-    molecule_fr_Ar_NH,
-    molecule_fr_Ar_OH,
-    molecule_fr_COO,
-    molecule_fr_COO2,
-    molecule_fr_C_O,
-    molecule_fr_C_O_noCOO,
-    molecule_fr_C_S,
-    molecule_fr_HOCCN,
-    molecule_fr_Imine,
-    molecule_fr_NH0,
-    molecule_fr_NH1,
-    molecule_fr_NH2,
-    molecule_fr_N_O,
-    molecule_fr_Ndealkylation1,
-    molecule_fr_Ndealkylation2,
-    molecule_fr_Nhpyrrole,
-    molecule_fr_SH,
-    molecule_fr_aldehyde,
-    molecule_fr_alkyl_carbamate,
-    molecule_fr_alkyl_halide,
-    molecule_fr_allylic_oxid,
-    molecule_fr_amide,
-    molecule_fr_amidine,
-    molecule_fr_aniline,
-    molecule_fr_aryl_methyl,
-    molecule_fr_azide,
-    molecule_fr_azo,
-    molecule_fr_barbitur,
-    molecule_fr_benzene,
-    molecule_fr_benzodiazepine,
-    molecule_fr_bicyclic,
-    molecule_fr_diazo,
-    molecule_fr_dihydropyridine,
-    molecule_fr_epoxide,
-    molecule_fr_ester,
-    molecule_fr_ether,
-    molecule_fr_furan,
-    molecule_fr_guanido,
-    molecule_fr_halogen,
-    molecule_fr_hdrzine,
-    molecule_fr_hdrzone,
-    molecule_fr_imidazole,
-    molecule_fr_imide,
-    molecule_fr_isocyan,
-    molecule_fr_isothiocyan,
-    molecule_fr_ketone,
-    molecule_fr_ketone_Topliss,
-    molecule_fr_lactam,
-    molecule_fr_lactone,
-    molecule_fr_methoxy,
-    molecule_fr_morpholine,
-    molecule_fr_nitrile,
-    molecule_fr_nitro,
-    molecule_fr_nitro_arom,
-    molecule_fr_nitro_arom_nonortho,
-    molecule_fr_nitroso,
-    molecule_fr_oxazole,
-    molecule_fr_oxime,
-    molecule_fr_para_hydroxylation,
-    molecule_fr_phenol,
-    molecule_fr_phenol_noOrthoHbond,
-    molecule_fr_phos_acid,
-    molecule_fr_phos_ester,
-    molecule_fr_piperdine,
-    molecule_fr_piperzine,
-    molecule_fr_priamide,
-    molecule_fr_prisulfonamd,
-    molecule_fr_pyridine,
-    molecule_fr_quatN,
-    molecule_fr_sulfide,
-    molecule_fr_sulfonamd,
-    molecule_fr_sulfone,
-    molecule_fr_term_acetylene,
-    molecule_fr_tetrazole,
-    molecule_fr_thiazole,
-    molecule_fr_thiocyan,
-    molecule_fr_thiophene,
-    molecule_fr_unbrch_alkane,
-    molecule_fr_urea,
-    molecule_qed,
+_available_featurizer = {
+    "molecule_Asphericity": molecule_Asphericity,
+    "molecule_BCUT2D_CHGHI": molecule_BCUT2D_CHGHI,
+    "molecule_BCUT2D_CHGLO": molecule_BCUT2D_CHGLO,
+    "molecule_BCUT2D_LOGPHI": molecule_BCUT2D_LOGPHI,
+    "molecule_BCUT2D_LOGPLOW": molecule_BCUT2D_LOGPLOW,
+    "molecule_BCUT2D_MRHI": molecule_BCUT2D_MRHI,
+    "molecule_BCUT2D_MRLOW": molecule_BCUT2D_MRLOW,
+    "molecule_BCUT2D_MWHI": molecule_BCUT2D_MWHI,
+    "molecule_BCUT2D_MWLOW": molecule_BCUT2D_MWLOW,
+    "molecule_BalabanJ": molecule_BalabanJ,
+    "molecule_BertzCT": molecule_BertzCT,
+    "molecule_Chi0": molecule_Chi0,
+    "molecule_Chi0n": molecule_Chi0n,
+    "molecule_Chi0v": molecule_Chi0v,
+    "molecule_Chi1": molecule_Chi1,
+    "molecule_Chi1n": molecule_Chi1n,
+    "molecule_Chi1v": molecule_Chi1v,
+    "molecule_Chi2n": molecule_Chi2n,
+    "molecule_Chi2v": molecule_Chi2v,
+    "molecule_Chi3n": molecule_Chi3n,
+    "molecule_Chi3v": molecule_Chi3v,
+    "molecule_Chi4n": molecule_Chi4n,
+    "molecule_Chi4v": molecule_Chi4v,
+    "molecule_EState_VSA1": molecule_EState_VSA1,
+    "molecule_EState_VSA10": molecule_EState_VSA10,
+    "molecule_EState_VSA11": molecule_EState_VSA11,
+    "molecule_EState_VSA2": molecule_EState_VSA2,
+    "molecule_EState_VSA3": molecule_EState_VSA3,
+    "molecule_EState_VSA4": molecule_EState_VSA4,
+    "molecule_EState_VSA5": molecule_EState_VSA5,
+    "molecule_EState_VSA6": molecule_EState_VSA6,
+    "molecule_EState_VSA7": molecule_EState_VSA7,
+    "molecule_EState_VSA8": molecule_EState_VSA8,
+    "molecule_EState_VSA9": molecule_EState_VSA9,
+    "molecule_Eccentricity": molecule_Eccentricity,
+    "molecule_ExactMolWt": molecule_ExactMolWt,
+    "molecule_FormalCharge": molecule_FormalCharge,
+    "molecule_FpDensityMorgan1": molecule_FpDensityMorgan1,
+    "molecule_FpDensityMorgan2": molecule_FpDensityMorgan2,
+    "molecule_FpDensityMorgan3": molecule_FpDensityMorgan3,
+    "molecule_FractionCSP3": molecule_FractionCSP3,
+    "molecule_HallKierAlpha": molecule_HallKierAlpha,
+    "molecule_HeavyAtomCount": molecule_HeavyAtomCount,
+    "molecule_HeavyAtomMolWt": molecule_HeavyAtomMolWt,
+    "molecule_InertialShapeFactor": molecule_InertialShapeFactor,
+    "molecule_Ipc": molecule_Ipc,
+    "molecule_Kappa1": molecule_Kappa1,
+    "molecule_Kappa2": molecule_Kappa2,
+    "molecule_Kappa3": molecule_Kappa3,
+    "molecule_LabuteASA": molecule_LabuteASA,
+    "molecule_MaxAbsEStateIndex": molecule_MaxAbsEStateIndex,
+    "molecule_MaxAbsPartialCharge": molecule_MaxAbsPartialCharge,
+    "molecule_MaxEStateIndex": molecule_MaxEStateIndex,
+    "molecule_MaxPartialCharge": molecule_MaxPartialCharge,
+    "molecule_MinAbsEStateIndex": molecule_MinAbsEStateIndex,
+    "molecule_MinAbsPartialCharge": molecule_MinAbsPartialCharge,
+    "molecule_MinEStateIndex": molecule_MinEStateIndex,
+    "molecule_MinPartialCharge": molecule_MinPartialCharge,
+    "molecule_MolLogP": molecule_MolLogP,
+    "molecule_MolMR": molecule_MolMR,
+    "molecule_MolWt": molecule_MolWt,
+    "molecule_NHOHCount": molecule_NHOHCount,
+    "molecule_NOCount": molecule_NOCount,
+    "molecule_NPR1": molecule_NPR1,
+    "molecule_NPR2": molecule_NPR2,
+    "molecule_NumAliphaticCarbocycles": molecule_NumAliphaticCarbocycles,
+    "molecule_NumAliphaticHeterocycles": molecule_NumAliphaticHeterocycles,
+    "molecule_NumAliphaticRings": molecule_NumAliphaticRings,
+    "molecule_NumAmideBonds": molecule_NumAmideBonds,
+    "molecule_NumAromaticCarbocycles": molecule_NumAromaticCarbocycles,
+    "molecule_NumAromaticHeterocycles": molecule_NumAromaticHeterocycles,
+    "molecule_NumAromaticRings": molecule_NumAromaticRings,
+    "molecule_NumAtoms": molecule_NumAtoms,
+    "molecule_NumBonds": molecule_NumBonds,
+    "molecule_NumBridgeheadAtoms": molecule_NumBridgeheadAtoms,
+    "molecule_NumHAcceptors": molecule_NumHAcceptors,
+    "molecule_NumHBA": molecule_NumHBA,
+    "molecule_NumHBD": molecule_NumHBD,
+    "molecule_NumHDonors": molecule_NumHDonors,
+    "molecule_NumHeavyAtoms": molecule_NumHeavyAtoms,
+    "molecule_NumHeteroatoms": molecule_NumHeteroatoms,
+    "molecule_NumHeterocycles": molecule_NumHeterocycles,
+    "molecule_NumLipinskiHBA": molecule_NumLipinskiHBA,
+    "molecule_NumLipinskiHBD": molecule_NumLipinskiHBD,
+    "molecule_NumRadicalElectrons": molecule_NumRadicalElectrons,
+    "molecule_NumRings": molecule_NumRings,
+    "molecule_NumRotatableBonds": molecule_NumRotatableBonds,
+    "molecule_NumSaturatedCarbocycles": molecule_NumSaturatedCarbocycles,
+    "molecule_NumSaturatedHeterocycles": molecule_NumSaturatedHeterocycles,
+    "molecule_NumSaturatedRings": molecule_NumSaturatedRings,
+    "molecule_NumSpiroAtoms": molecule_NumSpiroAtoms,
+    "molecule_NumValenceElectrons": molecule_NumValenceElectrons,
+    "molecule_NumberAtomsAc": molecule_NumberAtomsAc,
+    "molecule_NumberAtomsAg": molecule_NumberAtomsAg,
+    "molecule_NumberAtomsAl": molecule_NumberAtomsAl,
+    "molecule_NumberAtomsAm": molecule_NumberAtomsAm,
+    "molecule_NumberAtomsAr": molecule_NumberAtomsAr,
+    "molecule_NumberAtomsAs": molecule_NumberAtomsAs,
+    "molecule_NumberAtomsAt": molecule_NumberAtomsAt,
+    "molecule_NumberAtomsAu": molecule_NumberAtomsAu,
+    "molecule_NumberAtomsB": molecule_NumberAtomsB,
+    "molecule_NumberAtomsBa": molecule_NumberAtomsBa,
+    "molecule_NumberAtomsBe": molecule_NumberAtomsBe,
+    "molecule_NumberAtomsBh": molecule_NumberAtomsBh,
+    "molecule_NumberAtomsBi": molecule_NumberAtomsBi,
+    "molecule_NumberAtomsBk": molecule_NumberAtomsBk,
+    "molecule_NumberAtomsBr": molecule_NumberAtomsBr,
+    "molecule_NumberAtomsC": molecule_NumberAtomsC,
+    "molecule_NumberAtomsCa": molecule_NumberAtomsCa,
+    "molecule_NumberAtomsCd": molecule_NumberAtomsCd,
+    "molecule_NumberAtomsCe": molecule_NumberAtomsCe,
+    "molecule_NumberAtomsCf": molecule_NumberAtomsCf,
+    "molecule_NumberAtomsCl": molecule_NumberAtomsCl,
+    "molecule_NumberAtomsCm": molecule_NumberAtomsCm,
+    "molecule_NumberAtomsCn": molecule_NumberAtomsCn,
+    "molecule_NumberAtomsCo": molecule_NumberAtomsCo,
+    "molecule_NumberAtomsCr": molecule_NumberAtomsCr,
+    "molecule_NumberAtomsCs": molecule_NumberAtomsCs,
+    "molecule_NumberAtomsCu": molecule_NumberAtomsCu,
+    "molecule_NumberAtomsDb": molecule_NumberAtomsDb,
+    "molecule_NumberAtomsDs": molecule_NumberAtomsDs,
+    "molecule_NumberAtomsDy": molecule_NumberAtomsDy,
+    "molecule_NumberAtomsEr": molecule_NumberAtomsEr,
+    "molecule_NumberAtomsEs": molecule_NumberAtomsEs,
+    "molecule_NumberAtomsEu": molecule_NumberAtomsEu,
+    "molecule_NumberAtomsF": molecule_NumberAtomsF,
+    "molecule_NumberAtomsFe": molecule_NumberAtomsFe,
+    "molecule_NumberAtomsFl": molecule_NumberAtomsFl,
+    "molecule_NumberAtomsFm": molecule_NumberAtomsFm,
+    "molecule_NumberAtomsFr": molecule_NumberAtomsFr,
+    "molecule_NumberAtomsGa": molecule_NumberAtomsGa,
+    "molecule_NumberAtomsGd": molecule_NumberAtomsGd,
+    "molecule_NumberAtomsGe": molecule_NumberAtomsGe,
+    "molecule_NumberAtomsH": molecule_NumberAtomsH,
+    "molecule_NumberAtomsHe": molecule_NumberAtomsHe,
+    "molecule_NumberAtomsHf": molecule_NumberAtomsHf,
+    "molecule_NumberAtomsHg": molecule_NumberAtomsHg,
+    "molecule_NumberAtomsHo": molecule_NumberAtomsHo,
+    "molecule_NumberAtomsHs": molecule_NumberAtomsHs,
+    "molecule_NumberAtomsI": molecule_NumberAtomsI,
+    "molecule_NumberAtomsIn": molecule_NumberAtomsIn,
+    "molecule_NumberAtomsIr": molecule_NumberAtomsIr,
+    "molecule_NumberAtomsK": molecule_NumberAtomsK,
+    "molecule_NumberAtomsKr": molecule_NumberAtomsKr,
+    "molecule_NumberAtomsLa": molecule_NumberAtomsLa,
+    "molecule_NumberAtomsLi": molecule_NumberAtomsLi,
+    "molecule_NumberAtomsLr": molecule_NumberAtomsLr,
+    "molecule_NumberAtomsLu": molecule_NumberAtomsLu,
+    "molecule_NumberAtomsLv": molecule_NumberAtomsLv,
+    "molecule_NumberAtomsMc": molecule_NumberAtomsMc,
+    "molecule_NumberAtomsMd": molecule_NumberAtomsMd,
+    "molecule_NumberAtomsMg": molecule_NumberAtomsMg,
+    "molecule_NumberAtomsMn": molecule_NumberAtomsMn,
+    "molecule_NumberAtomsMo": molecule_NumberAtomsMo,
+    "molecule_NumberAtomsMt": molecule_NumberAtomsMt,
+    "molecule_NumberAtomsN": molecule_NumberAtomsN,
+    "molecule_NumberAtomsNa": molecule_NumberAtomsNa,
+    "molecule_NumberAtomsNb": molecule_NumberAtomsNb,
+    "molecule_NumberAtomsNd": molecule_NumberAtomsNd,
+    "molecule_NumberAtomsNe": molecule_NumberAtomsNe,
+    "molecule_NumberAtomsNh": molecule_NumberAtomsNh,
+    "molecule_NumberAtomsNi": molecule_NumberAtomsNi,
+    "molecule_NumberAtomsNo": molecule_NumberAtomsNo,
+    "molecule_NumberAtomsNp": molecule_NumberAtomsNp,
+    "molecule_NumberAtomsO": molecule_NumberAtomsO,
+    "molecule_NumberAtomsOg": molecule_NumberAtomsOg,
+    "molecule_NumberAtomsOs": molecule_NumberAtomsOs,
+    "molecule_NumberAtomsP": molecule_NumberAtomsP,
+    "molecule_NumberAtomsPa": molecule_NumberAtomsPa,
+    "molecule_NumberAtomsPb": molecule_NumberAtomsPb,
+    "molecule_NumberAtomsPd": molecule_NumberAtomsPd,
+    "molecule_NumberAtomsPm": molecule_NumberAtomsPm,
+    "molecule_NumberAtomsPo": molecule_NumberAtomsPo,
+    "molecule_NumberAtomsPr": molecule_NumberAtomsPr,
+    "molecule_NumberAtomsPt": molecule_NumberAtomsPt,
+    "molecule_NumberAtomsPu": molecule_NumberAtomsPu,
+    "molecule_NumberAtomsRa": molecule_NumberAtomsRa,
+    "molecule_NumberAtomsRb": molecule_NumberAtomsRb,
+    "molecule_NumberAtomsRe": molecule_NumberAtomsRe,
+    "molecule_NumberAtomsRf": molecule_NumberAtomsRf,
+    "molecule_NumberAtomsRg": molecule_NumberAtomsRg,
+    "molecule_NumberAtomsRh": molecule_NumberAtomsRh,
+    "molecule_NumberAtomsRn": molecule_NumberAtomsRn,
+    "molecule_NumberAtomsRu": molecule_NumberAtomsRu,
+    "molecule_NumberAtomsS": molecule_NumberAtomsS,
+    "molecule_NumberAtomsSb": molecule_NumberAtomsSb,
+    "molecule_NumberAtomsSc": molecule_NumberAtomsSc,
+    "molecule_NumberAtomsSe": molecule_NumberAtomsSe,
+    "molecule_NumberAtomsSg": molecule_NumberAtomsSg,
+    "molecule_NumberAtomsSi": molecule_NumberAtomsSi,
+    "molecule_NumberAtomsSm": molecule_NumberAtomsSm,
+    "molecule_NumberAtomsSn": molecule_NumberAtomsSn,
+    "molecule_NumberAtomsSr": molecule_NumberAtomsSr,
+    "molecule_NumberAtomsTa": molecule_NumberAtomsTa,
+    "molecule_NumberAtomsTb": molecule_NumberAtomsTb,
+    "molecule_NumberAtomsTc": molecule_NumberAtomsTc,
+    "molecule_NumberAtomsTe": molecule_NumberAtomsTe,
+    "molecule_NumberAtomsTh": molecule_NumberAtomsTh,
+    "molecule_NumberAtomsTi": molecule_NumberAtomsTi,
+    "molecule_NumberAtomsTl": molecule_NumberAtomsTl,
+    "molecule_NumberAtomsTm": molecule_NumberAtomsTm,
+    "molecule_NumberAtomsTs": molecule_NumberAtomsTs,
+    "molecule_NumberAtomsU": molecule_NumberAtomsU,
+    "molecule_NumberAtomsV": molecule_NumberAtomsV,
+    "molecule_NumberAtomsW": molecule_NumberAtomsW,
+    "molecule_NumberAtomsXe": molecule_NumberAtomsXe,
+    "molecule_NumberAtomsY": molecule_NumberAtomsY,
+    "molecule_NumberAtomsYb": molecule_NumberAtomsYb,
+    "molecule_NumberAtomsZn": molecule_NumberAtomsZn,
+    "molecule_NumberAtomsZr": molecule_NumberAtomsZr,
+    "molecule_PBF": molecule_PBF,
+    "molecule_PEOE_VSA1": molecule_PEOE_VSA1,
+    "molecule_PEOE_VSA10": molecule_PEOE_VSA10,
+    "molecule_PEOE_VSA11": molecule_PEOE_VSA11,
+    "molecule_PEOE_VSA12": molecule_PEOE_VSA12,
+    "molecule_PEOE_VSA13": molecule_PEOE_VSA13,
+    "molecule_PEOE_VSA14": molecule_PEOE_VSA14,
+    "molecule_PEOE_VSA2": molecule_PEOE_VSA2,
+    "molecule_PEOE_VSA3": molecule_PEOE_VSA3,
+    "molecule_PEOE_VSA4": molecule_PEOE_VSA4,
+    "molecule_PEOE_VSA5": molecule_PEOE_VSA5,
+    "molecule_PEOE_VSA6": molecule_PEOE_VSA6,
+    "molecule_PEOE_VSA7": molecule_PEOE_VSA7,
+    "molecule_PEOE_VSA8": molecule_PEOE_VSA8,
+    "molecule_PEOE_VSA9": molecule_PEOE_VSA9,
+    "molecule_PMI1": molecule_PMI1,
+    "molecule_PMI2": molecule_PMI2,
+    "molecule_PMI3": molecule_PMI3,
+    "molecule_Phi": molecule_Phi,
+    "molecule_RadiusOfGyration": molecule_RadiusOfGyration,
+    "molecule_RelativeContentAc": molecule_RelativeContentAc,
+    "molecule_RelativeContentAg": molecule_RelativeContentAg,
+    "molecule_RelativeContentAl": molecule_RelativeContentAl,
+    "molecule_RelativeContentAm": molecule_RelativeContentAm,
+    "molecule_RelativeContentAr": molecule_RelativeContentAr,
+    "molecule_RelativeContentAs": molecule_RelativeContentAs,
+    "molecule_RelativeContentAt": molecule_RelativeContentAt,
+    "molecule_RelativeContentAu": molecule_RelativeContentAu,
+    "molecule_RelativeContentB": molecule_RelativeContentB,
+    "molecule_RelativeContentBa": molecule_RelativeContentBa,
+    "molecule_RelativeContentBe": molecule_RelativeContentBe,
+    "molecule_RelativeContentBh": molecule_RelativeContentBh,
+    "molecule_RelativeContentBi": molecule_RelativeContentBi,
+    "molecule_RelativeContentBk": molecule_RelativeContentBk,
+    "molecule_RelativeContentBr": molecule_RelativeContentBr,
+    "molecule_RelativeContentC": molecule_RelativeContentC,
+    "molecule_RelativeContentCa": molecule_RelativeContentCa,
+    "molecule_RelativeContentCd": molecule_RelativeContentCd,
+    "molecule_RelativeContentCe": molecule_RelativeContentCe,
+    "molecule_RelativeContentCf": molecule_RelativeContentCf,
+    "molecule_RelativeContentCl": molecule_RelativeContentCl,
+    "molecule_RelativeContentCm": molecule_RelativeContentCm,
+    "molecule_RelativeContentCn": molecule_RelativeContentCn,
+    "molecule_RelativeContentCo": molecule_RelativeContentCo,
+    "molecule_RelativeContentCr": molecule_RelativeContentCr,
+    "molecule_RelativeContentCs": molecule_RelativeContentCs,
+    "molecule_RelativeContentCu": molecule_RelativeContentCu,
+    "molecule_RelativeContentDb": molecule_RelativeContentDb,
+    "molecule_RelativeContentDs": molecule_RelativeContentDs,
+    "molecule_RelativeContentDy": molecule_RelativeContentDy,
+    "molecule_RelativeContentEr": molecule_RelativeContentEr,
+    "molecule_RelativeContentEs": molecule_RelativeContentEs,
+    "molecule_RelativeContentEu": molecule_RelativeContentEu,
+    "molecule_RelativeContentF": molecule_RelativeContentF,
+    "molecule_RelativeContentFe": molecule_RelativeContentFe,
+    "molecule_RelativeContentFl": molecule_RelativeContentFl,
+    "molecule_RelativeContentFm": molecule_RelativeContentFm,
+    "molecule_RelativeContentFr": molecule_RelativeContentFr,
+    "molecule_RelativeContentGa": molecule_RelativeContentGa,
+    "molecule_RelativeContentGd": molecule_RelativeContentGd,
+    "molecule_RelativeContentGe": molecule_RelativeContentGe,
+    "molecule_RelativeContentH": molecule_RelativeContentH,
+    "molecule_RelativeContentHe": molecule_RelativeContentHe,
+    "molecule_RelativeContentHf": molecule_RelativeContentHf,
+    "molecule_RelativeContentHg": molecule_RelativeContentHg,
+    "molecule_RelativeContentHo": molecule_RelativeContentHo,
+    "molecule_RelativeContentHs": molecule_RelativeContentHs,
+    "molecule_RelativeContentI": molecule_RelativeContentI,
+    "molecule_RelativeContentIn": molecule_RelativeContentIn,
+    "molecule_RelativeContentIr": molecule_RelativeContentIr,
+    "molecule_RelativeContentK": molecule_RelativeContentK,
+    "molecule_RelativeContentKr": molecule_RelativeContentKr,
+    "molecule_RelativeContentLa": molecule_RelativeContentLa,
+    "molecule_RelativeContentLi": molecule_RelativeContentLi,
+    "molecule_RelativeContentLr": molecule_RelativeContentLr,
+    "molecule_RelativeContentLu": molecule_RelativeContentLu,
+    "molecule_RelativeContentLv": molecule_RelativeContentLv,
+    "molecule_RelativeContentMc": molecule_RelativeContentMc,
+    "molecule_RelativeContentMd": molecule_RelativeContentMd,
+    "molecule_RelativeContentMg": molecule_RelativeContentMg,
+    "molecule_RelativeContentMn": molecule_RelativeContentMn,
+    "molecule_RelativeContentMo": molecule_RelativeContentMo,
+    "molecule_RelativeContentMt": molecule_RelativeContentMt,
+    "molecule_RelativeContentN": molecule_RelativeContentN,
+    "molecule_RelativeContentNa": molecule_RelativeContentNa,
+    "molecule_RelativeContentNb": molecule_RelativeContentNb,
+    "molecule_RelativeContentNd": molecule_RelativeContentNd,
+    "molecule_RelativeContentNe": molecule_RelativeContentNe,
+    "molecule_RelativeContentNh": molecule_RelativeContentNh,
+    "molecule_RelativeContentNi": molecule_RelativeContentNi,
+    "molecule_RelativeContentNo": molecule_RelativeContentNo,
+    "molecule_RelativeContentNp": molecule_RelativeContentNp,
+    "molecule_RelativeContentO": molecule_RelativeContentO,
+    "molecule_RelativeContentOg": molecule_RelativeContentOg,
+    "molecule_RelativeContentOs": molecule_RelativeContentOs,
+    "molecule_RelativeContentP": molecule_RelativeContentP,
+    "molecule_RelativeContentPa": molecule_RelativeContentPa,
+    "molecule_RelativeContentPb": molecule_RelativeContentPb,
+    "molecule_RelativeContentPd": molecule_RelativeContentPd,
+    "molecule_RelativeContentPm": molecule_RelativeContentPm,
+    "molecule_RelativeContentPo": molecule_RelativeContentPo,
+    "molecule_RelativeContentPr": molecule_RelativeContentPr,
+    "molecule_RelativeContentPt": molecule_RelativeContentPt,
+    "molecule_RelativeContentPu": molecule_RelativeContentPu,
+    "molecule_RelativeContentRa": molecule_RelativeContentRa,
+    "molecule_RelativeContentRb": molecule_RelativeContentRb,
+    "molecule_RelativeContentRe": molecule_RelativeContentRe,
+    "molecule_RelativeContentRf": molecule_RelativeContentRf,
+    "molecule_RelativeContentRg": molecule_RelativeContentRg,
+    "molecule_RelativeContentRh": molecule_RelativeContentRh,
+    "molecule_RelativeContentRn": molecule_RelativeContentRn,
+    "molecule_RelativeContentRu": molecule_RelativeContentRu,
+    "molecule_RelativeContentS": molecule_RelativeContentS,
+    "molecule_RelativeContentSb": molecule_RelativeContentSb,
+    "molecule_RelativeContentSc": molecule_RelativeContentSc,
+    "molecule_RelativeContentSe": molecule_RelativeContentSe,
+    "molecule_RelativeContentSg": molecule_RelativeContentSg,
+    "molecule_RelativeContentSi": molecule_RelativeContentSi,
+    "molecule_RelativeContentSm": molecule_RelativeContentSm,
+    "molecule_RelativeContentSn": molecule_RelativeContentSn,
+    "molecule_RelativeContentSr": molecule_RelativeContentSr,
+    "molecule_RelativeContentTa": molecule_RelativeContentTa,
+    "molecule_RelativeContentTb": molecule_RelativeContentTb,
+    "molecule_RelativeContentTc": molecule_RelativeContentTc,
+    "molecule_RelativeContentTe": molecule_RelativeContentTe,
+    "molecule_RelativeContentTh": molecule_RelativeContentTh,
+    "molecule_RelativeContentTi": molecule_RelativeContentTi,
+    "molecule_RelativeContentTl": molecule_RelativeContentTl,
+    "molecule_RelativeContentTm": molecule_RelativeContentTm,
+    "molecule_RelativeContentTs": molecule_RelativeContentTs,
+    "molecule_RelativeContentU": molecule_RelativeContentU,
+    "molecule_RelativeContentV": molecule_RelativeContentV,
+    "molecule_RelativeContentW": molecule_RelativeContentW,
+    "molecule_RelativeContentXe": molecule_RelativeContentXe,
+    "molecule_RelativeContentY": molecule_RelativeContentY,
+    "molecule_RelativeContentYb": molecule_RelativeContentYb,
+    "molecule_RelativeContentZn": molecule_RelativeContentZn,
+    "molecule_RelativeContentZr": molecule_RelativeContentZr,
+    "molecule_RingCount": molecule_RingCount,
+    "molecule_SMR_VSA1": molecule_SMR_VSA1,
+    "molecule_SMR_VSA10": molecule_SMR_VSA10,
+    "molecule_SMR_VSA2": molecule_SMR_VSA2,
+    "molecule_SMR_VSA3": molecule_SMR_VSA3,
+    "molecule_SMR_VSA4": molecule_SMR_VSA4,
+    "molecule_SMR_VSA5": molecule_SMR_VSA5,
+    "molecule_SMR_VSA6": molecule_SMR_VSA6,
+    "molecule_SMR_VSA7": molecule_SMR_VSA7,
+    "molecule_SMR_VSA8": molecule_SMR_VSA8,
+    "molecule_SMR_VSA9": molecule_SMR_VSA9,
+    "molecule_SSSR": molecule_SSSR,
+    "molecule_SlogP_VSA1": molecule_SlogP_VSA1,
+    "molecule_SlogP_VSA10": molecule_SlogP_VSA10,
+    "molecule_SlogP_VSA11": molecule_SlogP_VSA11,
+    "molecule_SlogP_VSA12": molecule_SlogP_VSA12,
+    "molecule_SlogP_VSA2": molecule_SlogP_VSA2,
+    "molecule_SlogP_VSA3": molecule_SlogP_VSA3,
+    "molecule_SlogP_VSA4": molecule_SlogP_VSA4,
+    "molecule_SlogP_VSA5": molecule_SlogP_VSA5,
+    "molecule_SlogP_VSA6": molecule_SlogP_VSA6,
+    "molecule_SlogP_VSA7": molecule_SlogP_VSA7,
+    "molecule_SlogP_VSA8": molecule_SlogP_VSA8,
+    "molecule_SlogP_VSA9": molecule_SlogP_VSA9,
+    "molecule_SpherocityIndex": molecule_SpherocityIndex,
+    "molecule_TPSA": molecule_TPSA,
+    "molecule_VSA_EState1": molecule_VSA_EState1,
+    "molecule_VSA_EState10": molecule_VSA_EState10,
+    "molecule_VSA_EState2": molecule_VSA_EState2,
+    "molecule_VSA_EState3": molecule_VSA_EState3,
+    "molecule_VSA_EState4": molecule_VSA_EState4,
+    "molecule_VSA_EState5": molecule_VSA_EState5,
+    "molecule_VSA_EState6": molecule_VSA_EState6,
+    "molecule_VSA_EState7": molecule_VSA_EState7,
+    "molecule_VSA_EState8": molecule_VSA_EState8,
+    "molecule_VSA_EState9": molecule_VSA_EState9,
+    "molecule_fr_Al_COO": molecule_fr_Al_COO,
+    "molecule_fr_Al_OH": molecule_fr_Al_OH,
+    "molecule_fr_Al_OH_noTert": molecule_fr_Al_OH_noTert,
+    "molecule_fr_ArN": molecule_fr_ArN,
+    "molecule_fr_Ar_COO": molecule_fr_Ar_COO,
+    "molecule_fr_Ar_N": molecule_fr_Ar_N,
+    "molecule_fr_Ar_NH": molecule_fr_Ar_NH,
+    "molecule_fr_Ar_OH": molecule_fr_Ar_OH,
+    "molecule_fr_COO": molecule_fr_COO,
+    "molecule_fr_COO2": molecule_fr_COO2,
+    "molecule_fr_C_O": molecule_fr_C_O,
+    "molecule_fr_C_O_noCOO": molecule_fr_C_O_noCOO,
+    "molecule_fr_C_S": molecule_fr_C_S,
+    "molecule_fr_HOCCN": molecule_fr_HOCCN,
+    "molecule_fr_Imine": molecule_fr_Imine,
+    "molecule_fr_NH0": molecule_fr_NH0,
+    "molecule_fr_NH1": molecule_fr_NH1,
+    "molecule_fr_NH2": molecule_fr_NH2,
+    "molecule_fr_N_O": molecule_fr_N_O,
+    "molecule_fr_Ndealkylation1": molecule_fr_Ndealkylation1,
+    "molecule_fr_Ndealkylation2": molecule_fr_Ndealkylation2,
+    "molecule_fr_Nhpyrrole": molecule_fr_Nhpyrrole,
+    "molecule_fr_SH": molecule_fr_SH,
+    "molecule_fr_aldehyde": molecule_fr_aldehyde,
+    "molecule_fr_alkyl_carbamate": molecule_fr_alkyl_carbamate,
+    "molecule_fr_alkyl_halide": molecule_fr_alkyl_halide,
+    "molecule_fr_allylic_oxid": molecule_fr_allylic_oxid,
+    "molecule_fr_amide": molecule_fr_amide,
+    "molecule_fr_amidine": molecule_fr_amidine,
+    "molecule_fr_aniline": molecule_fr_aniline,
+    "molecule_fr_aryl_methyl": molecule_fr_aryl_methyl,
+    "molecule_fr_azide": molecule_fr_azide,
+    "molecule_fr_azo": molecule_fr_azo,
+    "molecule_fr_barbitur": molecule_fr_barbitur,
+    "molecule_fr_benzene": molecule_fr_benzene,
+    "molecule_fr_benzodiazepine": molecule_fr_benzodiazepine,
+    "molecule_fr_bicyclic": molecule_fr_bicyclic,
+    "molecule_fr_diazo": molecule_fr_diazo,
+    "molecule_fr_dihydropyridine": molecule_fr_dihydropyridine,
+    "molecule_fr_epoxide": molecule_fr_epoxide,
+    "molecule_fr_ester": molecule_fr_ester,
+    "molecule_fr_ether": molecule_fr_ether,
+    "molecule_fr_furan": molecule_fr_furan,
+    "molecule_fr_guanido": molecule_fr_guanido,
+    "molecule_fr_halogen": molecule_fr_halogen,
+    "molecule_fr_hdrzine": molecule_fr_hdrzine,
+    "molecule_fr_hdrzone": molecule_fr_hdrzone,
+    "molecule_fr_imidazole": molecule_fr_imidazole,
+    "molecule_fr_imide": molecule_fr_imide,
+    "molecule_fr_isocyan": molecule_fr_isocyan,
+    "molecule_fr_isothiocyan": molecule_fr_isothiocyan,
+    "molecule_fr_ketone": molecule_fr_ketone,
+    "molecule_fr_ketone_Topliss": molecule_fr_ketone_Topliss,
+    "molecule_fr_lactam": molecule_fr_lactam,
+    "molecule_fr_lactone": molecule_fr_lactone,
+    "molecule_fr_methoxy": molecule_fr_methoxy,
+    "molecule_fr_morpholine": molecule_fr_morpholine,
+    "molecule_fr_nitrile": molecule_fr_nitrile,
+    "molecule_fr_nitro": molecule_fr_nitro,
+    "molecule_fr_nitro_arom": molecule_fr_nitro_arom,
+    "molecule_fr_nitro_arom_nonortho": molecule_fr_nitro_arom_nonortho,
+    "molecule_fr_nitroso": molecule_fr_nitroso,
+    "molecule_fr_oxazole": molecule_fr_oxazole,
+    "molecule_fr_oxime": molecule_fr_oxime,
+    "molecule_fr_para_hydroxylation": molecule_fr_para_hydroxylation,
+    "molecule_fr_phenol": molecule_fr_phenol,
+    "molecule_fr_phenol_noOrthoHbond": molecule_fr_phenol_noOrthoHbond,
+    "molecule_fr_phos_acid": molecule_fr_phos_acid,
+    "molecule_fr_phos_ester": molecule_fr_phos_ester,
+    "molecule_fr_piperdine": molecule_fr_piperdine,
+    "molecule_fr_piperzine": molecule_fr_piperzine,
+    "molecule_fr_priamide": molecule_fr_priamide,
+    "molecule_fr_prisulfonamd": molecule_fr_prisulfonamd,
+    "molecule_fr_pyridine": molecule_fr_pyridine,
+    "molecule_fr_quatN": molecule_fr_quatN,
+    "molecule_fr_sulfide": molecule_fr_sulfide,
+    "molecule_fr_sulfonamd": molecule_fr_sulfonamd,
+    "molecule_fr_sulfone": molecule_fr_sulfone,
+    "molecule_fr_term_acetylene": molecule_fr_term_acetylene,
+    "molecule_fr_tetrazole": molecule_fr_tetrazole,
+    "molecule_fr_thiazole": molecule_fr_thiazole,
+    "molecule_fr_thiocyan": molecule_fr_thiocyan,
+    "molecule_fr_thiophene": molecule_fr_thiophene,
+    "molecule_fr_unbrch_alkane": molecule_fr_unbrch_alkane,
+    "molecule_fr_urea": molecule_fr_urea,
+    "molecule_qed": molecule_qed,
+}
+
+
+def get_available_featurizer():
+    return _available_featurizer
+
+
+__all__ = [
+    "Asphericity_Featurizer",
+    "BCUT2D_CHGHI_Featurizer",
+    "BCUT2D_CHGLO_Featurizer",
+    "BCUT2D_LOGPHI_Featurizer",
+    "BCUT2D_LOGPLOW_Featurizer",
+    "BCUT2D_MRHI_Featurizer",
+    "BCUT2D_MRLOW_Featurizer",
+    "BCUT2D_MWHI_Featurizer",
+    "BCUT2D_MWLOW_Featurizer",
+    "BalabanJ_Featurizer",
+    "BertzCT_Featurizer",
+    "Chi0_Featurizer",
+    "Chi0n_Featurizer",
+    "Chi0v_Featurizer",
+    "Chi1_Featurizer",
+    "Chi1n_Featurizer",
+    "Chi1v_Featurizer",
+    "Chi2n_Featurizer",
+    "Chi2v_Featurizer",
+    "Chi3n_Featurizer",
+    "Chi3v_Featurizer",
+    "Chi4n_Featurizer",
+    "Chi4v_Featurizer",
+    "EState_VSA1_Featurizer",
+    "EState_VSA10_Featurizer",
+    "EState_VSA11_Featurizer",
+    "EState_VSA2_Featurizer",
+    "EState_VSA3_Featurizer",
+    "EState_VSA4_Featurizer",
+    "EState_VSA5_Featurizer",
+    "EState_VSA6_Featurizer",
+    "EState_VSA7_Featurizer",
+    "EState_VSA8_Featurizer",
+    "EState_VSA9_Featurizer",
+    "Eccentricity_Featurizer",
+    "ExactMolWt_Featurizer",
+    "FormalCharge_Featurizer",
+    "FpDensityMorgan1_Featurizer",
+    "FpDensityMorgan2_Featurizer",
+    "FpDensityMorgan3_Featurizer",
+    "FractionCSP3_Featurizer",
+    "HallKierAlpha_Featurizer",
+    "HeavyAtomCount_Featurizer",
+    "HeavyAtomMolWt_Featurizer",
+    "InertialShapeFactor_Featurizer",
+    "Ipc_Featurizer",
+    "Kappa1_Featurizer",
+    "Kappa2_Featurizer",
+    "Kappa3_Featurizer",
+    "LabuteASA_Featurizer",
+    "MaxAbsEStateIndex_Featurizer",
+    "MaxAbsPartialCharge_Featurizer",
+    "MaxEStateIndex_Featurizer",
+    "MaxPartialCharge_Featurizer",
+    "MinAbsEStateIndex_Featurizer",
+    "MinAbsPartialCharge_Featurizer",
+    "MinEStateIndex_Featurizer",
+    "MinPartialCharge_Featurizer",
+    "MolLogP_Featurizer",
+    "MolMR_Featurizer",
+    "MolWt_Featurizer",
+    "NHOHCount_Featurizer",
+    "NOCount_Featurizer",
+    "NPR1_Featurizer",
+    "NPR2_Featurizer",
+    "NumAliphaticCarbocycles_Featurizer",
+    "NumAliphaticHeterocycles_Featurizer",
+    "NumAliphaticRings_Featurizer",
+    "NumAmideBonds_Featurizer",
+    "NumAromaticCarbocycles_Featurizer",
+    "NumAromaticHeterocycles_Featurizer",
+    "NumAromaticRings_Featurizer",
+    "NumAtoms_Featurizer",
+    "NumBonds_Featurizer",
+    "NumBridgeheadAtoms_Featurizer",
+    "NumHAcceptors_Featurizer",
+    "NumHBA_Featurizer",
+    "NumHBD_Featurizer",
+    "NumHDonors_Featurizer",
+    "NumHeavyAtoms_Featurizer",
+    "NumHeteroatoms_Featurizer",
+    "NumHeterocycles_Featurizer",
+    "NumLipinskiHBA_Featurizer",
+    "NumLipinskiHBD_Featurizer",
+    "NumRadicalElectrons_Featurizer",
+    "NumRings_Featurizer",
+    "NumRotatableBonds_Featurizer",
+    "NumSaturatedCarbocycles_Featurizer",
+    "NumSaturatedHeterocycles_Featurizer",
+    "NumSaturatedRings_Featurizer",
+    "NumSpiroAtoms_Featurizer",
+    "NumValenceElectrons_Featurizer",
+    "NumberAtomsAc_Featurizer",
+    "NumberAtomsAg_Featurizer",
+    "NumberAtomsAl_Featurizer",
+    "NumberAtomsAm_Featurizer",
+    "NumberAtomsAr_Featurizer",
+    "NumberAtomsAs_Featurizer",
+    "NumberAtomsAt_Featurizer",
+    "NumberAtomsAu_Featurizer",
+    "NumberAtomsB_Featurizer",
+    "NumberAtomsBa_Featurizer",
+    "NumberAtomsBe_Featurizer",
+    "NumberAtomsBh_Featurizer",
+    "NumberAtomsBi_Featurizer",
+    "NumberAtomsBk_Featurizer",
+    "NumberAtomsBr_Featurizer",
+    "NumberAtomsC_Featurizer",
+    "NumberAtomsCa_Featurizer",
+    "NumberAtomsCd_Featurizer",
+    "NumberAtomsCe_Featurizer",
+    "NumberAtomsCf_Featurizer",
+    "NumberAtomsCl_Featurizer",
+    "NumberAtomsCm_Featurizer",
+    "NumberAtomsCn_Featurizer",
+    "NumberAtomsCo_Featurizer",
+    "NumberAtomsCr_Featurizer",
+    "NumberAtomsCs_Featurizer",
+    "NumberAtomsCu_Featurizer",
+    "NumberAtomsDb_Featurizer",
+    "NumberAtomsDs_Featurizer",
+    "NumberAtomsDy_Featurizer",
+    "NumberAtomsEr_Featurizer",
+    "NumberAtomsEs_Featurizer",
+    "NumberAtomsEu_Featurizer",
+    "NumberAtomsF_Featurizer",
+    "NumberAtomsFe_Featurizer",
+    "NumberAtomsFl_Featurizer",
+    "NumberAtomsFm_Featurizer",
+    "NumberAtomsFr_Featurizer",
+    "NumberAtomsGa_Featurizer",
+    "NumberAtomsGd_Featurizer",
+    "NumberAtomsGe_Featurizer",
+    "NumberAtomsH_Featurizer",
+    "NumberAtomsHe_Featurizer",
+    "NumberAtomsHf_Featurizer",
+    "NumberAtomsHg_Featurizer",
+    "NumberAtomsHo_Featurizer",
+    "NumberAtomsHs_Featurizer",
+    "NumberAtomsI_Featurizer",
+    "NumberAtomsIn_Featurizer",
+    "NumberAtomsIr_Featurizer",
+    "NumberAtomsK_Featurizer",
+    "NumberAtomsKr_Featurizer",
+    "NumberAtomsLa_Featurizer",
+    "NumberAtomsLi_Featurizer",
+    "NumberAtomsLr_Featurizer",
+    "NumberAtomsLu_Featurizer",
+    "NumberAtomsLv_Featurizer",
+    "NumberAtomsMc_Featurizer",
+    "NumberAtomsMd_Featurizer",
+    "NumberAtomsMg_Featurizer",
+    "NumberAtomsMn_Featurizer",
+    "NumberAtomsMo_Featurizer",
+    "NumberAtomsMt_Featurizer",
+    "NumberAtomsN_Featurizer",
+    "NumberAtomsNa_Featurizer",
+    "NumberAtomsNb_Featurizer",
+    "NumberAtomsNd_Featurizer",
+    "NumberAtomsNe_Featurizer",
+    "NumberAtomsNh_Featurizer",
+    "NumberAtomsNi_Featurizer",
+    "NumberAtomsNo_Featurizer",
+    "NumberAtomsNp_Featurizer",
+    "NumberAtomsO_Featurizer",
+    "NumberAtomsOg_Featurizer",
+    "NumberAtomsOs_Featurizer",
+    "NumberAtomsP_Featurizer",
+    "NumberAtomsPa_Featurizer",
+    "NumberAtomsPb_Featurizer",
+    "NumberAtomsPd_Featurizer",
+    "NumberAtomsPm_Featurizer",
+    "NumberAtomsPo_Featurizer",
+    "NumberAtomsPr_Featurizer",
+    "NumberAtomsPt_Featurizer",
+    "NumberAtomsPu_Featurizer",
+    "NumberAtomsRa_Featurizer",
+    "NumberAtomsRb_Featurizer",
+    "NumberAtomsRe_Featurizer",
+    "NumberAtomsRf_Featurizer",
+    "NumberAtomsRg_Featurizer",
+    "NumberAtomsRh_Featurizer",
+    "NumberAtomsRn_Featurizer",
+    "NumberAtomsRu_Featurizer",
+    "NumberAtomsS_Featurizer",
+    "NumberAtomsSb_Featurizer",
+    "NumberAtomsSc_Featurizer",
+    "NumberAtomsSe_Featurizer",
+    "NumberAtomsSg_Featurizer",
+    "NumberAtomsSi_Featurizer",
+    "NumberAtomsSm_Featurizer",
+    "NumberAtomsSn_Featurizer",
+    "NumberAtomsSr_Featurizer",
+    "NumberAtomsTa_Featurizer",
+    "NumberAtomsTb_Featurizer",
+    "NumberAtomsTc_Featurizer",
+    "NumberAtomsTe_Featurizer",
+    "NumberAtomsTh_Featurizer",
+    "NumberAtomsTi_Featurizer",
+    "NumberAtomsTl_Featurizer",
+    "NumberAtomsTm_Featurizer",
+    "NumberAtomsTs_Featurizer",
+    "NumberAtomsU_Featurizer",
+    "NumberAtomsV_Featurizer",
+    "NumberAtomsW_Featurizer",
+    "NumberAtomsXe_Featurizer",
+    "NumberAtomsY_Featurizer",
+    "NumberAtomsYb_Featurizer",
+    "NumberAtomsZn_Featurizer",
+    "NumberAtomsZr_Featurizer",
+    "PBF_Featurizer",
+    "PEOE_VSA1_Featurizer",
+    "PEOE_VSA10_Featurizer",
+    "PEOE_VSA11_Featurizer",
+    "PEOE_VSA12_Featurizer",
+    "PEOE_VSA13_Featurizer",
+    "PEOE_VSA14_Featurizer",
+    "PEOE_VSA2_Featurizer",
+    "PEOE_VSA3_Featurizer",
+    "PEOE_VSA4_Featurizer",
+    "PEOE_VSA5_Featurizer",
+    "PEOE_VSA6_Featurizer",
+    "PEOE_VSA7_Featurizer",
+    "PEOE_VSA8_Featurizer",
+    "PEOE_VSA9_Featurizer",
+    "PMI1_Featurizer",
+    "PMI2_Featurizer",
+    "PMI3_Featurizer",
+    "Phi_Featurizer",
+    "RadiusOfGyration_Featurizer",
+    "RelativeContentAc_Featurizer",
+    "RelativeContentAg_Featurizer",
+    "RelativeContentAl_Featurizer",
+    "RelativeContentAm_Featurizer",
+    "RelativeContentAr_Featurizer",
+    "RelativeContentAs_Featurizer",
+    "RelativeContentAt_Featurizer",
+    "RelativeContentAu_Featurizer",
+    "RelativeContentB_Featurizer",
+    "RelativeContentBa_Featurizer",
+    "RelativeContentBe_Featurizer",
+    "RelativeContentBh_Featurizer",
+    "RelativeContentBi_Featurizer",
+    "RelativeContentBk_Featurizer",
+    "RelativeContentBr_Featurizer",
+    "RelativeContentC_Featurizer",
+    "RelativeContentCa_Featurizer",
+    "RelativeContentCd_Featurizer",
+    "RelativeContentCe_Featurizer",
+    "RelativeContentCf_Featurizer",
+    "RelativeContentCl_Featurizer",
+    "RelativeContentCm_Featurizer",
+    "RelativeContentCn_Featurizer",
+    "RelativeContentCo_Featurizer",
+    "RelativeContentCr_Featurizer",
+    "RelativeContentCs_Featurizer",
+    "RelativeContentCu_Featurizer",
+    "RelativeContentDb_Featurizer",
+    "RelativeContentDs_Featurizer",
+    "RelativeContentDy_Featurizer",
+    "RelativeContentEr_Featurizer",
+    "RelativeContentEs_Featurizer",
+    "RelativeContentEu_Featurizer",
+    "RelativeContentF_Featurizer",
+    "RelativeContentFe_Featurizer",
+    "RelativeContentFl_Featurizer",
+    "RelativeContentFm_Featurizer",
+    "RelativeContentFr_Featurizer",
+    "RelativeContentGa_Featurizer",
+    "RelativeContentGd_Featurizer",
+    "RelativeContentGe_Featurizer",
+    "RelativeContentH_Featurizer",
+    "RelativeContentHe_Featurizer",
+    "RelativeContentHf_Featurizer",
+    "RelativeContentHg_Featurizer",
+    "RelativeContentHo_Featurizer",
+    "RelativeContentHs_Featurizer",
+    "RelativeContentI_Featurizer",
+    "RelativeContentIn_Featurizer",
+    "RelativeContentIr_Featurizer",
+    "RelativeContentK_Featurizer",
+    "RelativeContentKr_Featurizer",
+    "RelativeContentLa_Featurizer",
+    "RelativeContentLi_Featurizer",
+    "RelativeContentLr_Featurizer",
+    "RelativeContentLu_Featurizer",
+    "RelativeContentLv_Featurizer",
+    "RelativeContentMc_Featurizer",
+    "RelativeContentMd_Featurizer",
+    "RelativeContentMg_Featurizer",
+    "RelativeContentMn_Featurizer",
+    "RelativeContentMo_Featurizer",
+    "RelativeContentMt_Featurizer",
+    "RelativeContentN_Featurizer",
+    "RelativeContentNa_Featurizer",
+    "RelativeContentNb_Featurizer",
+    "RelativeContentNd_Featurizer",
+    "RelativeContentNe_Featurizer",
+    "RelativeContentNh_Featurizer",
+    "RelativeContentNi_Featurizer",
+    "RelativeContentNo_Featurizer",
+    "RelativeContentNp_Featurizer",
+    "RelativeContentO_Featurizer",
+    "RelativeContentOg_Featurizer",
+    "RelativeContentOs_Featurizer",
+    "RelativeContentP_Featurizer",
+    "RelativeContentPa_Featurizer",
+    "RelativeContentPb_Featurizer",
+    "RelativeContentPd_Featurizer",
+    "RelativeContentPm_Featurizer",
+    "RelativeContentPo_Featurizer",
+    "RelativeContentPr_Featurizer",
+    "RelativeContentPt_Featurizer",
+    "RelativeContentPu_Featurizer",
+    "RelativeContentRa_Featurizer",
+    "RelativeContentRb_Featurizer",
+    "RelativeContentRe_Featurizer",
+    "RelativeContentRf_Featurizer",
+    "RelativeContentRg_Featurizer",
+    "RelativeContentRh_Featurizer",
+    "RelativeContentRn_Featurizer",
+    "RelativeContentRu_Featurizer",
+    "RelativeContentS_Featurizer",
+    "RelativeContentSb_Featurizer",
+    "RelativeContentSc_Featurizer",
+    "RelativeContentSe_Featurizer",
+    "RelativeContentSg_Featurizer",
+    "RelativeContentSi_Featurizer",
+    "RelativeContentSm_Featurizer",
+    "RelativeContentSn_Featurizer",
+    "RelativeContentSr_Featurizer",
+    "RelativeContentTa_Featurizer",
+    "RelativeContentTb_Featurizer",
+    "RelativeContentTc_Featurizer",
+    "RelativeContentTe_Featurizer",
+    "RelativeContentTh_Featurizer",
+    "RelativeContentTi_Featurizer",
+    "RelativeContentTl_Featurizer",
+    "RelativeContentTm_Featurizer",
+    "RelativeContentTs_Featurizer",
+    "RelativeContentU_Featurizer",
+    "RelativeContentV_Featurizer",
+    "RelativeContentW_Featurizer",
+    "RelativeContentXe_Featurizer",
+    "RelativeContentY_Featurizer",
+    "RelativeContentYb_Featurizer",
+    "RelativeContentZn_Featurizer",
+    "RelativeContentZr_Featurizer",
+    "RingCount_Featurizer",
+    "SMR_VSA1_Featurizer",
+    "SMR_VSA10_Featurizer",
+    "SMR_VSA2_Featurizer",
+    "SMR_VSA3_Featurizer",
+    "SMR_VSA4_Featurizer",
+    "SMR_VSA5_Featurizer",
+    "SMR_VSA6_Featurizer",
+    "SMR_VSA7_Featurizer",
+    "SMR_VSA8_Featurizer",
+    "SMR_VSA9_Featurizer",
+    "SSSR_Featurizer",
+    "SlogP_VSA1_Featurizer",
+    "SlogP_VSA10_Featurizer",
+    "SlogP_VSA11_Featurizer",
+    "SlogP_VSA12_Featurizer",
+    "SlogP_VSA2_Featurizer",
+    "SlogP_VSA3_Featurizer",
+    "SlogP_VSA4_Featurizer",
+    "SlogP_VSA5_Featurizer",
+    "SlogP_VSA6_Featurizer",
+    "SlogP_VSA7_Featurizer",
+    "SlogP_VSA8_Featurizer",
+    "SlogP_VSA9_Featurizer",
+    "SpherocityIndex_Featurizer",
+    "TPSA_Featurizer",
+    "VSA_EState1_Featurizer",
+    "VSA_EState10_Featurizer",
+    "VSA_EState2_Featurizer",
+    "VSA_EState3_Featurizer",
+    "VSA_EState4_Featurizer",
+    "VSA_EState5_Featurizer",
+    "VSA_EState6_Featurizer",
+    "VSA_EState7_Featurizer",
+    "VSA_EState8_Featurizer",
+    "VSA_EState9_Featurizer",
+    "fr_Al_COO_Featurizer",
+    "fr_Al_OH_Featurizer",
+    "fr_Al_OH_noTert_Featurizer",
+    "fr_ArN_Featurizer",
+    "fr_Ar_COO_Featurizer",
+    "fr_Ar_N_Featurizer",
+    "fr_Ar_NH_Featurizer",
+    "fr_Ar_OH_Featurizer",
+    "fr_COO_Featurizer",
+    "fr_COO2_Featurizer",
+    "fr_C_O_Featurizer",
+    "fr_C_O_noCOO_Featurizer",
+    "fr_C_S_Featurizer",
+    "fr_HOCCN_Featurizer",
+    "fr_Imine_Featurizer",
+    "fr_NH0_Featurizer",
+    "fr_NH1_Featurizer",
+    "fr_NH2_Featurizer",
+    "fr_N_O_Featurizer",
+    "fr_Ndealkylation1_Featurizer",
+    "fr_Ndealkylation2_Featurizer",
+    "fr_Nhpyrrole_Featurizer",
+    "fr_SH_Featurizer",
+    "fr_aldehyde_Featurizer",
+    "fr_alkyl_carbamate_Featurizer",
+    "fr_alkyl_halide_Featurizer",
+    "fr_allylic_oxid_Featurizer",
+    "fr_amide_Featurizer",
+    "fr_amidine_Featurizer",
+    "fr_aniline_Featurizer",
+    "fr_aryl_methyl_Featurizer",
+    "fr_azide_Featurizer",
+    "fr_azo_Featurizer",
+    "fr_barbitur_Featurizer",
+    "fr_benzene_Featurizer",
+    "fr_benzodiazepine_Featurizer",
+    "fr_bicyclic_Featurizer",
+    "fr_diazo_Featurizer",
+    "fr_dihydropyridine_Featurizer",
+    "fr_epoxide_Featurizer",
+    "fr_ester_Featurizer",
+    "fr_ether_Featurizer",
+    "fr_furan_Featurizer",
+    "fr_guanido_Featurizer",
+    "fr_halogen_Featurizer",
+    "fr_hdrzine_Featurizer",
+    "fr_hdrzone_Featurizer",
+    "fr_imidazole_Featurizer",
+    "fr_imide_Featurizer",
+    "fr_isocyan_Featurizer",
+    "fr_isothiocyan_Featurizer",
+    "fr_ketone_Featurizer",
+    "fr_ketone_Topliss_Featurizer",
+    "fr_lactam_Featurizer",
+    "fr_lactone_Featurizer",
+    "fr_methoxy_Featurizer",
+    "fr_morpholine_Featurizer",
+    "fr_nitrile_Featurizer",
+    "fr_nitro_Featurizer",
+    "fr_nitro_arom_Featurizer",
+    "fr_nitro_arom_nonortho_Featurizer",
+    "fr_nitroso_Featurizer",
+    "fr_oxazole_Featurizer",
+    "fr_oxime_Featurizer",
+    "fr_para_hydroxylation_Featurizer",
+    "fr_phenol_Featurizer",
+    "fr_phenol_noOrthoHbond_Featurizer",
+    "fr_phos_acid_Featurizer",
+    "fr_phos_ester_Featurizer",
+    "fr_piperdine_Featurizer",
+    "fr_piperzine_Featurizer",
+    "fr_priamide_Featurizer",
+    "fr_prisulfonamd_Featurizer",
+    "fr_pyridine_Featurizer",
+    "fr_quatN_Featurizer",
+    "fr_sulfide_Featurizer",
+    "fr_sulfonamd_Featurizer",
+    "fr_sulfone_Featurizer",
+    "fr_term_acetylene_Featurizer",
+    "fr_tetrazole_Featurizer",
+    "fr_thiazole_Featurizer",
+    "fr_thiocyan_Featurizer",
+    "fr_thiophene_Featurizer",
+    "fr_unbrch_alkane_Featurizer",
+    "fr_urea_Featurizer",
+    "qed_Featurizer",
+    "molecule_Asphericity",
+    "molecule_BCUT2D_CHGHI",
+    "molecule_BCUT2D_CHGLO",
+    "molecule_BCUT2D_LOGPHI",
+    "molecule_BCUT2D_LOGPLOW",
+    "molecule_BCUT2D_MRHI",
+    "molecule_BCUT2D_MRLOW",
+    "molecule_BCUT2D_MWHI",
+    "molecule_BCUT2D_MWLOW",
+    "molecule_BalabanJ",
+    "molecule_BertzCT",
+    "molecule_Chi0",
+    "molecule_Chi0n",
+    "molecule_Chi0v",
+    "molecule_Chi1",
+    "molecule_Chi1n",
+    "molecule_Chi1v",
+    "molecule_Chi2n",
+    "molecule_Chi2v",
+    "molecule_Chi3n",
+    "molecule_Chi3v",
+    "molecule_Chi4n",
+    "molecule_Chi4v",
+    "molecule_EState_VSA1",
+    "molecule_EState_VSA10",
+    "molecule_EState_VSA11",
+    "molecule_EState_VSA2",
+    "molecule_EState_VSA3",
+    "molecule_EState_VSA4",
+    "molecule_EState_VSA5",
+    "molecule_EState_VSA6",
+    "molecule_EState_VSA7",
+    "molecule_EState_VSA8",
+    "molecule_EState_VSA9",
+    "molecule_Eccentricity",
+    "molecule_ExactMolWt",
+    "molecule_FormalCharge",
+    "molecule_FpDensityMorgan1",
+    "molecule_FpDensityMorgan2",
+    "molecule_FpDensityMorgan3",
+    "molecule_FractionCSP3",
+    "molecule_HallKierAlpha",
+    "molecule_HeavyAtomCount",
+    "molecule_HeavyAtomMolWt",
+    "molecule_InertialShapeFactor",
+    "molecule_Ipc",
+    "molecule_Kappa1",
+    "molecule_Kappa2",
+    "molecule_Kappa3",
+    "molecule_LabuteASA",
+    "molecule_MaxAbsEStateIndex",
+    "molecule_MaxAbsPartialCharge",
+    "molecule_MaxEStateIndex",
+    "molecule_MaxPartialCharge",
+    "molecule_MinAbsEStateIndex",
+    "molecule_MinAbsPartialCharge",
+    "molecule_MinEStateIndex",
+    "molecule_MinPartialCharge",
+    "molecule_MolLogP",
+    "molecule_MolMR",
+    "molecule_MolWt",
+    "molecule_NHOHCount",
+    "molecule_NOCount",
+    "molecule_NPR1",
+    "molecule_NPR2",
+    "molecule_NumAliphaticCarbocycles",
+    "molecule_NumAliphaticHeterocycles",
+    "molecule_NumAliphaticRings",
+    "molecule_NumAmideBonds",
+    "molecule_NumAromaticCarbocycles",
+    "molecule_NumAromaticHeterocycles",
+    "molecule_NumAromaticRings",
+    "molecule_NumAtoms",
+    "molecule_NumBonds",
+    "molecule_NumBridgeheadAtoms",
+    "molecule_NumHAcceptors",
+    "molecule_NumHBA",
+    "molecule_NumHBD",
+    "molecule_NumHDonors",
+    "molecule_NumHeavyAtoms",
+    "molecule_NumHeteroatoms",
+    "molecule_NumHeterocycles",
+    "molecule_NumLipinskiHBA",
+    "molecule_NumLipinskiHBD",
+    "molecule_NumRadicalElectrons",
+    "molecule_NumRings",
+    "molecule_NumRotatableBonds",
+    "molecule_NumSaturatedCarbocycles",
+    "molecule_NumSaturatedHeterocycles",
+    "molecule_NumSaturatedRings",
+    "molecule_NumSpiroAtoms",
+    "molecule_NumValenceElectrons",
+    "molecule_NumberAtomsAc",
+    "molecule_NumberAtomsAg",
+    "molecule_NumberAtomsAl",
+    "molecule_NumberAtomsAm",
+    "molecule_NumberAtomsAr",
+    "molecule_NumberAtomsAs",
+    "molecule_NumberAtomsAt",
+    "molecule_NumberAtomsAu",
+    "molecule_NumberAtomsB",
+    "molecule_NumberAtomsBa",
+    "molecule_NumberAtomsBe",
+    "molecule_NumberAtomsBh",
+    "molecule_NumberAtomsBi",
+    "molecule_NumberAtomsBk",
+    "molecule_NumberAtomsBr",
+    "molecule_NumberAtomsC",
+    "molecule_NumberAtomsCa",
+    "molecule_NumberAtomsCd",
+    "molecule_NumberAtomsCe",
+    "molecule_NumberAtomsCf",
+    "molecule_NumberAtomsCl",
+    "molecule_NumberAtomsCm",
+    "molecule_NumberAtomsCn",
+    "molecule_NumberAtomsCo",
+    "molecule_NumberAtomsCr",
+    "molecule_NumberAtomsCs",
+    "molecule_NumberAtomsCu",
+    "molecule_NumberAtomsDb",
+    "molecule_NumberAtomsDs",
+    "molecule_NumberAtomsDy",
+    "molecule_NumberAtomsEr",
+    "molecule_NumberAtomsEs",
+    "molecule_NumberAtomsEu",
+    "molecule_NumberAtomsF",
+    "molecule_NumberAtomsFe",
+    "molecule_NumberAtomsFl",
+    "molecule_NumberAtomsFm",
+    "molecule_NumberAtomsFr",
+    "molecule_NumberAtomsGa",
+    "molecule_NumberAtomsGd",
+    "molecule_NumberAtomsGe",
+    "molecule_NumberAtomsH",
+    "molecule_NumberAtomsHe",
+    "molecule_NumberAtomsHf",
+    "molecule_NumberAtomsHg",
+    "molecule_NumberAtomsHo",
+    "molecule_NumberAtomsHs",
+    "molecule_NumberAtomsI",
+    "molecule_NumberAtomsIn",
+    "molecule_NumberAtomsIr",
+    "molecule_NumberAtomsK",
+    "molecule_NumberAtomsKr",
+    "molecule_NumberAtomsLa",
+    "molecule_NumberAtomsLi",
+    "molecule_NumberAtomsLr",
+    "molecule_NumberAtomsLu",
+    "molecule_NumberAtomsLv",
+    "molecule_NumberAtomsMc",
+    "molecule_NumberAtomsMd",
+    "molecule_NumberAtomsMg",
+    "molecule_NumberAtomsMn",
+    "molecule_NumberAtomsMo",
+    "molecule_NumberAtomsMt",
+    "molecule_NumberAtomsN",
+    "molecule_NumberAtomsNa",
+    "molecule_NumberAtomsNb",
+    "molecule_NumberAtomsNd",
+    "molecule_NumberAtomsNe",
+    "molecule_NumberAtomsNh",
+    "molecule_NumberAtomsNi",
+    "molecule_NumberAtomsNo",
+    "molecule_NumberAtomsNp",
+    "molecule_NumberAtomsO",
+    "molecule_NumberAtomsOg",
+    "molecule_NumberAtomsOs",
+    "molecule_NumberAtomsP",
+    "molecule_NumberAtomsPa",
+    "molecule_NumberAtomsPb",
+    "molecule_NumberAtomsPd",
+    "molecule_NumberAtomsPm",
+    "molecule_NumberAtomsPo",
+    "molecule_NumberAtomsPr",
+    "molecule_NumberAtomsPt",
+    "molecule_NumberAtomsPu",
+    "molecule_NumberAtomsRa",
+    "molecule_NumberAtomsRb",
+    "molecule_NumberAtomsRe",
+    "molecule_NumberAtomsRf",
+    "molecule_NumberAtomsRg",
+    "molecule_NumberAtomsRh",
+    "molecule_NumberAtomsRn",
+    "molecule_NumberAtomsRu",
+    "molecule_NumberAtomsS",
+    "molecule_NumberAtomsSb",
+    "molecule_NumberAtomsSc",
+    "molecule_NumberAtomsSe",
+    "molecule_NumberAtomsSg",
+    "molecule_NumberAtomsSi",
+    "molecule_NumberAtomsSm",
+    "molecule_NumberAtomsSn",
+    "molecule_NumberAtomsSr",
+    "molecule_NumberAtomsTa",
+    "molecule_NumberAtomsTb",
+    "molecule_NumberAtomsTc",
+    "molecule_NumberAtomsTe",
+    "molecule_NumberAtomsTh",
+    "molecule_NumberAtomsTi",
+    "molecule_NumberAtomsTl",
+    "molecule_NumberAtomsTm",
+    "molecule_NumberAtomsTs",
+    "molecule_NumberAtomsU",
+    "molecule_NumberAtomsV",
+    "molecule_NumberAtomsW",
+    "molecule_NumberAtomsXe",
+    "molecule_NumberAtomsY",
+    "molecule_NumberAtomsYb",
+    "molecule_NumberAtomsZn",
+    "molecule_NumberAtomsZr",
+    "molecule_PBF",
+    "molecule_PEOE_VSA1",
+    "molecule_PEOE_VSA10",
+    "molecule_PEOE_VSA11",
+    "molecule_PEOE_VSA12",
+    "molecule_PEOE_VSA13",
+    "molecule_PEOE_VSA14",
+    "molecule_PEOE_VSA2",
+    "molecule_PEOE_VSA3",
+    "molecule_PEOE_VSA4",
+    "molecule_PEOE_VSA5",
+    "molecule_PEOE_VSA6",
+    "molecule_PEOE_VSA7",
+    "molecule_PEOE_VSA8",
+    "molecule_PEOE_VSA9",
+    "molecule_PMI1",
+    "molecule_PMI2",
+    "molecule_PMI3",
+    "molecule_Phi",
+    "molecule_RadiusOfGyration",
+    "molecule_RelativeContentAc",
+    "molecule_RelativeContentAg",
+    "molecule_RelativeContentAl",
+    "molecule_RelativeContentAm",
+    "molecule_RelativeContentAr",
+    "molecule_RelativeContentAs",
+    "molecule_RelativeContentAt",
+    "molecule_RelativeContentAu",
+    "molecule_RelativeContentB",
+    "molecule_RelativeContentBa",
+    "molecule_RelativeContentBe",
+    "molecule_RelativeContentBh",
+    "molecule_RelativeContentBi",
+    "molecule_RelativeContentBk",
+    "molecule_RelativeContentBr",
+    "molecule_RelativeContentC",
+    "molecule_RelativeContentCa",
+    "molecule_RelativeContentCd",
+    "molecule_RelativeContentCe",
+    "molecule_RelativeContentCf",
+    "molecule_RelativeContentCl",
+    "molecule_RelativeContentCm",
+    "molecule_RelativeContentCn",
+    "molecule_RelativeContentCo",
+    "molecule_RelativeContentCr",
+    "molecule_RelativeContentCs",
+    "molecule_RelativeContentCu",
+    "molecule_RelativeContentDb",
+    "molecule_RelativeContentDs",
+    "molecule_RelativeContentDy",
+    "molecule_RelativeContentEr",
+    "molecule_RelativeContentEs",
+    "molecule_RelativeContentEu",
+    "molecule_RelativeContentF",
+    "molecule_RelativeContentFe",
+    "molecule_RelativeContentFl",
+    "molecule_RelativeContentFm",
+    "molecule_RelativeContentFr",
+    "molecule_RelativeContentGa",
+    "molecule_RelativeContentGd",
+    "molecule_RelativeContentGe",
+    "molecule_RelativeContentH",
+    "molecule_RelativeContentHe",
+    "molecule_RelativeContentHf",
+    "molecule_RelativeContentHg",
+    "molecule_RelativeContentHo",
+    "molecule_RelativeContentHs",
+    "molecule_RelativeContentI",
+    "molecule_RelativeContentIn",
+    "molecule_RelativeContentIr",
+    "molecule_RelativeContentK",
+    "molecule_RelativeContentKr",
+    "molecule_RelativeContentLa",
+    "molecule_RelativeContentLi",
+    "molecule_RelativeContentLr",
+    "molecule_RelativeContentLu",
+    "molecule_RelativeContentLv",
+    "molecule_RelativeContentMc",
+    "molecule_RelativeContentMd",
+    "molecule_RelativeContentMg",
+    "molecule_RelativeContentMn",
+    "molecule_RelativeContentMo",
+    "molecule_RelativeContentMt",
+    "molecule_RelativeContentN",
+    "molecule_RelativeContentNa",
+    "molecule_RelativeContentNb",
+    "molecule_RelativeContentNd",
+    "molecule_RelativeContentNe",
+    "molecule_RelativeContentNh",
+    "molecule_RelativeContentNi",
+    "molecule_RelativeContentNo",
+    "molecule_RelativeContentNp",
+    "molecule_RelativeContentO",
+    "molecule_RelativeContentOg",
+    "molecule_RelativeContentOs",
+    "molecule_RelativeContentP",
+    "molecule_RelativeContentPa",
+    "molecule_RelativeContentPb",
+    "molecule_RelativeContentPd",
+    "molecule_RelativeContentPm",
+    "molecule_RelativeContentPo",
+    "molecule_RelativeContentPr",
+    "molecule_RelativeContentPt",
+    "molecule_RelativeContentPu",
+    "molecule_RelativeContentRa",
+    "molecule_RelativeContentRb",
+    "molecule_RelativeContentRe",
+    "molecule_RelativeContentRf",
+    "molecule_RelativeContentRg",
+    "molecule_RelativeContentRh",
+    "molecule_RelativeContentRn",
+    "molecule_RelativeContentRu",
+    "molecule_RelativeContentS",
+    "molecule_RelativeContentSb",
+    "molecule_RelativeContentSc",
+    "molecule_RelativeContentSe",
+    "molecule_RelativeContentSg",
+    "molecule_RelativeContentSi",
+    "molecule_RelativeContentSm",
+    "molecule_RelativeContentSn",
+    "molecule_RelativeContentSr",
+    "molecule_RelativeContentTa",
+    "molecule_RelativeContentTb",
+    "molecule_RelativeContentTc",
+    "molecule_RelativeContentTe",
+    "molecule_RelativeContentTh",
+    "molecule_RelativeContentTi",
+    "molecule_RelativeContentTl",
+    "molecule_RelativeContentTm",
+    "molecule_RelativeContentTs",
+    "molecule_RelativeContentU",
+    "molecule_RelativeContentV",
+    "molecule_RelativeContentW",
+    "molecule_RelativeContentXe",
+    "molecule_RelativeContentY",
+    "molecule_RelativeContentYb",
+    "molecule_RelativeContentZn",
+    "molecule_RelativeContentZr",
+    "molecule_RingCount",
+    "molecule_SMR_VSA1",
+    "molecule_SMR_VSA10",
+    "molecule_SMR_VSA2",
+    "molecule_SMR_VSA3",
+    "molecule_SMR_VSA4",
+    "molecule_SMR_VSA5",
+    "molecule_SMR_VSA6",
+    "molecule_SMR_VSA7",
+    "molecule_SMR_VSA8",
+    "molecule_SMR_VSA9",
+    "molecule_SSSR",
+    "molecule_SlogP_VSA1",
+    "molecule_SlogP_VSA10",
+    "molecule_SlogP_VSA11",
+    "molecule_SlogP_VSA12",
+    "molecule_SlogP_VSA2",
+    "molecule_SlogP_VSA3",
+    "molecule_SlogP_VSA4",
+    "molecule_SlogP_VSA5",
+    "molecule_SlogP_VSA6",
+    "molecule_SlogP_VSA7",
+    "molecule_SlogP_VSA8",
+    "molecule_SlogP_VSA9",
+    "molecule_SpherocityIndex",
+    "molecule_TPSA",
+    "molecule_VSA_EState1",
+    "molecule_VSA_EState10",
+    "molecule_VSA_EState2",
+    "molecule_VSA_EState3",
+    "molecule_VSA_EState4",
+    "molecule_VSA_EState5",
+    "molecule_VSA_EState6",
+    "molecule_VSA_EState7",
+    "molecule_VSA_EState8",
+    "molecule_VSA_EState9",
+    "molecule_fr_Al_COO",
+    "molecule_fr_Al_OH",
+    "molecule_fr_Al_OH_noTert",
+    "molecule_fr_ArN",
+    "molecule_fr_Ar_COO",
+    "molecule_fr_Ar_N",
+    "molecule_fr_Ar_NH",
+    "molecule_fr_Ar_OH",
+    "molecule_fr_COO",
+    "molecule_fr_COO2",
+    "molecule_fr_C_O",
+    "molecule_fr_C_O_noCOO",
+    "molecule_fr_C_S",
+    "molecule_fr_HOCCN",
+    "molecule_fr_Imine",
+    "molecule_fr_NH0",
+    "molecule_fr_NH1",
+    "molecule_fr_NH2",
+    "molecule_fr_N_O",
+    "molecule_fr_Ndealkylation1",
+    "molecule_fr_Ndealkylation2",
+    "molecule_fr_Nhpyrrole",
+    "molecule_fr_SH",
+    "molecule_fr_aldehyde",
+    "molecule_fr_alkyl_carbamate",
+    "molecule_fr_alkyl_halide",
+    "molecule_fr_allylic_oxid",
+    "molecule_fr_amide",
+    "molecule_fr_amidine",
+    "molecule_fr_aniline",
+    "molecule_fr_aryl_methyl",
+    "molecule_fr_azide",
+    "molecule_fr_azo",
+    "molecule_fr_barbitur",
+    "molecule_fr_benzene",
+    "molecule_fr_benzodiazepine",
+    "molecule_fr_bicyclic",
+    "molecule_fr_diazo",
+    "molecule_fr_dihydropyridine",
+    "molecule_fr_epoxide",
+    "molecule_fr_ester",
+    "molecule_fr_ether",
+    "molecule_fr_furan",
+    "molecule_fr_guanido",
+    "molecule_fr_halogen",
+    "molecule_fr_hdrzine",
+    "molecule_fr_hdrzone",
+    "molecule_fr_imidazole",
+    "molecule_fr_imide",
+    "molecule_fr_isocyan",
+    "molecule_fr_isothiocyan",
+    "molecule_fr_ketone",
+    "molecule_fr_ketone_Topliss",
+    "molecule_fr_lactam",
+    "molecule_fr_lactone",
+    "molecule_fr_methoxy",
+    "molecule_fr_morpholine",
+    "molecule_fr_nitrile",
+    "molecule_fr_nitro",
+    "molecule_fr_nitro_arom",
+    "molecule_fr_nitro_arom_nonortho",
+    "molecule_fr_nitroso",
+    "molecule_fr_oxazole",
+    "molecule_fr_oxime",
+    "molecule_fr_para_hydroxylation",
+    "molecule_fr_phenol",
+    "molecule_fr_phenol_noOrthoHbond",
+    "molecule_fr_phos_acid",
+    "molecule_fr_phos_ester",
+    "molecule_fr_piperdine",
+    "molecule_fr_piperzine",
+    "molecule_fr_priamide",
+    "molecule_fr_prisulfonamd",
+    "molecule_fr_pyridine",
+    "molecule_fr_quatN",
+    "molecule_fr_sulfide",
+    "molecule_fr_sulfonamd",
+    "molecule_fr_sulfone",
+    "molecule_fr_term_acetylene",
+    "molecule_fr_tetrazole",
+    "molecule_fr_thiazole",
+    "molecule_fr_thiocyan",
+    "molecule_fr_thiophene",
+    "molecule_fr_unbrch_alkane",
+    "molecule_fr_urea",
+    "molecule_qed",
 ]
 
 
@@ -23479,8 +14732,8 @@ def main():
     from rdkit import Chem
 
     testmol = Chem.MolFromSmiles("c1ccccc1")
-    for f in _available_featurizer.items():
-        print(f, f(testmol))
+    for n, f in get_available_featurizer().items():
+        print(n, f(testmol))
 
 
 if __name__ == "__main__":
