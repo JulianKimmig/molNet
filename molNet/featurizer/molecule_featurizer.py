@@ -52,7 +52,7 @@ class AllSingleValueMoleculeFeaturizer(FeaturizerList):
         )
 
 
-molecule_all_single_val_feats = AllSingleValueMoleculeFeaturizer()
+molecule_all_single_val_feats = AllSingleValueMoleculeFeaturizer(name="molecule_all_single_val_feats")
 
 __all__.extend(["molecule_all_single_val_feats", "AllSingleValueMoleculeFeaturizer"])
 _available_featurizer["molecule_all_single_val_feats"] = molecule_all_single_val_feats
