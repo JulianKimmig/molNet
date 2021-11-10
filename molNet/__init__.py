@@ -13,3 +13,5 @@ class MolGenerationError(Exception):
 
 class ConformerError(Exception):
     pass
+
+from molNet.utils.sys import set_user_folder,get_user_folder
