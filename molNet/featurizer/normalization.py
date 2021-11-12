@@ -46,8 +46,8 @@ def min_max_norm(x, min: float = 0, max: float = 1):
     #    max,min=min,max
     # if min == max:
     #    max*= 1+1e-6
-    ll:double = 0.0
-    ul:double = 1.0
+    ll:float = 0.0
+    ul:float = 1.0
     return jitclip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)),ll,ul)
 
 @jit(nopython=True)
