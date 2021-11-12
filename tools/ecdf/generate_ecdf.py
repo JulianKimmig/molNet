@@ -1,3 +1,29 @@
+import os, sys
+if __name__ == "__main__":
+    modp = os.path.dirname(os.path.dirname(os.path.abspath("")))
+    while not "molNet" in os.listdir(modp):
+        modp=os.path.dirnmae(modp)
+        
+    if modp not in sys.path:
+        sys.path.insert(0,modp)
+        sys.path.append(modp)
+
+import molNet
+import molNet.featurizer
+
+def main():
+    molNet.featurizer.get_molecule_featurizer_info()
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p','--path', type=str)
+    args = parser.parse_args()
+    main()
+
+
+quit()
+
 import gzip
 import os
 import sys
