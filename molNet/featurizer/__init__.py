@@ -10,7 +10,8 @@ def generate_featurzizer_df(featurizer_module):
             inf["length"] = len(mf)
         except TypeError:
             inf["length"] = -1
-        inf["dtype"]=mf.dtype.__name__
+        inf["dtype"]=mf.dtype
+        inf["instance"]=mf
         inf["class"]=mf.__class__
         inf["module"]=mf.__class__.__module__
         mf.ecdf_info=inf
@@ -29,9 +30,11 @@ def generate_featurzizer_df(featurizer_module):
     return new_infos
 
 def get_molecule_featurizer_info():
+    from molNet.featurizer import molecule_featurizer
     df = generate_featurzizer_df(molecule_featurizer)
     return df
 
 def get_atom_featurizer_info():
+    from molNet.featurizer import atom_featurizer
     df = generate_featurzizer_df(atom_featurizer)
     return df

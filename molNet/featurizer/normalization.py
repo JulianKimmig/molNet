@@ -173,6 +173,9 @@ class NormalizationClass:
 
     @preferred_norm.setter
     def preferred_norm(self, normalization):
+        self.set_preferred_norm(normalization)
+        
+    def set_preferred_norm(self, normalization):
         prenorm= self._preferred_norm,self._preferred_norm_name
         self._preferred_norm = self._norm_map[normalization]
         self._preferred_norm_name = normalization
@@ -181,6 +184,6 @@ class NormalizationClass:
             raise NormalizationException(
                 f"cannot set normalization to '{normalization}', there is nan in the result"
             )
-
+            
     def normalize(self, x):
         return self._preferred_norm(x)
