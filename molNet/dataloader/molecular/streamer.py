@@ -72,4 +72,39 @@ class SDFStreamer(MolStreamer):
                         yield mol
 
         return _it()
+    
+class CSVStreamer(MolStreamer):
+    def __init__(self, dataloader, file_getter,*args, gz=True, cached=False, threads="all-1",**kwargs):
+        super(CSVStreamer, self).__init__(
+            dataloader,
+            *args,
+            **kwargs,
+            cached=cached,
+            progress_bar_kwargs=dict(unit="mol", unit_scale=True),
+        )
+        if gz:
+            threads = 1
+        self._threads = threads
+        self._gz = gz
+
+        self._file_getter = file_getter
+
+    def iterate(self):
+        cores = solve_cores(self._threads)
+        if cores > 1:
+            sdfclasd = Chem.MultithreadedSDMolSupplier
+        else:
+            sdfclasd = Chem.ForwardSDMolSupplier
+
+        def _it():
+            if self._gz:
+                with gzip.open(self._file_getter(self), "rb") as f:
+                    for mol in sdfclasd(f):
+                        yield mol
+            else:
+                with open(self._file_getter(self), "rb") as f:
+                    for mol in sdfclasd(f):
+                        yield mol
+
+        return _it()
 

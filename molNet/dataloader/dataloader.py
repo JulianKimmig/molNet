@@ -5,20 +5,25 @@ from typing import Callable
 import requests
 from tqdm import tqdm
 
+import molNet
 from molNet.dataloader.streamer import DataStreamer
 
 
 class DataLoader:
     source: str = None
-    raw_file: str = "filename"
+    raw_file: str = None
     expected_data_size: int = -1
     data_streamer_generator: Callable = None
 
-    def __init__(self, parent_dir, data_streamer_kwargs=None):
+    def __init__(self, parent_dir=None, data_streamer_kwargs=None):
         if data_streamer_kwargs is None:
             data_streamer_kwargs = {}
+        if parent_dir is None:
+            parent_dir = os.path.join(molNet.get_user_folder(),"dataloader",self.__class__.__name__)
         os.makedirs(parent_dir, exist_ok=True)
         self._parent_dir = parent_dir
+        if self.data_streamer_generator is None:
+            raise ValueError(f"no data_streamer_generator defined for {self.__class__.__name__}")
         self._data_streamer = self.data_streamer_generator(**data_streamer_kwargs)
 
     def _downlaod(self) -> str:
@@ -44,8 +49,14 @@ class DataLoader:
             for data in response.iter_content(chunk_size=chunk_size):
                 handle.write(data)
                 pbar.update(len(data))
+        self.process_download_data(os.path.join(self.parent_dir, fname))
+        os.rename(os.path.join(self.parent_dir, fname), self.raw_file_path)
+        
         return fname
-
+    
+    def process_download_data(self,raw_file):
+        return None
+    
     def download(self):
         print(f"downlaod data from {self.source}")
         dl = self._downlaod()
@@ -70,6 +81,8 @@ class DataLoader:
 
     @property
     def raw_file_path(self) -> str:
+        if self.raw_file is None:
+            raise ValueError(f"no raw filename defined for {self.__class__.__name__}")
         return os.path.join(self.parent_dir, self.raw_file)
 
     def get_data(self, force_download=False):

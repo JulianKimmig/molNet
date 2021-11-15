@@ -24,7 +24,7 @@ class DataStreamer:
     def get_all_entries(self, *args, **kwargs):
         return self.get_n_entries(self.dataloader.expected_data_size, *args, **kwargs)
 
-    def get_n_entries(self, n: int, progress_bar=False):
+    def get_n_entries(self, n: int, progress_bar=True):
         dat = []
         if len(self._cache_data) < n and not self._all_cached:
             if progress_bar:
