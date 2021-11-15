@@ -30,7 +30,7 @@ def solve_cores(cores="all-1"):
 
 
 def parallelize(
-    func, data, cores=None, progess_bar=True, split_parts=None, progress_bar_kwargs={}
+    func, data, cores=None, progess_bar=True, split_parts=None, progress_bar_kwargs={},target_array=None
 ):
     # data = np.array(data)
     cores = solve_cores(cores)
@@ -51,31 +51,69 @@ def parallelize(
     ]
     sub_data = (data[i:k] for i, k in sr)
     # sub_data = np.array_split(data, min(max_split, int(np.ceil(len(data) / cores))))
-    r = []
+    class ResAdder():
+        def __init__(self,target=None,is_array=False):
+            if target is None:
+                target=[]
+                self.external_target=False
+            else:
+                self.external_target=True
+            self.target=target
+            self.is_array=is_array
+            self.pos=0
+        
+        def add(self,ri,l):
+            if self.is_array:
+                self.target[self.pos:self.pos+l]=ri
+            else:
+                self.target.extend(ri)
+                
+            self.pos+=l
+        
+        def get_target(self):
+            if not self.external_target and self.is_array:
+                return np.array(self.target)
+            return self.target
+                
+            
+    if target_array is None:
+        r=ResAdder()
+    else:
+        r=ResAdder(target_array,is_array=True)
+               
+    if progess_bar:
+        def _iterate(p=None):
+            with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
+                if p is not None:
+                    for ri in p.imap(func, sub_data):
+                        l=len(ri)
+                        r.add(ri,l)
+                        pbar.update(l)
+                else:
+                    for sd in sub_data:
+                        l=len(sd)
+                        r.add(func(sd),l)
+                        pbar.update(l)
+    else:
+        def _iterate(p=None):
+            if p is not None:
+                for ri in p.imap(func, sub_data):
+                    l=len(ri)
+                    r.add(ri,l)
+            else:
+                for sd in sub_data:
+                    l=len(sd)
+                    r.add(func(sd),l)
+                
     if cores > 1:
         with Pool(cores) as p:
-
-            if progess_bar:
-                with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
-                    for ri in p.imap(func, sub_data):
-                        r.extend(ri)
-                        pbar.update(len(ri))
-            else:
-                for ri in p.imap(func, sub_data):
-                    r.extend(ri)
+            _iterate(p)  
     else:
-        if progess_bar:
-            with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
-                for sd in sub_data:
-                    r.extend(func(sd))
-                    pbar.update(len(sd))
-        else:
-            for sd in sub_data:
-                r.extend(func(sd))
-
-    #for i in r:
-    #    print(isinstance(i,np.ndarray))
-    if len(r) > 0 and all([isinstance(ri, np.ndarray) for ri in r]):
+        _iterate(None)   
+    
+    if r.external_target:
+        return r.get_target()
+    if r.pos > 0 and r.is_array:
         return np.array(r)
         #return np.concatenate(r,axis=0)
-    return r
+    return r.get_target()
