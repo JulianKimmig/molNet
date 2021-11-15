@@ -20,6 +20,7 @@ import molNet.featurizer
 
 from molNet.utils.parallelization.multiprocessing import parallelize
 from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer, VarSizeMoleculeFeaturizer
+from molNet.featurizer.featurizer import FeaturizerList
 from molNet import ConformerError
 
 logger = molNet.MOLNET_LOGGER
@@ -142,11 +143,15 @@ def main(dataloader,path,max_mols=None):
     freeze_support() 
     if dataloader == "ChemBLdb29":
         from molNet.dataloader.molecular.ChEMBLdb import ChemBLdb29 as dataloaderclass
+    elif dataloader == "ESOL":
+        from molNet.dataloader.molecular.ESOL import ESOL as dataloaderclass
     else:
         raise ValueError(f"unknown dataloader '{dataloader}'")
     
     
     molfeats = molNet.featurizer.get_molecule_featurizer_info()
+    molfeats["isListFeat"] = molfeats["instance"].apply(lambda f: isinstance(f,FeaturizerList))
+    molfeats.drop(molfeats.index[molfeats["isListFeat"]], inplace=True)
     molfeats=molfeats.sort_values("length")
     loader = dataloaderclass()
     
