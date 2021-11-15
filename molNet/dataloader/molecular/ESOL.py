@@ -30,6 +30,7 @@ class ESOL(MolDataLoader):
     source = "https://pubs.acs.org/doi/suppl/10.1021/ci034243x/suppl_file/ci034243xsi20040112_053635.txt"
     raw_file = "delaney_data.sdf"
     expected_data_size = 1144
+    citation = "https://doi.org/10.1021/ci034243x"
     data_streamer_generator = SDFStreamer.generator(
         gz=False, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )

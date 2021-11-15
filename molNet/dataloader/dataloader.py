@@ -15,7 +15,7 @@ class DataLoader:
     raw_file: str = None
     expected_data_size: int = -1
     data_streamer_generator: Callable = None
-
+    citation = None
     def __init__(self, parent_dir=None, data_streamer_kwargs=None):
         if data_streamer_kwargs is None:
             data_streamer_kwargs = {}
@@ -30,6 +30,8 @@ class DataLoader:
                 f"no data_streamer_generator defined for {self.__class__.__name__}"
             )
         self._data_streamer = self.data_streamer_generator(**data_streamer_kwargs)
+        if self.citation is not None:
+            molNet.MOLNET_LOGGER.info(f"You are using a citable datasource, please consider citing '{self.citation}'!")
 
     def _downlaod(self) -> str:
         response = requests.get(self.source, stream=True)
