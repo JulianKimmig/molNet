@@ -1,83 +1,79 @@
-import os
+from io import StringIO
 from tempfile import gettempdir
 
-from tqdm import tqdm
 import pandas as pd
+from rdkit import Chem
+from rdkit.Chem.PropertyMol import PropertyMol
+from tqdm import tqdm
+
 try:
     import molNet
 except ModuleNotFoundError:
-    import sys,os
+    import sys, os
+
     modp = os.path.dirname(os.path.abspath(__file__))
     while not "molNet" in os.listdir(modp):
-        modp=os.path.dirname(modp)
+        modp = os.path.dirname(modp)
         if os.path.dirname(modp) == modp:
             raise ValueError("connot determine local molNet")
     if modp not in sys.path:
-        sys.path.insert(0,modp)
+        sys.path.insert(0, modp)
         sys.path.append(modp)
     import molNet
-    
+
 from molNet.dataloader.molecular.dataloader import MolDataLoader
-from molNet.dataloader.molecular.streamer import CSVStreamer
+from molNet.dataloader.molecular.streamer import SDFStreamer
+from molNet.utils.mol.properties import parallel_asset_conformers
 
 
 class ESOL(MolDataLoader):
-    source = (
-        "https://pubs.acs.org/doi/suppl/10.1021/ci034243x/suppl_file/ci034243xsi20040112_053635.txt"
-    )
-    raw_file = "delaney_data.txt"
-   # expected_data_size = 440055
+    source = "https://pubs.acs.org/doi/suppl/10.1021/ci034243x/suppl_file/ci034243xsi20040112_053635.txt"
+    raw_file = "delaney_data.sdf"
+    expected_data_size = 1144
     data_streamer_generator = SDFStreamer.generator(
-        gz=True, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
+        gz=False, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
-    
-    def process_download_data(self,raw_file):
+
+    def process_download_data(self, raw_file):
         df = pd.read_csv(raw_file)
-        print(df)
+        df["mol"] = df["SMILES"].apply(lambda s: Chem.MolFromSmiles(s))
+        df.drop(df[df["mol"] == None].index, inplace=True)
+        df["mol"] = parallel_asset_conformers(df["mol"])
+        df.drop(df[df["mol"] == None].index, inplace=True)
+        df["mol"] = df["mol"].apply(lambda m: PropertyMol(m))
+        for r, d in df.iterrows():
+            d["mol"].SetProp("_Name", d["Compound ID"])
+            d["mol"].SetProp(
+                "measured_log_solubility", d["measured log(solubility:mol/L)"]
+            )
+            d["mol"].SetProp(
+                "ESOL_predicted_log_solubility",
+                d["ESOL predicted log(solubility:mol/L)"],
+            )
+
+        # needded string io since per default SDWriter appends $$$$ in the end and then a new line with results in an additional None entrie
+        with StringIO() as f:
+            with Chem.SDWriter(f) as w:
+                for m in df["mol"]:
+                    w.write(m)
+            cont = f.getvalue()
+
+        cont = "$$$$".join([c for c in cont.split("$$$$") if len(c) > 3])
+        with open(raw_file, "w+") as f:
+            f.write(cont)
         return None
-    
+
 
 def main():
     tdir = os.path.join(gettempdir(), "molNet", "ESOL")
-    loader = ESOL(tdir,
-                        data_streamer_kwargs=dict()
-                        )
-    loader.download()
-    print(loader.expected_data_size)
-    for i,m in  enumerate(tqdm(
-        loader, unit="mol", unit_scale=True, total=loader.expected_data_size
-    )):
-        if i>100_000:
-            break
-    print(loader.expected_data_size)
-    loader = ChemBLdb01(tdir,
-                        data_streamer_kwargs=dict(addHs=True,assert_conformers=True)
-                        )
-    print(loader.expected_data_size)
-    for i,m in  enumerate(tqdm(
-            loader, unit="mol", unit_scale=True, total=loader.expected_data_size
-    )):
-        if i>10_000:
-            break
+    loader = ESOL(tdir, data_streamer_kwargs=dict())
 
-    # loader.get_data()
-    k = 1000
-    loader.data_streamer.cached = True
-    print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k - 1, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k - 10, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k - 100, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k + 1, progress_bar=True)), flush=True)
-    print(len(loader.get_n_entries(k + 10, progress_bar=True)), flush=True)
-
-    print(len([None for mol in tqdm(
-        loader, unit="mol", unit_scale=True, total=loader.expected_data_size
-    )]))
-    # print(mol)
-    # break
-    # loader.downlaod()
-    # print(loader.parent_dir)
+    print(loader.expected_data_size)
+    for i, m in enumerate(
+            tqdm(loader, unit="mol", unit_scale=True, total=loader.expected_data_size)
+    ):
+        pass
+    print(loader.expected_data_size)
 
 
 if __name__ == "__main__":

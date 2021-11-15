@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 from typing import Callable
 
 import requests
@@ -19,11 +20,15 @@ class DataLoader:
         if data_streamer_kwargs is None:
             data_streamer_kwargs = {}
         if parent_dir is None:
-            parent_dir = os.path.join(molNet.get_user_folder(),"dataloader",self.__class__.__name__)
+            parent_dir = os.path.join(
+                molNet.get_user_folder(), "dataloader", self.__class__.__name__
+            )
         os.makedirs(parent_dir, exist_ok=True)
         self._parent_dir = parent_dir
         if self.data_streamer_generator is None:
-            raise ValueError(f"no data_streamer_generator defined for {self.__class__.__name__}")
+            raise ValueError(
+                f"no data_streamer_generator defined for {self.__class__.__name__}"
+            )
         self._data_streamer = self.data_streamer_generator(**data_streamer_kwargs)
 
     def _downlaod(self) -> str:
@@ -50,13 +55,14 @@ class DataLoader:
                 handle.write(data)
                 pbar.update(len(data))
         self.process_download_data(os.path.join(self.parent_dir, fname))
-        os.rename(os.path.join(self.parent_dir, fname), self.raw_file_path)
-        
+
+        shutil.move(os.path.join(self.parent_dir, fname), self.raw_file_path)
+
         return fname
-    
-    def process_download_data(self,raw_file):
+
+    def process_download_data(self, raw_file):
         return None
-    
+
     def download(self):
         print(f"downlaod data from {self.source}")
         dl = self._downlaod()

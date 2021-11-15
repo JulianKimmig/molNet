@@ -4,7 +4,9 @@ from molNet import MOLNET_LOGGER
 
 
 class DataStreamer:
-    def __init__(self, dataloader, cached=False, progress_bar_kwargs=None,iter_None=True):
+    def __init__(
+            self, dataloader, cached=False, progress_bar_kwargs=None, iter_None=True
+    ):
         self._iter_None = iter_None
         if progress_bar_kwargs is None:
             progress_bar_kwargs = {}
@@ -75,18 +77,18 @@ class DataStreamer:
     def __iter__(self):
         def _it():
             i = 0
-            _removed=0
+            _removed = 0
             for i, k in enumerate(self.iterate()):
                 if not self._iter_None and k is None:
-                    self.dataloader.expected_data_size-=1
-                    _removed+=1
+                    self.dataloader.expected_data_size -= 1
+                    _removed += 1
                     continue
 
-                k=self.update_data(k)
+                k = self.update_data(k)
 
                 if not self._iter_None and k is None:
-                    self.dataloader.expected_data_size-=1
-                    _removed+=1
+                    self.dataloader.expected_data_size -= 1
+                    _removed += 1
                     continue
 
                 yield k
@@ -96,12 +98,12 @@ class DataStreamer:
             if self._cached:
                 self._all_cached = True
 
-            if i + 1 != self.dataloader.expected_data_size+_removed:
+            if i + 1 != self.dataloader.expected_data_size + _removed:
                 MOLNET_LOGGER.warning(
-                    f"{self.dataloader} returns a different size ({i}) than expected({self.dataloader.expected_data_size})")
+                    f"{self.dataloader} returns a different size ({i}) than expected({self.dataloader.expected_data_size}), {_removed} entries where removed"
+                )
 
         return _it()
 
     def update_data(self, d):
         return d
-
