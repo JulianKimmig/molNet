@@ -6,7 +6,6 @@ from rdkit.Chem.rdmolops import AddHs
 from molNet import ConformerError
 from molNet.dataloader.streamer import DataStreamer
 from molNet.utils.mol.properties import assert_conformers
-from molNet.utils.parallelization.multiprocessing import solve_cores
 
 
 class MolStreamer(DataStreamer):
@@ -54,7 +53,7 @@ class SDFStreamer(MolStreamer):
             *args,
             gz=True,
             cached=False,
-            threads="all-1",
+            # threads="all-1", #Not implemented due to error with closing MultithreadedSDMolSupplier
             **kwargs
     ):
         super(SDFStreamer, self).__init__(
@@ -66,13 +65,14 @@ class SDFStreamer(MolStreamer):
         )
         if gz:
             threads = 1
-        self._threads = threads
+        # self._threads = threads
         self._gz = gz
 
         self._file_getter = file_getter
 
-    def iterate(self):
-        cores = solve_cores(self._threads)
+    def get_iterator(self):
+        # cores = solve_cores(self._threads)
+        cores = 1
         if cores > 1:
             sdfclasd = Chem.MultithreadedSDMolSupplier
             filestream = False

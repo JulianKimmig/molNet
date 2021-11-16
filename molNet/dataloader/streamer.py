@@ -16,11 +16,13 @@ class DataStreamer:
         self._cache_data = []
         self._all_cached = False
 
+        self._position = 0
+        self._in_iter = False
+
     @classmethod
     def generator(cls, **kwargs):
         def _generator(*args, **skwargs):
             return cls(*args, **{**kwargs, **skwargs})
-
         return _generator
 
     def get_all_entries(self, *args, **kwargs):
@@ -33,7 +35,6 @@ class DataStreamer:
                 g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs)
             else:
                 g = enumerate(self)
-
             if self.cached:
                 for j, d in g:
                     if j >= n:
@@ -43,6 +44,8 @@ class DataStreamer:
                     dat.append(d)
                     if j >= n:
                         break
+            g.close()
+            self.close()
 
         else:
             l = len(self._cache_data)
@@ -71,39 +74,53 @@ class DataStreamer:
             self.clear_cache()
             self._cached = cached
 
-    def iterate(self):
+    def get_iterator(self):
         raise NotImplementedError()
 
-    def __iter__(self):
-        def _it():
-            i = 0
-            _removed = 0
-            for i, k in enumerate(self.iterate()):
-                if not self._iter_None and k is None:
-                    self.dataloader.expected_data_size -= 1
-                    _removed += 1
-                    continue
+    # def next(self):
 
+    def __next__(self):
+        try:
+            k = next(self._iter)
+            if k is not None:
                 k = self.update_data(k)
 
-                if not self._iter_None and k is None:
+            if not self._iter_None:
+                while k is None:
                     self.dataloader.expected_data_size -= 1
-                    _removed += 1
-                    continue
+                    self._removed += 1
+                    k = next(self._iter)
+                    if k is not None:
+                        k = self.update_data(k)
 
-                yield k
-                if self._cached:
-                    self._cache_data.append(k)
-
+        except StopIteration:
             if self._cached:
                 self._all_cached = True
-
-            if i + 1 != self.dataloader.expected_data_size + _removed:
+            if self._position != self.dataloader.expected_data_size + self._removed:
                 MOLNET_LOGGER.warning(
-                    f"{self.dataloader} returns a different size ({i}) than expected({self.dataloader.expected_data_size}), {_removed} entries where removed"
+                    f"{self.dataloader} returns a different size ({self._position}) than expected({self.dataloader.expected_data_size}), {self._removed} entries where removed"
                 )
 
-        return _it()
+            raise StopIteration
+
+        if self._cached:
+            self._cache_data.append(k)
+        self._position += 1
+
+        return k
+
+    def close(self):
+        if self._in_iter:
+            self._iter.close()
+            self._in_iter = False
+
+    def __iter__(self):
+        if not self._in_iter:
+            self._position = 0
+            self._removed = 0
+            self._iter = self.get_iterator()
+            self._in_iter = True
+        return self
 
     def update_data(self, d):
         return d

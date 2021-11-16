@@ -9,7 +9,7 @@ from tqdm import tqdm
 import molNet
 from molNet.dataloader.streamer import DataStreamer
 
-
+CITED_SOURCES = []
 class DataLoader:
     source: str = None
     raw_file: str = None
@@ -30,8 +30,10 @@ class DataLoader:
                 f"no data_streamer_generator defined for {self.__class__.__name__}"
             )
         self._data_streamer = self.data_streamer_generator(**data_streamer_kwargs)
-        if self.citation is not None:
-            molNet.MOLNET_LOGGER.info(f"You are using a citable datasource, please consider citing '{self.citation}'!")
+        if self.citation is not None and self.__class__ not in CITED_SOURCES:
+            molNet.MOLNET_LOGGER.info(
+                f"You are using a citable datasource ('{self.__class__.__name__}'), please consider citing '{self.citation}'!")
+            CITED_SOURCES.append(self.__class__)
 
     def _downlaod(self) -> str:
         response = requests.get(self.source, stream=True)
@@ -105,6 +107,9 @@ class DataLoader:
 
     def get_n_entries(self, n: int, **kwargs):
         self._needs_raw()
+        if n > self.expected_data_size:
+            molNet.MOLNET_LOGGER.warning(
+                f"try to get {n} entriers, but the loader has an expected size of {self.expected_data_size}")
         return self._data_streamer.get_n_entries(n=n, **kwargs)
 
     def get_all_entries(self, **kwargs):
