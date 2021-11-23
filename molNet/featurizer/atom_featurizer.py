@@ -1,119 +1,90 @@
 import numpy as np
 import rdkit
 import rdkit.Chem.AllChem
-from rdkit.Chem import rdchem, SetHybridization, HybridizationType
+from rdkit.Chem import SetHybridization, HybridizationType
 from rdkit.Chem.rdchem import Mol
 
-from ._atom_featurizer import SingleValueAtomFeaturizer, AtomFeaturizer
-from .featurizer import OneHotFeaturizer, FeaturizerList
+from molNet import MOLNET_LOGGER
+from molNet.featurizer._atom_featurizer import SingleValueAtomFeaturizer
+from molNet.featurizer.featurizer import FeaturizerList
 
-__all__ = [
-    "atom_atomic_number",
-    "atom_atomic_number_one_hot",
-    "atom_chiral_tag_one_hot",
-    "atom_degree",
-    "atom_degree_one_hot",
-    "atom_explicit_valence",
-    "atom_explicit_valence_one_hot",
-    "atom_formal_charge",
-    "atom_formal_charge_one_hot",
-    "atom_hybridization_one_hot",
-    "atom_implicit_valence",
-    "atom_implicit_valence_one_hot",
-    "atom_is_aromatic",
-    "atom_is_in_ring",
-    "atom_mass",
-    "atom_num_radical_electrons",
-    "atom_num_radical_electrons_one_hot",
-    "atom_partial_charge",
-    "atom_symbol_one_hot",
-    "atom_total_degree",
-    "atom_total_degree_one_hot",
-    "atom_total_num_H",
-    "atom_total_num_H_one_hot",
-    "default_atom_featurizer",
-]
+_available_featurizer = {}
+__all__ = []
+try:
+    from molNet.featurizer import _manual_atom_featurizer
+    from molNet.featurizer._manual_molecule_featurizer import *
 
-from ..utils.mol import ATOMIC_SYMBOL_NUMBERS
+    for n, f in _manual_atom_featurizer.get_available_featurizer().items():
+        if n in _available_featurizer:
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting moelcule featurizer: {n}")
+            continue
+        _available_featurizer[n] = f
 
+    __all__ += _manual_atom_featurizer.__all__
+except Exception as e:
+    MOLNET_LOGGER.exception(e)
 
-def _get_atom_symbol(atom):
-    return atom.GetSymbol()
+try:
+    from molNet.featurizer import _autogen_atom_featurizer
+    from molNet.featurizer._autogen_atom_featurizer import *
 
+    for n, f in _autogen_atom_featurizer.get_available_featurizer().items():
+        if n in _available_featurizer:
+            n = f"autogen_molecule_featurizer_{n}"
+        if n in _available_featurizer:
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting moelcule featurizer: {n}")
+            continue
+        _available_featurizer[n] = f
 
-def _get_atom_num(atom):
-    return atom.GetAtomicNum()
+    __all__ += _autogen_atom_featurizer.__all__
+except Exception as e:
+    MOLNET_LOGGER.exception(e)
 
 
-def _get_atom_tot_deg(atom):
-    return atom.GetTotalDegree()
+class AllSingleValueAtomFeaturizer(FeaturizerList):
+    dtype = np.float32
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            [
+                f
+                for n, f in _available_featurizer.items()
+                if isinstance(f, SingleValueAtomFeaturizer)
+            ],
+            *args,
+            **kwargs
+        )
 
 
-def _get_atom_deg(atom):
-    return atom.GetDegree()
+atom_all_single_val_feats = AllSingleValueAtomFeaturizer(name="atom_all_single_val_feats")
+__all__.extend(["atom_all_single_val_feats", "AllSingleValueAtomFeaturizer"])
+_available_featurizer["atom_all_single_val_feats"] = atom_all_single_val_feats
 
 
-def _get_atom_imp_val(atom):
-    return atom.GetImplicitValence()
+def get_available_featurizer():
+    return _available_featurizer
 
 
-def _get_atom_exp_val(atom):
-    return atom.GetExplicitValence()
+def main():
+    from rdkit import Chem
+
+    testmol = Chem.MolFromSmiles("c1ccccc1").GetAtoms()[0]
+
+    for n, f in get_available_featurizer().items():
+        print(n, end=" ")
+        print(f(testmol))
+    print(len(get_available_featurizer()))
 
 
-def _get_atom_num_rad_el(atom):
-    return atom.GetNumRadicalElectrons()
-
-
-def _get_atom_chiral_tag(atom):
-    return atom.GetChiralTag()
-
-
-def _get_atom_in_ring(atom):
-    return atom.IsInRing()
-
-
-def _get_atom_formal_charge(atom):
-    return atom.GetFormalCharge()
-
-
-def _get_atom_get_mass(atom):
-    return atom.GetMass()
-
-
-def _get_atom_tot_h(atom):
-    return atom.GetTotalNumHs()
-
-
-def _get_atom_is_arom(atom):
-    return atom.GetIsAromatic()
-
-
-# class _to_array:
-#    def __init__(self, funcs):
-#        self.funcs = funcs
-
-#    def __call__(self, atom):
-#        return [f(atom) for f in self.funcs]
-
-
-# def as_array(*funcs):
-#    return _to_array(funcs)
-
-
-atom_symbol_one_hot = OneHotFeaturizer(
-    possible_values=sorted(list(ATOMIC_SYMBOL_NUMBERS.keys())) + [None],
-    pre_featurize=_get_atom_symbol,
-    name="atom_symbol_one_hot",
-)
-
+if __name__ == "__main__":
+    main()
 
 def atom_symbol_one_hot_from_set(
-    list_of_mols, only_mass=False, sort=True, with_other=True
+        list_of_mols, only_mass=False, sort=True, with_other=True, as_class=False
 ):
     from molNet.mol.molecule import Molecule
 
-    possible_values = []
+    _possible_values = []
     for mol in list_of_mols:
 
         if isinstance(mol, Molecule):
@@ -122,53 +93,33 @@ def atom_symbol_one_hot_from_set(
             continue
         for atom in mol.GetAtoms():
             s = atom.GetSymbol()
-            if s not in possible_values:
+            if s not in _possible_values:
                 if only_mass:
                     if atom.GetMass() <= 0:
                         continue
-                possible_values.append(s)
+                _possible_values.append(s)
     if sort:
-        possible_values.sort()
+        _possible_values.sort()
     if with_other:
-        possible_values.append(None)
-    return OneHotFeaturizer(
-        possible_values=possible_values,
-        pre_featurize=_get_atom_symbol,
-        name="custom_atom_symbol_one_hot",
+        _possible_values.append(None)
+
+    if as_class:
+        class Atom_CustomSymbolOneHot_Featurizer(Atom_AllSymbolOneHot_Featurizer):
+            possible_values = _possible_values
+
+        return Atom_CustomSymbolOneHot_Featurizer
+    else:
+        return Atom_AllSymbolOneHot_Featurizer(possible_values=_possible_values)
+
+
+atom_symbol_hcnopsclbr_one_hot = Atom_AllSymbolOneHot_Featurizer(
+    possible_values=["H", "C", "N", "O", "P", "S", "Cl", "Br", None])(
+
+    atom_atomic_number_one_hot=OneHotFeaturizer(
+        possible_values=list(range(1, 119)),
+        pre_featurize=_get_atom_num,
+        name="atomic_number_one_hot",
     )
-
-
-atom_symbol_hcnopsclbr_one_hot = OneHotFeaturizer(
-    possible_values=["H", "C", "N", "O", "P", "S", "Cl", "Br", None],
-    pre_featurize=_get_atom_symbol,
-    name="atom_symbol_one_hot",
-)
-
-
-atom_atomic_number_one_hot = OneHotFeaturizer(
-    possible_values=list(range(1, 119)),
-    pre_featurize=_get_atom_num,
-    name="atomic_number_one_hot",
-)
-
-class ConnectedAtomsFeaturizer(AtomFeaturizer):
-    dtype = np.int32
-    LENGTH = len(ATOMIC_SYMBOL_NUMBERS)
-    atoms=list(ATOMIC_SYMBOL_NUMBERS.keys())
-
-    def featurize(self,atom):
-        connected_atom_types=np.zeros(self.LENGTH)
-        for b in atom.GetBonds():
-            connected_atom_types[self.atoms.index(b.GetOtherAtom(atom).GetSymbol())]+=1
-        return connected_atom_types
-
-class AtomicNumberFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_num)
-
-
-atom_atomic_number = AtomicNumberFeaturizer()
-
 
 atom_total_degree_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
@@ -177,13 +128,6 @@ atom_total_degree_one_hot = OneHotFeaturizer(
 )
 
 
-class AtomTotalDegreeFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_tot_deg)
-
-
-atom_total_degree = AtomTotalDegreeFeaturizer()
-
 atom_degree_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
     pre_featurize=_get_atom_deg,
@@ -191,12 +135,6 @@ atom_degree_one_hot = OneHotFeaturizer(
 )
 
 
-class AtomDegreeFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_deg)
-
-
-atom_degree = AtomTotalDegreeFeaturizer()
 
 atom_implicit_valence_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
@@ -204,35 +142,12 @@ atom_implicit_valence_one_hot = OneHotFeaturizer(
     name="atom_implicit_valence_one_hot",
 )
 
-
-class AtomImplicitValenceFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_imp_val)
-
-
-atom_implicit_valence = AtomImplicitValenceFeaturizer()
-
 atom_explicit_valence_one_hot = OneHotFeaturizer(
     possible_values=list(range(8)),
     pre_featurize=_get_atom_exp_val,
     name="atom_explicit_valence_one_hot",
 )
 
-
-class AtomExplicitValenceFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_exp_val)
-
-
-atom_explicit_valence = AtomExplicitValenceFeaturizer()
-
-
-class AtomNumRadicalElectronsFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_num_rad_el)
-
-
-atom_num_radical_electrons = AtomNumRadicalElectronsFeaturizer()
 
 
 atom_num_radical_electrons_one_hot = OneHotFeaturizer(
@@ -275,38 +190,12 @@ atom_hybridization_one_hot = OneHotFeaturizer(
     name="atom_hybridization_one_hot",
 )
 
-atom_chiral_tag_one_hot = OneHotFeaturizer(
-    possible_values=[
-        rdkit.Chem.rdchem.ChiralType.CHI_UNSPECIFIED,
-        rdkit.Chem.rdchem.ChiralType.CHI_TETRAHEDRAL_CW,
-        rdkit.Chem.rdchem.ChiralType.CHI_TETRAHEDRAL_CCW,
-        rdkit.Chem.rdchem.ChiralType.CHI_OTHER,
-    ],
-    pre_featurize=_get_atom_chiral_tag,
-    name="atom_chiral_tag_one_hot",
-)
 
 atom_formal_charge_one_hot = OneHotFeaturizer(
     possible_values=list(range(-8, 9)),
     pre_featurize=_get_atom_formal_charge,
     name="atom_formal_charge_one_hot",
 )
-
-
-class AtomFromalChargeFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.float32
-    featurize = staticmethod(_get_atom_formal_charge)
-
-
-atom_formal_charge = AtomFromalChargeFeaturizer()
-
-
-class AtomMassFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.float32
-    featurize = staticmethod(_get_atom_get_mass)
-
-
-atom_mass = AtomMassFeaturizer()
 
 atom_total_num_H_one_hot = OneHotFeaturizer(
     possible_values=list(range(9)),
@@ -315,20 +204,6 @@ atom_total_num_H_one_hot = OneHotFeaturizer(
 )
 
 
-class AtomTotalNumHsFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.int32
-    featurize = staticmethod(_get_atom_tot_h)
-
-
-atom_total_num_H = AtomTotalNumHsFeaturizer()
-
-
-class AtomIsAromaticFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.bool_
-    featurize = staticmethod(_get_atom_is_arom)
-
-
-atom_is_aromatic = AtomIsAromaticFeaturizer()
 
 
 def atom_is_in_ring_size_n(n):
@@ -350,14 +225,6 @@ def atom_is_in_ring_size_n_to_m_one_hot(n: int, m: int):
     )
 
 
-class AtomIsInRingFeaturizer(SingleValueAtomFeaturizer):
-    dtype = np.bool_
-    featurize = staticmethod(_get_atom_in_ring)
-
-
-atom_is_in_ring = AtomIsInRingFeaturizer()
-
-
 def _get_gasteiger_charge(atom):
     if not atom.HasProp("_GasteigerCharge"):
         rdkit.Chem.AllChem.ComputeGasteigerCharges(atom.GetOwningMol())
@@ -373,19 +240,3 @@ class AtomPartialChargeFeaturizer(SingleValueAtomFeaturizer):
 
 
 atom_partial_charge = AtomPartialChargeFeaturizer()
-
-
-default_atom_featurizer = FeaturizerList(
-    [
-        atom_symbol_one_hot,
-        atom_formal_charge,
-        atom_partial_charge,
-        atom_mass,
-        atom_total_degree_one_hot,
-        atom_degree_one_hot,
-        atom_hybridization_one_hot,
-        atom_num_radical_electrons,
-        atom_is_aromatic,
-    ],
-    name="default_atom_featurizer",
-)

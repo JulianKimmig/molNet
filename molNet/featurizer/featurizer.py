@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import List, Union
 from warnings import warn
 
 AS_NUMPY_ARRY = False
@@ -15,12 +15,16 @@ class Featurizer(NormalizationClass):
     dtype = object
     NAME = None
     NORMALIZATION = None
-    DESCRIPTION=None
+    DESCRIPTION = None
 
     def pre_featurize(self, x):
         return x
 
-    def __init__(self, name=None, pre_featurize=None, dtype=None, feature_descriptions=None, *args, **kwargs):
+    def post_featurize(self, x):
+        return x
+
+    def __init__(self, name=None, pre_featurize=None, post_featurize=None, dtype=None, feature_descriptions=None, *args,
+                 **kwargs):
         super().__init__(*args, **kwargs)
 
         if name is None:
@@ -30,11 +34,14 @@ class Featurizer(NormalizationClass):
                 name = self.NAME
         if pre_featurize is None:
             pre_featurize = self.pre_featurize
+        if post_featurize is None:
+            post_featurize = self.post_featurize
 
         if dtype is None:
             dtype = self.dtype
         self._dtype = dtype
         self._pre_featurize = pre_featurize
+        self._post_featurize = post_featurize
         self._name = name
 
         if feature_descriptions is None and self.DESCRIPTION is not None:
@@ -47,13 +54,16 @@ class Featurizer(NormalizationClass):
     def __repr__(self):
         return repr(self.dict)
 
+    def as_dict(self):
+        return {"name": self._name,
+                "description": self._feature_descriptions,
+                "dtype": self._dtype,
+                "norm": self._preferred_norm_name,
+                }
+
     @property
     def dict(self):
-        return {"name":self._name,
-                    "description":self._feature_descriptions,
-                    "dtype":self._dtype,
-                    "norm":self._preferred_norm_name,
-                    }
+        return self.as_dict()
 
     def __add__(self, other):
         if isinstance(other, FeaturizerList):
@@ -70,6 +80,8 @@ class Featurizer(NormalizationClass):
         if self._pre_featurize is not None:
             to_featurize = self._pre_featurize(to_featurize)
         f = self.featurize(to_featurize)
+        if self._pre_featurize is not None:
+            f = self._post_featurize(f)
         f = np.array(f, dtype=self._dtype)
         if not f.ndim:
             f = np.expand_dims(f, 0)
@@ -88,6 +100,9 @@ class FixedSizeFeaturizer(Featurizer):
     def __init__(self, length=None, *args, **kwargs):
         if length is None and self.LENGTH > 0:
             length = self.LENGTH
+        if length is None:
+            raise ValueError(
+                f"no length given to {self}, please define via 'LENGTH' as class attribute or via keyword 'length' during initialization")
         self._length = length
 
         super().__init__(*args, **kwargs)
@@ -107,11 +122,16 @@ class FixedSizeFeaturizer(Featurizer):
             self._len = len(f)
         return f
 
+    def as_dict(self):
+        d = super(FixedSizeFeaturizer, self).as_dict()
+        d["length"] = self._length
+        return d
+
     def describe_features(self):
         if self._feature_descriptions is None:
             return [str(self)] * len(self)
 
-        if isinstance(self._feature_descriptions,str):
+        if isinstance(self._feature_descriptions, str):
             return super().describe_features()
 
         return [self._feature_descriptions[i] for i in range(len(self))]
@@ -119,23 +139,33 @@ class FixedSizeFeaturizer(Featurizer):
 
 class OneHotFeaturizer(FixedSizeFeaturizer):
     dtype = np.bool_
+    POSSIBLE_VALUES = []
 
-    def __init__(self, possible_values, *args, **kwargs):
+    def __init__(self, possible_values=None, *args, **kwargs):
+        if possible_values is None and len(self.POSSIBLE_VALUES) > 0:
+            possible_values = self.POSSIBLE_VALUES
+        if possible_values is None:
+            raise ValueError(
+                f"no possible values given to {self}, please define via 'POSSIBLE_VALUES' as class attribute or via keyword 'possible_values' during initialization")
+        self._possible_values = possible_values
         kwargs["length"] = len(possible_values)
         super().__init__(*args, **kwargs)
-        self._possible_values = possible_values
 
-    def featurize(self, to_featurize):
-        if None in self._possible_values and to_featurize not in self._possible_values:
-            to_featurize = None
-        if to_featurize not in self._possible_values:
+    def as_dict(self):
+        d = super(FixedSizeFeaturizer, self).as_dict()
+        d["possible_values"] = self._possible_values
+        return d
+
+    def post_featurize(self, x):
+        if None in self._possible_values and x not in self._possible_values:
+            x = None
+        if x not in self._possible_values:
             raise OneHotEncodingException(
                 "cannot one hot encode '{}' in '{}', allowed values are {}".format(
-                    to_featurize, self, self._possible_values
+                    x, self, self._possible_values
                 )
             )
-        # return list(map(lambda v: to_featurize == v, self.possible_values))
-        return [v == to_featurize for v in self._possible_values]
+        return [v == x for v in self._possible_values]
 
     def describe_features(self):
         if self._feature_descriptions is None:
@@ -181,3 +211,7 @@ class FeaturizerList(Featurizer):
         if isinstance(other, FeaturizerList):
             return FeaturizerList(self._feature_list + other._feature_list)
         return FeaturizerList(self._feature_list + [other])
+
+
+class StringFeaturizer(Featurizer):
+    dtype = str

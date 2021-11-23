@@ -1,4 +1,3 @@
-import json
 import os
 import pickle
 from warnings import warn
@@ -646,14 +645,14 @@ for i, s in enumerate(old_succs):
 
 succs = sorted(succs, key=lambda d: d["red_name"])
 
-avail_norms = []
-data_folder = "molecule_ecdf_data"
-if os.path.exists(data_folder):
-    df_cont = os.listdir(data_folder)
-    avail_norms = [f.replace(".data", "") for f in df_cont if ".data" in f]
-    avail_norms = [f for f in avail_norms if f + ".data" in df_cont]
-    avail_norms = [f for f in avail_norms if f + ".ecdf" in df_cont]
-len(avail_norms)
+# avail_norms = []
+# data_folder = "molecule_ecdf_data"
+# if os.path.exists(data_folder):
+#    df_cont = os.listdir(data_folder)
+#    avail_norms = [f.replace(".data", "") for f in df_cont if ".data" in f]
+#    avail_norms = [f for f in avail_norms if f + ".data" in df_cont]
+#    avail_norms = [f for f in avail_norms if f + ".ecdf" in df_cont]
+# len(avail_norms)
 
 for s in succs:
     if s["func_name"] in MANUAL_PRECLASSCODES:
@@ -722,68 +721,68 @@ def numeric_coder(s):
         classname=s["classname"], classcall=s["func_call"], dtype=s["dtype"]
     )
 
-    if s["classname"] in avail_norms:
-        # print(s["classname"])
-        with open(os.path.join(data_folder, s["classname"] + ".data"), "r") as f:
-            ecdf_data = json.load(f)["0"]
-        idx = code.index("# normalization") + len("# normalization")
-        precode = code[:idx] + "\n"
-        postcode = code[idx:]
-
-        best = None
-        global_data_keys = ["sample_bounds", "sample_bounds99"]
-        global_data = {}
-        for datakey, parakey, best_key in [
-            ("linear_norm", "linear_norm_parameter", "linear"),
-            ("min_max_norm", "min_max_norm_parameter", "min_max"),
-            ("sig_norm", "sigmoidal_norm_parameter", "sig"),
-            ("dual_sig_norm", "dual_sigmoidal_norm_parameter", "dual_sig"),
-            ("genlog_norm", "genlog_norm_parameter", "genlog"),
-        ]:
-
-            if datakey in ecdf_data:
-                norm_data = ecdf_data[datakey]
-                precode += f"    {parakey} = ({', '.join([str(i) for i in norm_data['parameter']])})"
-                precode += f"  # error of {norm_data['error']:.2E} with sample range ({norm_data['sample_bounds'][0][0]:.2E},{norm_data['sample_bounds'][0][1]:.2E}) "
-                precode += f"resulting in fit range ({norm_data['sample_bounds'][1][0]:.2E},{norm_data['sample_bounds'][1][1]:.2E})\n"
-
-                red_norm_data = {
-                    k: v for k, v in norm_data.items() if k not in global_data_keys
-                }
-                del red_norm_data["parameter"]
-                precode += f"    {parakey}_normdata ={red_norm_data}\n"
-
-                for k, v in norm_data.items():
-                    if k in global_data_keys:
-                        global_data[k] = v
-
-            if (
-                    "sample_bounds99" not in norm_data
-                    or norm_data["sample_bounds"][0][0] == norm_data["sample_bounds"][0][1]
-            ):
-                best = ("unity", 0, norm_data["sample_bounds"])
-            else:
-                if (
-                        norm_data["sample_bounds"][1][0] <= 0.3
-                        and norm_data["sample_bounds"][1][1] > 0.5
-                ):
-                    if best is None:
-                        best = (
-                            best_key,
-                            norm_data["error"],
-                            norm_data["sample_bounds"],
-                        )
-                    else:
-                        if norm_data["error"] < best[1]:
-                            best = (
-                                best_key,
-                                norm_data["error"],
-                                norm_data["sample_bounds"],
-                            )
-        precode += f"    autogen_normdata ={global_data}\n"
-        if best is not None:
-            precode += f"    preferred_normalization = '{best[0]}'"
-        code = precode + postcode
+    # if s["classname"] in avail_norms:
+    #     # print(s["classname"])
+    #     with open(os.path.join(data_folder, s["classname"] + ".data"), "r") as f:
+    #         ecdf_data = json.load(f)["0"]
+    #     idx = code.index("# normalization") + len("# normalization")
+    #     precode = code[:idx] + "\n"
+    #     postcode = code[idx:]
+    #
+    #     best = None
+    #     global_data_keys = ["sample_bounds", "sample_bounds99"]
+    #     global_data = {}
+    #     for datakey, parakey, best_key in [
+    #         ("linear_norm", "linear_norm_parameter", "linear"),
+    #         ("min_max_norm", "min_max_norm_parameter", "min_max"),
+    #         ("sig_norm", "sigmoidal_norm_parameter", "sig"),
+    #         ("dual_sig_norm", "dual_sigmoidal_norm_parameter", "dual_sig"),
+    #         ("genlog_norm", "genlog_norm_parameter", "genlog"),
+    #     ]:
+    #
+    #         if datakey in ecdf_data:
+    #             norm_data = ecdf_data[datakey]
+    #             precode += f"    {parakey} = ({', '.join([str(i) for i in norm_data['parameter']])})"
+    #             precode += f"  # error of {norm_data['error']:.2E} with sample range ({norm_data['sample_bounds'][0][0]:.2E},{norm_data['sample_bounds'][0][1]:.2E}) "
+    #             precode += f"resulting in fit range ({norm_data['sample_bounds'][1][0]:.2E},{norm_data['sample_bounds'][1][1]:.2E})\n"
+    #
+    #             red_norm_data = {
+    #                 k: v for k, v in norm_data.items() if k not in global_data_keys
+    #             }
+    #             del red_norm_data["parameter"]
+    #             precode += f"    {parakey}_normdata ={red_norm_data}\n"
+    #
+    #             for k, v in norm_data.items():
+    #                 if k in global_data_keys:
+    #                     global_data[k] = v
+    #
+    #         if (
+    #                 "sample_bounds99" not in norm_data
+    #                 or norm_data["sample_bounds"][0][0] == norm_data["sample_bounds"][0][1]
+    #         ):
+    #             best = ("unity", 0, norm_data["sample_bounds"])
+    #         else:
+    #             if (
+    #                     norm_data["sample_bounds"][1][0] <= 0.3
+    #                     and norm_data["sample_bounds"][1][1] > 0.5
+    #             ):
+    #                 if best is None:
+    #                     best = (
+    #                         best_key,
+    #                         norm_data["error"],
+    #                         norm_data["sample_bounds"],
+    #                     )
+    #                 else:
+    #                     if norm_data["error"] < best[1]:
+    #                         best = (
+    #                             best_key,
+    #                             norm_data["error"],
+    #                             norm_data["sample_bounds"],
+    #                         )
+    #     precode += f"    autogen_normdata ={global_data}\n"
+    #     if best is not None:
+    #         precode += f"    preferred_normalization = '{best[0]}'"
+    #     code = precode + postcode
     s["code"] = code
     # print(code)
 
@@ -1045,3 +1044,5 @@ if __name__=='__main__':
             "w+b",
     ) as f:
         f.write(code.encode("utf8"))
+
+    print(len(succs))

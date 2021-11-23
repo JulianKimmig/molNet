@@ -68,13 +68,9 @@ def main():
     testmol = Chem.MolFromSmiles("c1ccccc1")
 
     for n, f in get_available_featurizer().items():
-        print(f, f(testmol))
+        print(n, end=" ")
+        print(f(testmol))
 
 
 if __name__ == "__main__":
     main()
-
-default_molecule_featurizer = FeaturizerList(
-    [],
-    name="default_molecule_featurizer",
-)

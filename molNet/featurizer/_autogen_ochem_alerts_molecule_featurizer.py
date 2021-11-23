@@ -29021,7 +29021,7 @@ def main():
     testmol = Chem.MolFromSmiles("c1ccccc1")
     for n, f in get_available_featurizer().items():
         print(n, f(testmol))
-
+    print(len(get_available_featurizer()))
 
 if __name__ == "__main__":
     main()

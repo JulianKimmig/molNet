@@ -2,49 +2,115 @@ import os
 
 import black
 
-from molNet.featurizer import molecule_featurizer
+from molNet.featurizer import molecule_featurizer, atom_featurizer
 
-dirs = {"molecule_featurizer": os.path.dirname(molecule_featurizer.__file__)}
 
-for feat_base_class in ["molecule_featurizer"]:
+def gen_molecule_feats():
+    mdir = os.path.dirname(molecule_featurizer.__file__)
+    feat_base_class = "molecule_featurizer"
 
-    mdir = os.path.dirname(__file__)
-    code = ""
-    imp_code = "from molNet.featurizer.{mod}  import * \n"
-    imp_code += "from molNet.featurizer.{mod}  import _available_featurizer as {mod}_available_featurizer\n"
+    code = "from molNet import MOLNET_LOGGER\n" \
+           "from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
+           "_available_featurizer = {}\n__all__ = []\n"
 
-    av_code = "    *{mod}_available_featurizer,\n"
-    availabless_code = ""
+    imp_code = """
+try:
+    from molNet.featurizer import {mod}
+    from molNet.featurizer.{mod} import *
+
+    for n, f in {mod}.get_available_featurizer().items():
+        if n in _available_featurizer:
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting moelcule featurizer: {{n}}")
+            continue
+        _available_featurizer[n] = f
+
+    __all__ += {mod}.__all__
+except Exception as e:
+    MOLNET_LOGGER.exception(e)\n"""
 
     for f in os.listdir(mdir):
         if f == f"_autogen_{feat_base_class}.py":
             continue
+        print(f)
         if f.startswith("_autogen") and f.endswith(f"{feat_base_class}.py"):
             mod = f.replace(".py", "")
             code += imp_code.format(mod=mod)
-            availabless_code += av_code.format(mod=mod)
             print(f)
-
-    code += f"_available_featurizer = [\n{availabless_code}]\n"
-
-    code += """
-def main():
-    from rdkit import Chem
-
-    testmol = Chem.MolFromSmiles("c1ccccc1")
-    """
-    if feat_base_class == "molecule_featurizer":
-        code += """
-    for f in _available_featurizer:
-        print(f, f(testmol))
-    """
-    code += """
-if __name__ == "__main__":
-    main()
-
-"""
+    code += "def get_available_featurizer():\n" \
+            "    return _available_featurizer\n"
+    code += "def main():\n" \
+            "    from rdkit import Chem\n" \
+            "    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1'))\n"
+    code += "    for n,f in get_available_featurizer().items():\n" \
+            "        print(n,end=" ")\n" \
+            "        print(f(testmol))\n" \
+            "    print(len(get_available_featurizer()))"
+    code += "if __name__ == '__main__':\n" \
+            "    main()"
     code = black.format_str(code, mode=black.FileMode())
+
+    print(mdir)
     with open(
-        os.path.join(dirs[feat_base_class], f"_autogen_{feat_base_class}.py"), "w+b"
+            os.path.join(mdir, f"_autogen_{feat_base_class}.py"), "w+b"
     ) as f:
         f.write(code.encode("utf8"))
+
+
+def gen_atom_feats():
+    mdir = os.path.dirname(atom_featurizer.__file__)
+    feat_base_class = "atom_featurizer"
+
+    code = "from molNet import MOLNET_LOGGER\n" \
+           "from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
+           "_available_featurizer = {}\n__all__ = []\n"
+
+    imp_code = """
+try:
+    from molNet.featurizer import {mod}
+    from molNet.featurizer.{mod} import *
+
+    for n, f in {mod}.get_available_featurizer().items():
+        if n in _available_featurizer:
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting atom featurizer: {{n}}")
+            continue
+        _available_featurizer[n] = f
+
+    __all__ += {mod}.__all__
+except Exception as e:
+    MOLNET_LOGGER.exception(e)\n"""
+
+    for f in os.listdir(mdir):
+        if f == f"_autogen_{feat_base_class}.py":
+            continue
+        print(f)
+        if f.startswith("_autogen") and f.endswith(f"{feat_base_class}.py"):
+            mod = f.replace(".py", "")
+            code += imp_code.format(mod=mod)
+            print(f)
+    code += "def get_available_featurizer():\n" \
+            "    return _available_featurizer\n"
+    code += "def main():\n" \
+            "    from rdkit import Chem\n" \
+            "    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1')).GetAtoms()[-1]\n"
+    code += "    for n,f in get_available_featurizer().items():\n" \
+            "        print(n,end=" ")\n" \
+            "        print(f(testmol))\n" \
+            "    print(len(get_available_featurizer()))"
+    code += "if __name__ == '__main__':\n" \
+            "    main()"
+    code = black.format_str(code, mode=black.FileMode())
+
+    print(mdir)
+    with open(
+            os.path.join(mdir, f"_autogen_{feat_base_class}.py"), "w+b"
+    ) as f:
+        f.write(code.encode("utf8"))
+
+
+def main():
+    gen_molecule_feats()
+    gen_atom_feats()
+
+
+if __name__ == '__main__':
+    main()
