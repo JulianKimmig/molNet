@@ -17,6 +17,7 @@ dependencies:
   - pyg
   - numba
   - ipykernel
+  - coloredlogs
   #dev
   - pytest
   - black
