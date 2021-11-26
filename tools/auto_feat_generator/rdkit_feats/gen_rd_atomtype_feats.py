@@ -1,3 +1,5 @@
+import black
+
 from molNet.utils.mol import ATOMIC_SYMBOL_NUMBERS
 
 
@@ -72,7 +74,8 @@ def get_available_featurizer():
     return _available_featurizer
 def main():
     from rdkit import Chem
-    testdata = Chem.MolFromSmiles('c1ccccc1')
+    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
+    testdata = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1'))
     for n, f in get_available_featurizer().items():
         print(n, f(testdata))
     print(len(get_available_featurizer()))
@@ -80,6 +83,7 @@ if __name__ == '__main__':
     main()
     """
 
+    code = black.format_str(code, mode=black.FileMode())
     with open("_autogen_rdkit_atomtype_molecule_featurizer.py", "w+") as f:
         f.write(code)
 
@@ -139,14 +143,15 @@ def get_available_featurizer():
     return _available_featurizer
 def main():
     from rdkit import Chem
-    testdata = Chem.MolFromSmiles('c1ccccc1').GetAtoms()[0]
+    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
+    testdata = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1').GetAtoms()[0])
     for n, f in get_available_featurizer().items():
         print(n, f(testdata))
     print(len(get_available_featurizer()))
 if __name__ == '__main__':
     main()
     """
-
+    code = black.format_str(code, mode=black.FileMode())
     with open("_autogen_rdkit_atomtype_atom_featurizer.py", "w+") as f:
         f.write(code)
 

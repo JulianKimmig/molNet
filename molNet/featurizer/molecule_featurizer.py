@@ -1,7 +1,4 @@
-import numpy as np
-
-from molNet import MOLNET_LOGGER
-from molNet.featurizer._molecule_featurizer import SingleValueMoleculeFeaturizer
+from molNet.featurizer._molecule_featurizer import *
 from molNet.featurizer.featurizer import FeaturizerList
 
 _available_featurizer = {}
@@ -65,12 +62,11 @@ def get_available_featurizer():
 def main():
     from rdkit import Chem
 
-    testmol = Chem.MolFromSmiles("c1ccccc1")
-
+    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles("c1ccccc1"))
     for n, f in get_available_featurizer().items():
         print(n, end=" ")
         print(f(testmol))
-
+    print(len(get_available_featurizer()))
 
 if __name__ == "__main__":
     main()

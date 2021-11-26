@@ -68,12 +68,13 @@ __all__ = [
 
 def main():
     from rdkit import Chem
+    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
 
-    testmol = Chem.MolFromSmiles("c1ccccc1")
-
+    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles("c1ccccc1"))
     for n, f in get_available_featurizer().items():
-        print(f, f(testmol))
-
+        print(n, end=" ")
+        print(f(testmol))
+    print(len(get_available_featurizer()))
 
 if __name__ == "__main__":
     main()

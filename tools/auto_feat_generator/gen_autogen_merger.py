@@ -10,7 +10,6 @@ def gen_molecule_feats():
     feat_base_class = "molecule_featurizer"
 
     code = "from molNet import MOLNET_LOGGER\n" \
-           "from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
            "_available_featurizer = {}\n__all__ = []\n"
 
     imp_code = """
@@ -40,11 +39,12 @@ except Exception as e:
             "    return _available_featurizer\n"
     code += "def main():\n" \
             "    from rdkit import Chem\n" \
+            "    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
             "    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1'))\n"
     code += "    for n,f in get_available_featurizer().items():\n" \
-            "        print(n,end=" ")\n" \
+            "        print(n,end=' ')\n" \
             "        print(f(testmol))\n" \
-            "    print(len(get_available_featurizer()))"
+            "    print(len(get_available_featurizer()))\n"
     code += "if __name__ == '__main__':\n" \
             "    main()"
     code = black.format_str(code, mode=black.FileMode())
@@ -61,7 +61,6 @@ def gen_atom_feats():
     feat_base_class = "atom_featurizer"
 
     code = "from molNet import MOLNET_LOGGER\n" \
-           "from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
            "_available_featurizer = {}\n__all__ = []\n"
 
     imp_code = """
@@ -91,11 +90,12 @@ except Exception as e:
             "    return _available_featurizer\n"
     code += "def main():\n" \
             "    from rdkit import Chem\n" \
+            "    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n" \
             "    testmol = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1')).GetAtoms()[-1]\n"
     code += "    for n,f in get_available_featurizer().items():\n" \
-            "        print(n,end=" ")\n" \
+            "        print(n,end=' ')\n" \
             "        print(f(testmol))\n" \
-            "    print(len(get_available_featurizer()))"
+            "    print(len(get_available_featurizer()))\n"
     code += "if __name__ == '__main__':\n" \
             "    main()"
     code = black.format_str(code, mode=black.FileMode())

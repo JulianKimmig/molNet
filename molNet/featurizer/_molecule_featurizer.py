@@ -1,6 +1,7 @@
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import AddHs, RenumberAtoms, CanonicalRankAtoms, SanitizeMol
+from rdkit.Chem.PropertyMol import PropertyMol
 from rdkit.Chem.rdchem import Mol
 
 from molNet.utils.mol.properties import assert_conformers
@@ -22,13 +23,28 @@ def prepare_mol_for_featurization(mol, addHs=True, renumber=True, conformers=Tru
         mol = assert_conformers(mol)
     if sanitize:
         SanitizeMol(mol)
-    mol._is_prepared = True
+    mol = PropertyMol(mol)
+    mol.SetProp('_is_prepared', 1)
     return mol
+
+
+def check_mol_is_prepared(mol):
+    if not mol.HasProp('_is_prepared'):
+        return False
+    if mol.GetProp('_is_prepared') == "1":
+        return True
+    if mol.GetProp('_is_prepared') == 1:
+        return True
+    if mol.GetProp('_is_prepared') == "True":
+        return True
+    if mol.GetProp('_is_prepared') == True:
+        return True
+    return False
 
 
 class _MoleculeFeaturizer(Featurizer):
     def pre_featurize(self, mol):
-        if not hasattr(mol, "_is_prepared") or not mol._is_prepared:
+        if not check_mol_is_prepared(mol):
             if not self._unprepared_logged:
                 MOLNET_LOGGER.warning("you tried to featurize a molecule without previous preparation. "
                                       "I will do this for you, but please try to implement this, "

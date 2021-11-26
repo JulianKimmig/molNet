@@ -1,15 +1,15 @@
 from rdkit.Chem.rdchem import Atom
 
-from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
-from .featurizer import Featurizer, FixedSizeFeaturizer, OneHotFeaturizer, StringFeaturizer
-from .. import MOLNET_LOGGER
+from molNet import MOLNET_LOGGER
+from molNet.featurizer._molecule_featurizer import prepare_mol_for_featurization, check_mol_is_prepared
+from molNet.featurizer.featurizer import Featurizer, FixedSizeFeaturizer, OneHotFeaturizer, StringFeaturizer
 
 
 class _AtomFeaturizer(Featurizer):
     def pre_featurize(self, atom: Atom):
         mol = atom.GetOwningMol()
 
-        if not hasattr(mol, "_is_prepared") or not mol._is_prepared:
+        if not check_mol_is_prepared(mol):
             if not self._unprepared_logged:
                 MOLNET_LOGGER.warning("you tried to featurize an atom without previous preparation of the molecule. "
                                       "I will do this for you, but please try to implement this, "

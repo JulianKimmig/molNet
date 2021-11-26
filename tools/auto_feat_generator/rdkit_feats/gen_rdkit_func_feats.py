@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from inspect import isfunction, ismodule, isgenerator
 from typing import Callable, Any
 
+import black
 import numpy as np
 import rdkit
 from rdkit import Chem
@@ -26,7 +27,7 @@ from rdkit.Geometry import UniformGrid3D_
 from rdkit.rdBase import _vectdouble, _vectint
 
 from molNet import ConformerError
-from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
+from molNet.featurizer._molecule_featurizer import prepare_mol_for_featurization
 from molNet.utils.mol import ATOMIC_SYMBOL_NUMBERS
 
 BAD_LIST = [
@@ -2076,7 +2077,7 @@ def derive_return_type(values, verbose=False, verbose_prefix=""):
             raise NotImplementedError()
 
         if inconsistend_length:
-            d0, Rtypes.ARRAY, -1
+            return d0, Rtypes.ARRAY, -1
         return d0, Rtypes.ARRAY, l
 
     print(type(values[0]), ar.shape, ar.dtype, ar.dtype.char, l)
@@ -2341,8 +2342,7 @@ def create_code_file(funcdict):
             add_import(modfunc.module, modfunc.name.rsplit(".", 1)[-1])
 
     for f, d in files.items():
-        code = "import numpy as np\n" \
-               "from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n"
+        code = "import numpy as np\n"
         for i, l in d['imports'].items():
             if len(l) > 0:
                 code += f"from {i} import ({','.join(l)})\n"
@@ -2355,7 +2355,8 @@ def create_code_file(funcdict):
         code += "def get_available_featurizer():\n" \
                 "    return _available_featurizer\n" \
                 "def main():\n" \
-                "    from rdkit import Chem\n"
+                "    from rdkit import Chem\n" \
+                "    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization\n"
         if d["type"] == "mol":
             code += "    testdata = prepare_mol_for_featurization(Chem.MolFromSmiles('c1ccccc1'))\n"
         elif d["type"] == "atom":
@@ -2370,6 +2371,7 @@ def create_code_file(funcdict):
                 "if __name__ == '__main__':\n" \
                 "    main()\n"
 
+        code = black.format_str(code, mode=black.FileMode())
         with open(f + ".py", "w+") as f:
             f.write(code)
 

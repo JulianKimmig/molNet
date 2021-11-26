@@ -1,5 +1,4 @@
 from molNet import MOLNET_LOGGER
-from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
 
 _available_featurizer = {}
 __all__ = []
@@ -30,9 +29,7 @@ try:
     for (
             n,
             f,
-    ) in (
-            _autogen_rdkit_atomtype_molecule_featurizer.get_available_featurizer().items()
-    ):
+    ) in _autogen_rdkit_atomtype_molecule_featurizer.get_available_featurizer().items():
         if n in _available_featurizer:
             MOLNET_LOGGER.warning(
                 f"encoutered duplicate while collecting moelcule featurizer: {n}"
@@ -128,12 +125,14 @@ try:
 except Exception as e:
     MOLNET_LOGGER.exception(e)
 
+
 def get_available_featurizer():
     return _available_featurizer
 
 
 def main():
     from rdkit import Chem
+    from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
 
     testmol = prepare_mol_for_featurization(Chem.MolFromSmiles("c1ccccc1"))
     for n, f in get_available_featurizer().items():
