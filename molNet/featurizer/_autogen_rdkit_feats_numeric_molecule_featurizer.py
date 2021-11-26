@@ -181,12 +181,8 @@ from rdkit.Chem.AllChem import (
     CalcChi3n,
     CalcNumLipinskiHBD,
     CalcNumHBA,
-    MMFFHasAllMoleculeParams,
-    UFFOptimizeMolecule,
-    UFFHasAllMoleculeParams,
     CalcNumHBD,
     CalcNPR2,
-    MMFFOptimizeMolecule,
     CalcNumLipinskiHBA,
     CalcSpherocityIndex,
     CalcExactMolWt,
@@ -322,12 +318,6 @@ class Molecule_fr_barbitur_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.Fragments.fr_barbitur
     dtype = np.int32
     featurize = staticmethod(fr_barbitur)
-
-
-class Molecule_MMFFHasAllMoleculeParams_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.MMFFHasAllMoleculeParams
-    dtype = bool
-    featurize = staticmethod(MMFFHasAllMoleculeParams)
 
 
 class Molecule_fr_oxazole_Featurizer(SingleValueMoleculeFeaturizer):
@@ -1620,12 +1610,6 @@ class Molecule_PEOE_VSA9_Featurizer(SingleValueMoleculeFeaturizer):
     featurize = staticmethod(PEOE_VSA9)
 
 
-class Molecule_UFFOptimizeMolecule_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.UFFOptimizeMolecule
-    dtype = np.int32
-    featurize = staticmethod(UFFOptimizeMolecule)
-
-
 class Molecule_weights_mean_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.QED.weights_mean
     dtype = np.float32
@@ -1710,12 +1694,6 @@ class Molecule_Ipc_Featurizer(SingleValueMoleculeFeaturizer):
     featurize = staticmethod(Ipc)
 
 
-class Molecule_UFFHasAllMoleculeParams_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.UFFHasAllMoleculeParams
-    dtype = bool
-    featurize = staticmethod(UFFHasAllMoleculeParams)
-
-
 class Molecule_fr_aryl_methyl_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.Fragments.fr_aryl_methyl
     dtype = np.int32
@@ -1747,9 +1725,6 @@ molecule_NumSaturatedCarbocycles_featurizer = (
 molecule_NumAliphaticRings_featurizer = Molecule_NumAliphaticRings_Featurizer()
 molecule_fr_quatN_featurizer = Molecule_fr_quatN_Featurizer()
 molecule_fr_barbitur_featurizer = Molecule_fr_barbitur_Featurizer()
-molecule_MMFFHasAllMoleculeParams_featurizer = (
-    Molecule_MMFFHasAllMoleculeParams_Featurizer()
-)
 molecule_fr_oxazole_featurizer = Molecule_fr_oxazole_Featurizer()
 molecule_PEOE_VSA5_featurizer = Molecule_PEOE_VSA5_Featurizer()
 molecule_fr_piperzine_featurizer = Molecule_fr_piperzine_Featurizer()
@@ -1979,7 +1954,6 @@ molecule_NumAromaticCarbocycles_featurizer = (
 molecule_fr_priamide_featurizer = Molecule_fr_priamide_Featurizer()
 molecule_SMR_VSA3_featurizer = Molecule_SMR_VSA3_Featurizer()
 molecule_PEOE_VSA9_featurizer = Molecule_PEOE_VSA9_Featurizer()
-molecule_UFFOptimizeMolecule_featurizer = Molecule_UFFOptimizeMolecule_Featurizer()
 molecule_weights_mean_featurizer = Molecule_weights_mean_Featurizer()
 molecule_NPR1_featurizer = Molecule_NPR1_Featurizer()
 molecule_BCUT2D_CHGHI_featurizer = Molecule_BCUT2D_CHGHI_Featurizer()
@@ -1994,9 +1968,6 @@ molecule_EState_VSA5_featurizer = Molecule_EState_VSA5_Featurizer()
 molecule_PEOE_VSA13_featurizer = Molecule_PEOE_VSA13_Featurizer()
 molecule_fr_N_O_featurizer = Molecule_fr_N_O_Featurizer()
 molecule_Ipc_featurizer = Molecule_Ipc_Featurizer()
-molecule_UFFHasAllMoleculeParams_featurizer = (
-    Molecule_UFFHasAllMoleculeParams_Featurizer()
-)
 molecule_fr_aryl_methyl_featurizer = Molecule_fr_aryl_methyl_Featurizer()
 molecule_BCUT2D_MWLOW_featurizer = Molecule_BCUT2D_MWLOW_Featurizer()
 molecule_SMR_VSA8_featurizer = Molecule_SMR_VSA8_Featurizer()
@@ -2012,7 +1983,6 @@ _available_featurizer = {
     "molecule_NumAliphaticRings_featurizer": molecule_NumAliphaticRings_featurizer,
     "molecule_fr_quatN_featurizer": molecule_fr_quatN_featurizer,
     "molecule_fr_barbitur_featurizer": molecule_fr_barbitur_featurizer,
-    "molecule_MMFFHasAllMoleculeParams_featurizer": molecule_MMFFHasAllMoleculeParams_featurizer,
     "molecule_fr_oxazole_featurizer": molecule_fr_oxazole_featurizer,
     "molecule_PEOE_VSA5_featurizer": molecule_PEOE_VSA5_featurizer,
     "molecule_fr_piperzine_featurizer": molecule_fr_piperzine_featurizer,
@@ -2228,7 +2198,6 @@ _available_featurizer = {
     "molecule_fr_priamide_featurizer": molecule_fr_priamide_featurizer,
     "molecule_SMR_VSA3_featurizer": molecule_SMR_VSA3_featurizer,
     "molecule_PEOE_VSA9_featurizer": molecule_PEOE_VSA9_featurizer,
-    "molecule_UFFOptimizeMolecule_featurizer": molecule_UFFOptimizeMolecule_featurizer,
     "molecule_weights_mean_featurizer": molecule_weights_mean_featurizer,
     "molecule_NPR1_featurizer": molecule_NPR1_featurizer,
     "molecule_BCUT2D_CHGHI_featurizer": molecule_BCUT2D_CHGHI_featurizer,
@@ -2243,7 +2212,6 @@ _available_featurizer = {
     "molecule_PEOE_VSA13_featurizer": molecule_PEOE_VSA13_featurizer,
     "molecule_fr_N_O_featurizer": molecule_fr_N_O_featurizer,
     "molecule_Ipc_featurizer": molecule_Ipc_featurizer,
-    "molecule_UFFHasAllMoleculeParams_featurizer": molecule_UFFHasAllMoleculeParams_featurizer,
     "molecule_fr_aryl_methyl_featurizer": molecule_fr_aryl_methyl_featurizer,
     "molecule_BCUT2D_MWLOW_featurizer": molecule_BCUT2D_MWLOW_featurizer,
     "molecule_SMR_VSA8_featurizer": molecule_SMR_VSA8_featurizer,
@@ -2271,8 +2239,6 @@ __all__ = [
     "molecule_fr_quatN_featurizer",
     "Molecule_fr_barbitur_Featurizer",
     "molecule_fr_barbitur_featurizer",
-    "Molecule_MMFFHasAllMoleculeParams_Featurizer",
-    "molecule_MMFFHasAllMoleculeParams_featurizer",
     "Molecule_fr_oxazole_Featurizer",
     "molecule_fr_oxazole_featurizer",
     "Molecule_PEOE_VSA5_Featurizer",
@@ -2703,8 +2669,6 @@ __all__ = [
     "molecule_SMR_VSA3_featurizer",
     "Molecule_PEOE_VSA9_Featurizer",
     "molecule_PEOE_VSA9_featurizer",
-    "Molecule_UFFOptimizeMolecule_Featurizer",
-    "molecule_UFFOptimizeMolecule_featurizer",
     "Molecule_weights_mean_Featurizer",
     "molecule_weights_mean_featurizer",
     "Molecule_NPR1_Featurizer",
@@ -2733,8 +2697,6 @@ __all__ = [
     "molecule_fr_N_O_featurizer",
     "Molecule_Ipc_Featurizer",
     "molecule_Ipc_featurizer",
-    "Molecule_UFFHasAllMoleculeParams_Featurizer",
-    "molecule_UFFHasAllMoleculeParams_featurizer",
     "Molecule_fr_aryl_methyl_Featurizer",
     "molecule_fr_aryl_methyl_featurizer",
     "Molecule_BCUT2D_MWLOW_Featurizer",
