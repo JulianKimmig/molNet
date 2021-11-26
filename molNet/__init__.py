@@ -10,6 +10,9 @@ from rdkit import RDLogger
 
 lg = RDLogger.logger()
 lg.setLevel(RDLogger.CRITICAL)
+numba_logger = logging.getLogger('numba')
+numba_logger.setLevel(logging.WARNING)
+
 MOLNET_LOGGER = logging.getLogger("molNet")
 coloredlogs.install(level=MOLNET_LOGGER.level, logger=MOLNET_LOGGER)
 
