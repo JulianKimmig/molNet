@@ -1512,12 +1512,6 @@ class Molecule_Kappa2_Featurizer(SingleValueMoleculeFeaturizer):
     featurize = staticmethod(Kappa2)
 
 
-class Molecule_MMFFOptimizeMolecule_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.MMFFOptimizeMolecule
-    dtype = np.int32
-    featurize = staticmethod(MMFFOptimizeMolecule)
-
-
 class Molecule_SMR_VSA10_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.MolSurf.SMR_VSA10
     dtype = np.float32
@@ -1963,7 +1957,6 @@ molecule_fr_benzene_featurizer = Molecule_fr_benzene_Featurizer()
 molecule_Chi0n_featurizer = Molecule_Chi0n_Featurizer()
 molecule_fr_amide_featurizer = Molecule_fr_amide_Featurizer()
 molecule_Kappa2_featurizer = Molecule_Kappa2_Featurizer()
-molecule_MMFFOptimizeMolecule_featurizer = Molecule_MMFFOptimizeMolecule_Featurizer()
 molecule_SMR_VSA10_featurizer = Molecule_SMR_VSA10_Featurizer()
 molecule_MinEStateIndex_featurizer = Molecule_MinEStateIndex_Featurizer()
 molecule_fr_NH0_featurizer = Molecule_fr_NH0_Featurizer()
@@ -2217,7 +2210,6 @@ _available_featurizer = {
     "molecule_Chi0n_featurizer": molecule_Chi0n_featurizer,
     "molecule_fr_amide_featurizer": molecule_fr_amide_featurizer,
     "molecule_Kappa2_featurizer": molecule_Kappa2_featurizer,
-    "molecule_MMFFOptimizeMolecule_featurizer": molecule_MMFFOptimizeMolecule_featurizer,
     "molecule_SMR_VSA10_featurizer": molecule_SMR_VSA10_featurizer,
     "molecule_MinEStateIndex_featurizer": molecule_MinEStateIndex_featurizer,
     "molecule_fr_NH0_featurizer": molecule_fr_NH0_featurizer,
@@ -2675,8 +2667,6 @@ __all__ = [
     "molecule_fr_amide_featurizer",
     "Molecule_Kappa2_Featurizer",
     "molecule_Kappa2_featurizer",
-    "Molecule_MMFFOptimizeMolecule_Featurizer",
-    "molecule_MMFFOptimizeMolecule_featurizer",
     "Molecule_SMR_VSA10_Featurizer",
     "molecule_SMR_VSA10_featurizer",
     "Molecule_MinEStateIndex_Featurizer",

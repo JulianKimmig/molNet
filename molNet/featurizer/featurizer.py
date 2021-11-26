@@ -138,7 +138,7 @@ class FixedSizeFeaturizer(Featurizer):
 
 
 class OneHotFeaturizer(FixedSizeFeaturizer):
-    dtype = np.bool_
+    dtype = bool
     POSSIBLE_VALUES = []
 
     def __init__(self, possible_values=None, *args, **kwargs):

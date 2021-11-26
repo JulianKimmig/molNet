@@ -6,8 +6,8 @@ from rdkit.Chem.rdchem import Mol
 
 from molNet.utils.mol.properties import assert_conformers
 from molNet.utils.smiles import mol_from_smiles
-from .featurizer import Featurizer, FixedSizeFeaturizer, StringFeaturizer
-from .. import MOLNET_LOGGER
+from molNet.featurizer.featurizer import Featurizer, FixedSizeFeaturizer, StringFeaturizer
+from molNet import MOLNET_LOGGER
 
 testmol = mol_from_smiles("CCC")
 

@@ -103,13 +103,6 @@ class Molecule_FeatureInvariants_Featurizer(VarSizeMoleculeFeaturizer):
     featurize = staticmethod(GetFeatureInvariants)
 
 
-class Molecule_MolFrags_Featurizer(FixedSizeMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.GetMolFrags
-    dtype = np.int32
-    featurize = staticmethod(GetMolFrags)
-    LENGTH = 1
-
-
 class Molecule_AdjacencyMatrix_Featurizer(VarSizeMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.GetAdjacencyMatrix
     dtype = np.int32
@@ -180,7 +173,6 @@ molecule_EEMcharges_featurizer = Molecule_EEMcharges_Featurizer()
 molecule_WHIM_featurizer = Molecule_WHIM_Featurizer()
 molecule_ErGFingerprint_featurizer = Molecule_ErGFingerprint_Featurizer()
 molecule_FeatureInvariants_featurizer = Molecule_FeatureInvariants_Featurizer()
-molecule_MolFrags_featurizer = Molecule_MolFrags_Featurizer()
 molecule_AdjacencyMatrix_featurizer = Molecule_AdjacencyMatrix_Featurizer()
 molecule_AUTOCORR3D_featurizer = Molecule_AUTOCORR3D_Featurizer()
 molecule_EStateIndices_featurizer = Molecule_EStateIndices_Featurizer()
@@ -204,7 +196,6 @@ _available_featurizer = {
     "molecule_WHIM_featurizer": molecule_WHIM_featurizer,
     "molecule_ErGFingerprint_featurizer": molecule_ErGFingerprint_featurizer,
     "molecule_FeatureInvariants_featurizer": molecule_FeatureInvariants_featurizer,
-    "molecule_MolFrags_featurizer": molecule_MolFrags_featurizer,
     "molecule_AdjacencyMatrix_featurizer": molecule_AdjacencyMatrix_featurizer,
     "molecule_AUTOCORR3D_featurizer": molecule_AUTOCORR3D_featurizer,
     "molecule_EStateIndices_featurizer": molecule_EStateIndices_featurizer,
@@ -238,8 +229,6 @@ __all__ = [
     "molecule_ErGFingerprint_featurizer",
     "Molecule_FeatureInvariants_Featurizer",
     "molecule_FeatureInvariants_featurizer",
-    "Molecule_MolFrags_Featurizer",
-    "molecule_MolFrags_featurizer",
     "Molecule_AdjacencyMatrix_Featurizer",
     "molecule_AdjacencyMatrix_featurizer",
     "Molecule_AUTOCORR3D_Featurizer",
