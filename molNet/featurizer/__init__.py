@@ -1,6 +1,6 @@
 import pandas as pd
 
-def generate_featurzizer_df(featurizer_module):
+def generate_featurizer_df(featurizer_module):
     all_featurizer = []
     all_featurizer_names = []
 
@@ -31,10 +31,10 @@ def generate_featurzizer_df(featurizer_module):
 
 def get_molecule_featurizer_info():
     from molNet.featurizer import molecule_featurizer
-    df = generate_featurzizer_df(molecule_featurizer)
+    df = generate_featurizer_df(molecule_featurizer)
     return df
 
 def get_atom_featurizer_info():
     from molNet.featurizer import atom_featurizer
-    df = generate_featurzizer_df(atom_featurizer)
+    df = generate_featurizer_df(atom_featurizer)
     return df
