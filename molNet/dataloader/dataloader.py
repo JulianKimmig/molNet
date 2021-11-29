@@ -10,6 +10,12 @@ import molNet
 from molNet.dataloader.streamer import DataStreamer
 
 CITED_SOURCES = []
+
+#class OnlineSourceDataLoader():
+
+#class LocalSourceDataLoader():
+    
+
 class DataLoader:
     source: str = None
     raw_file: str = None

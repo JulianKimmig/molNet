@@ -6,7 +6,8 @@ from rdkit.Chem.rdmolops import AddHs
 from molNet import ConformerError
 from molNet.dataloader.streamer import DataStreamer
 from molNet.utils.mol.properties import assert_conformers
-
+import os
+import pickle
 
 class MolStreamer(DataStreamer):
     CONF_ERROR_NONE = 0
@@ -16,7 +17,7 @@ class MolStreamer(DataStreamer):
     def __init__(
             self,
             *args,
-            addHs=True,
+            addHs=False,
             assert_conformers=True,
             iter_None=False,
             on_conformer_error=CONF_ERROR_NONE,
@@ -44,6 +45,37 @@ class MolStreamer(DataStreamer):
                     raise ValueError("unknown conf error handling")
         return mol
 
+class PickledMolStreamer(MolStreamer):
+    def __init__(
+            self,
+            dataloader,
+            folder_getter,
+            *args,
+            cached=False,
+            **kwargs
+    ):
+        
+        super(PickledMolStreamer, self).__init__(
+            dataloader,
+            *args,
+            **kwargs,
+            cached=cached,
+            progress_bar_kwargs=dict(unit="mol", unit_scale=True),
+        )
+        
+        self._folder_getter = folder_getter
+        
+        
+    def get_iterator(self):
+        path=self._folder_getter(self)
+        
+        def _it():
+            for f in os.listdir(path):
+                if not f.endswith(".mol"):
+                    continue
+                with open(os.path.join(path,f),"rb") as f:
+                          yield pickle.load(f)     
+        return _it()
 
 class SDFStreamer(MolStreamer):
     def __init__(
