@@ -4,6 +4,7 @@ from rdkit.Chem import MolFromSmiles, Mol
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+DEBUG=False
 
 # import relative if not in sys path
 if __name__ == "__main__":
@@ -25,6 +26,7 @@ from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer, VarSizeMo
     prepare_mol_for_featurization
 from molNet.featurizer.featurizer import FeaturizerList
 from molNet import ConformerError
+from molNet.dataloader.molecular.prepmol import PreparedMolDataLoader
 
 logger = molNet.MOLNET_LOGGER
 
@@ -53,7 +55,9 @@ def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
 from multiprocessing import Pool, RLock,freeze_support
 from multiprocessing import current_process
 from functools import partial
-
+import gc
+import psutil
+import time
 def progresser(f,mols,lenmols,ntotal):
     f,d=f
     text=f"{d.name.rsplit('.',1)[1]} ({d['idx']}/{ntotal})"
@@ -63,20 +67,51 @@ def progresser(f,mols,lenmols,ntotal):
     pos=d['idx']+1
     #pos = current_process()._identity[0]-1
     pos=None
-    
-    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"]).tobytes()
+    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"])
     try:
-        with open(path,"w+b") as f:
-            for i,mol in tqdm(enumerate(mols),desc=text,total=lenmols, position=pos):
-                try:
-                    f.write(feat(mol).tobytes())
-                except (ConformerError, ValueError, ZeroDivisionError):
-                    f.write(empty_bytes)
+        a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
+        #del a
+        #a = np.memmap(path, dtype=d['dtype'], mode='r+', shape=(lenmols,d['length']))
+        #j=100_000
+        for i,mol in tqdm(enumerate(mols),desc=text,total=lenmols, position=pos):
+            #j-=1
+            #if j<=0:
+                #print(psutil.virtual_memory())
+                #a.flush()
+                #del a
+                #gc.collect()
+                #print(psutil.virtual_memory())
+                #a = np.memmap(path, dtype=d['dtype'], mode='r+', shape=(lenmols,d['length']))
+                #j=100_000
+            try:
+                r = feat(Mol(mol))
+                a[i] = r
+            except (ConformerError, ValueError, ZeroDivisionError):
+                a[i] = empty_bytes
+                pass
+            #raise ValueError()
     except Exception as e:
         logger.exception(e)
-        os.remove(path)
+        if os.path.exists(path):
+            os.remove(path)
         return False
     return True
+
+
+#    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"]).tobytes()
+#    try:
+#        a = numpy.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
+#        with open(path,"w+b") as f:
+#            for i,mol in tqdm(enumerate(mols),desc=text,total=lenmols, position=pos):
+#                try:
+#                    f.write(feat(mol).tobytes())
+#                except (ConformerError, ValueError, ZeroDivisionError):
+#                    f.write(empty_bytes)
+#    except Exception as e:
+#        logger.exception(e)
+#        os.remove(path)
+#        return False
+#    return True
         
 def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
     tqdm.set_lock(RLock())
@@ -99,7 +134,7 @@ def main(dataloader,path,max_mols=None):
     mols = None
 
     for featurizer,mol_to_data in (
-            (molNet.featurizer.get_molecule_featurizer_info,lambda x:[x]),
+            (molNet.featurizer.get_molecule_featurizer_info,None),
             (molNet.featurizer.get_atom_featurizer_info,lambda x:x.GetAtoms())
     ):
         logger.info("get molNet featurizer")
@@ -113,6 +148,8 @@ def main(dataloader,path,max_mols=None):
         logger.info(f"featurizer length after bool drop = {len(featurizer)}")
         featurizer=featurizer[featurizer.length>0]
         logger.info(f"featurizer length after length<1 drop = {len(featurizer)}")
+        #featurizer=featurizer[featurizer.length<2]
+        #logger.info(f"featurizer length after length>1 drop = {len(featurizer)}")
 
         featurizer=featurizer.sort_values("length")
 
@@ -120,17 +157,19 @@ def main(dataloader,path,max_mols=None):
 
 
         if mols is None:
-            loader = dataloaderclass()
-            logger.info("laod mols")
+            loader = PreparedMolDataLoader(dataloaderclass())
+            logger.info("load mols")
             #mols=[None]*loader.expected_data_size
             mols = load_mols(loader,limit=max_mols)
 
-            logger.info("prepare mols")
-            mols=[ prepare_mol_for_featurization(m) for m in tqdm(mols)]
-
+            #logger.info("prepare mols")
+            #mols=[ prepare_mol_for_featurization(m) for m in tqdm(mols)]
         data=[]
-        for m in mols:
-            data.extend(mol_to_data(m))
+        if mol_to_data is None:
+            data=mols
+        else:
+            for m in tqdm(mols):
+                data.extend(mol_to_data(m))
 
         dl_path=os.path.join(path,"raw_features",dataloader)
         featurizer["ecfd_path"]=[os.path.join(dl_path,*mod.split("."))+".dat" for mod in featurizer.index]
