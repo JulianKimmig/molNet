@@ -15,12 +15,13 @@ testmol = mol_from_smiles("CCC")
 def prepare_mol_for_featurization(mol, addHs=True, renumber=True, conformers=True, sanitize=True) -> Mol:
     if addHs:
         mol = AddHs(mol)
+    if conformers:
+        mol = assert_conformers(mol)
+        
     if renumber:
         mol = RenumberAtoms(
             mol, np.argsort(CanonicalRankAtoms(mol)).tolist()
         )
-    if conformers:
-        mol = assert_conformers(mol)
     if sanitize:
         SanitizeMol(mol)
     mol = PropertyMol(mol)
@@ -44,6 +45,7 @@ def check_mol_is_prepared(mol):
 
 class _MoleculeFeaturizer(Featurizer):
     def pre_featurize(self, mol):
+        mol=mol(Mol)#autocopy
         if not check_mol_is_prepared(mol):
             if not self._unprepared_logged:
                 MOLNET_LOGGER.warning("you tried to featurize a molecule without previous preparation. "
