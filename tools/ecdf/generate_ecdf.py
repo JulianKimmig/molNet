@@ -1,9 +1,13 @@
+import logging
 import os, sys
 from typing import List,Tuple
 from rdkit.Chem import MolFromSmiles, Mol
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+
+
+
 DEBUG=False
 
 # import relative if not in sys path
@@ -27,17 +31,17 @@ from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer, VarSizeMo
 from molNet.featurizer.featurizer import FeaturizerList
 from molNet import ConformerError
 from molNet.dataloader.molecular.prepmol import PreparedMolDataLoader
-from molNet.mol.mol import parallel_featurize_mol
+from molNet.mol.mol import parallel_featurize_mol, parallel_featurize_mol_atoms
 
 logger = molNet.MOLNET_LOGGER
-
+logger.setLevel(logging.DEBUG)
 test_mol = MolFromSmiles("CCC")
 
 def load_mols(loader, limit=None) -> List[Mol]:
     if limit is not None and limit > 0:
         return loader.get_n_entries(limit)
     return [mol for mol in tqdm(
-        loader, unit="mol", unit_scale=True, total=loader.expected_data_size
+        loader, unit="mol", unit_scale=True, total=loader.expected_data_size,desc="load mols"
     )]
 
 def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
@@ -56,10 +60,9 @@ def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
 from multiprocessing import Pool, RLock,freeze_support
 from multiprocessing import current_process,cpu_count
 from functools import partial
-import gc
-import psutil
-import time
-def progresser(f,mols,lenmols,ntotal,pos=None):
+
+
+def progresser(f,mols,lenmol,lendata,ntotal,pos=None,as_atom=False):
     f,d=f
     text=f"{d.name.rsplit('.',1)[1]} ({d['idx']}/{ntotal})"
     feat=d["instance"]
@@ -69,9 +72,13 @@ def progresser(f,mols,lenmols,ntotal,pos=None):
     #pos = current_process()._identity[0]-1
     #pos=None
     empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"])
-    a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
+    a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lendata,d['length']))
+    print(a.shape)
     try:
-        parallel_featurize_mol(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=int(lenmols/1000))
+        if as_atom:
+            parallel_featurize_mol_atoms(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=max(1,int(lenmol/1000)))
+        else:
+            parallel_featurize_mol(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=max(1,int(lenmol/1000)))
     except Exception as e:
         logger.exception(e)
         if os.path.exists(path):
@@ -148,7 +155,7 @@ def _generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
         pool.imap_unordered(partial(_progresser,mols=mols,lenmols=len(mols),ntotal=len(molfeats)), chunks)
     return
 
-def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
+def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame,as_atom=False):
     tqdm.set_lock(RLock())
     molfeats["idx"]=np.arange(len(molfeats))+1
     #molfeats=molfeats.iloc[:10]
@@ -160,8 +167,14 @@ def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
     # this solution was reworked from the above link.
     # will work even if the length of the dataframe is not evenly divisible by num_processes
     #chunks = [molfeats.iloc[molfeats.index[i:i + chunk_size]] for i in range(0, molfeats.shape[0], chunk_size)]
-    
-    call=partial(progresser,mols=mols,lenmols=len(mols),ntotal=len(molfeats))
+
+
+    lenmol=len(mols)
+    if as_atom:
+        lendata=sum([m.GetNumAtoms() for m in mols])
+    else:
+        lendata=lenmol
+    call=partial(progresser,mols=mols,lenmol=lenmol,lendata=lendata,ntotal=len(molfeats),as_atom=as_atom)
     for r in molfeats.iterrows():
         if not call(r):
             break
@@ -177,9 +190,9 @@ def main(dataloader,path,max_mols=None):
         raise ValueError(f"unknown dataloader '{dataloader}'")
     mols = None
 
-    for featurizer,mol_to_data in (
-            (molNet.featurizer.get_molecule_featurizer_info,None),
-            (molNet.featurizer.get_atom_featurizer_info,lambda x:x.GetAtoms())
+    for featurizer,as_atom in (
+            (molNet.featurizer.get_molecule_featurizer_info,False),
+            (molNet.featurizer.get_atom_featurizer_info,True)
     ):
         logger.info("get molNet featurizer")
         featurizer = featurizer()
@@ -208,12 +221,7 @@ def main(dataloader,path,max_mols=None):
 
             #logger.info("prepare mols")
             #mols=[ prepare_mol_for_featurization(m) for m in tqdm(mols)]
-        data=[]
-        if mol_to_data is None:
-            data=mols
-        else:
-            for m in tqdm(mols):
-                data.extend(mol_to_data(m))
+        data=mols
 
         dl_path=os.path.join(path,"raw_features",dataloader)
         featurizer["ecfd_path"]=[os.path.join(dl_path,*mod.split("."))+".dat" for mod in featurizer.index]
@@ -238,7 +246,10 @@ def main(dataloader,path,max_mols=None):
             _cz,
             axis=1)
 
-        datalength=len(data)
+        if as_atom:
+            datalength = sum([m.GetNumAtoms() for m in mols])
+        else:
+            datalength = len(data)
         featurizer["current_length"]= featurizer[["length","current_size"]].apply(
             lambda r: r["current_size"]/datalength,
             axis=1)
@@ -251,7 +262,7 @@ def main(dataloader,path,max_mols=None):
         workfeats=featurizer[np.isnan(featurizer["current_length"])].copy()
         if data[0] is None:
             return
-        generate_ecdf_dist(data, workfeats)
+        generate_ecdf_dist(data, workfeats,as_atom=as_atom)
     
     
 

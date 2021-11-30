@@ -28,11 +28,11 @@ class DataStreamer:
     def get_all_entries(self, *args, **kwargs):
         return self.get_n_entries(self.dataloader.expected_data_size, *args, **kwargs)
 
-    def get_n_entries(self, n: int, progress_bar=True):
+    def get_n_entries(self, n: int, progress_bar=True,desc="load entries"):
         dat = []
         if len(self._cache_data) < n and not self._all_cached:
             if progress_bar:
-                g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs)
+                g = tqdm(enumerate(self), total=n, **self._progress_bar_kwargs,desc=desc)
             else:
                 g = enumerate(self)
             if self.cached:

@@ -1,3 +1,5 @@
+import random
+import time
 from multiprocessing import cpu_count, Pool
 
 import numpy as np
@@ -74,7 +76,17 @@ def parallelize(
                 for j in range(len(ri)):
                     if ri[j] is None:
                         ri[j]=self._nan_eq
-                self.target[self.pos:self.pos+l]=ri
+                _wt=0
+                _wb=True
+                while _wb and _wt < 100:
+                    try:
+                        _wt +=1
+                        self.target[self.pos:self.pos+l]=ri
+                        _wb=False
+                    except PermissionError:
+                        time.sleep(random.random())
+                        pass
+
             else:
                 self.target.extend(ri)
                 
@@ -109,8 +121,10 @@ def parallelize(
         r=ResAdder(target_array,is_array=True)
                
     if progess_bar:
+        if "total" not in progress_bar_kwargs:
+            progress_bar_kwargs["total"]=len(data)
         def _iterate(p=None):
-            with tqdm(total=len(data), **progress_bar_kwargs) as pbar:
+            with tqdm(**progress_bar_kwargs) as pbar:
                 if p is not None:
                     for ri in p.imap(func, sub_data):
                         l=len(ri)
@@ -118,8 +132,9 @@ def parallelize(
                         pbar.update(l)
                 else:
                     for sd in sub_data:
-                        l=len(sd)
-                        r.add(func(sd),l)
+                        ri=func(sd)
+                        l=len(ri)
+                        r.add(ri,l)
                         pbar.update(l)
     else:
         def _iterate(p=None):
