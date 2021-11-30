@@ -41,12 +41,14 @@ MOLNET_LOGGER.addHandler(streamhandler)
 coloredlogs.install(level=MOLNET_LOGGER.level, logger=MOLNET_LOGGER)
 
 
+_ml_set_level=MOLNET_LOGGER.setLevel
 def set_level(level=logging.INFO):
-    MOLNET_LOGGER.setLevel(level)
+    _ml_set_level(level)
     filehandler.setLevel(level)
     streamhandler.setLevel(level)
     # TODO coloredlogs set_level
 
+MOLNET_LOGGER.setLevel = set_level
 
 def _on_dir_change(d):
     os.makedirs(os.path.join(d, 'logs'), exist_ok=True)
