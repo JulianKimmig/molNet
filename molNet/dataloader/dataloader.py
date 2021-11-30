@@ -82,7 +82,15 @@ class DataLoader:
                 os.remove(dl)
             except FileNotFoundError:
                 pass
-
+    
+    def delete(self):
+        if not os.path.exists(self.raw_file_path):
+            return
+        if os.path.isdir(self.raw_file_path):
+            shutil.rmtree(self.raw_file_path)
+        else:
+            os.remove(self.raw_file_path)
+            
     def _needs_raw(self):
         if not os.path.exists(self.raw_file_path):
             self.download()

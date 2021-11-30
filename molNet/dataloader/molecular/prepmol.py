@@ -42,8 +42,7 @@ class PreparedMolDataLoader(MolDataLoader):
                 os.makedirs(self.raw_file_path,exist_ok=True)
             molfiles=[f for f in os.listdir(self.raw_file_path) if f.endswith(".mol")]
             if len(molfiles)<self.expected_data_size:
-                print("generate prepared mols") 
-                for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size)):
+                for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size,desc="generate prepared mols")):
                     pmol=prepare_mol_for_featurization(mol)
                     with open(os.path.join(self.raw_file_path,f"{i}.mol"),"w+b") as f:
                         pickle.dump(pmol,f)
