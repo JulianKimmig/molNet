@@ -19,6 +19,12 @@ class Atom_Degree_Featurizer(SingleValueAtomFeaturizer):
         return atom.GetDegree()
 
 
+class Atom_Descriptors_Chi1_Featurizer(SingleValueAtomFeaturizer):
+    # _rdfunc=rdkit.Chem.Descriptors.Chi1
+    dtype = np.float32
+    featurize = staticmethod(Chi1)
+
+
 class Atom_ExplicitValence_Featurizer(SingleValueAtomFeaturizer):
     # _rdfunc=GetExplicitValence
     dtype = np.int32
@@ -49,6 +55,14 @@ class Atom_IsAromatic_Featurizer(SingleValueAtomFeaturizer):
 
     def featurize(self, atom):
         return atom.GetIsAromatic()
+
+
+class Atom_IsInRing_Featurizer(SingleValueAtomFeaturizer):
+    # _rdfunc=IsInRing
+    dtype = bool
+
+    def featurize(self, atom):
+        return atom.IsInRing()
 
 
 class Atom_Isotope_Featurizer(SingleValueAtomFeaturizer):
@@ -123,26 +137,14 @@ class Atom_TotalValence_Featurizer(SingleValueAtomFeaturizer):
         return atom.GetTotalValence()
 
 
-class Atom_IsInRing_Featurizer(SingleValueAtomFeaturizer):
-    # _rdfunc=IsInRing
-    dtype = bool
-
-    def featurize(self, atom):
-        return atom.IsInRing()
-
-
-class Atom_Chi1_Featurizer(SingleValueAtomFeaturizer):
-    # _rdfunc=rdkit.Chem.Descriptors.Chi1
-    dtype = np.float32
-    featurize = staticmethod(Chi1)
-
-
 atom_AtomicNum_featurizer = Atom_AtomicNum_Featurizer()
 atom_Degree_featurizer = Atom_Degree_Featurizer()
+atom_Descriptors_Chi1_featurizer = Atom_Descriptors_Chi1_Featurizer()
 atom_ExplicitValence_featurizer = Atom_ExplicitValence_Featurizer()
 atom_FormalCharge_featurizer = Atom_FormalCharge_Featurizer()
 atom_ImplicitValence_featurizer = Atom_ImplicitValence_Featurizer()
 atom_IsAromatic_featurizer = Atom_IsAromatic_Featurizer()
+atom_IsInRing_featurizer = Atom_IsInRing_Featurizer()
 atom_Isotope_featurizer = Atom_Isotope_Featurizer()
 atom_Mass_featurizer = Atom_Mass_Featurizer()
 atom_NoImplicit_featurizer = Atom_NoImplicit_Featurizer()
@@ -152,15 +154,15 @@ atom_NumRadicalElectrons_featurizer = Atom_NumRadicalElectrons_Featurizer()
 atom_TotalDegree_featurizer = Atom_TotalDegree_Featurizer()
 atom_TotalNumHs_featurizer = Atom_TotalNumHs_Featurizer()
 atom_TotalValence_featurizer = Atom_TotalValence_Featurizer()
-atom_IsInRing_featurizer = Atom_IsInRing_Featurizer()
-atom_Chi1_featurizer = Atom_Chi1_Featurizer()
 _available_featurizer = {
     "atom_AtomicNum_featurizer": atom_AtomicNum_featurizer,
     "atom_Degree_featurizer": atom_Degree_featurizer,
+    "atom_Descriptors_Chi1_featurizer": atom_Descriptors_Chi1_featurizer,
     "atom_ExplicitValence_featurizer": atom_ExplicitValence_featurizer,
     "atom_FormalCharge_featurizer": atom_FormalCharge_featurizer,
     "atom_ImplicitValence_featurizer": atom_ImplicitValence_featurizer,
     "atom_IsAromatic_featurizer": atom_IsAromatic_featurizer,
+    "atom_IsInRing_featurizer": atom_IsInRing_featurizer,
     "atom_Isotope_featurizer": atom_Isotope_featurizer,
     "atom_Mass_featurizer": atom_Mass_featurizer,
     "atom_NoImplicit_featurizer": atom_NoImplicit_featurizer,
@@ -170,14 +172,14 @@ _available_featurizer = {
     "atom_TotalDegree_featurizer": atom_TotalDegree_featurizer,
     "atom_TotalNumHs_featurizer": atom_TotalNumHs_featurizer,
     "atom_TotalValence_featurizer": atom_TotalValence_featurizer,
-    "atom_IsInRing_featurizer": atom_IsInRing_featurizer,
-    "atom_Chi1_featurizer": atom_Chi1_featurizer,
 }
 __all__ = [
     "Atom_AtomicNum_Featurizer",
     "atom_AtomicNum_featurizer",
     "Atom_Degree_Featurizer",
     "atom_Degree_featurizer",
+    "Atom_Descriptors_Chi1_Featurizer",
+    "atom_Descriptors_Chi1_featurizer",
     "Atom_ExplicitValence_Featurizer",
     "atom_ExplicitValence_featurizer",
     "Atom_FormalCharge_Featurizer",
@@ -186,6 +188,8 @@ __all__ = [
     "atom_ImplicitValence_featurizer",
     "Atom_IsAromatic_Featurizer",
     "atom_IsAromatic_featurizer",
+    "Atom_IsInRing_Featurizer",
+    "atom_IsInRing_featurizer",
     "Atom_Isotope_Featurizer",
     "atom_Isotope_featurizer",
     "Atom_Mass_Featurizer",
@@ -204,10 +208,6 @@ __all__ = [
     "atom_TotalNumHs_featurizer",
     "Atom_TotalValence_Featurizer",
     "atom_TotalValence_featurizer",
-    "Atom_IsInRing_Featurizer",
-    "atom_IsInRing_featurizer",
-    "Atom_Chi1_Featurizer",
-    "atom_Chi1_featurizer",
 ]
 
 

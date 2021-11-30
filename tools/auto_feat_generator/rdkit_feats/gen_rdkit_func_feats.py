@@ -2211,14 +2211,18 @@ def _create_code(modfunc):
     else:
         raise NotImplementedError()
     parentclass_subfix = target_type + "Featurizer"
+    modfunc_split=modfunc.name.split(".")
 
-    modfunc.modfunc_classname = target_type + "_" + reduce_name(modfunc.name.rsplit(".", 1)[-1]) + "_Featurizer"
+    modfunc.modfunc_classname = target_type + "_"
+    if len(modfunc_split)>1:
+        modfunc.modfunc_classname+=modfunc_split[-2] + "_"
+    modfunc.modfunc_classname+=reduce_name(modfunc_split[-1]) + "_Featurizer"
     class_attributes = {}
     class_functions = {}
     # if modfunc.module=="self":
     #    class_attributes
     class_attributes["dtype"] = modfunc.data_type
-    class_attributes["featurize"] = f"staticmethod({modfunc.name.rsplit('.', 1)[-1]})"
+    class_attributes["featurize"] = f"staticmethod({modfunc_split[-1]})"
     if modfunc.module == "self":
         del class_attributes["featurize"]
         class_functions["featurize"] = f"def featurize(self,{modfunc.feat_target}):\n" \
@@ -2251,7 +2255,7 @@ def _create_code(modfunc):
         del class_attributes["featurize"]
         class_functions["featurize"] = f"def featurize(self,{modfunc.feat_target}):\n" \
                                        f"    a = np.zeros(len(self), dtype=self.dtype)\n" \
-                                       f"    ConvertToNumpyArray({modfunc.name.rsplit('.', 1)[-1]}({modfunc.feat_target}), a)\n" \
+                                       f"    ConvertToNumpyArray({modfunc_split[-1]}({modfunc.feat_target}), a)\n" \
                                        f"    return a"
 
     else:
@@ -2269,6 +2273,7 @@ def _create_code(modfunc):
 
 def create_code_file(funcdict):
     files = {}
+    funcdict = {k: v for k, v in sorted(funcdict.items(), key=lambda v: v[1].modfunc_classname)}
     for n, modfunc in funcdict.items():
         if modfunc.feat_target == "mol":
             target_type = "molecule"
