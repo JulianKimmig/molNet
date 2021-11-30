@@ -27,6 +27,7 @@ from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer, VarSizeMo
 from molNet.featurizer.featurizer import FeaturizerList
 from molNet import ConformerError
 from molNet.dataloader.molecular.prepmol import PreparedMolDataLoader
+from molNet.mol.mol import parallel_featurize_mol
 
 logger = molNet.MOLNET_LOGGER
 
@@ -53,21 +54,31 @@ def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
     return r
 
 from multiprocessing import Pool, RLock,freeze_support
-from multiprocessing import current_process
+from multiprocessing import current_process,cpu_count
 from functools import partial
 import gc
 import psutil
 import time
-def progresser(f,mols,lenmols,ntotal):
+def progresser(f,mols,lenmols,ntotal,pos=None):
     f,d=f
     text=f"{d.name.rsplit('.',1)[1]} ({d['idx']}/{ntotal})"
     feat=d["instance"]
     path=d["ecfd_path"]
     os.makedirs(os.path.dirname(path),exist_ok=True)
-    pos=d['idx']+1
+    #pos=d['idx']+1
     #pos = current_process()._identity[0]-1
-    pos=None
+    #pos=None
     empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"])
+    a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
+    try:
+        parallel_featurize_mol(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=int(lenmols/1000))
+    except Exception as e:
+        logger.exception(e)
+        if os.path.exists(path):
+            os.remove(path)
+        return False
+    return True
+
     try:
         a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
         #del a
@@ -84,7 +95,7 @@ def progresser(f,mols,lenmols,ntotal):
                 #a = np.memmap(path, dtype=d['dtype'], mode='r+', shape=(lenmols,d['length']))
                 #j=100_000
             try:
-                r = feat(Mol(mol))
+                r = feat(mol)
                 a[i] = r
             except (ConformerError, ValueError, ZeroDivisionError):
                 a[i] = empty_bytes
@@ -94,10 +105,16 @@ def progresser(f,mols,lenmols,ntotal):
         logger.exception(e)
         if os.path.exists(path):
             os.remove(path)
+        
         return False
     return True
 
-
+def _progresser(molfeats,mols,lenmols,ntotal,pos=None):
+    print(".")
+    for r in molfeats.iterrows():
+        if not progresser(r,mols=mols,lenmols=lenmols,ntotal=ntotal,pos=pos):
+            pass
+            
 #    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"]).tobytes()
 #    try:
 #        a = numpy.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
@@ -112,11 +129,38 @@ def progresser(f,mols,lenmols,ntotal):
 #        os.remove(path)
 #        return False
 #    return True
-        
+
+
+def _generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
+    tqdm.set_lock(RLock())
+    molfeats["idx"]=np.arange(len(molfeats))+1
+    #molfeats=molfeats.iloc[:10]
+    num_processes = cpu_count()-1
+
+    # calculate the chunk size as an integer
+    chunk_size = max(1,int(molfeats.shape[0]/num_processes))
+
+    # this solution was reworked from the above link.
+    # will work even if the length of the dataframe is not evenly divisible by num_processes
+    chunks = [molfeats.loc[molfeats.index[i:i + chunk_size]] for i in range(0, molfeats.shape[0], chunk_size)]
+    print(chunks)
+    with Pool(processes=num_processes,initializer=tqdm.set_lock, initargs=(tqdm.get_lock(),)) as pool:
+        pool.imap_unordered(partial(_progresser,mols=mols,lenmols=len(mols),ntotal=len(molfeats)), chunks)
+    return
+
 def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
     tqdm.set_lock(RLock())
     molfeats["idx"]=np.arange(len(molfeats))+1
     #molfeats=molfeats.iloc[:10]
+    #num_processes = multiprocessing.cpu_count()-1
+
+    # calculate the chunk size as an integer
+    #chunk_size = int(molfeats.shape[0]/num_processes)
+
+    # this solution was reworked from the above link.
+    # will work even if the length of the dataframe is not evenly divisible by num_processes
+    #chunks = [molfeats.iloc[molfeats.index[i:i + chunk_size]] for i in range(0, molfeats.shape[0], chunk_size)]
+    
     call=partial(progresser,mols=mols,lenmols=len(mols),ntotal=len(molfeats))
     for r in molfeats.iterrows():
         if not call(r):
