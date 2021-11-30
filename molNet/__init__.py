@@ -1,20 +1,11 @@
-import logging
-import sys
+from molNet.utils.sys import set_user_folder,get_user_folder
+from molNet.utils.logger import MOLNET_LOGGER
 
-import coloredlogs
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-logging.getLogger('matplotlib').setLevel(logging.WARNING)
 
-from rdkit import RDLogger
 
-lg = RDLogger.logger()
-lg.setLevel(RDLogger.CRITICAL)
-numba_logger = logging.getLogger('numba')
-numba_logger.setLevel(logging.WARNING)
 
-MOLNET_LOGGER = logging.getLogger("molNet")
-coloredlogs.install(level=MOLNET_LOGGER.level, logger=MOLNET_LOGGER)
+
 
 class SMILEError(Exception):
     pass
@@ -27,4 +18,3 @@ class MolGenerationError(Exception):
 class ConformerError(Exception):
     pass
 
-from molNet.utils.sys import set_user_folder,get_user_folder
