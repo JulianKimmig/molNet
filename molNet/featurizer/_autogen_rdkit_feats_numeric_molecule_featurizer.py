@@ -378,11 +378,6 @@ class Molecule_AllChem_Eccentricity_Featurizer(SingleValueMoleculeFeaturizer):
     featurize = staticmethod(CalcEccentricity)
 
 
-class Molecule_AllChem_EmbedMolecule_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.EmbedMolecule
-    dtype = np.int32
-    featurize = staticmethod(EmbedMolecule)
-
 
 class Molecule_AllChem_ExactMolWt_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.AllChem.CalcExactMolWt
@@ -1122,14 +1117,6 @@ class Molecule_EState_MinEStateIndex_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.EState.MinEStateIndex
     dtype = np.float32
     featurize = staticmethod(MinEStateIndex)
-
-
-class Molecule_EnumerateStereoisomers_EmbedMolecule_Featurizer(
-    SingleValueMoleculeFeaturizer
-):
-    # _rdfunc=rdkit.Chem.EnumerateStereoisomers.EmbedMolecule
-    dtype = np.int32
-    featurize = staticmethod(EmbedMolecule)
 
 
 class Molecule_EnumerateStereoisomers_StereoisomerCount_Featurizer(
@@ -2094,7 +2081,6 @@ molecule_AllChem_ComputeMolVolume_featurizer = (
     Molecule_AllChem_ComputeMolVolume_Featurizer()
 )
 molecule_AllChem_Eccentricity_featurizer = Molecule_AllChem_Eccentricity_Featurizer()
-molecule_AllChem_EmbedMolecule_featurizer = Molecule_AllChem_EmbedMolecule_Featurizer()
 molecule_AllChem_ExactMolWt_featurizer = Molecule_AllChem_ExactMolWt_Featurizer()
 molecule_AllChem_FractionCSP3_featurizer = Molecule_AllChem_FractionCSP3_Featurizer()
 molecule_AllChem_HallKierAlpha_featurizer = Molecule_AllChem_HallKierAlpha_Featurizer()
@@ -2351,9 +2337,6 @@ molecule_EState_MinAbsEStateIndex_featurizer = (
     Molecule_EState_MinAbsEStateIndex_Featurizer()
 )
 molecule_EState_MinEStateIndex_featurizer = Molecule_EState_MinEStateIndex_Featurizer()
-molecule_EnumerateStereoisomers_EmbedMolecule_featurizer = (
-    Molecule_EnumerateStereoisomers_EmbedMolecule_Featurizer()
-)
 molecule_EnumerateStereoisomers_StereoisomerCount_featurizer = (
     Molecule_EnumerateStereoisomers_StereoisomerCount_Featurizer()
 )
@@ -2608,7 +2591,6 @@ _available_featurizer = {
     "molecule_AllChem_Compute2DCoords_featurizer": molecule_AllChem_Compute2DCoords_featurizer,
     "molecule_AllChem_ComputeMolVolume_featurizer": molecule_AllChem_ComputeMolVolume_featurizer,
     "molecule_AllChem_Eccentricity_featurizer": molecule_AllChem_Eccentricity_featurizer,
-    "molecule_AllChem_EmbedMolecule_featurizer": molecule_AllChem_EmbedMolecule_featurizer,
     "molecule_AllChem_ExactMolWt_featurizer": molecule_AllChem_ExactMolWt_featurizer,
     "molecule_AllChem_FractionCSP3_featurizer": molecule_AllChem_FractionCSP3_featurizer,
     "molecule_AllChem_HallKierAlpha_featurizer": molecule_AllChem_HallKierAlpha_featurizer,
@@ -2729,7 +2711,6 @@ _available_featurizer = {
     "molecule_EState_MaxEStateIndex_featurizer": molecule_EState_MaxEStateIndex_featurizer,
     "molecule_EState_MinAbsEStateIndex_featurizer": molecule_EState_MinAbsEStateIndex_featurizer,
     "molecule_EState_MinEStateIndex_featurizer": molecule_EState_MinEStateIndex_featurizer,
-    "molecule_EnumerateStereoisomers_EmbedMolecule_featurizer": molecule_EnumerateStereoisomers_EmbedMolecule_featurizer,
     "molecule_EnumerateStereoisomers_StereoisomerCount_featurizer": molecule_EnumerateStereoisomers_StereoisomerCount_featurizer,
     "molecule_Fragments_fr_Al_COO_featurizer": molecule_Fragments_fr_Al_COO_featurizer,
     "molecule_Fragments_fr_Al_OH_featurizer": molecule_Fragments_fr_Al_OH_featurizer,
@@ -2913,8 +2894,6 @@ __all__ = [
     "molecule_AllChem_ComputeMolVolume_featurizer",
     "Molecule_AllChem_Eccentricity_Featurizer",
     "molecule_AllChem_Eccentricity_featurizer",
-    "Molecule_AllChem_EmbedMolecule_Featurizer",
-    "molecule_AllChem_EmbedMolecule_featurizer",
     "Molecule_AllChem_ExactMolWt_Featurizer",
     "molecule_AllChem_ExactMolWt_featurizer",
     "Molecule_AllChem_FractionCSP3_Featurizer",
@@ -3155,8 +3134,6 @@ __all__ = [
     "molecule_EState_MinAbsEStateIndex_featurizer",
     "Molecule_EState_MinEStateIndex_Featurizer",
     "molecule_EState_MinEStateIndex_featurizer",
-    "Molecule_EnumerateStereoisomers_EmbedMolecule_Featurizer",
-    "molecule_EnumerateStereoisomers_EmbedMolecule_featurizer",
     "Molecule_EnumerateStereoisomers_StereoisomerCount_Featurizer",
     "molecule_EnumerateStereoisomers_StereoisomerCount_featurizer",
     "Molecule_Fragments_fr_Al_COO_Featurizer",
