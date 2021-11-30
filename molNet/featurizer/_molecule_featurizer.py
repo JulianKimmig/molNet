@@ -13,8 +13,11 @@ testmol = mol_from_smiles("CCC")
 
 
 def prepare_mol_for_featurization(mol, addHs=True, renumber=True, conformers=True, sanitize=True) -> Mol:
+    
     if addHs:
-        mol = AddHs(mol)
+        if mol.GetNumAtoms(onlyHeavy=False)!=mol.GetNumAtoms(onlyHeavy=True):
+            mol = AddHs(mol,addCoords=True)
+            
     if conformers:
         mol = assert_conformers(mol)
         
@@ -45,7 +48,7 @@ def check_mol_is_prepared(mol):
 
 class _MoleculeFeaturizer(Featurizer):
     def pre_featurize(self, mol):
-        mol=mol(Mol)#autocopy
+        mol=Mol(mol)#autocopy
         if not check_mol_is_prepared(mol):
             if not self._unprepared_logged:
                 MOLNET_LOGGER.warning("you tried to featurize a molecule without previous preparation. "
