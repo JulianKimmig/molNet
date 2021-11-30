@@ -58,12 +58,21 @@ def parallelize(
                 self.external_target=False
             else:
                 self.external_target=True
+            
             self.target=target
             self.is_array=is_array
             self.pos=0
+            
+            if self.is_array and self.external_target:
+                self._nan_eq = (np.ones_like(target[0])*np.nan).astype(target.dtype)
+            else:
+                self._nan_eq=None
         
         def add(self,ri,l):
-            if self.is_array:
+            if self.is_array and self.external_target:
+                for j in range(len(ri)):
+                    if ri[j] is None:
+                        ri[j]=self._nan_eq
                 self.target[self.pos:self.pos+l]=ri
             else:
                 self.target.extend(ri)
@@ -72,6 +81,23 @@ def parallelize(
         
         def get_target(self):
             if not self.external_target and self.is_array:
+                none_on_none=False
+                for j in range(len(self.target)):
+                    if ri[j] is None:
+                        if self._nan_eq is None:
+                            none_on_none=True
+                        else:
+                            ri[j]=self._nan_eq
+                    else:
+                        if self._nan_eq is None:
+                            self._nan_eq = (np.ones_like(ri[j])*np.nan).astype(ri[j].dtype)
+                            if none_on_none:
+                                break
+                if none_on_none and self._nan_eq is not None:
+                    for j in range(len(self.target)):
+                        if ri[j] is None:
+                            ri[j]=self._nan_eq
+                            
                 return np.array(self.target)
             return self.target
                 
