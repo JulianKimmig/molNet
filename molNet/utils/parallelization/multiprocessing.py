@@ -41,6 +41,7 @@ def parallelize(
 
     # perfect_split=int(np.ceil(l / cores))
     p = min(l, split_parts)
+    cores=min(cores,p)
     MOLNET_LOGGER.debug(f"using {cores} cores to work on {p} fragments")
 
     pl = l // p
@@ -83,20 +84,20 @@ def parallelize(
             if not self.external_target and self.is_array:
                 none_on_none=False
                 for j in range(len(self.target)):
-                    if ri[j] is None:
+                    if self.target[j] is None:
                         if self._nan_eq is None:
                             none_on_none=True
                         else:
-                            ri[j]=self._nan_eq
+                            self.target[j]=self._nan_eq
                     else:
                         if self._nan_eq is None:
-                            self._nan_eq = (np.ones_like(ri[j])*np.nan).astype(ri[j].dtype)
+                            self._nan_eq = (np.ones_like(self.target[j])*np.nan).astype(self.target[j].dtype)
                             if none_on_none:
                                 break
                 if none_on_none and self._nan_eq is not None:
                     for j in range(len(self.target)):
-                        if ri[j] is None:
-                            ri[j]=self._nan_eq
+                        if self.target[j] is None:
+                            self.target[j]=self._nan_eq
                             
                 return np.array(self.target)
             return self.target
@@ -140,6 +141,6 @@ def parallelize(
     if r.external_target:
         return r.get_target()
     if r.pos > 0 and r.is_array:
-        return np.array(r)
+        return np.array(r.get_target())
         #return np.concatenate(r,axis=0)
     return r.get_target()
