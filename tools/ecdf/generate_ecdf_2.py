@@ -87,6 +87,7 @@ def generate_ecfd_distr_mol(feat_row, mols, ntotal, pos=None):
 
     len_data = len(mols)
     empty_bytes = (np.ones(feat_length) * np.nan).astype(dtype)
+    os.makedirs(os.path.dirname(path),exist_ok=True)
     a = np.memmap(path, dtype=dtype, mode='w+', shape=(len_data, feat_length))
     for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
         try:
@@ -96,14 +97,39 @@ def generate_ecfd_distr_mol(feat_row, mols, ntotal, pos=None):
             a[i] = empty_bytes
             pass
 
+def generate_ecfd_distr_atom(feat_row, mols, ntotal, pos=None):
+    feat = feat_row["instance"]
+    path = feat_row["ecfd_path"]
+    dtype = feat_row['dtype']
+    feat_length = feat_row['length']
+    text = f"{feat_row.name.rsplit('.', 1)[1]} ({feat_row['idx']}/{ntotal})"
 
-def worker(feat_row, mols, ntotal, as_mol=True):
+    atoms=[]
+    for m in mols:
+        atoms.extend(m.GetAtoms())
+    len_data = len(atoms)
+    empty_bytes = (np.ones(feat_length) * np.nan).astype(dtype)
+    os.makedirs(os.path.dirname(path),exist_ok=True)
+    a = np.memmap(path, dtype=dtype, mode='w+', shape=(len_data, feat_length))
+    for i, at in tqdm(enumerate(atoms), desc=text, total=len_data, position=pos):
+        try:
+            r = feat(at)
+            a[i] = r
+        except (molNet.ConformerError, ValueError, ZeroDivisionError):
+            a[i] = empty_bytes
+            pass
+
+
+def worker(feat_row, mols, ntotal, as_atom=False):
     pos = current_process()._identity[0] - 1
-    if as_mol:
+    if as_atom:
+        return generate_ecfd_distr_atom(feat_row, mols, ntotal=ntotal, pos=pos)
+    else:
         return generate_ecfd_distr_mol(feat_row, mols, ntotal=ntotal, pos=pos)
 
 
 def main(dataloader, path, max_mols=None):
+    cpus = max(1,cpu_count()-5)
     freeze_support()
     if dataloader == "ChemBLdb29":
         from molNet.dataloader.molecular.ChEMBLdb import ChemBLdb29 as dataloaderclass
@@ -125,9 +151,21 @@ def main(dataloader, path, max_mols=None):
 
     work = [d for r, d in featurizer.iterrows()]
     tqdm.set_lock(RLock())
-    with Pool(processes=cpu_count(),initializer=tqdm.set_lock, initargs=(tqdm.get_lock(),)) as p:
-        p.map(partial(worker, mols=mols, ntotal=featurizer.shape[0]), work)
+    with Pool(processes=cpus,initializer=tqdm.set_lock, initargs=(tqdm.get_lock(),)) as p:
+        p.map(partial(worker, mols=mols, ntotal=featurizer.shape[0], as_atom=False), work)
 
+
+    # for atoms
+    featurizer = molNet.featurizer.get_atom_featurizer_info()
+    dl_path = os.path.join(path, "raw_features", dataloader)
+    featurizer["ecfd_path"] = [os.path.join(dl_path, *mod.split(".")) + ".dat" for mod in featurizer.index]
+    featurizer = limit_featurizer(featurizer, datalength=sum([m.GetNumAtoms() for m in mols]))
+    featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
+
+    work = [d for r, d in featurizer.iterrows()]
+    tqdm.set_lock(RLock())
+    with Pool(processes=cpus,initializer=tqdm.set_lock, initargs=(tqdm.get_lock(),)) as p:
+        p.map(partial(worker, mols=mols, ntotal=featurizer.shape[0], as_atom=True), work)
 
 if __name__ == "__main__":
     import argparse
