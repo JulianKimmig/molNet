@@ -97,14 +97,18 @@ def generate_ecfd_distr_mol(feat_row, mols, ntotal, pos=None,len_data=None):
     if len_data is None:
         len_data = len(mols)
     feat,text,empty_bytes,a,path = pre_generate_ecfd_distr(feat_row,len_data,ntotal)
-    for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
-        try:
-            r = feat(mol)
-            a[i] = r
-        except (molNet.ConformerError, ValueError, ZeroDivisionError):
-            a[i] = empty_bytes
-            pass
-    post_generate_ecfd_distr(path)
+    try:
+        for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
+            try:
+                r = feat(mol)
+                a[i] = r
+            except (molNet.ConformerError, ValueError, ZeroDivisionError):
+                a[i] = empty_bytes
+                pass
+    except:
+        os.remove(path)
+    finally:
+        post_generate_ecfd_distr(path)
 
 def generate_ecfd_distr_atom(feat_row, mols, ntotal, pos=None,len_data=None):
     if len_data is None:
@@ -113,16 +117,19 @@ def generate_ecfd_distr_atom(feat_row, mols, ntotal, pos=None,len_data=None):
             len_data+=m.GetNumAtoms()
 
     feat,text,empty_bytes,a,path = pre_generate_ecfd_distr(feat_row,len_data,ntotal)
-
-    for i, mol in tqdm(enumerate(mols), desc=text, total=len(mols), position=pos):
-        for at in mol.GetAtoms():
-            try:
-                r = feat(at)
-                a[i] = r
-            except (molNet.ConformerError, ValueError, ZeroDivisionError):
-                a[i] = empty_bytes
-                pass
-    post_generate_ecfd_distr(path)
+    try:
+        for i, mol in tqdm(enumerate(mols), desc=text, total=len(mols), position=pos):
+            for at in mol.GetAtoms():
+                try:
+                    r = feat(at)
+                    a[i] = r
+                except (molNet.ConformerError, ValueError, ZeroDivisionError):
+                    a[i] = empty_bytes
+                    pass
+    except:
+        os.remove(path)
+    finally:
+        post_generate_ecfd_distr(path)
 
 
 
