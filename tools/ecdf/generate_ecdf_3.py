@@ -49,7 +49,6 @@ def limit_featurizer(featurizer, datalength):
         if not os.path.exists(r["ecfd_path"]):
             return np.nan
         if os.path.exists(r["ecfd_path"]+"_block"):
-            print(r)
             return r["length"]*datalength
         try:
             return np.memmap(r["ecfd_path"], dtype=r["dtype"], mode='r', ).size
