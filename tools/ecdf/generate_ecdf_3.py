@@ -1,6 +1,8 @@
 import logging
 import os
+import random
 import sys
+import time
 from functools import partial
 from multiprocessing import Pool, freeze_support, current_process, cpu_count, RLock
 from typing import List
@@ -189,6 +191,7 @@ def main(dataloader, path, max_mols=None):
     while len(featurizer)>0:
         logger.info(f"featurize {featurizer.iloc[0].name}")
         generate_ecfd_distr_mol(featurizer.iloc[0], mols, ntotal=featurizer.shape[0], pos=None,len_data=datalength)
+        time.sleep(random.random()) # just in case if two processeses end at the same time tu to loading buffer
         featurizer = limit_featurizer(featurizer, datalength=datalength)
         featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
 
@@ -204,6 +207,7 @@ def main(dataloader, path, max_mols=None):
     while len(featurizer)>0:
         logger.info(f"featurize {featurizer.iloc[0].name}")
         generate_ecfd_distr_atom(featurizer.iloc[0], mols, ntotal=featurizer.shape[0], pos=None,len_data=datalength)
+        time.sleep(random.random()) # just in case if two processeses end at the same time tu to loading buffer
         featurizer = limit_featurizer(featurizer, datalength=datalength)
         featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
 
