@@ -100,7 +100,7 @@ class DataStreamer:
                 MOLNET_LOGGER.warning(
                     f"{self.dataloader} returns a different size ({self._position}) than expected({self.dataloader.expected_data_size}), {self._removed} entries where removed"
                 )
-
+            self.close()
             raise StopIteration
 
         if self._cached:
