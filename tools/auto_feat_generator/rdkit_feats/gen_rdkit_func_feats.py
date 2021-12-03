@@ -632,6 +632,7 @@ _MOL_FUNCTIONS_MANUALLY_REM = ['rdkit.Chem.EnumerateStereoisomers.EnumerateStere
                                "rdkit.Chem.AllChem.UFFHasAllMoleculeParams",
                                "rdkit.Chem.AllChem.EmbedMolecule",
                                "rdkit.Chem.EnumerateStereoisomers.EmbedMolecule",
+                               "rdkit.Chem.AllChem.Compute2DCoords",
                                ]
 MAX_LENGTH = 4096
 IGNORED_MOL_FUNCTIONS = ["Debug",

@@ -45,7 +45,6 @@ from rdkit.Chem.AllChem import (
     CalcChi2v,
     CalcChi0v,
     CalcNumAmideBonds,
-    Compute2DCoords,
     CalcEccentricity,
     CalcChi1v,
     CalcNumAliphaticRings,
@@ -358,12 +357,6 @@ class Molecule_AllChem_Chi4v_Featurizer(SingleValueMoleculeFeaturizer):
     # _rdfunc=rdkit.Chem.AllChem.CalcChi4v
     dtype = np.float32
     featurize = staticmethod(CalcChi4v)
-
-
-class Molecule_AllChem_Compute2DCoords_Featurizer(SingleValueMoleculeFeaturizer):
-    # _rdfunc=rdkit.Chem.AllChem.Compute2DCoords
-    dtype = np.int32
-    featurize = staticmethod(Compute2DCoords)
 
 
 class Molecule_AllChem_ComputeMolVolume_Featurizer(SingleValueMoleculeFeaturizer):
@@ -2074,9 +2067,6 @@ molecule_AllChem_Chi3n_featurizer = Molecule_AllChem_Chi3n_Featurizer()
 molecule_AllChem_Chi3v_featurizer = Molecule_AllChem_Chi3v_Featurizer()
 molecule_AllChem_Chi4n_featurizer = Molecule_AllChem_Chi4n_Featurizer()
 molecule_AllChem_Chi4v_featurizer = Molecule_AllChem_Chi4v_Featurizer()
-molecule_AllChem_Compute2DCoords_featurizer = (
-    Molecule_AllChem_Compute2DCoords_Featurizer()
-)
 molecule_AllChem_ComputeMolVolume_featurizer = (
     Molecule_AllChem_ComputeMolVolume_Featurizer()
 )
@@ -2588,7 +2578,6 @@ _available_featurizer = {
     "molecule_AllChem_Chi3v_featurizer": molecule_AllChem_Chi3v_featurizer,
     "molecule_AllChem_Chi4n_featurizer": molecule_AllChem_Chi4n_featurizer,
     "molecule_AllChem_Chi4v_featurizer": molecule_AllChem_Chi4v_featurizer,
-    "molecule_AllChem_Compute2DCoords_featurizer": molecule_AllChem_Compute2DCoords_featurizer,
     "molecule_AllChem_ComputeMolVolume_featurizer": molecule_AllChem_ComputeMolVolume_featurizer,
     "molecule_AllChem_Eccentricity_featurizer": molecule_AllChem_Eccentricity_featurizer,
     "molecule_AllChem_ExactMolWt_featurizer": molecule_AllChem_ExactMolWt_featurizer,
@@ -2888,8 +2877,6 @@ __all__ = [
     "molecule_AllChem_Chi4n_featurizer",
     "Molecule_AllChem_Chi4v_Featurizer",
     "molecule_AllChem_Chi4v_featurizer",
-    "Molecule_AllChem_Compute2DCoords_Featurizer",
-    "molecule_AllChem_Compute2DCoords_featurizer",
     "Molecule_AllChem_ComputeMolVolume_Featurizer",
     "molecule_AllChem_ComputeMolVolume_featurizer",
     "Molecule_AllChem_Eccentricity_Featurizer",
