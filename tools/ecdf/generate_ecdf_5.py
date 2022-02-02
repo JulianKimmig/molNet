@@ -10,6 +10,7 @@ import shutil
 
 import numpy as np
 from rdkit.Chem import Mol, MolToSmiles, MolToInchiKey, MolFromSmiles
+from sqlalchemy.exc import OperationalError
 from tqdm import tqdm
 import pickle
 import json
@@ -34,14 +35,31 @@ if __name__ == "__main__":
     logger = molNet.MOLNET_LOGGER
     logger.setLevel(logging.DEBUG)
 
-
-
 def load_mols(loader, limit=None) -> List[Mol]:
     if limit is not None and limit > 0:
         return loader.get_n_entries(limit)
     return [mol for mol in tqdm(
         loader, unit="mol", unit_scale=True, total=loader.expected_data_size, desc="load mols"
     )]
+
+
+def retry_commit(session,dt=None,n=100):
+    done=False
+    for i in range(n-1):
+        try:
+            session.commit()
+            done=True
+            break
+        except OperationalError as e:
+            print(e)
+            _dt=dt
+            if _dt is None:
+                _dt=np.random.rand()
+            time.sleep(_dt)
+            continue
+    if not done:
+        session.commit()
+
 
 class MolLoader():
     def __init__(self,molloader, limit=None):
@@ -91,13 +109,13 @@ def post_generate_data(path,db_lookup,change,dl_name,files_in):
         with open(dsjson,"w+") as f:
             f.write(ds)
 
-def raw_feat_mols(feat_row,mols,metadata,engine,session,dl_name,len_data=None, pos=None,ignore_existsing_data=False,inchies=None):
+def raw_feat_mols(feat_row,mols,sql_data,dl_name,len_data=None, pos=None,ignore_existsing_data=False,inchies=None):
     if len_data is None:
         len_data = len(mols)
     feat = feat_row["instance"]
     text = f"{feat_row.name.rsplit('.', 1)[1]}"
-    dsf = feat_row["DatasetsFeaturized"].working=True
-    session.commit()
+    feat_row["DatasetsNumericalFeaturized"].working=True
+    retry_commit(sql_data["session"])
     
     if np.issubdtype(feat_row["dtype"], bool):
         DT=Boolean
@@ -116,7 +134,7 @@ def raw_feat_mols(feat_row,mols,metadata,engine,session,dl_name,len_data=None, p
 
     
     
-    feature_table = Table(feat_row["db_entry"].name, metadata,
+    feature_table = Table(feat_row["db_entry"].name, sql_data["metadata"],
            Column('id', Integer, primary_key=True),
            *dp_cols
          )
@@ -126,268 +144,278 @@ def raw_feat_mols(feat_row,mols,metadata,engine,session,dl_name,len_data=None, p
             for k,v in kwargs.items():
                 setattr(self,k,v)
                 
-    mapper(_Feat, feature_table) 
-    metadata.create_all(engine)
+    mapper(_Feat, feature_table)
+    sql_data["metadata"].create_all(sql_data["engine"])
     
-    datalaoder=get_or_create(session,Datasets,dict(name=dl_name))
-    
-   
-    key_query = session.query(InchieKeysDataset).filter_by(dataset=datalaoder)
-   
+    datalaoder,_=get_or_create(sql_data["session"], Dataset, dict(name=dl_name))
+
+
     #alle zuordungen von inchi + featurizer zu eintrag in der _Feat tabelle
-    feat_inchi_keys_query = session.query(InchieKeysFeatures).filter_by(featurizer=feat_row["db_entry"])
-    
-    
+    feat_inchi_keys_query = sql_data["session"].query(InchieKeyFeatures).filter_by(featurizer=feat_row["db_entry"])
     #alle inchies die da drin sind sollten exisieren
-    is_done_inchie_keys = set([v.inchie_key.id for v in feat_inchi_keys_query.all()])
+    is_done_inchie_keys = set([v.inchikey_id for v in feat_inchi_keys_query.all()])
 
-    
-    res=key_query.filter(InchieKeysDataset.ik_id.in_(is_done_inchie_keys))
+    # alle inchikeys aus dem dataset
+    key_query = sql_data["session"].query(InchieKeyPositionInDataset).filter_by(dataset=datalaoder)
+
+    #alle positionen im dataset zu denen bereits ein inchie existiert
+    in_positions=  {v.position for v in key_query.all()}
+
+    # alle inchikeys aus dem dataset die schon gefeatured wurden
+    res=key_query.filter(InchieKeyPositionInDataset.inchikey_id.in_(is_done_inchie_keys))
+    #deren position im dataset
     is_done_position = set([r.position for r in  res.all()])
-   
 
-    
-    
-    in_positions=set([v.position for v in key_query.all()])
-    new={}
-    e_in_new=0
-    fds_id = feat_row["db_entry"].fid
-    
+
+    #get_all needed inchikey ids to position
+    inchikey_ids={v.position:v.inchie_key.id for v in key_query.options(joinedload(InchieKeyPositionInDataset.inchie_key)).all()}
+
+    # fill unloaded inchies
+    for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
+        if i in is_done_position:
+            continue
+        if i in inchikey_ids:
+            continue
+        #wenn noch kein Eintrag im dataset
+        if i not in in_positions:
+            inchikey,_ = get_or_create(sql_data["session"], InchieKey, {"key":MolToInchiKey(mol)},commit=True)
+            ink_ds,_ = get_or_create(sql_data["session"], InchieKeyPositionInDataset, {"inchie_key":inchikey,"dataset":datalaoder,"position":i},commit=False)
+            in_positions[i]=inchikey
+        #normally this should not be called since its already done in gneration of inchikey_ids
+        else:
+            inchikey = key_query.filter_by(position=i).first().inchie_key
+
+        inchikey_ids[i]=inchikey.id
+    retry_commit(sql_data["session"])
+
+
+    fds_id = feat_row["db_entry"].id
     def submit_new(new):
-        session.commit()
+        retry_commit(sql_data["session"])
         for k,v in new.items():
             rentry,iks=v
             for ik_id in iks:
-                fentry=get_or_create(session, InchieKeysFeatures, dict(ik_id=ik_id,fds_id=fds_id,fentry_id=rentry.id),commit=False)
-        session.commit()
+                fentry,_=get_or_create(sql_data["session"], InchieKeyFeatures,
+                                         dict(
+                                             inchikey_id=ik_id,
+                                             featurizer_id=fds_id,
+                                             feature_entry_id=rentry.id
+                                         ),
+                                         commit=False)
+        retry_commit(sql_data["session"])
+
+    new={}
     _in=0
+    e_in_new=0
+    finished=False
     try:
         for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
             if i in is_done_position:
                 _in+=1
                 continue
-            if i not in in_positions:
-                inchikey = get_or_create(session, InchieKeys, {"key":MolToInchiKey(mol)},commit=True)
-                ink_ds = get_or_create(session, InchieKeysDataset, {"inchie_key":inchikey,"dataset":datalaoder,"position":i},commit=False)
-            else:
-                ink_ds = key_query.filter_by(position=i).first()
-                inchikey = ink_ds.inchie_key
             try:
-               
                 r = feat(mol)
-           
                 k=tuple(r.flatten().tolist())
                 if k in new:
-                    new[k][1].append(inchikey.id)
+                    new[k][1].append(inchikey_ids[i])
                 else:
-                    rentry=get_or_create(session, _Feat, dict(zip(col_val_names,k)),commit=False)
-                    new[k]=[rentry,[inchikey.id]]
+                    rentry,_=get_or_create(sql_data["session"], _Feat, dict(zip(col_val_names,k)),commit=False)
+                    new[k]=[rentry,[inchikey_ids[i]]]
                 e_in_new+=1
                 _in+=1
-                
+
                 if e_in_new>10000:
                     submit_new(new)
                     new={}
                     e_in_new=0
-                
-                #session.commit()
-                #fentry=get_or_create(session, InchieKeysFeatures, dict(ik_id=inchikey.id,fds_id=feat_row["db_entry"].fid,fentry_id=rentry.id),commit=False)
+
             except (molNet.ConformerError, ValueError, ZeroDivisionError) as e:
                 print(e)
-        dsf = feat_row["DatasetsFeaturized"].finished=True
+        finished=True
     except Exception as e:
         print(e)
-       # shutil.rmtree(path)
+    # shutil.rmtree(path)
     finally:
         submit_new(new)
-        dsf = feat_row["DatasetsFeaturized"].working=False
-        dsf = feat_row["DatasetsFeaturized"].size=_in
-        session.commit()
-        
-        
-    
-    return
-    
-    
-    db_lookup_files=list(db_lookup.values())
-    #print(db_lookup_files)
-    #print(db_lookup)
-    if inchies is None:
-        inchies=[]
-    skip=[]
-    if ignore_existsing_data:
-        for i,inchikey in enumerate(inchies):
-            if inchikey in db_lookup:
-                skip.append(i)
-    files_in=len(skip)
-    n=0
-    change=False
-    try:
-        for i, mol in tqdm(enumerate(mols), desc=text, total=len_data, position=pos):
-            if i in skip:
-                continue
-            inchikey=MolToInchiKey(mol)
-            if inchikey in db_lookup:
-                if ignore_existsing_data:
-                    files_in+=1
-                    continue
-                else:
-                    n=db_lookup[inchikey]
-                    db_lookup_files.remove(n)
-            
-            try:
-                while n in db_lookup_files:
-                    n+=1
-                r = feat(mol)
-                ha=hash_array(r)
-                
-                
-                np.save(os.path.join(path_data,str(n)),r)
-                db_lookup_files.append(n)
-                db_lookup[inchikey]=n
-                change=True
-                files_in+=1
-                n+=1
-            except (molNet.ConformerError, ValueError, ZeroDivisionError) as e:
-                print(e)
-                
-    except Exception as e:
-        print(e)
-       # shutil.rmtree(path)
-    finally:
-        post_generate_data(path,db_lookup,change,dl_name,files_in)
-    print(n,files_in)
+        feat_row["DatasetsNumericalFeaturized"].working=False
+        feat_row["DatasetsNumericalFeaturized"].finished=finished
+        feat_row["DatasetsNumericalFeaturized"].size=_in
+        retry_commit(sql_data["session"])
     return True
-    #raise ValueError("AA")
+
+
     
 
 from sqlalchemy import Table,Column, Integer, String,Float,Boolean, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship, mapper, load_only
+from sqlalchemy.orm import sessionmaker, relationship, mapper, load_only, declared_attr, joinedload
 
 Base = declarative_base()
 
-class Datasets(Base):
+class Dataset(Base):
     __tablename__ = "datasets"
-    ds_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String)
-    
-class DatasetsFeaturized(Base):
-    __table_args__ = (
-        PrimaryKeyConstraint('dsfd_id', 'fds_id'),
-    )
-    
-    __tablename__ = "datasets_featurized"
-    dsfd_id = Column(Integer,ForeignKey('datasets.ds_id'))
-    fds_id = Column(Integer,ForeignKey('numerical_feature.fid'))
-    working = Column(Boolean,default=False)
-    size = Column(Integer,default=0, nullable=False)
-    finished = Column(Boolean,default=False)
-    
-    dataset = relationship('Datasets', foreign_keys='DatasetsFeaturized.dsfd_id')
-    featurizer = relationship('NumericalFeaturizer', foreign_keys='DatasetsFeaturized.fds_id')
-    
+
 class NumericalFeaturizer(Base):
-    __tablename__ = "numerical_feature"
-    fid = Column(Integer, primary_key=True)
+    __tablename__ = "numerical_featurizer"
+    id = Column(Integer, primary_key=True)
     name = Column(String)
     dim = Column(Integer, nullable=False)
     shape = Column(String, nullable=False)
     type = Column(String(1), nullable=False)
 
-class InchieKeys(Base):
-    __tablename__ = "inchie_keys"
+class DatasetsFeaturizedMixin():
+    working = Column(Boolean,default=False)
+    size = Column(Integer,default=0, nullable=False)
+    finished = Column(Boolean,default=False)
+
+    @declared_attr
+    def dataset_id(cls):
+        return Column('dataset_id', ForeignKey(Dataset.id))
+
+    @declared_attr
+    def featurizer_id(cls):
+        return Column('featurizer_id', ForeignKey(cls._feat_class.id))
+
+    @declared_attr
+    def dataset(cls):
+        return relationship(Dataset, foreign_keys=cls.dataset_id)
+
+    @declared_attr
+    def featurizer(cls):
+        return relationship(cls._feat_class, foreign_keys=cls.featurizer_id)
+
+    @declared_attr
+    def __table_args__(cls):
+        return (PrimaryKeyConstraint('dataset_id', 'featurizer_id'),)
+
+class DatasetsNumericalFeaturized(DatasetsFeaturizedMixin,Base):
+    __tablename__ = "datasets_numerical_featurized"
+    _feat_class = NumericalFeaturizer
+
+
+class InchieKey(Base):
+    __tablename__="inchie_keys"
     id = Column(Integer, primary_key=True)
     key = Column(String)
 
-class InchieKeysFeatures(Base):
+class InchieKeyFeatures(Base):
+    __tablename__="inchie_key_features"
     __table_args__ = (
-        PrimaryKeyConstraint('ik_id', 'fds_id','fentry_id'),
+        PrimaryKeyConstraint('inchikey_id', 'featurizer_id','feature_entry_id'),
     )
-    __tablename__ = "inchie_keys_feature"
-    ik_id = Column(Integer,ForeignKey('inchie_keys.id'))
-    fds_id =Column(Integer,ForeignKey('numerical_feature.fid'))
-    fentry_id = Column(Integer, nullable=False)
+    inchikey_id = Column(Integer,ForeignKey(InchieKey.id))
+    featurizer_id =Column(Integer,ForeignKey(NumericalFeaturizer.id))
+    feature_entry_id = Column(Integer, nullable=False)
     
-    inchie_key = relationship('InchieKeys', foreign_keys='InchieKeysFeatures.ik_id')
-    featurizer = relationship('NumericalFeaturizer', foreign_keys='InchieKeysFeatures.fds_id')
+    inchie_key = relationship('InchieKey', foreign_keys='InchieKeyFeatures.inchikey_id')
+    featurizer = relationship(NumericalFeaturizer, foreign_keys='InchieKeyFeatures.featurizer_id')
 
-class InchieKeysDataset(Base):
+class InchieKeyPositionInDataset(Base):
     __table_args__ = (
-        PrimaryKeyConstraint('ik_id', 'dsfd_id','position'),
+        PrimaryKeyConstraint('inchikey_id', 'dataset_id','position'),
     )
-    __tablename__ = "inchie_keys_dataset"
-    ik_id = Column(Integer,ForeignKey('inchie_keys.id'))
-    dsfd_id = Column(Integer,ForeignKey('datasets.ds_id'))
+    __tablename__ = "inchie_keys_pos_in_dataset"
+    inchikey_id = Column(Integer,ForeignKey(InchieKey.id))
+    dataset_id = Column(Integer, ForeignKey(Dataset.id))
     position=Column(Integer,nullable=False)
     
-    inchie_key = relationship('InchieKeys', foreign_keys='InchieKeysDataset.ik_id')
-    dataset = relationship('Datasets', foreign_keys='InchieKeysDataset.dsfd_id')
-    
-    
+    inchie_key = relationship(InchieKey, foreign_keys='InchieKeyPositionInDataset.inchikey_id')
+    dataset = relationship(Dataset, foreign_keys='InchieKeyPositionInDataset.dataset_id')
+
+
 def get_or_create(session, model, filter_dict,commit=True):
     instance = session.query(model).filter_by(**filter_dict).first()
     if instance:
-        return instance
+        return instance,False
     else:
         instance = model(**filter_dict)
         session.add(instance)
         if commit:
-            session.commit()
-        return instance
+            retry_commit(session)
+        return instance,True
     
 from molNet.featurizer.molecule_featurizer import prepare_mol_for_featurization
 SAMPLE_MOL=prepare_mol_for_featurization(MolFromSmiles("c1ccccc1"))
-def limit_featurizer(featurizer, dl_name,session,ignore_existsing_feats=True,ignore_working_ds=True):
-    
-    logger.info(f"limit featurizer for {dl_name}")
+
+def ini_limit_featurizer(featurizer):
     logger.info(f"feats initial length = {len(featurizer)}")
 
     featurizer["isListFeat"] = featurizer["instance"].apply(lambda f: isinstance(f, FeaturizerList))
     featurizer.drop(featurizer.index[featurizer["isListFeat"]], inplace=True)
     logger.info(f"featurizer length after FeaturizerList drop = {len(featurizer)}")
-    featurizer = featurizer[featurizer.dtype != bool]
+    featurizer.drop(featurizer.index[featurizer["dtype"] == bool], inplace=True)
     logger.info(f"featurizer length after bool drop = {len(featurizer)}")
-    featurizer = featurizer[featurizer.length > 0]
+    featurizer.drop(featurizer.index[featurizer["length"] <= 0], inplace=True)
     logger.info(f"featurizer length after length<1 drop = {len(featurizer)}")
     featurizer = featurizer.sort_values("length")
-    
-    datalaoder=get_or_create(session,Datasets,dict(name=dl_name))
-    
+
     def _dt(r):
         return np.issubdtype(r["dtype"],np.number)
-    
-    featurizer = featurizer[featurizer.apply(_dt,axis=1)]
+
+    featurizer.drop(featurizer.index[~featurizer.apply(_dt,axis=1)], inplace=True)
     logger.info(f"featurizer length after non numeric drop = {len(featurizer)}")
-    
-    def gen_feat_db_entry(r):
-        f=r["instance"](SAMPLE_MOL)
-        return get_or_create(session,NumericalFeaturizer,dict(name=r.name,dim=f.ndim,shape=json.dumps(list(f.shape)),type=f.dtype.char),commit=False)
-    featurizer["db_entry"] = featurizer.apply(gen_feat_db_entry,axis=1)
-    session.commit()
-    
-    def gen_DatasetsFeaturized(r):
-        return get_or_create(session,DatasetsFeaturized,dict(dataset=datalaoder,featurizer=r["db_entry"]),commit=False)
-    featurizer["DatasetsFeaturized"]=featurizer.apply(gen_DatasetsFeaturized,axis=1)
-    
+
+    return featurizer
+
+def limit_featurizer(featurizer, sql_data,datalength,ignore_existsing_feats=True,ignore_working_ds=True):
+    retry_commit(sql_data["session"])
     if ignore_working_ds:
-        featurizer["isworking"]=False
-        session.commit()
-        featurizer["isworking"]=featurizer["DatasetsFeaturized"].apply(lambda _d: _d.working)
-        
-        featurizer = featurizer[~featurizer["isworking"]]
+        featurizer["isworking"]=featurizer["DatasetsNumericalFeaturized"].apply(lambda _d: _d.working)
+        featurizer.drop(featurizer.index[featurizer["isworking"]], inplace=True)
+
         logger.info(f"featurizer length after working = {len(featurizer)}")
         
     if ignore_existsing_feats:
-        featurizer["isin"]=False
-        featurizer["DatasetsFeaturized"]=featurizer.apply(gen_DatasetsFeaturized,axis=1)
-        session.commit()
-        
-        featurizer["isin"]=featurizer["DatasetsFeaturized"].apply(lambda _d: _d.finished)
-        featurizer = featurizer[~featurizer["isin"]]
+        featurizer["isin"]=featurizer["DatasetsNumericalFeaturized"].apply(lambda _d: (_d.finished) & (_d.size>=(datalength*0.9)))
+        featurizer.drop(featurizer.index[featurizer["isin"]], inplace=True)
         logger.info(f"featurizer length after existing = {len(featurizer)}")
     
     return featurizer
+
+
+def create_tables(sql_data):
+    Dataset.__table__.create(bind=sql_data["engine"], checkfirst=True)
+    DatasetsNumericalFeaturized.__table__.create(bind=sql_data["engine"], checkfirst=True)
+    NumericalFeaturizer.__table__.create(bind=sql_data["engine"], checkfirst=True)
+    InchieKey.__table__.create(bind=sql_data["engine"], checkfirst=True)
+    InchieKeyPositionInDataset.__table__.create(bind=sql_data["engine"], checkfirst=True)
+    InchieKeyFeatures .__table__.create(bind=sql_data["engine"], checkfirst=True)
+
+def create_featurizer_entries(featurizer,sql_data):
+    def gen_feat_db_entry(r):
+        f=r["instance"](SAMPLE_MOL)
+        assert f.size == len(r["instance"])
+        nf, _ = get_or_create(sql_data["session"],NumericalFeaturizer,dict(name=r.name,dim=f.ndim,shape=json.dumps(list(f.shape)),type=f.dtype.char),commit=False)
+        return nf
+    featurizer["db_entry"] = featurizer.apply(gen_feat_db_entry,axis=1)
+    retry_commit(sql_data["session"])
+
+    def gen_DatasetsNumericalFeaturized(r):
+        nf, _ = get_or_create(sql_data["session"],DatasetsNumericalFeaturized,dict(dataset=sql_data["dl_table"],featurizer=r["db_entry"]),commit=False)
+        return nf
+    featurizer["DatasetsNumericalFeaturized"]=featurizer.apply(gen_DatasetsNumericalFeaturized,axis=1)
+
+def get_and_create_inchies(sql_data,mols):
+    key_query = sql_data["session"].query(InchieKeyPositionInDataset).filter_by(dataset=sql_data["dl_table"])
+    iks={}
+    multimols=set()
+    if (key_query.count()/len(mols)) <0.9:
+        for i, mol in tqdm(enumerate(mols), desc="load inchies", total=len(mols)):
+            ik=MolToInchiKey(mol)
+            inchikey,new= get_or_create(sql_data["session"], InchieKey, {"key":ik},commit=False)
+            if new:
+                iks[ik]=[(i,mol)]
+            else:
+                iks[ik].append((i,mol))
+                multimols.add(ik)
+            pos,_ = get_or_create(sql_data["session"], InchieKeyPositionInDataset, {"inchie_key":inchikey,"dataset":sql_data["dl_table"],"position":i},commit=False)
+        retry_commit(sql_data["session"])
+    for ik in multimols:
+        print(ik)
+        for (i,m) in iks[ik]:
+            print("\t",i,m.GetProp("_Name"),MolToSmiles(m))
 
 def main(dataloader, db, max_mols=None,ignore_existsing_feats=True,ignore_existsing_data=True,):
     if dataloader == "ChemBLdb29":
@@ -398,79 +426,59 @@ def main(dataloader, db, max_mols=None,ignore_existsing_feats=True,ignore_exists
         raise ValueError(f"unknown dataloader '{dataloader}'")
         
     dl_name=f"{dataloaderclass.__module__}.{dataloaderclass.__name__}"
-    
-    
+    logger.info(f"using db '{db}'")
     
     metadata = sql.MetaData() 
     engine = sql.create_engine('sqlite:///'+os.path.abspath(db), echo=False) 
     metadata.create_all(engine)
     Session = sessionmaker(engine)
-    
+
+    sql_data={
+        "engine":engine,
+        "metadata":metadata
+    }
+
     with engine.connect() as conn:
-
-        Datasets.__table__.create(bind=engine, checkfirst=True)
-        DatasetsFeaturized.__table__.create(bind=engine, checkfirst=True)
-        NumericalFeaturizer.__table__.create(bind=engine, checkfirst=True)
-        InchieKeys.__table__.create(bind=engine, checkfirst=True)
-        InchieKeysDataset.__table__.create(bind=engine, checkfirst=True)
-        InchieKeysFeatures .__table__.create(bind=engine, checkfirst=True)
-        
+        sql_data["connection"]=conn
+        create_tables(sql_data)
         with Session(bind=conn) as session:
-            dl_table= get_or_create(session,Datasets,dict(name=dl_name))
-        
+            sql_data["session"]=session
 
-    
+            dl_table,_= get_or_create(session, Dataset, dict(name=dl_name))
+            sql_data["dl_table"]=dl_table
     
             logger.info("load mols")
-            loader = PreparedMolDataLoader(dataloaderclass())
+            loader = PreparedMolDataLoader(dataloaderclass(
+                data_streamer_kwargs=dict(iter_None=True))
+            )
             mols = MolLoader(loader, limit=max_mols)
+            get_and_create_inchies(sql_data,mols)
+
 
             # for mols
-            datalength=len(mols)
             featurizer = molNet.featurizer.get_molecule_featurizer_info()
-            #dl_path = os.path.join(path, "raw_features", dataloader)
+            logger.info(f"limit featurizer for {dl_name}")
+            featurizer = ini_limit_featurizer(featurizer)
 
-            #featurizer["path"] = [os.path.join(path, *mod.split(".")) for mod in featurizer.index]
+            logger.info(f"generate featurizer entries")
+            create_featurizer_entries(featurizer,sql_data)
 
+            datalength=len(mols)
 
-            
-            
-            key_query = session.query(InchieKeysDataset).filter_by(dataset=dl_table)
-            
-            
-            
-            if (key_query.count()/len(mols)) <0.9:
-                for i, mol in tqdm(enumerate(mols), desc="load inchies", total=datalength):
-                    inchikey= get_or_create(session, InchieKeys, {"key":MolToInchiKey(mol)},commit=False)
-                    get_or_create(session, InchieKeysDataset, {"inchie_key":inchikey,"dataset":dl_table,"position":i},commit=False)
-                session.commit()
-            
-            inchifile=os.path.join(molNet.get_user_folder(), "autodata", "dataloader",dl_name,"inchies.json")
-            inchies = []
-            if os.path.exists(inchifile):
-                with open(inchifile,"r") as f:
-                    inchies = json.load(f)
-            if not abs(len(inchies)-len(mols))<0.1*len(mols):
-                inchies = []
-                for i, mol in tqdm(enumerate(mols), desc="load inchies", total=datalength):
-                        inchies.append(MolToInchiKey(mol))
-                os.makedirs(os.path.dirname(inchifile),exist_ok=True)
-                with open(inchifile,"w+") as f:
-                    json.dump(inchies,f)
-            
-            featurizer = limit_featurizer(featurizer, dl_name=dl_name,session=session,ignore_existsing_feats=ignore_existsing_feats)
-            featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
             while len(featurizer)>0:
-                logger.info(f"featurize {featurizer.iloc[0].name}")
-          
-                r = raw_feat_mols(featurizer.iloc[0],mols,metadata,engine,session,dl_name,ignore_existsing_data=ignore_existsing_data,inchies=inchies)
-                
-                if r:
-                    featurizer.drop(featurizer.index[0],inplace=True)
-                time.sleep(random.random()) # just in case if two processeses end at the same time tu to loading buffer
-                featurizer = limit_featurizer(featurizer, dl_name=dl_name,session=session,ignore_existsing_feats=ignore_existsing_feats)
-                featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
-                
+                try:
+                    time.sleep(random.random())
+                    featurizer = limit_featurizer(featurizer,sql_data,datalength=datalength,ignore_existsing_feats=ignore_existsing_feats)
+                    featurizer["idx"] = np.arange(featurizer.shape[0]) + 1
+                    if len(featurizer)<=0:
+                        break
+                    logger.info(f"featurize {featurizer.iloc[0].name}")
+                    r = raw_feat_mols(featurizer.iloc[0],mols,sql_data,dl_name,ignore_existsing_data=ignore_existsing_data)
+                    if r:
+                        featurizer.drop(featurizer.index[0],inplace=True)
+                except OperationalError as e:
+                    print(e)
+
             return
 
 
