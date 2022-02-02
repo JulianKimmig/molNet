@@ -253,7 +253,7 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
             row=get_and_lock_row(red_featurizer)
             if row is None:
                 continue
-            logger.info(f"featurize {row.name}")
+            logger.info(f"featurize {row.name} ({len(red_featurizer)}) to go")
             prep_to_work(row)
             done = featurize_mol(row,mols,)
 
