@@ -13,21 +13,28 @@ testmol = mol_from_smiles("CCC")
 
 
 def prepare_mol_for_featurization(mol, addHs=True, renumber=True, conformers=True, sanitize=True) -> Mol:
-    
+
     if addHs:
         if mol.GetNumAtoms(onlyHeavy=False)!=mol.GetNumAtoms(onlyHeavy=True):
             mol = AddHs(mol,addCoords=True)
-            
+
     if conformers:
         mol = assert_conformers(mol)
-        
+
+    _props = mol.GetPropsAsDict()
+    if mol.HasProp("_Name"):
+        _props["_Name"]=mol.GetProp("_Name")
+
     if renumber:
         mol = RenumberAtoms(
             mol, np.argsort(CanonicalRankAtoms(mol)).tolist()
         )
+
     if sanitize:
         SanitizeMol(mol)
     mol = PropertyMol(mol)
+    for k,v in _props.items():
+        mol.SetProp(k,v)
     mol.SetProp('_is_prepared', 1)
     return mol
 
