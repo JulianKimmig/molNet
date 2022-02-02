@@ -126,8 +126,8 @@ class NormalizationClass:
             "dual_sig": self.dual_sig_norm,
             "genlog": self.genlog_norm,
         }
-        self._preferred_norm_name=""
-        self._preferred_norm = self.preferred_normalization
+        self._preferred_norm_name="unity"
+        self._preferred_norm = self.unity_norm
         if preferred_normalization is None:
             preferred_normalization = self.preferred_normalization
         self.preferred_norm = preferred_normalization
@@ -171,11 +171,21 @@ class NormalizationClass:
     def preferred_norm(self):
         return self._preferred_norm
 
+    @property
+    def preferred_norm_name(self):
+        return self._preferred_norm_name
+
     @preferred_norm.setter
     def preferred_norm(self, normalization):
         self.set_preferred_norm(normalization)
-        
-    def set_preferred_norm(self, normalization):
+
+    def set_preferred_norm(self, normalization=None):
+        if normalization is None:
+            normalization="unity"
+        if normalization not in self._norm_map:
+            raise NormalizationException(
+                f"normalization '{normalization}' is not defined"
+            )
         prenorm= self._preferred_norm,self._preferred_norm_name
         self._preferred_norm = self._norm_map[normalization]
         self._preferred_norm_name = normalization
