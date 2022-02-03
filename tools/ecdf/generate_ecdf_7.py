@@ -207,7 +207,75 @@ def featurize_mol(row, mols,n_split=100_000):
     return True
 
 
+def featurize_atoms(row, mols,n_split=10_000):
+    featurizer=row["instance"]
+    lenmols=len(mols)
 
+    range_start= np.arange(0,lenmols+n_split,n_split)
+
+
+    range_start[-1]=lenmols
+
+    files = [os.path.join(row["data_path"],
+                          f"feats_{range_start[i]+1}_{e}.npy"
+                          )
+             for i,e in enumerate(range_start[1:])]
+    file_sizes=[e-range_start[i]
+                for i,e in enumerate(range_start[1:])
+                ]
+
+    files_exists=[os.path.exists(f) for f in files]
+
+    if all(files_exists):
+        return True
+
+    first_needed_file_index=files_exists.index(False)
+
+    indices=np.zeros(lenmols,dtype=int)
+    indices[range_start[:-1]]=1
+    indices=np.cumsum(indices)-1
+
+    start_index=(indices==first_needed_file_index).argmax()
+
+    def turnover(current_start_index):
+        current_file=files[indices[current_start_index]]
+        ri_max = file_sizes[indices[current_start_index]]
+
+        return current_file,ri_max,current_start_index,current_start_index+ri_max
+
+    current_file,ri_max,start_index,stop_index = turnover(start_index)
+
+    tempmols=[]
+    ri=0
+    for i, mol in tqdm(enumerate(mols), desc="featzurize atoms of mols", total=lenmols,position=1,leave=True):
+        if i<start_index:
+            continue
+        tempmols.append(mol)
+
+        ri+=1
+        if ri>=ri_max:
+            ri=0
+            n_atoms=sum([m.GetNumAtoms() for m in tempmols])
+            current_array=(np.zeros((
+                n_atoms,
+                row["length"]
+            ))*np.nan).astype(row["dtype"])
+            atom_start_indices=np.zeros(len(tempmols))
+            d=0
+            for j,smol in enumerate(tempmols):
+                atom_start_indices[j]=d
+                for atom in smol.GetAtoms():
+                    current_array[d]=featurizer(atom)
+                    d+=1
+            tempmols=[]
+            np.save(current_file, current_array)
+            np.save(current_file[:-4]+"_atom_start_indices.npy", atom_start_indices)
+            if i<lenmols-1:
+                while os.path.exists(current_file) and stop_index<lenmols:
+                    current_file,ri_max,start_index,stop_index = turnover(stop_index)
+
+        #print(i,indices[i],files[indices[i]])
+    return True
 
 
 def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_existsing_data=True,mean_feat_delay=1):
@@ -233,7 +301,7 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
 
     # for mols
     featurizer = molNet.featurizer.get_molecule_featurizer_info()
-    logger.info(f"limit featurizer for {dataset_name}")
+    logger.info(f"limit mol featurizer for {dataset_name}")
     featurizer = ini_limit_featurizer(featurizer)
     featurizer["done"]=False
 
@@ -253,7 +321,7 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
             row=get_and_lock_row(red_featurizer)
             if row is None:
                 continue
-            logger.info(f"featurize {row.name} ({len(red_featurizer)}) to go")
+            logger.info(f"featurize {row.name} ({len(red_featurizer)} to go)")
             prep_to_work(row)
             done = featurize_mol(row,mols,)
 
@@ -264,6 +332,40 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
         finally:
             if row is not None:
                 finish_work(row,done)
+
+    featurizer = molNet.featurizer.get_atom_featurizer_info()
+    logger.info(f"limit atom featurizer for {dataset_name}")
+    featurizer = ini_limit_featurizer(featurizer)
+    featurizer["done"]=False
+
+    data_path=os.path.join(path,dataset_name)
+    featurizer["data_path"]=[os.path.join(data_path,idx) for idx in featurizer.index]
+
+    red_featurizer=update_featurizer(featurizer)
+    while len(red_featurizer)>0:
+        row=None
+        done=False
+        try:
+            time.sleep(random.random()*2*mean_feat_delay)
+            red_featurizer=update_featurizer(red_featurizer)
+            if len(red_featurizer)==0:
+                break
+            row=get_and_lock_row(red_featurizer)
+            if row is None:
+                continue
+            logger.info(f"featurize {row.name} ({len(red_featurizer)}) to go")
+            prep_to_work(row)
+            done = featurize_atoms(row,mols,)
+
+        except WorkOnWorkingError:
+            continue
+        except Exception as e:
+            print(e)
+        finally:
+            if row is not None:
+                finish_work(row,done)
+
+
 
 if __name__ == "__main__":
     import argparse
