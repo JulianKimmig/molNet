@@ -309,7 +309,9 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
     featurizer["data_path"]=[os.path.join(data_path,idx) for idx in featurizer.index]
 
     red_featurizer=update_featurizer(featurizer)
+    MAX_ERRORS=40
 
+    error_countdown=MAX_ERRORS
     while len(red_featurizer)>0:
         row=None
         done=False
@@ -326,12 +328,16 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
             done = featurize_mol(row,mols,)
 
         except WorkOnWorkingError:
-            continue
+            error_countdown-=1
         except Exception as e:
-            print(e)
+            logger.exception(e)
+            error_countdown-=1
         finally:
             if row is not None:
                 finish_work(row,done)
+        if error_countdown<=0:
+            logger.error("Error countdown reached")
+            break
 
     featurizer = molNet.featurizer.get_atom_featurizer_info()
     logger.info(f"limit atom featurizer for {dataset_name}")
@@ -342,6 +348,8 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
     featurizer["data_path"]=[os.path.join(data_path,idx) for idx in featurizer.index]
 
     red_featurizer=update_featurizer(featurizer)
+
+    error_countdown=MAX_ERRORS
     while len(red_featurizer)>0:
         row=None
         done=False
@@ -356,14 +364,18 @@ def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_exis
             logger.info(f"featurize {row.name} ({len(red_featurizer)}) to go")
             prep_to_work(row)
             done = featurize_atoms(row,mols,)
-
+            error_countdown=MAX_ERRORS
         except WorkOnWorkingError:
-            continue
+            error_countdown-=1
         except Exception as e:
-            print(e)
+            logger.exception(e)
+            error_countdown-=1
         finally:
             if row is not None:
                 finish_work(row,done)
+        if error_countdown<=0:
+            logger.error("Error countdown reached")
+            break
 
 
 
