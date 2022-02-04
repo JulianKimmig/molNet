@@ -198,7 +198,7 @@ def featurize_mol(row, mols,n_split=100_000):
             continue
         try:
             current_array[ri]=featurizer(mol)
-        except ValueError:
+        except (ValueError, RuntimeError):
             ignored_indices.append(i)
         ri+=1
         if ri>=ri_max:
@@ -276,7 +276,7 @@ def featurize_atoms(row, mols,n_split=10_000):
                 for atom in smol.GetAtoms():
                     try:
                         current_array[d]=featurizer(atom)
-                    except ValueError:
+                    except (ValueError, RuntimeError):
                         ignored_indices.append(d)
                     d+=1
             tempmols=[]
