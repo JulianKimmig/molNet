@@ -179,6 +179,7 @@ def featurize_mol(row, mols,n_split=100_000):
 
     def turnover(current_start_index):
         current_file=files[indices[current_start_index]]
+        ignore_file = files[indices[current_start_index]][:-4]+"_ignored_indices.npy"
         current_array=(np.zeros((
             file_sizes[indices[current_start_index]],
             row["length"]
@@ -186,22 +187,28 @@ def featurize_mol(row, mols,n_split=100_000):
 
         ri_max = file_sizes[indices[current_start_index]]
 
-        return current_file, current_array,ri_max,current_start_index,current_start_index+ri_max
+        return current_file,ignore_file, current_array,ri_max,current_start_index,current_start_index+ri_max
 
-    current_file, current_array,ri_max,start_index,stop_index = turnover(start_index)
+    current_file,ignore_file, current_array,ri_max,start_index,stop_index = turnover(start_index)
 
     ri=0
+    ignored_indices=[]
     for i, mol in tqdm(enumerate(mols), desc="featzurize mols", total=lenmols):
         if i<start_index:
             continue
-        current_array[ri]=featurizer(mol)
+        try:
+            current_array[ri]=featurizer(mol)
+        except ValueError:
+            ignored_indices.append(i)
         ri+=1
         if ri>=ri_max:
             ri=0
+            np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
             np.save(current_file, current_array)
+            ignored_indices=[]
             if i<lenmols-1:
                 while os.path.exists(current_file) and stop_index<lenmols:
-                    current_file, current_array,ri_max,start_index,stop_index = turnover(stop_index)
+                    current_file,ignore_file, current_array,ri_max,start_index,stop_index = turnover(stop_index)
 
         #print(i,indices[i],files[indices[i]])
     return True
@@ -239,14 +246,16 @@ def featurize_atoms(row, mols,n_split=10_000):
 
     def turnover(current_start_index):
         current_file=files[indices[current_start_index]]
+        ignore_file = files[indices[current_start_index]][:-4]+"_ignored_indices.npy"
         ri_max = file_sizes[indices[current_start_index]]
 
-        return current_file,ri_max,current_start_index,current_start_index+ri_max
+        return current_file,ignore_file,ri_max,current_start_index,current_start_index+ri_max
 
-    current_file,ri_max,start_index,stop_index = turnover(start_index)
+    current_file,ignore_file,ri_max,start_index,stop_index = turnover(start_index)
 
     tempmols=[]
     ri=0
+    ignored_indices=[]
     for i, mol in tqdm(enumerate(mols), desc="featzurize atoms of mols", total=lenmols,position=1,leave=True):
         if i<start_index:
             continue
@@ -265,14 +274,19 @@ def featurize_atoms(row, mols,n_split=10_000):
             for j,smol in enumerate(tempmols):
                 atom_start_indices[j]=d
                 for atom in smol.GetAtoms():
-                    current_array[d]=featurizer(atom)
+                    try:
+                        current_array[d]=featurizer(atom)
+                    except ValueError:
+                        ignored_indices.append(d)
                     d+=1
             tempmols=[]
+            np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
+            ignored_indices=[]
             np.save(current_file, current_array)
             np.save(current_file[:-4]+"_atom_start_indices.npy", atom_start_indices)
             if i<lenmols-1:
                 while os.path.exists(current_file) and stop_index<lenmols:
-                    current_file,ri_max,start_index,stop_index = turnover(stop_index)
+                    current_file,ignore_file,ri_max,start_index,stop_index = turnover(stop_index)
 
         #print(i,indices[i],files[indices[i]])
     return True
