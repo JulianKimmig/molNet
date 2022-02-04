@@ -70,7 +70,7 @@ class PickledMolStreamer(MolStreamer):
         path=self._folder_getter(self)
         
         def _it():
-            for f in sorted([mf for mf in os.listdir(path) if mf.endswith(".mol")],key=lambda s: int(s[-4])):
+            for f in sorted([mf for mf in os.listdir(path) if mf.endswith(".mol")],key=lambda s: int(s[:-4])):
                 with open(os.path.join(path,f),"rb") as f:
                           yield pickle.load(f)     
         return _it()
