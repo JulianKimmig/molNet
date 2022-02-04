@@ -193,19 +193,27 @@ def featurize_mol(row, mols,n_split=100_000):
 
     ri=0
     ignored_indices=[]
+    ignored_reasons={}
     for i, mol in tqdm(enumerate(mols), desc="featzurize mols", total=lenmols):
         if i<start_index:
             continue
         try:
             current_array[ri]=featurizer(mol)
-        except (ValueError, RuntimeError):
-            ignored_indices.append(i)
+        except (ValueError, RuntimeError) as e:
+            se=str(e)
+            if se not in ignored_reasons:
+                ignored_reasons[se]=[]
+            ignored_reasons[se].append(ri)
+            ignored_indices.append(ri)
         ri+=1
         if ri>=ri_max:
             ri=0
             np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
             np.save(current_file, current_array)
+            with open(ignore_file+"reasons","w+") as f:
+                json.dump(ignored_reasons,f)
             ignored_indices=[]
+            ignored_reasons={}
             if i<lenmols-1:
                 while os.path.exists(current_file) and stop_index<lenmols:
                     current_file,ignore_file, current_array,ri_max,start_index,stop_index = turnover(stop_index)
@@ -256,6 +264,7 @@ def featurize_atoms(row, mols,n_split=10_000):
     tempmols=[]
     ri=0
     ignored_indices=[]
+    ignored_reasons={}
     for i, mol in tqdm(enumerate(mols), desc="featzurize atoms of mols", total=lenmols,position=1,leave=True):
         if i<start_index:
             continue
@@ -276,12 +285,19 @@ def featurize_atoms(row, mols,n_split=10_000):
                 for atom in smol.GetAtoms():
                     try:
                         current_array[d]=featurizer(atom)
-                    except (ValueError, RuntimeError):
+                    except (ValueError, RuntimeError) as e:
+                        se=str(e)
+                        if se not in ignored_reasons:
+                            ignored_reasons[se]=[]
+                        ignored_reasons[se].append(d)
                         ignored_indices.append(d)
                     d+=1
             tempmols=[]
             np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
+            with open(ignore_file+"reasons","w+") as f:
+                json.dump(ignored_reasons,f)
             ignored_indices=[]
+            ignored_reasons={}
             np.save(current_file, current_array)
             np.save(current_file[:-4]+"_atom_start_indices.npy", atom_start_indices)
             if i<lenmols-1:
