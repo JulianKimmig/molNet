@@ -53,6 +53,9 @@ class MolLoader():
             self.molloader, unit="mol", unit_scale=True, total=self.molloader.expected_data_size, desc="load mols"
         ))
 
+    def close(self):
+        self.molloader.close()
+
 def ini_limit_featurizer(featurizer):
     logger.info(f"feats initial length = {len(featurizer)}")
 
@@ -194,6 +197,7 @@ def featurize_mol(row, mols,n_split=100_000):
     ri=0
     ignored_indices=[]
     ignored_reasons={}
+    mols.close()
     for i, mol in tqdm(enumerate(mols), desc="featzurize mols", total=lenmols):
         if i<start_index:
             continue
@@ -210,7 +214,7 @@ def featurize_mol(row, mols,n_split=100_000):
             ri=0
             np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
             np.save(current_file, current_array)
-            with open(ignore_file+"reasons","w+") as f:
+            with open(ignore_file[:-4]+"_reasons","w+") as f:
                 json.dump(ignored_reasons,f)
             ignored_indices=[]
             ignored_reasons={}
@@ -265,6 +269,7 @@ def featurize_atoms(row, mols,n_split=10_000):
     ri=0
     ignored_indices=[]
     ignored_reasons={}
+    mols.close()
     for i, mol in tqdm(enumerate(mols), desc="featzurize atoms of mols", total=lenmols,position=1,leave=True):
         if i<start_index:
             continue
@@ -294,7 +299,7 @@ def featurize_atoms(row, mols,n_split=10_000):
                     d+=1
             tempmols=[]
             np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
-            with open(ignore_file+"reasons","w+") as f:
+            with open(ignore_file[:-4]+"_reasons","w+") as f:
                 json.dump(ignored_reasons,f)
             ignored_indices=[]
             ignored_reasons={}
