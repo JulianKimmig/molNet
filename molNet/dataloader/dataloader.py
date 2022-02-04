@@ -132,3 +132,6 @@ class DataLoader:
 
     def unpack(self, dl):
         return dl
+
+    def close(self):
+        self._data_streamer.close()
