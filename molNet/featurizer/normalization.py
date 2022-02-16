@@ -42,10 +42,10 @@ def linear_norm(x, m: float = 1, c: float = 0):
 
 @jit(nopython=True)
 def min_max_norm(x, min: float = 0, max: float = 1):
-    # if min>max:
-    #    max,min=min,max
-    # if min == max:
-    #    max*= 1+1e-6
+    if min>max:
+        max,min=min,max
+    if min == max:
+        max+= 1e-32
     ll:float = 0.0
     ul:float = 1.0
     return jitclip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)),ll,ul)
