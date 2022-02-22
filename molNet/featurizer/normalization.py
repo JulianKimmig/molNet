@@ -46,16 +46,25 @@ def min_max_norm(x, min: float = 0, max: float = 1):
         max,min=min,max
     if min == max:
         max+= 1e-32
+        max*=(1+1e-6)
     ll:float = 0.0
     ul:float = 1.0
     return jitclip(linear_norm(x, m=1 / (max - min), c=-min / (max - min)),ll,ul)
 
 @jit(nopython=True)
 def sig_norm(x, m: float = 0, d: float = 1):
-    return 1 / (1 + np.exp(-d * (x - m)))
+    div = (1 + np.exp(-d * (x - m)))
+    div[div==0]=1e-32
+    div[np.isposinf(div)]=1e32
+    div[np.isneginf(div)]=-1e32
+    return 1 /div
 
 @jit(nopython=True)
 def dual_sig_norm(x, m: float = 0, d1: float = 1, d2: float = 1):
+    if d2==0:
+        d2=1e-32
+    if d1==0:
+        d1=1e-32
     dt=max(d1/d2,d2/d1)*10
     s1=sig_norm(x, m, d1)
     s2=sig_norm(x, m, d2)
@@ -68,7 +77,19 @@ def genlog_norm(x, B: float = 1, M: float = 0, Q: float = 1, v: float = 0.1):
     # M=shifts horizontally (-np.inf,np.inf)
     # Q=urvibess/stepness (0,np.inf)
     # v=stepness (1e-12,np.inf)
-    return 1 / (1 + Q * np.exp(-B * (x - M))) ** (1 / v)
+    div= (1 + Q * np.exp(-B * (x - M)))
+    div[div==0]+=1e-32
+    div=div** (1 / v)
+    return 1 / div
+
+@jit(nopython=True)
+def weibull_norm(x, l: float = 1.0, k: float = 1.0):
+    if l<=0:
+        l=1e-32
+    if k<=0:
+        k=1e-32
+    x=x-x.min()
+    return 1  - np.exp(-(l*(x))**k)
 
 
 _t_array = np.linspace(0, 1, 5)
