@@ -1,276 +1,425 @@
 import logging
-import os, sys
-from typing import List,Tuple
-from rdkit.Chem import MolFromSmiles, Mol
-from tqdm import tqdm
-import pandas as pd
+import os
+import random
+import sys
+import time
+from functools import partial
+from multiprocessing import Pool, freeze_support, current_process, cpu_count, RLock
+from typing import List
+import shutil
+
 import numpy as np
+from rdkit.Chem import Mol, MolToSmiles, MolToInchiKey, MolFromSmiles
+from sqlalchemy.exc import OperationalError
+from tqdm import tqdm
+import pickle
+import json
+import sqlalchemy as sql 
 
 
-
-DEBUG=False
-
-# import relative if not in sys path
 if __name__ == "__main__":
     modp = os.path.dirname(os.path.abspath(__file__))
-    
+
     while not "molNet" in os.listdir(modp):
-        modp=os.path.dirname(modp)
+        modp = os.path.dirname(modp)
         if os.path.dirname(modp) == modp:
             raise ValueError("connot determine local molNet")
     if modp not in sys.path:
-        sys.path.insert(0,modp)
+        sys.path.insert(0, modp)
         sys.path.append(modp)
 
-import molNet
-import molNet.featurizer
+    import molNet
+    from molNet.featurizer.featurizer import FeaturizerList
+    from molNet.dataloader.molecular.prepmol import PreparedMolDataLoader
 
-from molNet.utils.parallelization.multiprocessing import parallelize
-from molNet.featurizer._molecule_featurizer import MoleculeFeaturizer, VarSizeMoleculeFeaturizer, \
-    prepare_mol_for_featurization
-from molNet.featurizer.featurizer import FeaturizerList
-from molNet import ConformerError
-from molNet.dataloader.molecular.prepmol import PreparedMolDataLoader
-from molNet.mol.mol import parallel_featurize_mol, parallel_featurize_mol_atoms
+    logger = molNet.MOLNET_LOGGER
+    logger.setLevel(logging.DEBUG)
 
-logger = molNet.MOLNET_LOGGER
-logger.setLevel(logging.DEBUG)
-test_mol = MolFromSmiles("CCC")
+class MolLoader():
+    def __init__(self,molloader, limit=None):
+        self.limit = limit
+        self.molloader = molloader
 
-def load_mols(loader, limit=None) -> List[Mol]:
-    if limit is not None and limit > 0:
-        return loader.get_n_entries(limit)
-    return [mol for mol in tqdm(
-        loader, unit="mol", unit_scale=True, total=loader.expected_data_size,desc="load mols"
-    )]
+    def __len__(self):
+        limit=self.limit if (self.limit is not None and self.limit>0) else self.molloader.expected_data_size
+        if limit<self.molloader.expected_data_size:
+            return limit
+        return self.molloader.expected_data_size
 
-def _single_call_parallel_featurize_molfiles(d: Tuple[Mol, MoleculeFeaturizer]):
-    feat = d[0][1]
-    r = np.zeros((len(d), *feat(test_mol).shape)) * np.nan
-    for i, data in enumerate(d):
-        mol = data[0]
-        feat = data[1]
-        feat.preferred_norm = None
-        try:
-            r[i] = feat(mol)
-        except (ConformerError, ValueError, ZeroDivisionError):
-            pass
-    return r
+    def __iter__(self):
+        if self.limit is not None and self.limit>0:
+            return (m for m in self.molloader.get_n_entries(self.limit))
+        return iter(tqdm(
+            self.molloader, unit="mol", unit_scale=True, total=self.molloader.expected_data_size, desc="load mols"
+        ))
 
-from multiprocessing import Pool, RLock,freeze_support
-from multiprocessing import current_process,cpu_count
-from functools import partial
+    def close(self):
+        self.molloader.close()
+
+def ini_limit_featurizer(featurizer):
+    logger.info(f"feats initial length = {len(featurizer)}")
+
+    featurizer["isListFeat"] = featurizer["instance"].apply(lambda f: isinstance(f, FeaturizerList))
+    featurizer["instance"].apply(lambda f: f.set_preferred_norm(None))
+    featurizer.drop(featurizer.index[featurizer["isListFeat"]], inplace=True)
+    logger.info(f"featurizer length after FeaturizerList drop = {len(featurizer)}")
+    featurizer.drop(featurizer.index[featurizer["dtype"] == bool], inplace=True)
+    logger.info(f"featurizer length after bool drop = {len(featurizer)}")
+    featurizer.drop(featurizer.index[featurizer["length"] <= 0], inplace=True)
+    logger.info(f"featurizer length after length<1 drop = {len(featurizer)}")
+    featurizer = featurizer.sort_values("length")
+
+    def _dt(r):
+        return np.issubdtype(r["dtype"],np.number)
+
+    featurizer.drop(featurizer.index[~featurizer.apply(_dt,axis=1)], inplace=True)
+    logger.info(f"featurizer length after non numeric drop = {len(featurizer)}")
+
+    return featurizer
 
 
-def progresser(f,mols,lenmol,lendata,ntotal,pos=None,as_atom=False):
-    f,d=f
-    text=f"{d.name.rsplit('.',1)[1]} ({d['idx']}/{ntotal})"
-    feat=d["instance"]
-    path=d["ecfd_path"]
-    os.makedirs(os.path.dirname(path),exist_ok=True)
-    #pos=d['idx']+1
-    #pos = current_process()._identity[0]-1
-    #pos=None
-    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"])
-    a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lendata,d['length']))
-    print(a.shape)
-    try:
-        if as_atom:
-            parallel_featurize_mol_atoms(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=max(1,int(lenmol/1000)))
+def update_featurizer(featurizer):
+    red_featurizer=featurizer[~featurizer["done"]].copy()
+    red_featurizer["done"]=False
+    red_featurizer["working"]=False
+    for r,d in red_featurizer.iterrows():
+        os.makedirs(d["data_path"],exist_ok=True)
+        info_file = os.path.join(d["data_path"],"info.json")
+        if not os.path.exists(info_file):
+            with open(info_file,"w+") as f:
+                json.dump({},f,indent=4)
+
+        with open(info_file,"r") as f:
+            info = json.load(f)
+
+        info_change=False
+        if "done" not in info:
+            info["done"]=False
+            info_change=True
         else:
-            parallel_featurize_mol(mols,feat,target_array=a,progress_bar_kwargs=dict(desc=text),split_parts=max(1,int(lenmol/1000)))
-    except Exception as e:
-        logger.exception(e)
-        if os.path.exists(path):
-            os.remove(path)
-        return False
-    return True
+            red_featurizer.loc[r,"done"]=info["done"]
 
-    try:
-        a = np.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
-        #del a
-        #a = np.memmap(path, dtype=d['dtype'], mode='r+', shape=(lenmols,d['length']))
-        #j=100_000
-        for i,mol in tqdm(enumerate(mols),desc=text,total=lenmols, position=pos):
-            #j-=1
-            #if j<=0:
-                #print(psutil.virtual_memory())
-                #a.flush()
-                #del a
-                #gc.collect()
-                #print(psutil.virtual_memory())
-                #a = np.memmap(path, dtype=d['dtype'], mode='r+', shape=(lenmols,d['length']))
-                #j=100_000
-            try:
-                r = feat(mol)
-                a[i] = r
-            except (ConformerError, ValueError, ZeroDivisionError):
-                a[i] = empty_bytes
-                pass
-            #raise ValueError()
-    except Exception as e:
-        logger.exception(e)
-        if os.path.exists(path):
-            os.remove(path)
-        
-        return False
-    return True
+        if "working" not in info:
+            info["working"]=False
+            info_change=True
+        else:
+            red_featurizer.loc[r,"working"]=info["working"]
 
-def _progresser(molfeats,mols,lenmols,ntotal,pos=None):
-    print(".")
-    for r in molfeats.iterrows():
-        if not progresser(r,mols=mols,lenmols=lenmols,ntotal=ntotal,pos=pos):
+        if info_change:
+            with open(info_file,"w+") as f:
+                json.dump(info,f,indent=4)
+
+    red_featurizer=red_featurizer[~red_featurizer["done"]].copy()
+
+    return red_featurizer
+
+class WorkOnWorkingError(Exception):
+    pass
+
+def prep_to_work(row):
+    info_file = os.path.join(row["data_path"],"info.json")
+    with open(info_file,"r") as f:
+        info = json.load(f)
+    if info["working"]:
+        raise WorkOnWorkingError("try to work on feat wich is under work")
+    info["working"]=True
+    with open(info_file,"w+") as f:
+        json.dump(info,f,indent=4)
+
+
+def finish_work(row,done):
+    info_file = os.path.join(row["data_path"],"info.json")
+    with open(info_file,"r") as f:
+        info = json.load(f)
+    info["working"]=False
+    info["done"]=done
+    with open(info_file,"w+") as f:
+        json.dump(info,f,indent=4)
+    lock_file=os.path.join(row["data_path"],".lock")
+    if os.path.exists(lock_file):
+        os.remove(lock_file)
+
+def get_and_lock_row(featurizer):
+    for r,d in featurizer.iterrows():
+        if d["working"]:
+            continue
+        lock_file=os.path.join(d["data_path"],".lock")
+        if os.path.exists(lock_file):
+            continue
+        with open(lock_file,"w+") as f:
             pass
-            
-#    empty_bytes = (np.ones(d["length"])*np.nan).astype(d["dtype"]).tobytes()
-#    try:
-#        a = numpy.memmap(path, dtype=d['dtype'], mode='w+', shape=(lenmols,d['length']))
-#        with open(path,"w+b") as f:
-#            for i,mol in tqdm(enumerate(mols),desc=text,total=lenmols, position=pos):
-#                try:
-#                    f.write(feat(mol).tobytes())
-#                except (ConformerError, ValueError, ZeroDivisionError):
-#                    f.write(empty_bytes)
-#    except Exception as e:
-#        logger.exception(e)
-#        os.remove(path)
-#        return False
-#    return True
+        return d
+
+def featurize_mol(row, mols,n_split=100_000):
+    featurizer=row["instance"]
+    lenmols=len(mols)
+
+    range_start= np.arange(0,lenmols+n_split,n_split)
 
 
-def _generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame):
-    tqdm.set_lock(RLock())
-    molfeats["idx"]=np.arange(len(molfeats))+1
-    #molfeats=molfeats.iloc[:10]
-    num_processes = cpu_count()-1
+    range_start[-1]=lenmols
 
-    # calculate the chunk size as an integer
-    chunk_size = max(1,int(molfeats.shape[0]/num_processes))
+    files = [os.path.join(row["data_path"],
+        f"feats_{range_start[i]+1}_{e}.npy"
+                    )
+        for i,e in enumerate(range_start[1:])]
+    file_sizes=[e-range_start[i]
+        for i,e in enumerate(range_start[1:])
+    ]
 
-    # this solution was reworked from the above link.
-    # will work even if the length of the dataframe is not evenly divisible by num_processes
-    chunks = [molfeats.loc[molfeats.index[i:i + chunk_size]] for i in range(0, molfeats.shape[0], chunk_size)]
-    print(chunks)
-    with Pool(processes=num_processes,initializer=tqdm.set_lock, initargs=(tqdm.get_lock(),)) as pool:
-        pool.imap_unordered(partial(_progresser,mols=mols,lenmols=len(mols),ntotal=len(molfeats)), chunks)
-    return
+    files_exists=[os.path.exists(f) for f in files]
 
-def generate_ecdf_dist(mols:List[Mol], molfeats:pd.DataFrame,as_atom=False):
-    tqdm.set_lock(RLock())
-    molfeats["idx"]=np.arange(len(molfeats))+1
-    #molfeats=molfeats.iloc[:10]
-    #num_processes = multiprocessing.cpu_count()-1
+    if all(files_exists):
+        return True
 
-    # calculate the chunk size as an integer
-    #chunk_size = int(molfeats.shape[0]/num_processes)
+    first_needed_file_index=files_exists.index(False)
 
-    # this solution was reworked from the above link.
-    # will work even if the length of the dataframe is not evenly divisible by num_processes
-    #chunks = [molfeats.iloc[molfeats.index[i:i + chunk_size]] for i in range(0, molfeats.shape[0], chunk_size)]
+    indices=np.zeros(lenmols,dtype=int)
+    indices[range_start[:-1]]=1
+    indices=np.cumsum(indices)-1
+
+    start_index=(indices==first_needed_file_index).argmax()
+
+    def turnover(current_start_index):
+        current_file=files[indices[current_start_index]]
+        ignore_file = files[indices[current_start_index]][:-4]+"_ignored_indices.npy"
+        current_array=(np.zeros((
+            file_sizes[indices[current_start_index]],
+            row["length"]
+        ))*np.nan).astype(row["dtype"])
+
+        ri_max = file_sizes[indices[current_start_index]]
+
+        return current_file,ignore_file, current_array,ri_max,current_start_index,current_start_index+ri_max
+
+    current_file,ignore_file, current_array,ri_max,start_index,stop_index = turnover(start_index)
+
+    ri=0
+    ignored_indices=[]
+    ignored_reasons={}
+    mols.close()
+    for i, mol in tqdm(enumerate(mols), desc="featzurize mols", total=lenmols):
+        if i<start_index:
+            continue
+        try:
+            current_array[ri]=featurizer(mol)
+        except (ValueError, RuntimeError) as e:
+            se=str(e)
+            if se not in ignored_reasons:
+                ignored_reasons[se]=[]
+            ignored_reasons[se].append(ri)
+            ignored_indices.append(ri)
+        ri+=1
+        if ri>=ri_max:
+            ri=0
+            np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
+            np.save(current_file, current_array)
+            with open(ignore_file[:-4]+"_reasons","w+") as f:
+                json.dump(ignored_reasons,f)
+            ignored_indices=[]
+            ignored_reasons={}
+            if i<lenmols-1:
+                while os.path.exists(current_file) and stop_index<lenmols:
+                    current_file,ignore_file, current_array,ri_max,start_index,stop_index = turnover(stop_index)
+
+        #print(i,indices[i],files[indices[i]])
+    return True
 
 
-    lenmol=len(mols)
-    if as_atom:
-        lendata=sum([m.GetNumAtoms() for m in mols])
-    else:
-        lendata=lenmol
-    call=partial(progresser,mols=mols,lenmol=lenmol,lendata=lendata,ntotal=len(molfeats),as_atom=as_atom)
-    for r in molfeats.iterrows():
-        if not call(r):
-            break
-    return
+def featurize_atoms(row, mols,n_split=10_000):
+    featurizer=row["instance"]
+    lenmols=len(mols)
 
-def main(dataloader,path,max_mols=None):    
-    freeze_support() 
+    range_start= np.arange(0,lenmols+n_split,n_split)
+
+
+    range_start[-1]=lenmols
+
+    files = [os.path.join(row["data_path"],
+                          f"feats_{range_start[i]+1}_{e}.npy"
+                          )
+             for i,e in enumerate(range_start[1:])]
+    file_sizes=[e-range_start[i]
+                for i,e in enumerate(range_start[1:])
+                ]
+
+    files_exists=[os.path.exists(f) for f in files]
+
+    if all(files_exists):
+        return True
+
+    first_needed_file_index=files_exists.index(False)
+
+    indices=np.zeros(lenmols,dtype=int)
+    indices[range_start[:-1]]=1
+    indices=np.cumsum(indices)-1
+
+    start_index=(indices==first_needed_file_index).argmax()
+
+    def turnover(current_start_index):
+        current_file=files[indices[current_start_index]]
+        ignore_file = files[indices[current_start_index]][:-4]+"_ignored_indices.npy"
+        ri_max = file_sizes[indices[current_start_index]]
+
+        return current_file,ignore_file,ri_max,current_start_index,current_start_index+ri_max
+
+    current_file,ignore_file,ri_max,start_index,stop_index = turnover(start_index)
+
+    tempmols=[]
+    ri=0
+    ignored_indices=[]
+    ignored_reasons={}
+    mols.close()
+    for i, mol in tqdm(enumerate(mols), desc="featzurize atoms of mols", total=lenmols,position=1,leave=True):
+        if i<start_index:
+            continue
+        tempmols.append(mol)
+
+        ri+=1
+        if ri>=ri_max:
+            ri=0
+            n_atoms=sum([m.GetNumAtoms() for m in tempmols])
+            current_array=(np.zeros((
+                n_atoms,
+                row["length"]
+            ))*np.nan).astype(row["dtype"])
+            atom_start_indices=np.zeros(len(tempmols))
+            d=0
+            for j,smol in enumerate(tempmols):
+                atom_start_indices[j]=d
+                for atom in smol.GetAtoms():
+                    try:
+                        current_array[d]=featurizer(atom)
+                    except (ValueError, RuntimeError) as e:
+                        se=str(e)
+                        if se not in ignored_reasons:
+                            ignored_reasons[se]=[]
+                        ignored_reasons[se].append(d)
+                        ignored_indices.append(d)
+                    d+=1
+            tempmols=[]
+            np.save(ignore_file, np.array(ignored_indices,dtype=np.uint32))
+            with open(ignore_file[:-4]+"_reasons","w+") as f:
+                json.dump(ignored_reasons,f)
+            ignored_indices=[]
+            ignored_reasons={}
+            np.save(current_file, current_array)
+            np.save(current_file[:-4]+"_atom_start_indices.npy", atom_start_indices)
+            if i<lenmols-1:
+                while os.path.exists(current_file) and stop_index<lenmols:
+                    current_file,ignore_file,ri_max,start_index,stop_index = turnover(stop_index)
+
+        #print(i,indices[i],files[indices[i]])
+    return True
+
+
+def main(dataloader, path, max_mols=None,ignore_existsing_feats=True,ignore_existsing_data=True,mean_feat_delay=1):
     if dataloader == "ChemBLdb29":
         from molNet.dataloader.molecular.ChEMBLdb import ChemBLdb29 as dataloaderclass
     elif dataloader == "ESOL":
         from molNet.dataloader.molecular.ESOL import ESOL as dataloaderclass
     else:
         raise ValueError(f"unknown dataloader '{dataloader}'")
-    mols = None
 
-    for featurizer,as_atom in (
-            (molNet.featurizer.get_molecule_featurizer_info,False),
-            (molNet.featurizer.get_atom_featurizer_info,True)
-    ):
-        logger.info("get molNet featurizer")
-        featurizer = featurizer()
-        logger.info(f"feats  initial length = {len(featurizer)}")
+    path=os.path.abspath(path)
+    logger.info(f"using path '{path}'")
 
-        featurizer["isListFeat"] = featurizer["instance"].apply(lambda f: isinstance(f,FeaturizerList))
-        featurizer.drop(featurizer.index[featurizer["isListFeat"]], inplace=True)
-        logger.info(f"featurizer length after FeaturizerList drop = {len(featurizer)}")
-        featurizer=featurizer[featurizer.dtype!=bool]
-        logger.info(f"featurizer length after bool drop = {len(featurizer)}")
-        featurizer=featurizer[featurizer.length>0]
-        logger.info(f"featurizer length after length<1 drop = {len(featurizer)}")
-        #featurizer=featurizer[featurizer.length<2]
-        #logger.info(f"featurizer length after length>1 drop = {len(featurizer)}")
+    os.makedirs(path,exist_ok=True)
 
-        featurizer=featurizer.sort_values("length")
+    dataset_name=f"{dataloaderclass.__module__}.{dataloaderclass.__name__}"
+
+    logger.info("load mols")
+    loader = PreparedMolDataLoader(dataloaderclass(
+        data_streamer_kwargs=dict(iter_None=True))
+    )
+    mols = MolLoader(loader, limit=max_mols)
+
+    # for mols
+    featurizer = molNet.featurizer.get_molecule_featurizer_info()
+    logger.info(f"limit mol featurizer for {dataset_name}")
+    featurizer = ini_limit_featurizer(featurizer)
+    featurizer["done"]=False
+
+    data_path=os.path.join(path,dataset_name)
+    featurizer["data_path"]=[os.path.join(data_path,idx) for idx in featurizer.index]
+
+    red_featurizer=update_featurizer(featurizer)
+    MAX_ERRORS=40
+
+    error_countdown=MAX_ERRORS
+    while len(red_featurizer)>0:
+        row=None
+        done=False
+        try:
+            time.sleep(random.random()*2*mean_feat_delay)
+            red_featurizer=update_featurizer(red_featurizer)
+            if len(red_featurizer)==0:
+                break
+            row=get_and_lock_row(red_featurizer)
+            if row is None:
+                raise WorkOnWorkingError()
+            logger.info(f"featurize {row.name} ({len(red_featurizer)} to go)")
+            prep_to_work(row)
+            done = featurize_mol(row,mols,)
+
+        except WorkOnWorkingError:
+            error_countdown-=1
+        except Exception as e:
+            logger.exception(e)
+            error_countdown-=1
+        finally:
+            if row is not None:
+                finish_work(row,done)
+        if error_countdown<=0:
+            logger.error("Error countdown reached")
+            break
+
+    featurizer = molNet.featurizer.get_atom_featurizer_info()
+    logger.info(f"limit atom featurizer for {dataset_name}")
+    featurizer = ini_limit_featurizer(featurizer)
+    featurizer["done"]=False
+
+    data_path=os.path.join(path,dataset_name)
+    featurizer["data_path"]=[os.path.join(data_path,idx) for idx in featurizer.index]
+
+    red_featurizer=update_featurizer(featurizer)
+
+    error_countdown=MAX_ERRORS
+    while len(red_featurizer)>0:
+        row=None
+        done=False
+        try:
+            time.sleep(random.random()*2*mean_feat_delay)
+            red_featurizer=update_featurizer(red_featurizer)
+            if len(red_featurizer)==0:
+                break
+            row=get_and_lock_row(red_featurizer)
+            if row is None:
+                continue
+            logger.info(f"featurize {row.name} ({len(red_featurizer)}) to go")
+            prep_to_work(row)
+            done = featurize_atoms(row,mols,)
+            error_countdown=MAX_ERRORS
+        except WorkOnWorkingError:
+            error_countdown-=1
+        except Exception as e:
+            logger.exception(e)
+            error_countdown-=1
+        finally:
+            if row is not None:
+                finish_work(row,done)
+        if error_countdown<=0:
+            logger.error("Error countdown reached")
+            break
 
 
-
-
-        if mols is None:
-            loader = PreparedMolDataLoader(dataloaderclass())
-            logger.info("load mols")
-            #mols=[None]*loader.expected_data_size
-            mols = load_mols(loader,limit=max_mols)
-
-            #logger.info("prepare mols")
-            #mols=[ prepare_mol_for_featurization(m) for m in tqdm(mols)]
-        data=mols
-
-        dl_path=os.path.join(path,"raw_features",dataloader)
-        featurizer["ecfd_path"]=[os.path.join(dl_path,*mod.split("."))+".dat" for mod in featurizer.index]
-
-        #turns off norm
-        featurizer["instance"].apply(lambda i: i.set_preferred_norm("None"))
-        featurizer["norem"]=featurizer["instance"].apply(lambda i: i.preferred_norm)
-
-
-        def _cz(r):
-            if not os.path.exists(r["ecfd_path"]):
-                return np.nan
-            try:
-                return np.memmap(r["ecfd_path"], dtype=r["dtype"], mode='r',).size
-            except (ValueError,FileNotFoundError):
-                os.remove(r["ecfd_path"])
-                return np.nan
-
-
-
-        featurizer["current_size"] = featurizer[["ecfd_path","dtype"]].apply(
-            _cz,
-            axis=1)
-
-        if as_atom:
-            datalength = sum([m.GetNumAtoms() for m in mols])
-        else:
-            datalength = len(data)
-        featurizer["current_length"]= featurizer[["length","current_size"]].apply(
-            lambda r: r["current_size"]/datalength,
-            axis=1)
-
-        rem_idx=featurizer[~np.isnan(featurizer["current_length"]) & (featurizer["current_length"]!=featurizer["length"])].index
-        for p in featurizer.loc[rem_idx]["ecfd_path"]:
-             os.remove(p)
-        featurizer.loc[rem_idx,"current_length"]=np.nan
-
-        workfeats=featurizer[np.isnan(featurizer["current_length"])].copy()
-        if data[0] is None:
-            return
-        generate_ecdf_dist(data, workfeats,as_atom=as_atom)
-    
-    
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d','--dataloader', type=str,required=True)
+    parser.add_argument('-d', '--dataloader', type=str, required=True)
     parser.add_argument('--max_mols', type=int)
-    parser.add_argument('-p','--path', type=str,default=os.path.join(molNet.get_user_folder(),"autodata","ecdf"))
+    parser.add_argument('--path', type=str, default=os.path.join(molNet.get_user_folder(), "autodata", "feats_raw_filebased"))
     args = parser.parse_args()
-    main(dataloader=args.dataloader,max_mols=args.max_mols,path=args.path)
+    main(dataloader=args.dataloader, max_mols=args.max_mols, path=args.path,ignore_existsing_feats=True,ignore_existsing_data=True,)
