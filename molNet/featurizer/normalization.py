@@ -80,6 +80,9 @@ def genlog_norm(x, B: float = 1, M: float = 0, Q: float = 1, v: float = 0.1):
     div= (1 + Q * np.exp(-B * (x - M)))
     div[div==0]+=1e-32
     div=div** (1 / v)
+    div[np.isnan(div)] = 1e-32
+    div[np.isposinf(div)] = 1e32
+    div[np.isneginf(div)] = -1e32
     return 1 / div
 
 @jit(nopython=True)
@@ -89,7 +92,11 @@ def weibull_norm(x, l: float = 1.0, k: float = 1.0):
     if k<=0:
         k=1e-32
     x=x-x.min()
-    return 1  - np.exp(-(l*(x))**k)
+    r=1  - np.exp(-(l*(x))**k)
+    r[np.isnan(r)] = 0
+    r[np.isposinf(r)] = 1e32
+    r[np.isneginf(r)] = -1e32
+    return 
 
 
 _t_array = np.linspace(0, 1, 5)
