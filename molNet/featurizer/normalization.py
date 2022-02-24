@@ -34,7 +34,11 @@ def tanh_norm(x,m:float=0,d:float=1):
     dx=d*(x-m)
     ex = np.exp(dx)
     enx= np.exp(-dx)
-    return (ex-enx)/(ex+enx)
+    r=(ex-enx)/(ex+enx)
+    r[np.isnan(r)] = 0
+    r[np.isposinf(r)] = 1e32
+    r[np.isneginf(r)] = -1e32
+    return r
 
 @jit(nopython=True)
 def linear_norm(x, m: float = 1, c: float = 0):
