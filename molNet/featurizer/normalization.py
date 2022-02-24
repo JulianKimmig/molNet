@@ -100,7 +100,7 @@ def weibull_norm(x, l: float = 1.0, k: float = 1.0):
     r[np.isnan(r)] = 0
     r[np.isposinf(r)] = 1e32
     r[np.isneginf(r)] = -1e32
-    return 
+    return r
 
 
 _t_array = np.linspace(0, 1, 5)
