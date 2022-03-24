@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Callable, Any
 from warnings import warn
 
 AS_NUMPY_ARRY = False
@@ -11,38 +11,62 @@ class OneHotEncodingException(Exception):
     pass
 
 
-class Featurizer(NormalizationClass):
+class Featurizer():
     dtype = object
     NAME = None
     NORMALIZATION = None
     DESCRIPTION = None
 
-    def pre_featurize(self, x):
-        return x
+    def prepend_postfeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        if name in self._post_featurizer_names:
+            raise ValueError(f"{name} is already in the list of postfeaturizers")
+        self._post_featurizer.insert(0, pre_featurizer)
+        self._post_featurizer_names.insert(0, name)
 
-    def post_featurize(self, x):
-        return x
+    def append_postfeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        if name in self._post_featurizer_names:
+            raise ValueError(f"{name} is already in the list of postfeaturizers")
+        self._post_featurizer.append(pre_featurizer)
+        self._post_featurizer_names.append(name)
 
-    def __init__(self, name=None, pre_featurize=None, post_featurize=None, dtype=None, feature_descriptions=None, *args,
+    def add_postfeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        self.append_postfeaturizer(pre_featurizer,name=name)
+
+
+    def prepend_prefeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        if name in self._pre_featurizer_names:
+            raise ValueError(f"{name} is already in the list of prefeaturizers")
+        self._pre_featurizer.insert(0, pre_featurizer)
+        self._pre_featurizer_names.insert(0, name)
+
+    def append_prefeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        if name in self._pre_featurizer_names:
+            raise ValueError(f"{name} is already in the list of prefeaturizers")
+        self._pre_featurizer.append(pre_featurizer)
+        self._pre_featurizer_names.append(name)
+
+    def add_prefeaturizer(self, pre_featurizer:Callable[["Featurizer",Any], Any],name:str):
+        self.append_prefeaturizer(pre_featurizer,name=name)
+
+    def __init__(self, name=None, dtype=None, feature_descriptions=None, *args,
                  **kwargs):
-        super().__init__(*args, **kwargs)
 
         if name is None:
             if self.NAME is None:
-                name = self.__class__.__name__
+                name = f'{self.__class__.__module__}.{self.__class__.__name__}'
             else:
                 name = self.NAME
-        if pre_featurize is None:
-            pre_featurize = self.pre_featurize
-        if post_featurize is None:
-            post_featurize = self.post_featurize
+        self._name = name
+        super().__init__(*args, **kwargs)
 
         if dtype is None:
             dtype = self.dtype
         self._dtype = dtype
-        self._pre_featurize = pre_featurize
-        self._post_featurize = post_featurize
-        self._name = name
+        self._pre_featurizer:List[Callable[["Featurizer",Any], Any]] = []
+        self._post_featurizer:List[Callable[["Featurizer",Any], Any]] = []
+        self._post_featurizer_names:List[str] = []
+        self._pre_featurizer_names:List[str] = []
+
 
         if feature_descriptions is None and self.DESCRIPTION is not None:
             feature_descriptions = self.DESCRIPTION
@@ -76,16 +100,38 @@ class Featurizer(NormalizationClass):
     def featurize(self, to_featurize):
         return to_featurize
 
-    def __call__(self, to_featurize):
-        if self._pre_featurize is not None:
-            to_featurize = self._pre_featurize(to_featurize)
+    def prefeaturize(self, to_featurize:Any,ignored_prefeaturizers:List[str]=None):
+        if ignored_prefeaturizers is None:
+            ignored_prefeaturizers = []
+        for i,pref in enumerate(self._pre_featurizer):
+            if self._pre_featurizer_names[i] in ignored_prefeaturizers:
+                continue
+            to_featurize = pref(self,to_featurize)
+        return to_featurize
+
+    def postfeaturize(self, to_featurize:Any,ignored_postfeaturizers:List[str]=None):
+        if ignored_postfeaturizers is None:
+            ignored_postfeaturizers = []
+        for i,postf in enumerate(self._post_featurizer):
+            if self._post_featurizer_names[i] in ignored_postfeaturizers:
+                continue
+            to_featurize = postf(self,to_featurize)
+        return to_featurize
+
+    def __call__(self, to_featurize,ignored_prefeaturizers=None,ignored_postfeaturizers=None):
+        if ignored_prefeaturizers is None:
+            ignored_prefeaturizers = []
+        if ignored_postfeaturizers is None:
+            ignored_postfeaturizers = []
+
+        to_featurize = self.prefeaturize(to_featurize,ignored_prefeaturizers=ignored_prefeaturizers)
+        for pref in self._pre_featurizer:
+            to_featurize = pref(self,to_featurize)
         f = self.featurize(to_featurize)
-        if self._pre_featurize is not None:
-            f = self._post_featurize(f)
         f = np.array(f, dtype=self._dtype)
         if not f.ndim:
             f = np.expand_dims(f, 0)
-        f = self.normalize(f)
+        f= self.postfeaturize(f,ignored_postfeaturizers=ignored_postfeaturizers)
         return f
 
     def describe_features(self):
@@ -104,6 +150,9 @@ class FixedSizeFeaturizer(Featurizer):
             raise ValueError(
                 f"no length given to {self}, please define via 'LENGTH' as class attribute or via keyword 'length' during initialization")
         self._length = length
+        if len(self)<=0:
+            raise ValueError(
+                f"length of {self}, is 0 or smaller, which seems unreasonable")
 
         super().__init__(*args, **kwargs)
 
@@ -116,8 +165,8 @@ class FixedSizeFeaturizer(Featurizer):
             )
         return self._length
 
-    def __call__(self, to_featurize):
-        f = super().__call__(to_featurize)
+    def __call__(self, to_featurize, **kwargs):
+        f = super().__call__(to_featurize, **kwargs)
         if self._length is None:
             self._len = len(f)
         return f

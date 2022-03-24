@@ -53,29 +53,25 @@ def check_mol_is_prepared(mol):
     return False
 
 
+def mol_pre_featurize(featurizer,mol):
+    mol=Mol(mol)#autocopy
+    if not check_mol_is_prepared(mol):
+        if not featurizer._unprepared_logged:
+            MOLNET_LOGGER.warning("you tried to featurize a molecule without previous preparation. "
+                                  "I will do this for you, but please try to implement this, "
+                                  "otherwise you might end uo with differences in yout molecules and the featurized,"
+                                  " since the preparation creates an copy of the molecule, "
+                                  "adds hydrogens, conformerst etc."
+                                  "")
+            featurizer._unprepared_logged = True
+        mol = prepare_mol_for_featurization(mol)
+    return mol
+
 class _MoleculeFeaturizer(Featurizer):
-    def pre_featurize(self, mol):
-        mol=Mol(mol)#autocopy
-        if not check_mol_is_prepared(mol):
-            if not self._unprepared_logged:
-                MOLNET_LOGGER.warning("you tried to featurize a molecule without previous preparation. "
-                                      "I will do this for you, but please try to implement this, "
-                                      "otherwise you might end uo with differences in yout molecules and the featurized,"
-                                      " since the preparation creates an copy of the molecule, "
-                                      "adds hydrogens, conformerst etc."
-                                      "")
-                self._unprepared_logged = True
-            mol = prepare_mol_for_featurization(mol)
-        if self._add_prefeat:
-            mol = self._add_prefeat(mol)
-        return mol
-
     def __init__(self, *args, **kwargs):
-        self._add_prefeat = kwargs.get("pre_featurize", None)
         self._unprepared_logged = False
-        kwargs["pre_featurize"] = None
-
         super().__init__(*args, **kwargs)
+        self.prepend_prefeaturizer(mol_pre_featurize,"mol_pre_featurize")
 
 
 class VarSizeMoleculeFeaturizer(_MoleculeFeaturizer, Featurizer):

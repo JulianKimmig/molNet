@@ -9,7 +9,7 @@ try:
 
     for n, f in _manual_molecule_featurizer.get_available_featurizer().items():
         if n in _available_featurizer:
-            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting moelcule featurizer: {n}")
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting molecule featurizer: {n}")
             continue
         _available_featurizer[n] = f
 
@@ -25,7 +25,7 @@ try:
         if n in _available_featurizer:
             n = f"autogen_molecule_featurizer_{n}"
         if n in _available_featurizer:
-            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting moelcule featurizer: {n}")
+            MOLNET_LOGGER.warning(f"encoutered duplicate while collecting molecule featurizer: {n}")
             continue
         _available_featurizer[n] = f
 
