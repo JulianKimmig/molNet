@@ -14,6 +14,7 @@ dependencies:
   - pytorch==1.9.0
   - torchvision
   - torchaudio
+  - pytorch-lightning
   - pyg
   - numba>=0.55
   - ipykernel
