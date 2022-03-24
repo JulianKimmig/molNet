@@ -30,21 +30,20 @@ def _write_env():
         f.write(cont)
         
 _read_env()
-            
-    
+
+def set_environment_variable(key,value,permanent=False):
+    os.environ[key]=str(value)
+    if permanent:
+        LOKAL_ENVS[key]=os.environ[key]
+        _write_env()
+
 def set_user_folder(path,permanent=False):
-    os.environ["MOLNET_DIR"]=os.path.abspath(path)
+    path=os.path.abspath(path)
+    set_environment_variable("MOLNET_DIR",path,permanent=permanent)
     os.makedirs(os.environ["MOLNET_DIR"],exist_ok=True)
-
-
     #update log dir
     for cl in _USERFOLDERCHANGELISTENER:
         cl(get_user_folder())
-
-
-    if permanent:
-        LOKAL_ENVS["MOLNET_DIR"]=os.environ["MOLNET_DIR"]
-        _write_env()
         
 def get_user_folder():
     return os.environ["MOLNET_DIR"]
