@@ -1,3 +1,6 @@
+import os
+
+import numpy as np
 from tqdm import tqdm
 
 from molNet import MOLNET_LOGGER
@@ -124,3 +127,33 @@ class DataStreamer:
 
     def update_data(self, d):
         return d
+
+
+class NumpyStreamer(DataStreamer):
+    def __init__(
+            self,
+            dataloader,
+            folder_getter,
+            *args,
+            cached=False,
+            **kwargs
+    ):
+
+        super(NumpyStreamer, self).__init__(
+            dataloader,
+            *args,
+            **kwargs,
+            cached=cached,
+            progress_bar_kwargs=dict(unit="array", unit_scale=True),
+        )
+
+        self._folder_getter = folder_getter
+
+
+    def get_iterator(self):
+        path=self._folder_getter(self)
+
+        def _it():
+            for f in sorted([mf for mf in os.listdir(path) if mf.endswith(".npy")],key=lambda s: int(s[:-4])):
+                yield np.load(os.path.join(path,f))
+        return _it()

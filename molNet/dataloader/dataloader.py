@@ -27,7 +27,7 @@ class DataLoader:
             data_streamer_kwargs = {}
         if parent_dir is None:
             parent_dir = os.path.join(
-                molNet.get_user_folder(), "dataloader", self.__class__.__name__
+                molNet.get_user_folder(), "dataloader", str(self)
             )
         os.makedirs(parent_dir, exist_ok=True)
         self._parent_dir = parent_dir
@@ -133,5 +133,11 @@ class DataLoader:
     def unpack(self, dl):
         return dl
 
+    def __len__(self):
+        return self.expected_data_size
+
     def close(self):
         self._data_streamer.close()
+
+    def __str__(self):
+        return f"{self.__class__.__module__}.{self.__class__.__name__}"
