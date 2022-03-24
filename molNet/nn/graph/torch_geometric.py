@@ -10,6 +10,18 @@ from numpy import ndarray
 
 from molNet.mol.molgraph import MolGraph
 
+def graph_input_from_edgelist(edgelist,node_features,y=None):
+    #assert both connection directions
+    edgelist=np.concatenate((edgelist,edgelist[[1,0],:]),axis=1)
+    edgelist=np.unique(edgelist,axis=1)
+
+    return torch_geometric.data.Data(
+        edge_index=torch.from_numpy(edgelist).long(),
+        y=None if y is None else torch.from_numpy(y.astype(float)).float(),
+        x=torch.from_numpy(node_features.astype(float)).float(),
+        num_nodes=len(node_features),
+       # edge_index=torch.from_numpy(edge_index).long(),
+    )
 
 def molgraph_arrays_to_graph_input(
     size: int,

@@ -11,7 +11,7 @@ from torch_scatter import (
     # scatter_log_softmax,
     # scatter_softmax,
 )
-
+from torch_geometric.nn import Sequential as GCSequential, GCNConv
 
 class PoolWeightedSum(nn.Module):
     def __init__(self, n_in_feats, normalize=True, bias=True):
@@ -94,3 +94,37 @@ class MergedPooling(nn.Module):
 
     def __len__(self):
         return len(self.pool_names)
+
+
+class VanillaGC(torch.nn.Module):
+    def __init__(self, in_size,
+                 out_size,
+                 gc_feats_out,
+                 n_gc_layer=6,
+                 ):
+        super().__init__()
+
+
+
+
+        chem_layer=[
+            GCNConv(in_size, gc_feats_out if n_gc_layer>1 else out_size, bias=True)
+        ]
+        for n in range(n_gc_layer-1-1):
+            chem_layer.append(
+                GCNConv(gc_feats_out, gc_feats_out, bias=True)
+            )
+        if n_gc_layer>1:
+            chem_layer.append(
+                GCNConv(gc_feats_out, out_size, bias=True)
+            )
+
+        self.chem_layer=GCSequential(
+            'x, edge_index',
+            [(cl, 'x, edge_index -> x') for cl in chem_layer]
+        )
+
+
+    def forward(self, feats, edges):
+        feats = self.chem_layer(feats, edges)
+        return feats
