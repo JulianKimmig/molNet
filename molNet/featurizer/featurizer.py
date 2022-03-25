@@ -4,7 +4,7 @@ from warnings import warn
 AS_NUMPY_ARRY = False
 import numpy as np
 
-from .normalization import NormalizationClass
+
 
 
 class OneHotEncodingException(Exception):
@@ -199,13 +199,17 @@ class OneHotFeaturizer(FixedSizeFeaturizer):
         self._possible_values = possible_values
         kwargs["length"] = len(possible_values)
         super().__init__(*args, **kwargs)
+        self._ofeaturize=self.featurize
+
+        self.featurize = self._oh_featurize
 
     def as_dict(self):
         d = super(FixedSizeFeaturizer, self).as_dict()
         d["possible_values"] = self._possible_values
         return d
 
-    def post_featurize(self, x):
+    def _oh_featurize(self, x):
+        x=self._ofeaturize(x)
         if None in self._possible_values and x not in self._possible_values:
             x = None
         if x not in self._possible_values:
