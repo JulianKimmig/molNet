@@ -363,6 +363,11 @@ class Prefeaturizer():
             self._set_info("done",False)
         return self.info["done"]
 
+
+    def delete(self):
+        if os.path.exists(self.data_path):
+            shutil.rmtree(self.data_path)
+
     def prefeaturize(self,recalculate=False,ignore_working=False):
 
         self.dataloader.close() # just in case it was already in iteration
