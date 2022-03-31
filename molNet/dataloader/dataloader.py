@@ -64,24 +64,19 @@ class DataLoader:
             for data in response.iter_content(chunk_size=chunk_size):
                 handle.write(data)
                 pbar.update(len(data))
-        self.process_download_data(os.path.join(self.parent_dir, fname))
+        fp = self.process_download_data(os.path.join(self.parent_dir, fname))
 
-        shutil.move(os.path.join(self.parent_dir, fname), self.raw_file_path)
+        return fp
 
-        return fname
-
-    def process_download_data(self, raw_file):
+    def process_download_data(self, raw_file)->str:
         return None
 
     def download(self):
         print(f"downlaod data from {self.source}")
         dl = self._downlaod()
-        unpacked = self.unpack(dl)
-        if unpacked != dl:
-            try:
-                os.remove(dl)
-            except FileNotFoundError:
-                pass
+
+        shutil.move(dl, self.raw_file_path)
+
     
     def delete(self):
         if not os.path.exists(self.raw_file_path):
@@ -129,9 +124,6 @@ class DataLoader:
     def get_all_entries(self, **kwargs):
         self._needs_raw()
         return self._data_streamer.get_all_entries(**kwargs)
-
-    def unpack(self, dl):
-        return dl
 
     def __len__(self):
         return self.expected_data_size

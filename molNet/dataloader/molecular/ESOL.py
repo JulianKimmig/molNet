@@ -62,7 +62,7 @@ class ESOL(MolDataLoader):
         cont = "$$$$".join([c for c in cont.split("$$$$") if len(c) > 3])
         with open(raw_file, "w+") as f:
             f.write(cont)
-        return None
+        return raw_file
 
 
 def main():
