@@ -34,6 +34,7 @@ class ESOL(MolDataLoader):
     data_streamer_generator = SDFStreamer.generator(
         gz=False, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
+    mol_properties = ['measured_log_solubility',"ESOL_predicted_log_solubility"]
 
     def process_download_data(self, raw_file):
         df = pd.read_csv(raw_file)
