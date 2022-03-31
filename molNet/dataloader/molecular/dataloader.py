@@ -1,5 +1,13 @@
+from typing import List
+
 from molNet.dataloader.dataloader import DataLoader
 
 
 class MolDataLoader(DataLoader):
-    pass
+    mol_properties:List[str]=None
+    expected_mol_count:int = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.expected_mol_count is None:
+            self.expected_mol_count = self.expected_data_size
