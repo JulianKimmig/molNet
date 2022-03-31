@@ -43,6 +43,7 @@ class PreparedMolDataLoader(MolDataLoader):
                 
             super().__init__(parent_dir=parent_dir,**kwargs)
             self.expected_data_size=mdl.expected_data_size
+            self.expected_mol_count=mdl.expected_mol_count
             self._mdl=mdl
 
         def __str__(self):
@@ -52,31 +53,22 @@ class PreparedMolDataLoader(MolDataLoader):
             if not os.path.exists(self.raw_file_path):
                 os.makedirs(self.raw_file_path,exist_ok=True)
             molfiles=[f for f in os.listdir(self.raw_file_path) if f.endswith(".mol")]
-            if len(molfiles)<self.expected_data_size:
+            if len(molfiles)<self.expected_mol_count:
+                self._mdl.close()
                 for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size,desc="generate prepared mols")):
+                    if mol is None:
+                        continue
                     pmol=prepare_mol_for_featurization(mol)
                     with open(os.path.join(self.raw_file_path,f"{i}.mol"),"w+b") as f:
                         pickle.dump(pmol,f)
 
 
 
-class PreparedMolAdjacencyListDataLoader(DataLoader):
+class PreparedMolAdjacencyListDataLoader(PreparedMolDataLoader):
     raw_file = "adjacency_list"
     data_streamer_generator = NumpyStreamer.generator(
         folder_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
-
-    def __init__(self,mdl:MolDataLoader,parent_dir=None,**kwargs):
-        assert isinstance(mdl,MolDataLoader)
-
-        if parent_dir is None:
-            parent_dir = os.path.join(
-                molNet.get_user_folder(), "dataloader", f"{mdl}_prepared"
-            )
-
-        super().__init__(parent_dir=parent_dir,**kwargs)
-        self.expected_data_size=mdl.expected_data_size
-        self._mdl=mdl
 
     def __str__(self):
         return f"PreparedMolAdjacencyListDataLoader_{self._mdl}"
@@ -87,8 +79,10 @@ class PreparedMolAdjacencyListDataLoader(DataLoader):
         if not os.path.exists(self.raw_file_path):
             os.makedirs(self.raw_file_path,exist_ok=True)
         adj_files=[f for f in os.listdir(self.raw_file_path) if f.endswith(".npy")]
-        if len(adj_files)<self.expected_data_size:
-            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size,desc="generate prepared mols")):
+        if len(adj_files)<self.expected_mol_count:
+            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="generate prepared mols adjecency list")):
+                if mol is None:
+                    continue
                 adj_matrix=GetAdjacencyMatrix(mol)
                 row, col = np.where(adj_matrix)
                 adj_list =  np.unique(np.sort(np.vstack((row, col)).T,axis=1),axis=0)
