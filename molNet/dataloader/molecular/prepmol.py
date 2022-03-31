@@ -3,11 +3,13 @@ import sys
 import os
 
 import numpy as np
+import pandas as pd
 from rdkit.Chem import GetAdjacencyMatrix
 from tqdm import tqdm
 
+from molNet import MOLNET_LOGGER
 from molNet.dataloader.dataloader import DataLoader
-from molNet.dataloader.streamer import NumpyStreamer
+from molNet.dataloader.streamer import NumpyStreamer, CSVStreamer
 
 if __name__ == "__main__":
     modp = os.path.dirname(os.path.abspath(__file__))
@@ -89,6 +91,98 @@ class PreparedMolAdjacencyListDataLoader(PreparedMolDataLoader):
                 np.save(os.path.join(self.raw_file_path,f"{i}.npy"),adj_list)
 
 
+class PreparedMolPropertiesDataLoader(PreparedMolDataLoader):
+    raw_file = "mol_props.csv"
+    data_streamer_generator = CSVStreamer.generator(
+        file_getter=lambda self: self.dataloader.raw_file_path, cached=False
+    )
+
+    def __str__(self):
+        return f"PreparedMolPropertiesDataLoader_{self._mdl}"
+
+
+
+    def _needs_raw(self):
+        path=os.path.dirname(self.raw_file_path)
+        if not os.path.exists(path):
+            os.makedirs(path,exist_ok=True)
+
+        all_props=set()
+        if self._mdl.mol_properties is None:
+            MOLNET_LOGGER.warning("No mol properties found in dataloader, will read all mols and check for properties, "
+                                  "this takes a while, depending on the dataset size. You can skip this by predefining "
+                                  "the 'mol_properties' attribute in the dataloader (list of strings).")
+            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="detetct mol properties")):
+                if mol is None:
+                    continue
+                all_props.update(mol.GetPropNames())
+            all_props=list(all_props)
+        else:
+            all_props=self._mdl.mol_properties
+        datacols=["mol_idx"]+all_props
+        new_file=False
+        def _gen_file():
+            df=pd.DataFrame(columns=datacols)
+            df.to_csv(self.raw_file_path,index=False)
+        #make shure that the file exists
+        if not os.path.exists(self.raw_file_path):
+            MOLNET_LOGGER.warning(f"{self.raw_file_path} does not exist, creating it.")
+            _gen_file()
+            new_file=True
+
+        #reset data is something is wrong with the columns
+        if not new_file:
+            for idf in self.data_streamer:
+                if len(idf.columns)!=len(all_props):
+                    MOLNET_LOGGER.warning(f"{self.raw_file_path} has wrong column length, resetting it.")
+                    _gen_file()
+                    new_file=True
+                    break
+                if not all(idf.columns[i]==c for i,c in enumerate(all_props)):
+                    MOLNET_LOGGER.warning(f"{self.raw_file_path} has wrong columns, will be reset")
+                    _gen_file()
+                    new_file=True
+                    break
+                if idf.index.name!=datacols[0]:
+                    MOLNET_LOGGER.warning(f"{self.raw_file_path} has wrong index name, will be reset")
+                    _gen_file()
+                    new_file=True
+                    break
+                break
+            self.data_streamer.close()
+
+        if not new_file:
+            #get line_count
+            def _make_gen(reader):
+                while True:
+                    b = reader(2 ** 16)
+                    if not b: break
+                    yield b
+
+            with open(self.raw_file_path, "rb") as f:
+                count = sum(buf.count(b"\n") for buf in _make_gen(f.raw.read))-1 # minus header
+
+            if count!=self.expected_mol_count:
+                MOLNET_LOGGER.warning(f"{self.raw_file_path} has wrong number of lines (found {count}, needs {self.expected_mol_count}), will be reset")
+                _gen_file()
+                new_file=True
+
+        chunk_size=10
+        data=[]
+        if new_file:
+            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="mol_prop_csv")):
+                if mol is None:
+                    continue
+                mol_dict=mol.GetPropsAsDict()
+                data.append([i]+[mol_dict.get(p,None) for p in all_props])
+                if len(data)>=chunk_size:
+                    df=pd.DataFrame(data,columns=datacols)
+                    df.to_csv(self.raw_file_path, mode='a', header=False,index=False)
+                    data=[]
+            if len(data)>=0:
+                df=pd.DataFrame(data,columns=datacols)
+                df.to_csv(self.raw_file_path, mode='a', header=False,index=False)
+                data=[]
 
 def main():
     from molNet.dataloader.molecular.ESOL import ESOL
