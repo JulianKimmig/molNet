@@ -1,6 +1,7 @@
 import os
 
 import numpy as np
+import pandas as pd
 from tqdm import tqdm
 
 from molNet import MOLNET_LOGGER
@@ -156,4 +157,37 @@ class NumpyStreamer(DataStreamer):
         def _it():
             for f in sorted([mf for mf in os.listdir(path) if mf.endswith(".npy")],key=lambda s: int(s[:-4])):
                 yield np.load(os.path.join(path,f))
+        return _it()
+
+class CSVStreamer(DataStreamer):
+    def __init__(
+            self,
+            dataloader,
+            file_getter,
+            *args,
+            cached=False,
+            chunksize=1000,
+            **kwargs
+    ):
+
+        super(CSVStreamer, self).__init__(
+            dataloader,
+            *args,
+            **kwargs,
+            cached=cached,
+            progress_bar_kwargs=dict(unit="lines", unit_scale=True),
+        )
+
+        self._file_getter = file_getter
+        self.chunksize = chunksize
+
+
+    def get_iterator(self):
+        file=self._file_getter(self)
+
+        def _it():
+            with pd.read_csv(file, chunksize=self.chunksize,index_col=0) as reader:
+                for chunk in reader:
+                    yield(chunk)
+
         return _it()
