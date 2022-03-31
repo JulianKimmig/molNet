@@ -44,26 +44,38 @@ class PreparedMolDataLoader(MolDataLoader):
                 )
                 
             super().__init__(parent_dir=parent_dir,**kwargs)
-            self.expected_data_size=mdl.expected_data_size
+            self.expected_data_size=mdl.expected_mol_count
             self.expected_mol_count=mdl.expected_mol_count
             self._mdl=mdl
 
         def __str__(self):
             return str(self._mdl)
 
+        def __len__(self):
+            return len(self._mdl)
+
         def _needs_raw(self):
             if not os.path.exists(self.raw_file_path):
                 os.makedirs(self.raw_file_path,exist_ok=True)
             molfiles=[f for f in os.listdir(self.raw_file_path) if f.endswith(".mol")]
             if len(molfiles)<self.expected_mol_count:
-                self._mdl.close()
-                for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size,desc="generate prepared mols")):
-                    if mol is None:
-                        continue
+                for i,mol in self._raw_gen(desc="generate prepared mols"):
+                #for i,mol in enumerate(tqdm(self._mdl,total=self.expected_data_size,desc="generate prepared mols")):
+                #    if mol is None:
+                #        continue
                     pmol=prepare_mol_for_featurization(mol)
                     with open(os.path.join(self.raw_file_path,f"{i}.mol"),"w+b") as f:
                         pickle.dump(pmol,f)
 
+        def _raw_gen(self,desc=None):
+            pin=self._mdl.data_streamer._iter_None
+            self._mdl.data_streamer._iter_None=True
+            self._mdl.close()
+            for i,mol in enumerate(tqdm(self._mdl,total=self._mdl.expected_data_size,desc=desc)):
+                if mol is None:
+                    continue
+                yield i,mol
+            self._mdl.data_streamer._iter_None=pin
 
 
 class PreparedMolAdjacencyListDataLoader(PreparedMolDataLoader):
@@ -82,9 +94,12 @@ class PreparedMolAdjacencyListDataLoader(PreparedMolDataLoader):
             os.makedirs(self.raw_file_path,exist_ok=True)
         adj_files=[f for f in os.listdir(self.raw_file_path) if f.endswith(".npy")]
         if len(adj_files)<self.expected_mol_count:
-            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="generate prepared mols adjecency list")):
-                if mol is None:
-                    continue
+
+            for i,mol in self._raw_gen(desc="generate prepared mols adjecency list"):
+            #self._mdl.close()
+#            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="generate prepared mols adjecency list")):
+#                if mol is None:
+#                    continue
                 adj_matrix=GetAdjacencyMatrix(mol)
                 row, col = np.where(adj_matrix)
                 adj_list =  np.unique(np.sort(np.vstack((row, col)).T,axis=1),axis=0)
@@ -112,6 +127,7 @@ class PreparedMolPropertiesDataLoader(PreparedMolDataLoader):
             MOLNET_LOGGER.warning("No mol properties found in dataloader, will read all mols and check for properties, "
                                   "this takes a while, depending on the dataset size. You can skip this by predefining "
                                   "the 'mol_properties' attribute in the dataloader (list of strings).")
+            self._mdl.close()
             for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="detetct mol properties")):
                 if mol is None:
                     continue
@@ -170,9 +186,11 @@ class PreparedMolPropertiesDataLoader(PreparedMolDataLoader):
         chunk_size=10
         data=[]
         if new_file:
-            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="mol_prop_csv")):
-                if mol is None:
-                    continue
+            for i,mol in self._raw_gen(desc="generate mol prop csv"):
+#            self._mdl.close()
+#            for i,mol in enumerate(tqdm(self._mdl,total=self.expected_mol_count,desc="mol_prop_csv")):
+#                if mol is None:
+#                    continue
                 mol_dict=mol.GetPropsAsDict()
                 data.append([i]+[mol_dict.get(p,None) for p in all_props])
                 if len(data)>=chunk_size:
@@ -182,7 +200,7 @@ class PreparedMolPropertiesDataLoader(PreparedMolDataLoader):
             if len(data)>=0:
                 df=pd.DataFrame(data,columns=datacols)
                 df.to_csv(self.raw_file_path, mode='a', header=False,index=False)
-                data=[]
+
 
 def main():
     from molNet.dataloader.molecular.ESOL import ESOL

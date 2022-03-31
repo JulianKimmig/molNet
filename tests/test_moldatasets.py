@@ -58,19 +58,20 @@ class BaseTestClass:
             loader = PreparedMolDataLoader(self.loader, parent_dir=os.path.join(self.dir, "prepmol"))
             count = 0
             for m in tqdm(loader, total=loader.expected_mol_count):
-
                 if m is not None:
                     count += 1
-                    if count == 1:
-                        print(m.GetPropsAsDict())
             self.assertEqual(count, loader.expected_mol_count), "Expected mol count does not match"
 
         def test_propmolproperties(self):
             self.loader.close()
             loader = PreparedMolPropertiesDataLoader(self.loader, parent_dir=os.path.join(self.dir, "prepmol"))
+            count=0
+            i=None
             for i in loader:
-                print(i.dtypes)
-                break
+                count+=len(i)
+            self.assertEqual(count, loader.expected_mol_count), "Expected mol count does not match"
+            assert i is not None, "No data returned"
+            self.assertEqual(i.index[-1], self.loader.expected_data_size-1), "Expected data size does not match"
 
         def test_prepmoladj(self):
             self.loader.close()

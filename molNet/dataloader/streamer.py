@@ -100,7 +100,7 @@ class DataStreamer:
         except StopIteration:
             if self._cached:
                 self._all_cached = True
-            if self._position != self.dataloader.expected_data_size + self._removed:
+            if self._position != len(self) + self._removed:
                 MOLNET_LOGGER.warning(
                     f"{self.dataloader} returns a different size ({self._position}) than expected({self.dataloader.expected_data_size}), {self._removed} entries where removed"
                 )
@@ -109,9 +109,19 @@ class DataStreamer:
 
         if self._cached:
             self._cache_data.append(k)
-        self._position += 1
+        self._position += self.position_increment(k)
 
         return k
+
+    def position_increment(self,data):
+        return 1
+
+    def __len__(self):
+        if self._iter_None:
+            return self.dataloader.expected_data_size
+        else:
+            return len(self.dataloader)
+
 
     def close(self):
         if self._in_iter:
@@ -181,6 +191,8 @@ class CSVStreamer(DataStreamer):
         self._file_getter = file_getter
         self.chunksize = chunksize
 
+    def position_increment(self,data):
+        return len(data.index)
 
     def get_iterator(self):
         file=self._file_getter(self)
