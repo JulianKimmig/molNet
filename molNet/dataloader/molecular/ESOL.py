@@ -35,8 +35,17 @@ class ESOL(MolDataLoader):
         gz=False, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
     mol_properties = ['measured_log_solubility',"ESOL_predicted_log_solubility"]
-
+    
+    def download(self):
+        import shutil, os
+        src=os.path.join(os.path.dirname(__file__),"local","ci034243xsi20040112_053635.txt")
+        trg=os.path.join(self.parent_dir,"ci034243xsi20040112_053635.txt")
+        shutil.copyfile(src,trg)
+        fp = self.process_download_data(trg)
+        shutil.copyfile(trg, self.raw_file_path)
+        
     def process_download_data(self, raw_file):
+        print(raw_file)
         df = pd.read_csv(raw_file)
         df["mol"] = df["SMILES"].apply(lambda s: Chem.MolFromSmiles(s))
         df.drop(df[df["mol"] == None].index, inplace=True)
