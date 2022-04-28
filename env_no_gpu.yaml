@@ -20,6 +20,7 @@ dependencies:
   - ipykernel
   - coloredlogs
   - openpyxl
+  - ipywidgets
   #dev
   - pytest
   - black
