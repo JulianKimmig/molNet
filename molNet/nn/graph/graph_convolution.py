@@ -13,16 +13,33 @@ from torch_scatter import (
 )
 from torch_geometric.nn import Sequential as GCSequential, GCNConv
 
-class PoolWeightedSum(nn.Module):
-    def __init__(self, n_in_feats, normalize=True, bias=True):
+
+class PoolingBase(nn.Module):
+    def prep_pool(self,n_in_feats):
+        pass
+    
+class PoolWeightedSum(PoolingBase):
+    def __init__(self, n_in_feats=None, normalize=True, bias=True):
         super(PoolWeightedSum, self).__init__()
-        if normalize:
+        self._normalize=normalize
+        self._bias=bias
+        self._preped=False
+        
+        if n_in_feats is not None:
+            self.prep_pool(n_in_feats)
+    
+    def prep_pool(self,n_in_feats):
+        if self._preped:
+            return
+        
+        if self._normalize:
             self.weighting_of_nodes = nn.Sequential(
-                nn.Linear(n_in_feats, 1, bias=bias), nn.Sigmoid()
+                nn.Linear(n_in_feats, 1, bias=self._bias), nn.Sigmoid()
             )
         else:
-            self.weighting_of_nodes = nn.Linear(n_in_feats, 1, bias=bias)
-
+            self.weighting_of_nodes = nn.Linear(n_in_feats, 1, bias=self._bias)
+        self._preped=True
+    
     def forward(self, feats, batch):
         # feats = nodes,last_gcn_feats
         weights = self.weighting_of_nodes(feats).squeeze()  # dims = nodes,
@@ -34,37 +51,37 @@ class PoolWeightedSum(nn.Module):
         return summed_nodes
 
 
-class PoolMax(nn.Module):
+class PoolMax(PoolingBase):
     def forward(self, feats, batch):
         maxed_nodes, _ = scatter_max(feats, batch, dim=0)
         return maxed_nodes
 
 
-class PoolMin(nn.Module):
+class PoolMin(PoolingBase):
     def forward(self, feats, batch):
         maxed_nodes, _ = scatter_min(feats, batch, dim=0)
         return maxed_nodes
 
 
-class PoolMean(nn.Module):
+class PoolMean(PoolingBase):
     def forward(self, feats, batch):
         maxed_nodes = scatter_mean(feats, batch, dim=0)
         return maxed_nodes
 
 
-class PoolProd(nn.Module):
+class PoolProd(PoolingBase):
     def forward(self, feats, batch):
         maxed_nodes = scatter_mul(feats, batch, dim=0)
         return maxed_nodes
 
 
-class PoolLogSumExp(nn.Module):
+class PoolLogSumExp(PoolingBase):
     def forward(self, feats, batch):
         maxed_nodes = scatter_logsumexp(feats, batch, dim=0)
         return maxed_nodes
 
 
-class PoolSum(nn.Module):
+class PoolSum(PoolingBase):
     def forward(self, feats, batch):
         summed_nodes = scatter_add(
             feats, batch, dim=0
@@ -72,21 +89,28 @@ class PoolSum(nn.Module):
         return summed_nodes
 
 
-class MergedPooling(nn.Module):
-    def __init__(self, pooling_layer_dict, pool_names=None):
+class MergedPooling(PoolingBase):
+    def __init__(self, pooling_layer_dict):
         super().__init__()
         if isinstance(pooling_layer_dict, list):
             pooling_layer_dict = {
-                pool_names[i] for i, pl in enumerate(pooling_layer_dict)
+                str(i):pl for i, pl in enumerate(pooling_layer_dict)
             }
-        if pool_names is None:
-            pool_names = list(pooling_layer_dict.keys())
+        
+        pool_names = list(pooling_layer_dict.keys())
 
         assert len(pool_names) == len(pooling_layer_dict)
-
+        
         self.pool_names = pool_names
-        self.pooling_layer = nn.ModuleDict(pooling_layer_dict)
-
+        self.pooling_layer_dict=pooling_layer_dict
+        
+    
+    def prep_pool(self,n_in_feats):
+        for k,pl in self.pooling_layer_dict.items():
+            pl.prep_pool(n_in_feats)
+        
+        self.pooling_layer = nn.ModuleDict(self.pooling_layer_dict)
+        
     def forward(self, feats, batch):
         return torch.cat(
             [self.pooling_layer[pl](feats, batch) for pl in self.pool_names], dim=1
