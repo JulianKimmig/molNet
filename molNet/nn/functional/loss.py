@@ -25,6 +25,15 @@ def rell1_loss(input, target, size_average=None, reduce=None, reduction="mean"):
         ret = torch.mean(ret) if reduction == "mean" else torch.sum(ret)
     return ret
 
+
+class RMSELoss(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.mse = torch.nn.MSELoss()
+        
+    def forward(self,yhat,y):
+        return torch.sqrt(self.mse(yhat,y))
+    
 class CrossEntropyLossFromOneHot(torch.nn.CrossEntropyLoss):
     def forward(self, input: Tensor, target: Tensor) -> Tensor:
         return super(CrossEntropyLossFromOneHot, self).forward(input,torch.argmax(target, dim=1))
