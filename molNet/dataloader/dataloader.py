@@ -45,7 +45,7 @@ class DataLoader:
 
     def _downlaod(self) -> str:
         if self.local_source is not None:
-            import shutil, os
+            import shutil
             trg=os.path.join(self.parent_dir,os.path.basename(self.local_source))
             shutil.copyfile(self.local_source,trg)
         else:

@@ -1,3 +1,5 @@
+import json
+import shutil
 from io import StringIO
 from tempfile import gettempdir
 
@@ -6,10 +8,11 @@ from rdkit import Chem
 from rdkit.Chem.PropertyMol import PropertyMol
 from tqdm import tqdm
 import os
+
 try:
     import molNet
 except ModuleNotFoundError:
-    import sys
+    import sys, os
 
     modp = os.path.dirname(os.path.abspath(__file__))
     while not "molNet" in os.listdir(modp):
@@ -26,35 +29,55 @@ from molNet.dataloader.molecular.streamer import SDFStreamer
 from molNet.utils.mol.properties import parallel_asset_conformers
 
 
-class ESOL(MolDataLoader):
-    source = "https://pubs.acs.org/doi/suppl/10.1021/ci034243x/suppl_file/ci034243xsi20040112_053635.txt"
-    raw_file = "delaney_data.sdf"
-    expected_data_size = 1144
-    citation = "https://doi.org/10.1021/ci034243x"
+class FreeSolv_0_51(MolDataLoader):
+    source = "https://escholarship.org/content/qt6sd403pz/supp/FreeSolv-0.51.zip"
+    raw_file = "freesolv-0.51.sdf"
+    expected_data_size = 643
+    citation = "https://doi.org/10.1007/s10822-014-9747-x"
     data_streamer_generator = SDFStreamer.generator(
         gz=False, file_getter=lambda self: self.dataloader.raw_file_path, cached=False
     )
-    mol_properties = ['measured_log_solubility',"ESOL_predicted_log_solubility"]
-    
-    local_source = os.path.join(os.path.dirname(__file__),"local","ci034243xsi20040112_053635.txt")
+    mol_properties = ["expt","d_expt","calc","d_calc"]
+
         
     def process_download_data(self, raw_file):
-        print(raw_file)
-        df = pd.read_csv(raw_file)
-        df["mol"] = df["SMILES"].apply(lambda s: Chem.MolFromSmiles(s))
+        import zipfile
+        with zipfile.ZipFile(raw_file, 'r') as zip_ref:
+            zip_ref.extractall(os.path.dirname(raw_file))
+        files_to_del=list(os.listdir(os.path.dirname(raw_file)))
+        with open(os.path.join(os.path.dirname(raw_file), "FreeSolv-0.51","database.json"), "r") as f:
+            dict= json.loads(f.read())
+
+        for f in files_to_del:
+            if os.path.isfile(os.path.join(os.path.dirname(raw_file), f)):
+                os.remove(os.path.join(os.path.dirname(raw_file), f))
+            elif os.path.isdir(os.path.join(os.path.dirname(raw_file), f)):
+                shutil.rmtree(os.path.join(os.path.dirname(raw_file), f))
+
+        df = pd.DataFrame.from_dict(dict, orient="index")
+        df=df[["iupac","smiles", "expt","d_expt","calc","d_calc"]]
+
+        df["mol"] = df["smiles"].apply(lambda s: Chem.MolFromSmiles(s))
         df.drop(df[df["mol"] == None].index, inplace=True)
         df["mol"] = parallel_asset_conformers(df["mol"])
         df.drop(df[df["mol"] == None].index, inplace=True)
         df["mol"] = df["mol"].apply(lambda m: PropertyMol(m))
         for r, d in df.iterrows():
-            d["mol"].SetProp("_Name", d["Compound ID"])
+            d["mol"].SetProp("_Name", d["iupac"])
             d["mol"].SetProp(
-                "measured_log_solubility", d["measured log(solubility:mol/L)"]
+                "expt", d["expt"]
             )
             d["mol"].SetProp(
-                "ESOL_predicted_log_solubility",
-                d["ESOL predicted log(solubility:mol/L)"],
+                "d_expt", d["d_expt"]
             )
+            d["mol"].SetProp(
+                "calc", d["calc"]
+            )
+            d["mol"].SetProp(
+                "d_calc", d["d_calc"]
+            )
+
+
 
         # needded string io since per default SDWriter appends $$$$ in the end and then a new line with results in an additional None entrie
         with StringIO() as f:
@@ -68,10 +91,12 @@ class ESOL(MolDataLoader):
             f.write(cont)
         return raw_file
 
-
+FreeSolv=FreeSolv_0_51
 def main():
-    tdir = os.path.join(gettempdir(), "molNet", "ESOL")
-    loader = ESOL(tdir, data_streamer_kwargs=dict())
+    tdir = os.path.join(gettempdir(), "molNet", "FreeSolv_0.51")
+    print(tdir)
+    print(tdir)
+    loader = FreeSolv(tdir, data_streamer_kwargs=dict())
 
     print(loader.expected_data_size)
     for i, m in enumerate(
