@@ -1,7 +1,10 @@
 from typing import List
 
-from molNet.dataloader.dataloader import DataLoader
+from rdkit import Chem
+from rdkit.Chem.PropertyMol import PropertyMol
 
+from molNet.dataloader.dataloader import DataLoader
+from molNet.utils.mol.properties import parallel_asset_conformers
 
 class MolDataLoader(DataLoader):
     mol_properties:List[str]=None
@@ -14,3 +17,12 @@ class MolDataLoader(DataLoader):
 
     def __len__(self):
         return self.expected_mol_count
+
+    @classmethod
+    def df_smiles_to_mol(cls,df,smiles='smiles'):
+        df["mol"] = df[smiles].apply(lambda s: Chem.MolFromSmiles(s))
+        df.drop(df[df["mol"].apply(lambda x: x is None)].index, inplace=True)
+        df["mol"] = parallel_asset_conformers(df["mol"])
+        df.drop(df[df["mol"].apply(lambda x: x is None)].index, inplace=True)
+        df["mol"] = df["mol"].apply(lambda m: PropertyMol(m))
+        return df
